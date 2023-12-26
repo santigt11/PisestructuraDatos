@@ -4,18 +4,25 @@
  */
 package modelo;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 /**
  *
- * @author steve
+ * @author Santiago
  */
 public class Horario {
     private Integer id;
-    private LocalDate fecha;
-    private LocalTime horaInicio;
-    private LocalTime horaFin;
+    private String horaInicio;
+    private String horaFin;
+    private Boolean disponible;
+
+    public Horario() {
+    }
+
+    public Horario(Integer id, String horaInicio, String horaFin, Boolean disponible) {
+        this.id = id;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+        this.disponible = disponible;
+    }
 
     public Integer getId() {
         return id;
@@ -25,31 +32,27 @@ public class Horario {
         this.id = id;
     }
 
-    public LocalDate getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-
-    public LocalTime getHoraInicio() {
+    public String getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(LocalTime horaInicio) {
+    public void setHoraInicio(String horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public LocalTime getHoraFin() {
+    public String getHoraFin() {
         return horaFin;
     }
 
-    public void setHoraFin(LocalTime horaFin) {
+    public void setHoraFin(String horaFin) {
         this.horaFin = horaFin;
     }
-    
-    
-    
-    
+
+    public Boolean getDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(Boolean disponible) {
+        this.disponible = disponible;
+    }
 }

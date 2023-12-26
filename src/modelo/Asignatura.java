@@ -1,22 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelo;
 
-/**
- *
- * @author santi
- */
 public class Asignatura {
     private Integer id;
     private String nombre;
     private String codigo;
+    private Integer totalHoras;
 
-    public Asignatura(Integer id, String nombre, String codigo) {
+    public Asignatura(Integer id, String nombre, String codigo, Integer totalHoras) {
         this.id = id;
         this.nombre = nombre;
         this.codigo = codigo;
+        this.totalHoras = totalHoras;
     }
 
     public Asignatura() {
@@ -45,4 +39,14 @@ public class Asignatura {
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
+
+    public Integer getTotalHoras() {
+        return totalHoras;
+    }
+
+    public void setTotalHoras(Integer totalHoras) {
+        this.totalHoras = totalHoras;
+    }
+    
+    
 }
