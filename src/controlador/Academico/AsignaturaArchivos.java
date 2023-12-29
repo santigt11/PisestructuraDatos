@@ -5,12 +5,12 @@ import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import modelo.Asignatura;
 
-public class AsignaturaControl extends DaoImplement<Asignatura> {
+public class AsignaturaArchivos extends DaoImplement<Asignatura> {
     
     private DynamicList<Asignatura> asignaturas;
     private Asignatura asignatura;
 
-    public AsignaturaControl() {
+    public AsignaturaArchivos() {
         super(Asignatura.class);
     }
 

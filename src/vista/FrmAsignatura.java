@@ -10,7 +10,7 @@ public class FrmAsignatura extends javax.swing.JFrame {
     int xMouse, yMouse;
     
     private AsignaturaControl asignaturaControl = new AsignaturaControl();
-    private controlador.Academico.AsignaturaControl control = new controlador.Academico.AsignaturaControl();
+    private controlador.Academico.AsignaturaArchivos control = new controlador.Academico.AsignaturaArchivos();
     
     public Boolean verificar() {
         return (!txtNombreAsg.getText().trim().isEmpty()

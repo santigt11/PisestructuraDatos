@@ -4,12 +4,12 @@ import controlador.DAO.DaoImplement;
 import controlador.TDA.listas.DynamicList;
 import modelo.Facultad;
 
-public class FacultadControl extends DaoImplement<Facultad> {
+public class FacultadArchivos extends DaoImplement<Facultad> {
 
     private DynamicList<Facultad> facultades;
     private Facultad facultad;
 
-    public FacultadControl() {
+    public FacultadArchivos() {
         super(Facultad.class);
     }
 

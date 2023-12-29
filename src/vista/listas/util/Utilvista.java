@@ -14,7 +14,7 @@ public class Utilvista {
              
     public static void cargarComboFacultades(JComboBox cbx) throws EmptyException{
         FacultadControl fc = new FacultadControl();
-        controlador.Academico.FacultadControl vv = new controlador.Academico.FacultadControl();
+        controlador.Academico.FacultadArchivos vv = new controlador.Academico.FacultadArchivos();
         fc.setFacultades(vv.all());
         cbx.removeAllItems();
         for (Integer i = 0; i < fc.getFacultades().getLength(); i++) {
@@ -28,7 +28,7 @@ public class Utilvista {
     
     public static void cargarComboCarreras(JComboBox cbx) throws EmptyException{
         CarreraControl cc = new CarreraControl();
-        controlador.Academico.CarreraControl vv = new controlador.Academico.CarreraControl();
+        controlador.Academico.CarreraArchivos vv = new controlador.Academico.CarreraArchivos();
         cc.setCarreras(vv.all());
         cbx.removeAllItems();
         for (Integer i = 0; i < cc.getCarreras().getLength(); i++) {
@@ -42,7 +42,7 @@ public class Utilvista {
 
     public static void cargarListaFacultades(JList lst) throws EmptyException {
         FacultadControl fc = new FacultadControl();
-        controlador.Academico.FacultadControl af = new controlador.Academico.FacultadControl();
+        controlador.Academico.FacultadArchivos af = new controlador.Academico.FacultadArchivos();
         fc.setFacultades(af.all());
 
         DefaultListModel modeloLista = new DefaultListModel();
@@ -61,7 +61,7 @@ public class Utilvista {
 
     public static void cargarListaCarreras(JList lst, Facultad facultad) throws EmptyException {
         CarreraControl cc = new CarreraControl();
-        controlador.Academico.CarreraControl ac = new controlador.Academico.CarreraControl();
+        controlador.Academico.CarreraArchivos ac = new controlador.Academico.CarreraArchivos();
         cc.setCarreras(ac.all());
         DefaultListModel modeloLista = new DefaultListModel();
         for (Integer i = 0; i < cc.getCarreras().getLength(); i++) {
@@ -79,7 +79,7 @@ public class Utilvista {
     
     public static void cargarListaMallas(JList lst, Carrera carrera) throws EmptyException {
         MallaControl mc = new MallaControl();
-        controlador.Academico.MallaControl am = new controlador.Academico.MallaControl();
+        controlador.Academico.MallaArchivos am = new controlador.Academico.MallaArchivos();
         mc.setMallas(am.all());
         DefaultListModel modeloLista = new DefaultListModel();
         for (Integer i = 0; i < mc.getMallas().getLength(); i++) {

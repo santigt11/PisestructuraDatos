@@ -4,12 +4,12 @@ import controlador.DAO.DaoImplement;
 import controlador.TDA.listas.DynamicList;
 import modelo.Carrera;
 
-public class CarreraControl extends DaoImplement<Carrera> {
+public class CarreraArchivos extends DaoImplement<Carrera> {
 
     private DynamicList<Carrera> carreras;
     private Carrera carrera;
 
-    public CarreraControl() {
+    public CarreraArchivos() {
         super(Carrera.class);
     }
 

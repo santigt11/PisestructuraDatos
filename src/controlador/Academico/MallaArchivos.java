@@ -4,12 +4,12 @@ import controlador.DAO.DaoImplement;
 import controlador.TDA.listas.DynamicList;
 import modelo.MallaCurricular;
 
-public class MallaControl extends DaoImplement<MallaCurricular> {
+public class MallaArchivos extends DaoImplement<MallaCurricular> {
 
     private DynamicList<MallaCurricular> mallas;
     private MallaCurricular malla;
 
-    public MallaControl() {
+    public MallaArchivos() {
         super(MallaCurricular.class);
     }
 

@@ -26,10 +26,10 @@ public class FrmAcademico extends javax.swing.JFrame {
     private CarreraControl carreraControl = new CarreraControl();
     private MallaControl mallaControl = new MallaControl();
 
-    private controlador.Academico.FacultadControl fControl = new controlador.Academico.FacultadControl();
-    private controlador.Academico.CarreraControl cControl = new controlador.Academico.CarreraControl();
-    private controlador.Academico.MallaControl mControl = new controlador.Academico.MallaControl();
-    private controlador.Academico.AsignaturaControl aControl = new controlador.Academico.AsignaturaControl();
+    private controlador.Academico.FacultadArchivos fControl = new controlador.Academico.FacultadArchivos();
+    private controlador.Academico.CarreraArchivos cControl = new controlador.Academico.CarreraArchivos();
+    private controlador.Academico.MallaArchivos mControl = new controlador.Academico.MallaArchivos();
+    private controlador.Academico.AsignaturaArchivos aControl = new controlador.Academico.AsignaturaArchivos();
 
     private TablaAsignatura tad = new TablaAsignatura();
     private TablaAsignatura taa = new TablaAsignatura();
