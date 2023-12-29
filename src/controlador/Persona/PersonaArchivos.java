@@ -7,12 +7,12 @@ import controlador.Utiles.Utiles;
 import java.lang.reflect.Field;
 import modelo.Persona;
 
-public class PersonaControl extends DaoImplement<Persona> {
+public class PersonaArchivos extends DaoImplement<Persona> {
 
     private DynamicList<Persona> personas;
     private Persona persona;
 
-    public PersonaControl() {
+    public PersonaArchivos() {
         super(Persona.class);
     }
 

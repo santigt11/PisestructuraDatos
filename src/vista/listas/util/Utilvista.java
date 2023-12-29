@@ -6,6 +6,7 @@ import modelo.Facultad;
 import controlador.FacultadControl;
 import modelo.Carrera;
 import controlador.CarreraControl;
+import modelo.MallaCurricular;
 import controlador.MallaControl;
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
@@ -89,9 +90,15 @@ public class Utilvista {
         }
         lst.setModel(modeloLista);
     }
-    
-    
-    
+
+    public static void cargarListaAsignaturas(JList lst, MallaCurricular malla) throws EmptyException {
+        DefaultListModel modeloLista = new DefaultListModel();
+        for (Integer i = 0; i < malla.getAsignaturaList().getLength(); i++) {
+            modeloLista.addElement(malla.getAsignaturaList().getInfo(i));
+        }
+        lst.setModel(modeloLista);
+    }
+
     public static void limpiarLista(JList lst){
         DefaultListModel modeloLista = new DefaultListModel();
         lst.setModel(modeloLista);
