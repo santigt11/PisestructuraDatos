@@ -10,6 +10,7 @@ import controlador.PersonaControl;
 import controlador.ContratoControl;
 import controlador.Persona.PersonaArchivos;
 import controlador.Academico.ContratoArchivos;
+import java.time.ZoneId;
 import modelo.*;
 
 import vista.listas.tablas.TablaPersona;
@@ -36,8 +37,8 @@ public class FrmContrato extends javax.swing.JFrame {
 
     private void guardar() {
         if (verificar()) {
-            contratoControl.getContrato().setFechaRegistro(dtRegistro.getDate());
-            contratoControl.getContrato().setFechaCulminacion(dtCulminacion.getDate());
+            contratoControl.getContrato().setFechaRegistro(dtRegistro.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            contratoControl.getContrato().setFechaCulminacion(dtCulminacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             if (contratoControl.guardar()) {
                 fileContrato.setContrato(contratoControl.getContrato());
                 fileContrato.persist();

@@ -1,18 +1,18 @@
 package modelo;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Contrato {
     private Integer id;
-    private Date fechaRegistro;
-    private Date fechaCulminacion;
+    private LocalDate fechaRegistro;
+    private LocalDate fechaCulminacion;
     private Persona docente;
     private Asignatura asignatura;
 
     public Contrato() {
     }
 
-    public Contrato(Integer id, Date fechaRegistro, Date fechaCulminacion, Persona docente, Asignatura asignatura) {
+    public Contrato(Integer id, LocalDate fechaRegistro, LocalDate fechaCulminacion, Persona docente, Asignatura asignatura) {
         this.id = id;
         this.fechaRegistro = fechaRegistro;
         this.fechaCulminacion = fechaCulminacion;
@@ -28,19 +28,19 @@ public class Contrato {
         this.id = id;
     }
 
-    public Date getFechaRegistro() {
+    public LocalDate getFechaRegistro() {
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(Date fechaRegistro) {
+    public void setFechaRegistro(LocalDate fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public Date getFechaCulminacion() {
+    public LocalDate getFechaCulminacion() {
         return fechaCulminacion;
     }
 
-    public void setFechaCulminacion(Date fechaCulminacion) {
+    public void setFechaCulminacion(LocalDate fechaCulminacion) {
         this.fechaCulminacion = fechaCulminacion;
     }
 
