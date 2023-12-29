@@ -6,16 +6,6 @@ public class Asignatura {
     private String codigo;
     private Integer totalHoras;
 
-    public Asignatura(Integer id, String nombre, String codigo, Integer totalHoras) {
-        this.id = id;
-        this.nombre = nombre;
-        this.codigo = codigo;
-        this.totalHoras = totalHoras;
-    }
-
-    public Asignatura() {
-    }
-    
     public Integer getId() {
         return id;
     }

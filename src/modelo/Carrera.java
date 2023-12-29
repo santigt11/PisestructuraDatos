@@ -4,15 +4,7 @@ public class Carrera {
     private Integer id;
     private String nombre;
     private Integer numCiclos;
-
-    public Carrera() {
-    }
-
-    public Carrera(Integer id, String nombre, Integer numCiclos) {
-        this.id = id;
-        this.nombre = nombre;
-        this.numCiclos = numCiclos;
-    }
+    private Integer idFacultad;
 
     public Integer getId() {
         return id;
@@ -36,6 +28,19 @@ public class Carrera {
 
     public void setNumCiclos(Integer numCiclos) {
         this.numCiclos = numCiclos;
+    }
+
+    public Integer getIdFacultad() {
+        return idFacultad;
+    }
+
+    public void setIdFacultad(Integer idFacultad) {
+        this.idFacultad = idFacultad;
+    }
+    
+    @Override
+    public String toString() {
+        return nombre;
     }
     
     

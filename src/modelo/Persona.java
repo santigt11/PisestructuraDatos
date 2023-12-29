@@ -11,31 +11,6 @@ public class Persona {
     private String etnia;
     private String telefono;
     private Rol rol;
-    private Usuario usuario;
-
-    public Persona(Integer id, String dni, String nombre, String apellido, Integer edad, String nacionalidad, String etnia, String telefono, Rol rol, Usuario usuario) {
-        this.id = id;
-        this.dni = dni;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.edad = edad;
-        this.nacionalidad = nacionalidad;
-        this.etnia = etnia;
-        this.telefono = telefono;
-        this.rol = rol;
-        this.usuario = usuario;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public Persona() {
-    }
 
     public Integer getId() {
         return id;

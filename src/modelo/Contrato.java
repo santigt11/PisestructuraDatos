@@ -5,15 +5,19 @@ import java.time.LocalDate;
 public class Contrato {
     private Integer id;
     private LocalDate fechaRegistro;
-    private LocalDate fechaCulminacion; 
+    private LocalDate fechaCulminacion;
+    private Persona docente;
+    private Asignatura asignatura;
 
     public Contrato() {
     }
 
-    public Contrato(Integer id, LocalDate fechaRegistro, LocalDate fechaCulminacion) {
+    public Contrato(Integer id, LocalDate fechaRegistro, LocalDate fechaCulminacion, Persona docente, Asignatura asignatura) {
         this.id = id;
         this.fechaRegistro = fechaRegistro;
         this.fechaCulminacion = fechaCulminacion;
+        this.docente = docente;
+        this.asignatura = asignatura;
     }
 
     public Integer getId() {
@@ -39,4 +43,22 @@ public class Contrato {
     public void setFechaCulminacion(LocalDate fechaCulminacion) {
         this.fechaCulminacion = fechaCulminacion;
     }
+
+    public Persona getDocente() {
+        return docente;
+    }
+
+    public void setDocente(Persona docente) {
+        this.docente = docente;
+    }
+
+    public Asignatura getAsignatura() {
+        return asignatura;
+    }
+
+    public void setAsignatura(Asignatura asignatura) {
+        this.asignatura = asignatura;
+    }
+    
+    
 }

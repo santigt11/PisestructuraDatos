@@ -5,6 +5,7 @@ public class Facultad {
     private String nombre;
 
     public Facultad() {
+        this.id = id;
     }
 
     public Facultad(Integer id, String nombre) {
@@ -26,6 +27,11 @@ public class Facultad {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+    
+    @Override
+    public String toString() {
+        return nombre;
     }
     
     
