@@ -45,7 +45,7 @@ public class FrmContrato extends javax.swing.JFrame {
         btCrearContrato = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tbDocentes1 = new javax.swing.JTable();
+        tbContrato = new javax.swing.JTable();
         jpDocentes = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbDocentes = new javax.swing.JTable();
@@ -142,7 +142,7 @@ public class FrmContrato extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel11.setText("Contratos:");
 
-        tbDocentes1.setModel(new javax.swing.table.DefaultTableModel(
+        tbContrato.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -153,7 +153,7 @@ public class FrmContrato extends javax.swing.JFrame {
                 "DOCENTE", "ASIGNATURA", "FECHA DE REGISTRO", "FECHA DE CULMINACION"
             }
         ));
-        jScrollPane4.setViewportView(tbDocentes1);
+        jScrollPane4.setViewportView(tbContrato);
 
         javax.swing.GroupLayout jpContratoLayout = new javax.swing.GroupLayout(jpContrato);
         jpContrato.setLayout(jpContratoLayout);
@@ -384,8 +384,8 @@ public class FrmContrato extends javax.swing.JFrame {
     private javax.swing.JPanel jpFCA;
     private javax.swing.JList<String> lstAsignatura;
     private javax.swing.JList<String> lstCarrera;
+    private javax.swing.JTable tbContrato;
     private javax.swing.JTable tbDocentes;
-    private javax.swing.JTable tbDocentes1;
     private javax.swing.JTextField txtApeliidos;
     private javax.swing.JTextField txtDni;
     private javax.swing.JTextField txtNombres;
