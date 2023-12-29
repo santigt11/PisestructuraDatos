@@ -1,12 +1,14 @@
 package modelo;
 
+import java.time.LocalDate;
+
 public class Persona {
 
     private Integer id;
     private String dni;
     private String nombre;
     private String apellido;
-    private Integer edad;
+    private LocalDate fechaNacimientoi;
     private String nacionalidad;
     private String etnia;
     private String telefono;
@@ -44,14 +46,14 @@ public class Persona {
         this.apellido = apellido;
     }
 
-    public Integer getEdad() {
-        return edad;
+    public LocalDate getFechaNacimientoi() {
+        return fechaNacimientoi;
     }
 
-    public void setEdad(Integer edad) {
-        this.edad = edad;
+    public void setFechaNacimientoi(LocalDate fechaNacimientoi) {
+        this.fechaNacimientoi = fechaNacimientoi;
     }
-
+    
     public String getNacionalidad() {
         return nacionalidad;
     }
