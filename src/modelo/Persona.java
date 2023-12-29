@@ -1,40 +1,31 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelo;
 
-import java.util.Date;
-
-/**
- *
- * @author santi
- */
 public class Persona {
-    private String cedula;
+
+    private Integer id;
+    private String dni;
     private String nombre;
     private String apellido;
-    private Date fechaNacimiento;
-    private String direccion;
-    private String numeroTelefono;
+    private Integer edad;
+    private String nacionalidad;
+    private String etnia;
+    private String telefono;
+    private Rol rol;
 
-    public Persona(String cedula, String nombre, String apellido, Date fechaNacimiento, String direccion, String numeroTelefono) {        this.cedula = cedula;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.fechaNacimiento = fechaNacimiento;
-        this.direccion = direccion;
-        this.numeroTelefono = numeroTelefono;
+    public Integer getId() {
+        return id;
     }
 
-    public Persona() {
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getCedula() {
-        return cedula;
+    public String getDni() {
+        return dni;
     }
 
-    public void setCedula(String cedula) {
-        this.cedula = cedula;
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 
     public String getNombre() {
@@ -53,27 +44,71 @@ public class Persona {
         this.apellido = apellido;
     }
 
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
+    public Integer getEdad() {
+        return edad;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    public void setEdad(Integer edad) {
+        this.edad = edad;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public String getNacionalidad() {
+        return nacionalidad;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setNacionalidad(String nacionalidad) {
+        this.nacionalidad = nacionalidad;
     }
 
-    public String getNumeroTelefono() {
-        return numeroTelefono;
+    public String getEtnia() {
+        return etnia;
+    }
+
+    public void setEtnia(String etnia) {
+        this.etnia = etnia;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
     
-    public void setNumeroTelefono(String numeroTelefono) {
-        this.numeroTelefono = numeroTelefono;
-    }
+    public Boolean compare(Persona p, String field, Integer type) {
+            //0 menor 1 mayor
+            switch (type) {
+                case 0:
+                    if (field.equalsIgnoreCase("apellidos")) {
+                        return apellido.compareTo(p.getApellido()) < 0;
+                    } else if (field.equalsIgnoreCase("nombres")) {
+                        return nombre.compareTo(p.getNombre()) < 0;
+                    } else if (field.equalsIgnoreCase("dni")) {
+                        return dni.compareTo(p.getDni()) < 0;
+                    } else if (field.equalsIgnoreCase("id")) {
+                        return id.compareTo(p.getId()) < 0;
+                    }
+                case 1:
+                    if (field.equalsIgnoreCase("apellidos")) {
+                        return apellido.compareTo(p.getApellido()) > 0;
+                    } else if (field.equalsIgnoreCase("nombres")) {
+                        return nombre.compareTo(p.getNombre()) > 0;
+                    } else if (field.equalsIgnoreCase("dni")) {
+                        return dni.compareTo(p.getDni()) > 0;
+                    } else if (field.equalsIgnoreCase("id")) {
+                        return id.compareTo(p.getId()) > 0;
+                    }
+                default:
+                    throw new AssertionError();
+            }
+        }
 }

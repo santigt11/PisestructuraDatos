@@ -1,10 +1,17 @@
 package modelo;
 
-public class Carrera {
+public class Facultad {
     private Integer id;
     private String nombre;
-    private Integer numCiclos;
-    private Integer idFacultad;
+
+    public Facultad() {
+        this.id = id;
+    }
+
+    public Facultad(Integer id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
 
     public Integer getId() {
         return id;
@@ -20,22 +27,6 @@ public class Carrera {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public Integer getNumCiclos() {
-        return numCiclos;
-    }
-
-    public void setNumCiclos(Integer numCiclos) {
-        this.numCiclos = numCiclos;
-    }
-
-    public Integer getIdFacultad() {
-        return idFacultad;
-    }
-
-    public void setIdFacultad(Integer idFacultad) {
-        this.idFacultad = idFacultad;
     }
     
     @Override
