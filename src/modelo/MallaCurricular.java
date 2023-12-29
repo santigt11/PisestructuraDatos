@@ -1,23 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelo;
 
-/**
- *
- * @author santi
- */
 public class MallaCurricular {
     private Integer id;
-    private Integer idPreiodo;
+    private String descripcion;
+    private String pensum;
+    private boolean vigente;
 
-    public MallaCurricular() {
+    public MallaCurricular(Integer id, String descripcion, String pensum, boolean vigente) {
+        this.id = id;
+        this.descripcion = descripcion;
+        this.pensum = pensum;
+        this.vigente = vigente;
     }
 
-    public MallaCurricular(Integer id, Integer idPreiodo) {
-        this.id = id;
-        this.idPreiodo = idPreiodo;
+    public MallaCurricular() {
     }
 
     public Integer getId() {
@@ -28,11 +24,30 @@ public class MallaCurricular {
         this.id = id;
     }
 
-    public Integer getIdPreiodo() {
-        return idPreiodo;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setIdPreiodo(Integer idPreiodo) {
-        this.idPreiodo = idPreiodo;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
+
+    public String getPensum() {
+        return pensum;
+    }
+
+    public void setPensum(String pensum) {
+        this.pensum = pensum;
+    }
+
+    public boolean isVigente() {
+        return vigente;
+    }
+
+    public void setVigente(boolean vigente) {
+        this.vigente = vigente;
+    }
+    
+    
+    
 }

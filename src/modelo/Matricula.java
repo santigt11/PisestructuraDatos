@@ -4,24 +4,33 @@
  */
 package modelo;
 
-import enumeracion.EstadoMatricula;
+import controlador.TDA.listas.DynamicList;
+import java.util.Date;
 
 /**
  *
- * @author santi
+ * @author Santiago
  */
 public class Matricula {
     private Integer id;
-    private EstadoMatricula estado;
+    private Date fecha;
+    private Boolean expActivo;
+    private DynamicList<MatriculaAsignatura> matriculasAs;
+    private PeriodoAcademico periodoA;
+    private DynamicList<Tutoria> tutorias;
 
-    public Matricula(Integer id, EstadoMatricula estado) {
+    public Matricula(Integer id, Date fecha, Boolean expActivo, DynamicList<MatriculaAsignatura> matriculasAs, PeriodoAcademico periodoA, DynamicList<Tutoria> tutorias) {
         this.id = id;
-        this.estado = estado;
+        this.fecha = fecha;
+        this.expActivo = expActivo;
+        this.matriculasAs = matriculasAs;
+        this.periodoA = periodoA;
+        this.tutorias = tutorias;
     }
 
     public Matricula() {
     }
-    
+
     public Integer getId() {
         return id;
     }
@@ -30,11 +39,43 @@ public class Matricula {
         this.id = id;
     }
 
-    public EstadoMatricula getEstado() {
-        return estado;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setEstado(EstadoMatricula estado) {
-        this.estado = estado;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public Boolean getExpActivo() {
+        return expActivo;
+    }
+
+    public void setExpActivo(Boolean expActivo) {
+        this.expActivo = expActivo;
+    }
+
+    public DynamicList<MatriculaAsignatura> getMatriculasAs() {
+        return matriculasAs;
+    }
+
+    public void setMatriculasAs(DynamicList<MatriculaAsignatura> matriculasAs) {
+        this.matriculasAs = matriculasAs;
+    }
+
+    public PeriodoAcademico getPeriodoA() {
+        return periodoA;
+    }
+
+    public void setPeriodoA(PeriodoAcademico periodoA) {
+        this.periodoA = periodoA;
+    }
+
+    public DynamicList<Tutoria> getTutorias() {
+        return tutorias;
+    }
+
+    public void setTutorias(DynamicList<Tutoria> tutorias) {
+        this.tutorias = tutorias;
     }
 }
