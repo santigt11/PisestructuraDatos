@@ -1,7 +1,18 @@
 package vista;
 
-public class FrmContrato extends javax.swing.JFrame {
+import controlador.TDA.listas.Exception.EmptyException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
+import controlador.TDA.listas.DynamicList;
+import controlador.PersonaControl;
+
+import modelo.Contrato;
+import modelo.Persona;
+
+public class FrmContrato extends javax.swing.JFrame {
+    
     /**
      * Creates new form FrmContrato
      */
