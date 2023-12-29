@@ -11,8 +11,9 @@ public class Persona {
     private String etnia;
     private String telefono;
     private Rol rol;
+    private Usuario usuario;
 
-    public Persona(Integer id, String dni, String nombre, String apellido, Integer edad, String nacionalidad, String etnia, String telefono, Rol rol) {
+    public Persona(Integer id, String dni, String nombre, String apellido, Integer edad, String nacionalidad, String etnia, String telefono, Rol rol, Usuario usuario) {
         this.id = id;
         this.dni = dni;
         this.nombre = nombre;
@@ -22,6 +23,15 @@ public class Persona {
         this.etnia = etnia;
         this.telefono = telefono;
         this.rol = rol;
+        this.usuario = usuario;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public Persona() {
