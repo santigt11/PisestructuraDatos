@@ -9,8 +9,6 @@ public class Persona {
     private String nombre;
     private String apellido;
     private LocalDate fechaNacimientoi;
-    private String nacionalidad;
-    private String etnia;
     private String telefono;
     private Rol rol;
 
@@ -52,22 +50,6 @@ public class Persona {
 
     public void setFechaNacimientoi(LocalDate fechaNacimientoi) {
         this.fechaNacimientoi = fechaNacimientoi;
-    }
-    
-    public String getNacionalidad() {
-        return nacionalidad;
-    }
-
-    public void setNacionalidad(String nacionalidad) {
-        this.nacionalidad = nacionalidad;
-    }
-
-    public String getEtnia() {
-        return etnia;
-    }
-
-    public void setEtnia(String etnia) {
-        this.etnia = etnia;
     }
 
     public String getTelefono() {
