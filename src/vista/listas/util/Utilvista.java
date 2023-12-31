@@ -6,7 +6,10 @@ import modelo.Facultad;
 import controlador.FacultadControl;
 import modelo.Carrera;
 import controlador.CarreraControl;
+import modelo.MallaCurricular;
 import controlador.MallaControl;
+import controlador.Persona.PersonaArchivos;
+import controlador.PersonaControl;
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
 
@@ -89,8 +92,27 @@ public class Utilvista {
         }
         lst.setModel(modeloLista);
     }
-    
-    
+
+    public static void cargarListaAsignaturas(JList lst, MallaCurricular malla) throws EmptyException {
+        DefaultListModel modeloLista = new DefaultListModel();
+        for (Integer i = 0; i < malla.getAsignaturaList().getLength(); i++) {
+            modeloLista.addElement(malla.getAsignaturaList().getInfo(i));
+        }
+        lst.setModel(modeloLista);
+    }
+
+    public static void cargarListaDocentes(JList lst) throws EmptyException {
+        PersonaArchivos ap = new PersonaArchivos();
+        PersonaControl pc = new PersonaControl();
+        pc.setPersonas(ap.all());
+        DefaultListModel modeloLista = new DefaultListModel();
+        for (Integer i = 0; i < pc.getPersonas().getLength(); i++) {
+            if (pc.getPersonas().getInfo(i).getRol().toString().equals("DOCENTE")) {
+                modeloLista.addElement(pc.getPersonas().getInfo(i));
+            }
+        }
+        lst.setModel(modeloLista);
+    }
     
     public static void limpiarLista(JList lst){
         DefaultListModel modeloLista = new DefaultListModel();

@@ -26,7 +26,8 @@ public class FrmAsignatura extends javax.swing.JFrame {
                 asignaturaControl.getAsignatura().setTotalHoras((Integer) spnHorasAsg.getValue());
                 
                 if (asignaturaControl.guardar()) {
-                    control.persist(asignaturaControl.getAsignatura());
+                    control.setCarrera(asignaturaControl.getAsignatura());
+                    control.persist();
                     JOptionPane.showMessageDialog(null, "Asignatura guardada");
                     limpiar();
                     asignaturaControl.setAsignatura(null);

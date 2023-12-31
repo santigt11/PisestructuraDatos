@@ -30,12 +30,12 @@ public class AsignaturaArchivos extends DaoImplement<Asignatura> {
         return asignatura;
     }
 
-    public void setCarrera(Asignatura axsignatura) {
+    public void setCarrera(Asignatura asignatura) {
         this.asignatura = asignatura;
     }
 
     public Boolean persist() {
-        asignatura.setId(all().getLength() + 1);
+        asignatura.setId(all().getLength());
         return persist(asignatura);
     }
 
