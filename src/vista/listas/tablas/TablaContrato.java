@@ -16,7 +16,7 @@ public class TablaContrato extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return 4;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class TablaContrato extends AbstractTableModel {
             Contrato ct = contratos.getInfo(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return (ct != null) ? ct.getDocente(): " ";
+                    return (ct != null) ? ct.getDocente().getApellido() + " " + ct.getDocente().getNombre(): " ";
                 case 1:
                     return (ct != null) ? ct.getAsignatura().getCodigo(): "";
                 case 2:

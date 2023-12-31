@@ -5,31 +5,23 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-import controlador.TDA.listas.DynamicList;
-import controlador.PersonaControl;
 import controlador.ContratoControl;
-import controlador.Persona.PersonaArchivos;
 import controlador.Academico.ContratoArchivos;
 import java.time.ZoneId;
 import modelo.*;
 
-import vista.listas.tablas.TablaPersona;
 import vista.listas.tablas.TablaContrato;
 import vista.listas.util.Utilvista;
 
 public class FrmContrato extends javax.swing.JFrame {
 
-    private PersonaControl personaControl = new PersonaControl();
-    private PersonaArchivos filePersona = new PersonaArchivos();
-
     private ContratoControl contratoControl = new ContratoControl();
     private ContratoArchivos fileContrato = new ContratoArchivos();
 
-    private TablaPersona tp = new TablaPersona();
     private TablaContrato tc = new TablaContrato();
 
     private Boolean verificar() {
-        return (!txtCarrera.getText().trim().isEmpty()
+        return (!txtAsignatura.getText().trim().isEmpty()
                 && !txtDni.getText().trim().isEmpty()
                 && !dtRegistro.getDate().toString().isEmpty()
                 && !dtCulminacion.getDate().toString().isEmpty());
@@ -37,6 +29,12 @@ public class FrmContrato extends javax.swing.JFrame {
 
     private void guardar() {
         if (verificar()) {
+            Object p = lstDocente.getSelectedValue();
+            Persona docente = (Persona) p;
+            Object a = lstAsignatura.getSelectedValue();
+            Asignatura asignatura = (Asignatura) a;
+            contratoControl.getContrato().setDocente(docente);
+            contratoControl.getContrato().setAsignatura(asignatura);
             contratoControl.getContrato().setFechaRegistro(dtRegistro.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             contratoControl.getContrato().setFechaCulminacion(dtCulminacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             if (contratoControl.guardar()) {
@@ -56,32 +54,41 @@ public class FrmContrato extends javax.swing.JFrame {
     private void cargarVista(Integer var) throws EmptyException {
         switch (var) {
             case 1:
-            if (tbDocentes.getSelectedRow() < 0) {
+            if (lstDocente.getSelectedIndex()< 0) {
                 JOptionPane.showMessageDialog(null, "Escoja un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                personaControl.setPersona(filePersona.getPersonas().getInfo(tbDocentes.getSelectedRow()));
-                txtDni.setText(personaControl.getPersona().getDni());
-                txtApellidos.setText(personaControl.getPersona().getApellido());
-                txtNombres.setText(personaControl.getPersona().getNombre());
-                txtTelefono.setText(personaControl.getPersona().getTelefono());
+                txtDni.setText("");
+                txtApellidos.setText("");
+                txtNombres.setText("");
+                txtTelefono.setText("");
+                txtAsignatura.setText("");
+                dtRegistro.setDate(null);
+                dtCulminacion.setDate(null);
+                Object p = lstDocente.getSelectedValue();
+                Persona docente = (Persona) p;
+                txtDni.setText(docente.getDni());
+                txtApellidos.setText(docente.getApellido());
+                txtNombres.setText(docente.getNombre());
+                txtTelefono.setText(docente.getTelefono());
             }
                 break;
             case 2:
-                //Cargar datos de facultad, carrera y asignatura
-                if (lstFacultad.getSelectedValue() != null) {
-                    Object f = lstFacultad.getSelectedValue();
-                    Facultad facultad = (Facultad) f;
-                    txtFacultad.setText(facultad.getNombre());
-                }
-                if (lstCarrera.getSelectedValue() != null) {
-                    Object c = lstCarrera.getSelectedValue();
-                    Carrera carrera = (Carrera) c;
-                    txtCarrera.setText(carrera.getNombre());
-                }
                 if (lstAsignatura.getSelectedValue() != null) {
                     Object a = lstAsignatura.getSelectedValue();
                     Asignatura asignatura = (Asignatura) a;
                     txtAsignatura.setText(asignatura.getNombre());
+                }
+                break;
+            case 3:
+                if(tbContrato.getSelectedRow() > -1){
+                    contratoControl.setContrato(tc.getContratos().getInfo(tbContrato.getSelectedRow()));
+                    txtDni.setText(contratoControl.getContrato().getDocente().getDni());
+                    txtApellidos.setText(contratoControl.getContrato().getDocente().getApellido());
+                    txtNombres.setText(contratoControl.getContrato().getDocente().getNombre());
+                    txtTelefono.setText(contratoControl.getContrato().getDocente().getTelefono());
+                    txtAsignatura.setText(contratoControl.getContrato().getAsignatura().getNombre());
+                    dtRegistro.setDate(java.sql.Date.valueOf(contratoControl.getContrato().getFechaRegistro()));
+                    dtCulminacion.setDate(java.sql.Date.valueOf(contratoControl.getContrato().getFechaCulminacion()));
                 }
                 break;
             default:
@@ -89,25 +96,19 @@ public class FrmContrato extends javax.swing.JFrame {
         }
     }
 
-    private void cargarTablaDocentes() {
-        tp.setPersonas(filePersona.all());
-        tbDocentes.setModel(tp);
-        tbDocentes.updateUI();
-    }
-
     private void cargarTablaContratos() {
         tc.setContratos(fileContrato.all());
-        tbContrato.setModel(tp);
+        tbContrato.setModel(tc);
         tbContrato.updateUI();
     }
 
     private void limpiar() {
         try {
             Utilvista.cargarListaFacultades(lstFacultad);
+            Utilvista.cargarListaDocentes(lstDocente);
         } catch (EmptyException ex) {
             Logger.getLogger(FrmContrato.class.getName()).log(Level.SEVERE, null, ex);
         }
-        cargarTablaDocentes();
         cargarTablaContratos();
 
         
@@ -115,26 +116,19 @@ public class FrmContrato extends javax.swing.JFrame {
         txtApellidos.setText("");
         txtNombres.setText("");
         txtTelefono.setText("");
-        limpiarSoft();
+        txtAsignatura.setText("");
+        dtRegistro.setDate(null);
+        dtCulminacion.setDate(null);
         
         txtDni.setEnabled(false);
         txtApellidos.setEnabled(false);
         txtNombres.setEnabled(false);
         txtTelefono.setEnabled(false);
-        txtFacultad.setEnabled(false);
-        txtCarrera.setEnabled(false);
         txtAsignatura.setEnabled(false);
-        btSeleccionar.setEnabled(false);
 
         Utilvista.limpiarLista(lstCarrera);
         Utilvista.limpiarLista(lstMalla);
         Utilvista.limpiarLista(lstAsignatura);
-    }
-    
-    private void limpiarSoft(){
-        txtFacultad.setText("");
-        txtCarrera.setText("");
-        txtAsignatura.setText("");
     }
     
     /**
@@ -168,7 +162,6 @@ public class FrmContrato extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         lstAsignatura = new javax.swing.JList<>();
-        btSeleccionar = new javax.swing.JButton();
         jpContrato = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -188,15 +181,11 @@ public class FrmContrato extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tbContrato = new javax.swing.JTable();
         jLabel14 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        txtFacultad = new javax.swing.JTextField();
-        jLabel17 = new javax.swing.JLabel();
-        txtCarrera = new javax.swing.JTextField();
         txtAsignatura = new javax.swing.JTextField();
         jpDocentes = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbDocentes = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        lstDocente = new javax.swing.JList<>();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -252,13 +241,6 @@ public class FrmContrato extends javax.swing.JFrame {
         });
         jScrollPane6.setViewportView(lstAsignatura);
 
-        btSeleccionar.setText("Seleccionar ");
-        btSeleccionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btSeleccionarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jpFCALayout = new javax.swing.GroupLayout(jpFCA);
         jpFCA.setLayout(jpFCALayout);
         jpFCALayout.setHorizontalGroup(
@@ -288,11 +270,7 @@ public class FrmContrato extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpFCALayout.createSequentialGroup()
                         .addComponent(jLabel15)
                         .addGap(82, 82, 82)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpFCALayout.createSequentialGroup()
-                .addContainerGap(518, Short.MAX_VALUE)
-                .addComponent(btSeleccionar)
-                .addGap(42, 42, 42))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         jpFCALayout.setVerticalGroup(
             jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -306,15 +284,14 @@ public class FrmContrato extends javax.swing.JFrame {
                             .addComponent(jLabel15))
                         .addGap(12, 12, 12)
                         .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                             .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jpFCALayout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addGap(12, 12, 12)
                         .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(12, 12, 12)
-                .addComponent(btSeleccionar))
+                .addContainerGap())
         );
 
         jpContrato.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -376,16 +353,15 @@ public class FrmContrato extends javax.swing.JFrame {
                 "DOCENTE", "ASIGNATURA", "FECHA DE REGISTRO", "FECHA DE CULMINACION"
             }
         ));
+        tbContrato.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbContratoMouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(tbContrato);
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel14.setText("Asignatura:");
-
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel16.setText("Facultad:");
-
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel17.setText("Carrera:");
 
         txtAsignatura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -410,12 +386,6 @@ public class FrmContrato extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addGroup(jpContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpContratoLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel17)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(208, 208, 208))
                             .addGroup(jpContratoLayout.createSequentialGroup()
                                 .addGroup(jpContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jpContratoLayout.createSequentialGroup()
@@ -423,20 +393,16 @@ public class FrmContrato extends javax.swing.JFrame {
                                         .addGroup(jpContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jLabel8)
                                             .addComponent(jLabel9)
-                                            .addComponent(jLabel10)
-                                            .addComponent(jLabel16))
+                                            .addComponent(jLabel10))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(jpContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(jpContratoLayout.createSequentialGroup()
-                                                .addGroup(jpContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                    .addComponent(txtFacultad, javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpContratoLayout.createSequentialGroup()
-                                                        .addGroup(jpContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addGap(24, 24, 24)
-                                                        .addComponent(jLabel7)))
+                                                .addGroup(jpContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(24, 24, 24)
+                                                .addComponent(jLabel7)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addGroup(jpContratoLayout.createSequentialGroup()
@@ -447,7 +413,7 @@ public class FrmContrato extends javax.swing.JFrame {
                                         .addGroup(jpContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(dtRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
                                             .addComponent(dtCulminacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addGroup(jpContratoLayout.createSequentialGroup()
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpContratoLayout.createSequentialGroup()
                                         .addComponent(jLabel14)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(txtAsignatura)
@@ -474,14 +440,6 @@ public class FrmContrato extends javax.swing.JFrame {
                 .addGroup(jpContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(jpContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(txtFacultad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jpContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(txtCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jpContratoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
@@ -499,30 +457,19 @@ public class FrmContrato extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        tbDocentes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "DNI", "APELLIDO", "NOMBRE", "TELEFONO"
-            }
-        ));
-        tbDocentes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbDocentesMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tbDocentes);
-
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setText("Docentes");
+
+        lstDocente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstDocenteMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(lstDocente);
 
         javax.swing.GroupLayout jpDocentesLayout = new javax.swing.GroupLayout(jpDocentes);
         jpDocentes.setLayout(jpDocentesLayout);
@@ -533,7 +480,7 @@ public class FrmContrato extends javax.swing.JFrame {
                 .addGroup(jpDocentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpDocentesLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel4))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -543,8 +490,8 @@ public class FrmContrato extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -576,9 +523,10 @@ public class FrmContrato extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jpDocentes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(36, 36, 36)
-                        .addComponent(jpFCA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jpContrato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jpFCA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 9, Short.MAX_VALUE))
+                    .addComponent(jpContrato, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -594,6 +542,7 @@ public class FrmContrato extends javax.swing.JFrame {
 
     private void lstCarreraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstCarreraMouseClicked
         if (lstCarrera.getSelectedValue() != null) {
+            txtAsignatura.setText("");
             Utilvista.limpiarLista(lstMalla);
             Utilvista.limpiarLista(lstAsignatura);
             Object c = lstCarrera.getSelectedValue();
@@ -608,20 +557,9 @@ public class FrmContrato extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lstCarreraMouseClicked
 
-    private void btSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSeleccionarActionPerformed
-        if (lstAsignatura.getSelectedValue() != null) {
-            try {
-                cargarVista(2);
-            } catch (EmptyException ex) {
-                Logger.getLogger(FrmContrato.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "No existe ninguna asignatura disponible", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_btSeleccionarActionPerformed
-
     private void lstMallaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstMallaMouseClicked
         if (lstMalla.getSelectedValue() != null) {
+            txtAsignatura.setText("");
             Utilvista.limpiarLista(lstAsignatura);
             Object m = lstMalla.getSelectedValue();
             MallaCurricular malla = (MallaCurricular) m;
@@ -635,16 +573,9 @@ public class FrmContrato extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lstMallaMouseClicked
 
-    private void tbDocentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDocentesMouseClicked
-        try {
-            cargarVista(1);
-        } catch (EmptyException ex) {
-            Logger.getLogger(FrmContrato.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_tbDocentesMouseClicked
-
     private void lstFacultadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstFacultadMouseClicked
         if (lstFacultad.getSelectedValue() != null) {
+            txtAsignatura.setText("");
             Utilvista.limpiarLista(lstCarrera);
             Utilvista.limpiarLista(lstMalla);
             Utilvista.limpiarLista(lstAsignatura);
@@ -666,8 +597,12 @@ public class FrmContrato extends javax.swing.JFrame {
 
     private void lstAsignaturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstAsignaturaMouseClicked
         if (lstAsignatura.getSelectedValue() != null) {
-            limpiarSoft();
-            btSeleccionar.setEnabled(true);
+            txtAsignatura.setText("");
+            try {
+                cargarVista(2);
+            } catch (EmptyException ex) {
+                Logger.getLogger(FrmContrato.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             JOptionPane.showMessageDialog(null, "No existe ninguna asignatura disponible", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -686,6 +621,22 @@ public class FrmContrato extends javax.swing.JFrame {
     private void dtCulminacionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dtCulminacionMouseEntered
 
     }//GEN-LAST:event_dtCulminacionMouseEntered
+
+    private void lstDocenteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstDocenteMouseClicked
+        try {
+            cargarVista(1);
+        } catch (EmptyException ex) {
+            Logger.getLogger(FrmContrato.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_lstDocenteMouseClicked
+
+    private void tbContratoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbContratoMouseClicked
+        try {
+            cargarVista(3);
+        } catch (EmptyException ex) {
+            Logger.getLogger(FrmContrato.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tbContratoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -713,6 +664,9 @@ public class FrmContrato extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrmContrato.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -724,7 +678,6 @@ public class FrmContrato extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCrearContrato;
-    private javax.swing.JButton btSeleccionar;
     private com.toedter.calendar.JDateChooser dtCulminacion;
     private com.toedter.calendar.JDateChooser dtRegistro;
     private javax.swing.JLabel jLabel10;
@@ -733,8 +686,6 @@ public class FrmContrato extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -744,7 +695,7 @@ public class FrmContrato extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
@@ -755,15 +706,13 @@ public class FrmContrato extends javax.swing.JFrame {
     private javax.swing.JPanel jpFCA;
     private javax.swing.JList<String> lstAsignatura;
     private javax.swing.JList<String> lstCarrera;
+    private javax.swing.JList<String> lstDocente;
     private javax.swing.JList<String> lstFacultad;
     private javax.swing.JList<String> lstMalla;
     private javax.swing.JTable tbContrato;
-    private javax.swing.JTable tbDocentes;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtAsignatura;
-    private javax.swing.JTextField txtCarrera;
     private javax.swing.JTextField txtDni;
-    private javax.swing.JTextField txtFacultad;
     private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables

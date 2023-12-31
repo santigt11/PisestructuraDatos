@@ -68,6 +68,11 @@ public class Persona {
         this.rol = rol;
     }
     
+    @Override
+    public String toString() {
+        return dni + " - " + apellido + " " + nombre;
+    }
+    
     public Boolean compare(Persona p, String field, Integer type) {
             //0 menor 1 mayor
             switch (type) {
