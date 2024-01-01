@@ -1,0 +1,26 @@
+{
+    "controlador.TDA.listas.DynamicList": {
+        "header": {
+            "info": {
+                "@class": "modelo.Carrera",
+                "id": 0,
+                "nombre": "Computacion",
+                "numCiclos": 9,
+                "idFacultad": 0
+            },
+            "next": {
+                "info": {
+                    "@class": "modelo.Carrera",
+                    "id": 1,
+                    "nombre": "Medicina",
+                    "numCiclos": 11,
+                    "idFacultad": 1
+                }
+            }
+        },
+        "last": {
+            "@reference": "..\/header\/next"
+        },
+        "length": 2
+    }
+}

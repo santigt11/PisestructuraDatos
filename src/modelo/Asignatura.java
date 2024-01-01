@@ -37,6 +37,9 @@ public class Asignatura {
     public void setTotalHoras(Integer totalHoras) {
         this.totalHoras = totalHoras;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

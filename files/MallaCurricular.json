@@ -1,0 +1,128 @@
+{
+    "controlador.TDA.listas.DynamicList": {
+        "header": {
+            "info": {
+                "@class": "modelo.MallaCurricular",
+                "id": 0,
+                "descripcion": "Primer Ciclo",
+                "pensum": "Regimen 2019",
+                "idCarrera": 0,
+                "asignaturaList": {
+                    "header": {
+                        "info": {
+                            "@class": "modelo.Asignatura",
+                            "id": 0,
+                            "nombre": "Algebra Lineal",
+                            "codigo": "COMP101A",
+                            "totalHoras": 160
+                        },
+                        "next": {
+                            "info": {
+                                "@class": "modelo.Asignatura",
+                                "id": 2,
+                                "nombre": "Teoria de la Programacion",
+                                "codigo": "COMP103A",
+                                "totalHoras": 240
+                            },
+                            "next": {
+                                "info": {
+                                    "@class": "modelo.Asignatura",
+                                    "id": 3,
+                                    "nombre": "Electricidad",
+                                    "codigo": "COMP104A",
+                                    "totalHoras": 160
+                                },
+                                "next": {
+                                    "info": {
+                                        "@class": "modelo.Asignatura",
+                                        "id": 1,
+                                        "nombre": "Matematicas Discretas",
+                                        "codigo": "COMP102A",
+                                        "totalHoras": 120
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "last": {
+                        "@reference": "..\/header\/next\/next\/next"
+                    },
+                    "length": 4
+                }
+            },
+            "next": {
+                "info": {
+                    "@class": "modelo.MallaCurricular",
+                    "id": 1,
+                    "descripcion": "Primer Ciclo",
+                    "pensum": "Regimen 2023",
+                    "idCarrera": 1,
+                    "asignaturaList": {
+                        "header": {
+                            "info": {
+                                "@class": "modelo.Asignatura",
+                                "id": 9,
+                                "nombre": "Biologia Humana",
+                                "codigo": "MED101A",
+                                "totalHoras": 200
+                            },
+                            "next": {
+                                "info": {
+                                    "@class": "modelo.Asignatura",
+                                    "id": 10,
+                                    "nombre": "Bioquimica",
+                                    "codigo": "MED102A",
+                                    "totalHoras": 120
+                                },
+                                "next": {
+                                    "info": {
+                                        "@class": "modelo.Asignatura",
+                                        "id": 11,
+                                        "nombre": "Embriologia Humana",
+                                        "codigo": "MED103A",
+                                        "totalHoras": 160
+                                    },
+                                    "next": {
+                                        "info": {
+                                            "@class": "modelo.Asignatura",
+                                            "id": 12,
+                                            "nombre": "Biofisica",
+                                            "codigo": "MED104A",
+                                            "totalHoras": 80
+                                        },
+                                        "next": {
+                                            "info": {
+                                                "@class": "modelo.Asignatura",
+                                                "id": 13,
+                                                "nombre": "Bioestadistica I",
+                                                "codigo": "MED105A",
+                                                "totalHoras": 80
+                                            },
+                                            "next": {
+                                                "info": {
+                                                    "@class": "modelo.Asignatura",
+                                                    "id": 14,
+                                                    "nombre": "Realidad Nacional",
+                                                    "codigo": "MED106A",
+                                                    "totalHoras": 80
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "last": {
+                            "@reference": "..\/header\/next\/next\/next\/next\/next"
+                        },
+                        "length": 6
+                    }
+                }
+            }
+        },
+        "last": {
+            "@reference": "..\/header\/next"
+        },
+        "length": 2
+    }
+}

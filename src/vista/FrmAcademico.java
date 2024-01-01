@@ -135,7 +135,6 @@ public class FrmAcademico extends javax.swing.JFrame {
     }
 
     private void cargarTablaAsignaturaA(DynamicList<Asignatura> datos) throws EmptyException {
-        //Agregar asignaturas a la tabla una por una
         for (Integer i = 0; i < datos.getLength(); i++) {
             taa.getAsignaturas().add(datos.getInfo(i));
         }
@@ -976,39 +975,51 @@ public class FrmAcademico extends javax.swing.JFrame {
     }//GEN-LAST:event_btDescartarActionPerformed
 
     private void lstFacultadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstFacultadMouseClicked
-        cargarVista(1);
-        btModificarFacultad.setEnabled(true);
-        btModificarCarrera.setEnabled(false);
-        btModificarMalla.setEnabled(false);
-        btCrearC.setEnabled(true);
-        cbxFacultad.setEnabled(true);
-        txtNombreC.setEnabled(true);
-        spnCiclo.setEnabled(true);
-        Object f = lstFacultad.getSelectedValue();
-        Facultad facultad = (Facultad) f;
-        try {
-            Utilvista.cargarListaCarreras(lstCarrera, facultad);
-        } catch (EmptyException ex) {
-            Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
+        if (lstFacultad.getSelectedValue() != null) {
+            cargarVista(1);
+            btModificarFacultad.setEnabled(true);
+            btModificarCarrera.setEnabled(false);
+            btModificarMalla.setEnabled(false);
+            btCrearC.setEnabled(true);
+            cbxFacultad.setEnabled(true);
+            txtNombreC.setEnabled(true);
+            spnCiclo.setEnabled(true);
+            Object f = lstFacultad.getSelectedValue();
+            Facultad facultad = (Facultad) f;
+            try {
+                Utilvista.cargarListaCarreras(lstCarrera, facultad);
+            } catch (EmptyException ex) {
+                Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No existe ninguna facultad disponible", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_lstFacultadMouseClicked
 
     private void lstCarreraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstCarreraMouseClicked
-        cargarVista(2);
-        btModificarCarrera.setEnabled(true);
-        btModificarMalla.setEnabled(false);
-        Object c = lstCarrera.getSelectedValue();
-        Carrera carrera = (Carrera) c;
-        try {
-            Utilvista.cargarListaMallas(lstMalla, carrera);
-        } catch (EmptyException ex) {
-            Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
+        if (lstCarrera.getSelectedValue() != null) {
+            cargarVista(2);
+            btModificarCarrera.setEnabled(true);
+            btModificarMalla.setEnabled(false);
+            Object c = lstCarrera.getSelectedValue();
+            Carrera carrera = (Carrera) c;
+            try {
+                Utilvista.cargarListaMallas(lstMalla, carrera);
+            } catch (EmptyException ex) {
+                Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No existe ninguna carrera disponible", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_lstCarreraMouseClicked
 
     private void lstMallaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstMallaMouseClicked
-        cargarVista(3);
-        btModificarMalla.setEnabled(true);
+        if (lstMalla.getSelectedValue() != null) {
+            cargarVista(3);
+            btModificarMalla.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "No existe ninguna malla curricular disponible", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_lstMallaMouseClicked
 
     private void btModificarMallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarMallaActionPerformed
