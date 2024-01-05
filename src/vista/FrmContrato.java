@@ -1,5 +1,6 @@
 package vista;
 
+import controlador.Academico.AsignaturaArchivos;
 import controlador.TDA.listas.Exception.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -7,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import controlador.ContratoControl;
 import controlador.Academico.ContratoArchivos;
+import controlador.Persona.PersonaArchivos;
 import java.time.ZoneId;
 import modelo.*;
 
@@ -17,7 +19,9 @@ public class FrmContrato extends javax.swing.JFrame {
 
     private ContratoControl contratoControl = new ContratoControl();
     private ContratoArchivos fileContrato = new ContratoArchivos();
-
+        private PersonaArchivos filePersona = new PersonaArchivos();
+        private AsignaturaArchivos fileAsignatura = new AsignaturaArchivos();
+    
     private TablaContrato tc = new TablaContrato();
 
     private Boolean verificar() {
@@ -33,8 +37,8 @@ public class FrmContrato extends javax.swing.JFrame {
             Persona docente = (Persona) p;
             Object a = lstAsignatura.getSelectedValue();
             Asignatura asignatura = (Asignatura) a;
-            contratoControl.getContrato().setDocente(docente);
-            contratoControl.getContrato().setAsignatura(asignatura);
+            contratoControl.getContrato().setIdPersona(docente.getId());
+            contratoControl.getContrato().setIdAsignatura(asignatura.getId());
             contratoControl.getContrato().setFechaRegistro(dtRegistro.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             contratoControl.getContrato().setFechaCulminacion(dtCulminacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             if (contratoControl.guardar()) {
@@ -57,13 +61,7 @@ public class FrmContrato extends javax.swing.JFrame {
             if (lstDocente.getSelectedIndex()< 0) {
                 JOptionPane.showMessageDialog(null, "Escoja un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                txtDni.setText("");
-                txtApellidos.setText("");
-                txtNombres.setText("");
-                txtTelefono.setText("");
-                txtAsignatura.setText("");
-                dtRegistro.setDate(null);
-                dtCulminacion.setDate(null);
+                limpiarSoft();
                 Object p = lstDocente.getSelectedValue();
                 Persona docente = (Persona) p;
                 txtDni.setText(docente.getDni());
@@ -81,12 +79,14 @@ public class FrmContrato extends javax.swing.JFrame {
                 break;
             case 3:
                 if(tbContrato.getSelectedRow() > -1){
+                    limpiarSoft();
                     contratoControl.setContrato(tc.getContratos().getInfo(tbContrato.getSelectedRow()));
-                    txtDni.setText(contratoControl.getContrato().getDocente().getDni());
-                    txtApellidos.setText(contratoControl.getContrato().getDocente().getApellido());
-                    txtNombres.setText(contratoControl.getContrato().getDocente().getNombre());
-                    txtTelefono.setText(contratoControl.getContrato().getDocente().getTelefono());
-                    txtAsignatura.setText(contratoControl.getContrato().getAsignatura().getNombre());
+                    Persona docente = filePersona.getPersonas().getInfo(contratoControl.getContrato().getIdPersona());
+                    txtDni.setText(docente.getDni());
+                    txtApellidos.setText(docente.getApellido());
+                    txtNombres.setText(docente.getNombre());
+                    txtTelefono.setText(docente.getTelefono());
+                    txtAsignatura.setText(fileAsignatura.getAsignaturas().getInfo(contratoControl.getContrato().getIdAsignatura()).getNombre());
                     dtRegistro.setDate(java.sql.Date.valueOf(contratoControl.getContrato().getFechaRegistro()));
                     dtCulminacion.setDate(java.sql.Date.valueOf(contratoControl.getContrato().getFechaCulminacion()));
                 }
@@ -110,15 +110,8 @@ public class FrmContrato extends javax.swing.JFrame {
             Logger.getLogger(FrmContrato.class.getName()).log(Level.SEVERE, null, ex);
         }
         cargarTablaContratos();
-
         
-        txtDni.setText("");
-        txtApellidos.setText("");
-        txtNombres.setText("");
-        txtTelefono.setText("");
-        txtAsignatura.setText("");
-        dtRegistro.setDate(null);
-        dtCulminacion.setDate(null);
+        limpiarSoft();
         
         txtDni.setEnabled(false);
         txtApellidos.setEnabled(false);
@@ -129,6 +122,15 @@ public class FrmContrato extends javax.swing.JFrame {
         Utilvista.limpiarLista(lstCarrera);
         Utilvista.limpiarLista(lstMalla);
         Utilvista.limpiarLista(lstAsignatura);
+    }
+    private void limpiarSoft(){
+        txtDni.setText("");
+        txtApellidos.setText("");
+        txtNombres.setText("");
+        txtTelefono.setText("");
+        txtAsignatura.setText("");
+        dtRegistro.setDate(null);
+        dtCulminacion.setDate(null);
     }
     
     /**
@@ -558,7 +560,7 @@ public class FrmContrato extends javax.swing.JFrame {
     }//GEN-LAST:event_lstCarreraMouseClicked
 
     private void lstMallaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstMallaMouseClicked
-        if (lstMalla.getSelectedValue() != null) {
+            if (lstMalla.getSelectedValue() != null) {
             txtAsignatura.setText("");
             Utilvista.limpiarLista(lstAsignatura);
             Object m = lstMalla.getSelectedValue();
@@ -663,6 +665,10 @@ public class FrmContrato extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrmContrato.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

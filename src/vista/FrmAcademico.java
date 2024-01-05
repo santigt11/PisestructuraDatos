@@ -47,7 +47,7 @@ public class FrmAcademico extends javax.swing.JFrame {
                 String flag1 = cbxFacultad.getSelectedItem() != null ? cbxFacultad.getSelectedItem().toString().trim() : "";
                 return (!flag1.isEmpty()
                         && !txtNombreC.getText().trim().isEmpty()
-                        && !spnCiclo.getValue().toString().trim().isEmpty());
+                        && (Integer )spnCiclo.getValue() != 0);
             case 3:
                 String flag2 = cbxCarrera.getSelectedItem() != null ? cbxCarrera.getSelectedItem().toString().trim() : "";
                 return (!flag2.isEmpty()
@@ -58,7 +58,7 @@ public class FrmAcademico extends javax.swing.JFrame {
                 return (!flag3.isEmpty()
                         && !txtNombreA.getText().trim().isEmpty()
                         && !txtCodigoA.getText().trim().isEmpty()
-                        && !spnTotalHorasA.getValue().toString().trim().isEmpty());
+                        && (Integer) spnTotalHorasA.getValue() != 0);
             default:
                 throw new AssertionError();
         }
@@ -1348,6 +1348,7 @@ public class FrmAcademico extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrmAcademico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

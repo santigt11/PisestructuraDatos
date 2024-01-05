@@ -1,5 +1,7 @@
 package vista.listas.tablas;
 
+import controlador.Academico.AsignaturaArchivos;
+import controlador.Persona.PersonaArchivos;
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import javax.swing.table.AbstractTableModel;
@@ -8,6 +10,8 @@ import modelo.Contrato;
 public class TablaContrato extends AbstractTableModel {
 
     private DynamicList<Contrato> contratos;
+    private PersonaArchivos filePersona = new PersonaArchivos();
+    private AsignaturaArchivos fileAsignatura = new AsignaturaArchivos();
 
     @Override
     public int getRowCount() {
@@ -25,9 +29,9 @@ public class TablaContrato extends AbstractTableModel {
             Contrato ct = contratos.getInfo(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return (ct != null) ? ct.getDocente().getApellido() + " " + ct.getDocente().getNombre(): " ";
+                    return (ct != null) ? filePersona.getPersonas().getInfo(ct.getIdPersona()).getApellido() + " " + filePersona.getPersonas().getInfo(ct.getIdPersona()).getNombre(): " ";
                 case 1:
-                    return (ct != null) ? ct.getAsignatura().getCodigo(): "";
+                    return (ct != null) ? fileAsignatura.getAsignaturas().getInfo(ct.getIdAsignatura()).getCodigo(): "";
                 case 2:
                     return (ct != null) ? ct.getFechaRegistro(): "";
                 case 3:
