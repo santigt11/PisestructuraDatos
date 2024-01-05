@@ -14,28 +14,24 @@ public class Tutoria {
     private Integer id;
     private Date fecha;
     private String tema;
+    private Modalidad modalidad;
     private Boolean impartida;
-    private Horario horario;
+    private Integer idMatricula;
+    private Integer idHorario;
 
-    public Tutoria(Integer id, Date fecha, String tema, Boolean impartida, Horario horario) {
+    public Tutoria(Integer id, Date fecha, String tema, Modalidad modalidad, Boolean impartida, Integer idMatricula, Integer idHorario) {
         this.id = id;
         this.fecha = fecha;
         this.tema = tema;
+        this.modalidad = modalidad;
         this.impartida = impartida;
-        this.horario = horario;
+        this.idMatricula = idMatricula;
+        this.idHorario = idHorario;
     }
-
+    
     public Tutoria() {
     }
 
-    public Horario getHorario() {
-        return horario;
-    }
-
-    public void setHorario(Horario horario) {
-        this.horario = horario;
-    }
-    
     public Integer getId() {
         return id;
     }
@@ -67,4 +63,29 @@ public class Tutoria {
     public void setImpartida(Boolean impartida) {
         this.impartida = impartida;
     }
+
+    public Modalidad getModalidad() {
+        return modalidad;
+    }
+
+    public void setModalidad(Modalidad modalidad) {
+        this.modalidad = modalidad;
+    }
+
+    public Integer getIdMatricula() {
+        return idMatricula;
+    }
+
+    public void setIdMatricula(Integer idMatricula) {
+        this.idMatricula = idMatricula;
+    }
+
+    public Integer getIdHorario() {
+        return idHorario;
+    }
+
+    public void setIdHorario(Integer idHorario) {
+        this.idHorario = idHorario;
+    }
+    
 }

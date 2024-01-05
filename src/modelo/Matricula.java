@@ -15,17 +15,15 @@ public class Matricula {
     private Integer id;
     private Date fecha;
     private Boolean expActivo;
-    private DynamicList<MatriculaAsignatura> matriculasAs;
-    private PeriodoAcademico periodoA;
-    private DynamicList<Tutoria> tutorias;
+    private Integer idPersona;
+    private Integer idPAcademico;
 
-    public Matricula(Integer id, Date fecha, Boolean expActivo, DynamicList<MatriculaAsignatura> matriculasAs, PeriodoAcademico periodoA, DynamicList<Tutoria> tutorias) {
+    public Matricula(Integer id, Date fecha, Boolean expActivo, Integer idPersona, Integer idPAcademico) {
         this.id = id;
         this.fecha = fecha;
         this.expActivo = expActivo;
-        this.matriculasAs = matriculasAs;
-        this.periodoA = periodoA;
-        this.tutorias = tutorias;
+        this.idPersona = idPersona;
+        this.idPAcademico = idPAcademico;
     }
 
     public Matricula() {
@@ -55,27 +53,19 @@ public class Matricula {
         this.expActivo = expActivo;
     }
 
-    public DynamicList<MatriculaAsignatura> getMatriculasAs() {
-        return matriculasAs;
+    public Integer getIdPersona() {
+        return idPersona;
     }
 
-    public void setMatriculasAs(DynamicList<MatriculaAsignatura> matriculasAs) {
-        this.matriculasAs = matriculasAs;
+    public void setIdPersona(Integer idPersona) {
+        this.idPersona = idPersona;
     }
 
-    public PeriodoAcademico getPeriodoA() {
-        return periodoA;
+    public Integer getIdPAcademico() {
+        return idPAcademico;
     }
 
-    public void setPeriodoA(PeriodoAcademico periodoA) {
-        this.periodoA = periodoA;
-    }
-
-    public DynamicList<Tutoria> getTutorias() {
-        return tutorias;
-    }
-
-    public void setTutorias(DynamicList<Tutoria> tutorias) {
-        this.tutorias = tutorias;
+    public void setIdPAcademico(Integer idPAcademico) {
+        this.idPAcademico = idPAcademico;
     }
 }

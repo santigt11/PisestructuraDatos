@@ -7,10 +7,15 @@ public class MallaCurricular {
     private String descripcion;
     private String pensum;
     private Integer idCarrera;
-    private DynamicList<Asignatura> asignaturaList;
 
+    public MallaCurricular(Integer id, String descripcion, String pensum, Integer idCarrera) {
+        this.id = id;
+        this.descripcion = descripcion;
+        this.pensum = pensum;
+        this.idCarrera = idCarrera;
+    }
+    
     public MallaCurricular() {
-        this.asignaturaList = new DynamicList<Asignatura>();
     }
     
     public Integer getId() {
@@ -43,14 +48,6 @@ public class MallaCurricular {
 
     public void setIdCarrera(Integer idCarrera) {
         this.idCarrera = idCarrera;
-    }
-
-    public DynamicList<Asignatura> getAsignaturaList() {
-        return asignaturaList;
-    }
-
-    public void setAsignaturaList(DynamicList<Asignatura> asignaturaList) {
-        this.asignaturaList = asignaturaList;
     }
     
     @Override

@@ -11,12 +11,12 @@ package modelo;
 public class MatriculaAsignatura {
     private Integer id;
     private String curso;
-    private Asignatura asignatura;
+    private Integer idAsignatura;
 
-    public MatriculaAsignatura(Integer id, String curso, Asignatura asignatura) {
+    public MatriculaAsignatura(Integer id, String curso, Integer idAsignatura) {
         this.id = id;
         this.curso = curso;
-        this.asignatura = asignatura;
+        this.idAsignatura = idAsignatura;
     }
 
     public MatriculaAsignatura() {
@@ -38,11 +38,11 @@ public class MatriculaAsignatura {
         this.curso = curso;
     }
 
-    public Asignatura getAsignatura() {
-        return asignatura;
+    public Integer getIdAsignatura() {
+        return idAsignatura;
     }
 
-    public void setAsignatura(Asignatura asignatura) {
-        this.asignatura = asignatura;
+    public void setIdAsignatura(Integer idAsignatura) {
+        this.idAsignatura = idAsignatura;
     }
 }

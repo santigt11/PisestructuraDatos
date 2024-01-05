@@ -5,7 +5,6 @@ public class Facultad {
     private String nombre;
 
     public Facultad() {
-        this.id = id;
     }
 
     public Facultad(Integer id, String nombre) {

@@ -6,18 +6,18 @@ public class Contrato {
     private Integer id;
     private LocalDate fechaRegistro;
     private LocalDate fechaCulminacion;
-    private Persona docente;
-    private Asignatura asignatura;
+    private Integer idPersona;
+    private Integer idAsignatura;
 
     public Contrato() {
     }
 
-    public Contrato(Integer id, LocalDate fechaRegistro, LocalDate fechaCulminacion, Persona docente, Asignatura asignatura) {
+    public Contrato(Integer id, LocalDate fechaRegistro, LocalDate fechaCulminacion, Integer idPersona, Integer idAsignatura) {
         this.id = id;
         this.fechaRegistro = fechaRegistro;
         this.fechaCulminacion = fechaCulminacion;
-        this.docente = docente;
-        this.asignatura = asignatura;
+        this.idPersona = idPersona;
+        this.idAsignatura = idAsignatura;
     }
 
     public Integer getId() {
@@ -44,21 +44,21 @@ public class Contrato {
         this.fechaCulminacion = fechaCulminacion;
     }
 
-    public Persona getDocente() {
-        return docente;
+    public Integer getIdPersona() {
+        return idPersona;
     }
 
-    public void setDocente(Persona docente) {
-        this.docente = docente;
+    public void setIdPersona(Integer idPersona) {
+        this.idPersona = idPersona;
     }
 
-    public Asignatura getAsignatura() {
-        return asignatura;
+    public Integer getIdAsignatura() {
+        return idAsignatura;
     }
 
-    public void setAsignatura(Asignatura asignatura) {
-        this.asignatura = asignatura;
+    public void setIdAsignatura(Integer idAsignatura) {
+        this.idAsignatura = idAsignatura;
     }
-    
+
     
 }
