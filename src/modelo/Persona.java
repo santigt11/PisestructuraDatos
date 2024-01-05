@@ -8,7 +8,7 @@ public class Persona {
     private String dni;
     private String nombre;
     private String apellido;
-    private LocalDate fechaNacimientoi;
+    private LocalDate fechaNacimiento;
     private String telefono;
     private Rol rol;
 
@@ -20,7 +20,7 @@ public class Persona {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.fechaNacimientoi = fechaNacimientoi;
+        this.fechaNacimiento = fechaNacimientoi;
         this.telefono = telefono;
         this.rol = rol;
     }
@@ -58,11 +58,11 @@ public class Persona {
     }
 
     public LocalDate getFechaNacimientoi() {
-        return fechaNacimientoi;
+        return fechaNacimiento;
     }
 
     public void setFechaNacimientoi(LocalDate fechaNacimientoi) {
-        this.fechaNacimientoi = fechaNacimientoi;
+        this.fechaNacimiento = fechaNacimientoi;
     }
 
     public String getTelefono() {
