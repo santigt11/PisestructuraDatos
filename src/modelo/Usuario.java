@@ -10,17 +10,14 @@ package modelo;
  */
 public class Usuario {
     private Integer id;
-    private String cooreo;
+    private String correo;
     private String clave;
+    private Rol rol;
+    private Integer id_Persona;
 
     public Usuario() {
     }
 
-    public Usuario(Integer id, String cooreo, String clave) {
-        this.id = id;
-        this.cooreo = cooreo;
-        this.clave = clave;
-    }
 
     public Integer getId() {
         return id;
@@ -30,13 +27,31 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getCooreo() {
-        return cooreo;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setCooreo(String cooreo) {
-        this.cooreo = cooreo;
+    public Rol getRol() {
+        return rol;
     }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+
+    public Integer getId_Persona() {
+        return id_Persona;
+    }
+
+    public void setId_Persona(Integer id_Persona) {
+        this.id_Persona = id_Persona;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    
 
     public String getClave() {
         return clave;
