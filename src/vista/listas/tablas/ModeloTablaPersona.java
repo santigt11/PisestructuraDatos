@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package vista.listas.tablas;
 
 import controlador.TDA.listas.DynamicList;
@@ -5,7 +9,11 @@ import controlador.TDA.listas.Exception.EmptyException;
 import javax.swing.table.AbstractTableModel;
 import modelo.Persona;
 
-public class TablaPersona extends AbstractTableModel {
+/**
+ *
+ * @author santi
+ */
+public class ModeloTablaPersona extends AbstractTableModel {
 
     private DynamicList<Persona> personas;
 
@@ -16,22 +24,26 @@ public class TablaPersona extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 4;
+        return 6;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         try {
-            Persona ps = personas.getInfo(rowIndex);
+            Persona p = personas.getInfo(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return (ps != null) ? ps.getDni() : " ";
+                    return (p != null) ? p.getDni() : " ";
                 case 1:
-                    return (ps != null) ? ps.getApellido() : " ";
+                    return (p != null) ? p.getApellido() : " ";
                 case 2:
-                    return (ps != null) ? ps.getNombre() : "";
+                    return (p != null) ? p.getNombre() : " ";
                 case 3:
-                    return (ps != null) ? ps.getTelefono() : "";
+                    return (p != null) ? p.getFechaNacimientoi() : "";
+                case 4:
+                    return (p != null) ? p.getTelefono() : "";
+                case 5:
+                    return (p != null) ? p.getRol() : "";
                 default:
                     return null;
             }
@@ -46,11 +58,15 @@ public class TablaPersona extends AbstractTableModel {
             case 0:
                 return "DNI";
             case 1:
-                return "APELLIDO";
-            case 2:
                 return "NOMBRE";
+            case 2:
+                return "APELLIDO";
             case 3:
+                return "FECHA NACIMIENTO";
+            case 4:
                 return "TELEFONO";
+            case 5:
+                return "ROL";
             default:
                 return null;
         }
@@ -60,8 +76,8 @@ public class TablaPersona extends AbstractTableModel {
         return personas;
     }
 
-    public void setPersonas(DynamicList<Persona> persona) {
-        this.personas = persona;
+    public void setPersonas(DynamicList<Persona> personas) {
+        this.personas = personas;
     }
 
 }
