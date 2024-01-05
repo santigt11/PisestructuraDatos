@@ -3,107 +3,105 @@ package controlador.Academico;
 import controlador.DAO.Conexion;
 import controlador.DAO.DaoInterface;
 import controlador.TDA.listas.DynamicList;
-import controlador.TDA.listas.Exception.EmptyException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import modelo.Persona;
-
+import modelo.Rol;
 
 public class PersonaArchivos implements DaoInterface<Persona> {
-    
+
     Conexion instanciaMsql = Conexion.getInstance();
-    private DynamicList<Persona> asignaturas;
+    private DynamicList<Persona> personas;
     private Persona persona;
 
     public PersonaArchivos() {
-        asignaturas = new DynamicList<>();
+        personas = new DynamicList<>();
     }
 
     public PersonaArchivos(DynamicList<Persona> personas, Persona persona) {
-        this.asignaturas = personas;
+        this.personas = personas;
         this.persona = persona;
     }
 
     public DynamicList<Persona> getPersonas() {
-        asignaturas = all();
-        return asignaturas;
+        personas = all();
+        return personas;
     }
 
-    public void setAsignaturas(DynamicList<Persona> personas) {
-        this.asignaturas = personas;
+    public void setPersonas(DynamicList<Persona> personas) {
+        this.personas = personas;
     }
 
-    public Asignatura getAsignatura() {
+    public Persona getPersona() {
         if (persona == null) {
-            persona = new Asignatura();
+            persona = new Persona();
         }
         return persona;
     }
 
-    public void setCarrera(Asignatura asignatura) {
-        this.persona = asignatura;
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
-    
+
     @Override
-    public DynamicList<Asignatura> all() {
-        DynamicList<Asignatura> lista = new DynamicList();
+    public DynamicList<Persona> all() {
+        DynamicList<Persona> lista = new DynamicList();
         PreparedStatement consulta = null;
         Connection conexion = null;
         try {
             conexion = instanciaMsql.conectar();
-            consulta = conexion.prepareStatement("select *from ASIGNATURA");
+            consulta = conexion.prepareStatement("select *from PERSONA");
             ResultSet rs = consulta.executeQuery();
             while (rs.next()) {
-                Asignatura asignatura = new Asignatura(Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), Integer.parseInt(rs.getString(4)), Integer.parseInt(rs.getString(5)));
-                lista.add(asignatura); 
+                String fechaHoraString = rs.getString(5);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                LocalDateTime fechaHoraLocal = LocalDateTime.parse(fechaHoraString, formatter);
+                LocalDate fechaLocal = fechaHoraLocal.toLocalDate();
+                Persona persona = new Persona(Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(4), fechaLocal, rs.getString(6), Rol.valueOf(rs.getString(7)));
+                lista.add(persona);
             }
-            
+
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-        
+
         return lista;
     }
-    
+
     @Override
-    public Boolean persist(Asignatura asignatura) {
+    public Boolean persist(Persona persona) {
         PreparedStatement consulta = null;
         Connection conexion = null;
-        
         try {
             conexion = instanciaMsql.conectar();
-            consulta = conexion.prepareStatement("INSERT INTO ASIGNATURA (ID, NOMBRE, CODIGO, TOTALHORAS) VALUES (?, ?, ?, ?)");
+            consulta = conexion.prepareStatement("INSERT INTO persona(ID, DNI, NOMBRE, APELLIDO, FECHANACIMIENTO, TELEFONO, ROL) VALUES (?, ?, ?, ?, ?, ?, ?)");
             consulta.setInt(1, all().getLength() + 1);
-            consulta.setString(2, asignatura.getNombre());
-            consulta.setString(3, asignatura.getCodigo());
-            consulta.setInt(4, asignatura.getTotalHoras());
-            consulta.setInt(4, asignatura.getIdMalla());
+            consulta.setString(2, persona.getDni());
+            consulta.setString(3, persona.getNombre());
+            consulta.setString(4, persona.getApellido());
+            java.sql.Date fechaSQL = java.sql.Date.valueOf(persona.getFechaNacimientoi());
+            consulta.setDate(5, fechaSQL);
+            consulta.setString(6, persona.getTelefono());
+            consulta.setString(7, String.valueOf(persona.getRol()));
             consulta.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
         return false;
     }
 
-    public boolean buscarCodigo(String text) throws EmptyException {
-        asignaturas = all();
-        for (int i = 0; i < asignaturas.getLength(); i++) {
-            if (asignaturas.getInfo(i).getCodigo().equals(text)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public Boolean merge(Asignatura data, String codigo) {
+    @Override
+    public Boolean merge(Persona data, Integer index) {
         PreparedStatement consulta = null;
         Connection conexion = null;
-        
         try {
             conexion = instanciaMsql.conectar();
-            consulta = conexion.prepareStatement("UPDATE jugador SET nombre = ?, totalhoras = ?");
+            consulta = conexion.prepareStatement("UPDATE persona SET nombre = ?, apellido = ?, WHERE dni = ?;");
             consulta.setString(1, data.getNombre());
             consulta.executeUpdate();
             return true;
@@ -114,17 +112,12 @@ public class PersonaArchivos implements DaoInterface<Persona> {
     }
 
     @Override
-    public Asignatura get(Integer id) {
+    public Persona get(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
-    public Boolean merge(Asignatura data, Integer index) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     public static void main(String[] args) {
-        Asignatura a = new Asignatura(1, "Algebra Lineal", "AL001", 300, 1);
-        PersonaArchivos aa = new PersonaArchivos();
-        aa.persist(a);
+        PersonaArchivos pa = new PersonaArchivos();
+        System.out.println(pa.all().toString());
     }
 }

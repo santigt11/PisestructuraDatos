@@ -4,13 +4,13 @@
  */
 package Vista;
 
-
+import controlador.Academico.PersonaArchivos;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.Utiles.Utiles;
-import controladorP.PersonaControlN;
-import controladorP.PersonaControlP;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,11 +23,11 @@ import vista.listas.tablas.ModeloTablaPersona;
  * @author marian
  */
 public class FrmGuardarPersona extends javax.swing.JFrame {
-      private PersonaControlN personaControl = new PersonaControlN();
-      private ModeloTablaPersona mtp = new ModeloTablaPersona();
-      private PersonaControlP control = new PersonaControlP();
 
-   private void cargarVista() {
+    private PersonaArchivos personaControl = new PersonaArchivos();
+    private ModeloTablaPersona mtp = new ModeloTablaPersona();
+
+    private void cargarVista() {
         int fila = tbPersona.getSelectedRow();
         if (fila < 0) {
             JOptionPane.showMessageDialog(null, "Escoja un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
@@ -35,11 +35,10 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
             try {
                 personaControl.setPersona(mtp.getPersonas().getInfo(fila));
                 txtApellido.setText(personaControl.getPersona().getApellido());
-                txtFechaNacimiento.setText("");  
                 txtDni.setEnabled(false);
                 txtNombre.setText(personaControl.getPersona().getNombre());
                 txtTelefono.setText(personaControl.getPersona().getTelefono());
-                Integer dniValue = personaControl.getPersona().getDni(); 
+                String dniValue = personaControl.getPersona().getDni();
                 txtDni.setText((dniValue != null) ? dniValue.toString() : "");
 //                cbxRol.setSelectedIndex(1- personaControl.getPersona().getRol());
             } catch (Exception ex) {
@@ -47,50 +46,47 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
             }
         }
     }
-   public Boolean verificar() {
+
+    public Boolean verificar() {
         return (!txtDni.getText().trim().isEmpty()
                 && !txtApellido.getText().trim().isEmpty()
                 && !txtNombre.getText().trim().isEmpty()
-                && !txtTelefono.getText().trim().isEmpty()
-                && !txtFechaNacimiento.getText().trim().isEmpty());
-               
+                && !txtTelefono.getText().trim().isEmpty());
+
     }
+
     private void cargarTabla() {
-        mtp.setPersonas(control.all());
-        personaControl.setPersonas(control.all());
+        mtp.setPersonas(personaControl.all());
+        personaControl.setPersonas(personaControl.all());
         tbPersona.setModel(mtp);
         tbPersona.updateUI();
     }
-      private void guardar() throws EmptyException, ParseException {
+
+    private void guardar() throws EmptyException, ParseException {
         if (verificar()) {
             if (Utiles.validadorDeCedula(txtDni.getText())) {
                 personaControl.getPersona().setApellido(txtApellido.getText());
                 try {
-                // Convertir el DNI a entero
-                int dni = Integer.parseInt(txtDni.getText());
-                personaControl.getPersona().setDni(dni);
-            } catch (NumberFormatException e) {
-                System.err.println("Error al convertir el DNI a número: " + e.getMessage());
-                // Puedes mostrar un mensaje de error al usuario o manejar la excepción de otra manera
-                return; // Salir del método si hay un error en la conversión
-            }
-                personaControl.getPersona().setDni(txtDni.getText().matches("\\d+") ? Integer.parseInt(txtDni.getText()) : 0);
+                    // Convertir el DNI a entero
+                    String dni = txtDni.getText();
+                    personaControl.getPersona().setDni(dni);
+                } catch (NumberFormatException e) {
+                    System.err.println("Error al convertir el DNI a número: " + e.getMessage());
+                    // Puedes mostrar un mensaje de error al usuario o manejar la excepción de otra manera
+                    return; // Salir del método si hay un error en la conversión
+                }
+                personaControl.getPersona().setDni(txtDni.getText());
                 personaControl.getPersona().setNombre(txtNombre.getText());
-               
-     
+
 //               personaControl.getPersona().setFechaNacimiento(Integer.parseInt(txtFechaNacimiento.getText()));
 //               SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); // Define el formato de fecha
 //               Date fechaNacimiento = dateFormat.parse(txtFechaNacimiento.getText()); // Convierte el texto a un objeto Date
 //
 //personaControl.getPersona().setFechaNacimiento(fechaNacimiento); // Establece la fecha de nacimiento en el objeto Persona
-
                 personaControl.getPersona().setTelefono(txtTelefono.getText());
-               
-                Rol selectedRol = (Rol) cbxRol.getSelectedItem();
-                if (selectedRol != null) {
-                    personaControl.getPersona().setRol(selectedRol);
-                } else {
-                     switch (cbxRol.getSelectedIndex()) {
+
+                if (cbxRol.getSelectedItem() != null) {
+                    switch (cbxRol.getSelectedIndex()) {
                         case 0:
                             personaControl.getPersona().setRol(Rol.ESTUDIANTE);
                             break;
@@ -103,9 +99,9 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
                         default:
                             throw new AssertionError();
                     }
-}
-                if (personaControl.guardar()) {
-                    control.persist(personaControl.getPersona());
+                }
+                personaControl.getPersona().setFechaNacimientoi(txtFechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                if (personaControl.persist(personaControl.getPersona())) {
                     JOptionPane.showMessageDialog(null, "Datos guardados");
                     cargarTabla();
                     limpiar();
@@ -120,22 +116,23 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-   private void limpiar() {
-        
+
+    private void limpiar() {
+
         txtDni.setEnabled(true);
         tbPersona.clearSelection();
         txtApellido.setText("");
         txtNombre.setText("");
         txtDni.setText("");
-        txtFechaNacimiento.setText("");
         txtTelefono.setText("");
         cargarTabla();
         personaControl.setPersona(null);
         cbxRol.setSelectedIndex(0);
     }
+
     public FrmGuardarPersona() {
         initComponents();
-         limpiar();
+        limpiar();
     }
 
     /**
@@ -162,8 +159,7 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
         cbxRol = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
-        jCalendar1 = new com.toedter.calendar.JCalendar();
-        txtFechaNacimiento = new javax.swing.JTextField();
+        txtFechaNacimiento = new com.toedter.calendar.JDateChooser();
         jPanel3 = new javax.swing.JPanel();
         btnGuardar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -228,12 +224,6 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
 
         jLabel9.setText("Telefono :");
 
-        jCalendar1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jCalendar1PropertyChange(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -255,29 +245,28 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
                                 .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(txtApellido))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtApellido))))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(52, 52, 52)
+                                        .addComponent(jLabel7)
+                                        .addGap(35, 35, 35)
+                                        .addComponent(cbxRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(52, 52, 52)
-                                .addComponent(jLabel7)
-                                .addGap(35, 35, 35)
-                                .addComponent(cbxRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtFechaNacimiento)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(20, 20, 20))
         );
         jPanel2Layout.setVerticalGroup(
@@ -299,18 +288,13 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(12, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(19, 19, 19))))
+                    .addComponent(jLabel5)
+                    .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -364,7 +348,7 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
                 .addComponent(jButton2)
                 .addGap(44, 44, 44)
                 .addComponent(btnCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addComponent(btnSeleccionar)
                 .addGap(30, 30, 30)
                 .addComponent(btnModificar)
@@ -405,26 +389,30 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)))
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(204, 204, 204))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -441,13 +429,13 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             guardar();
         } catch (EmptyException ex) {
             System.out.println(ex.getMessage());
         } catch (ParseException ex) {
-              Logger.getLogger(FrmGuardarPersona.class.getName()).log(Level.SEVERE, null, ex);
-          }
+            Logger.getLogger(FrmGuardarPersona.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -467,32 +455,17 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-         personaControl.getPersona().setApellido(txtApellido.getText());
-        personaControl.getPersona().setDni(txtDni.getText().matches("\\d+") ? Integer.parseInt(txtDni.getText()) : 0);
+        personaControl.getPersona().setApellido(txtApellido.getText());
+        personaControl.getPersona().setDni(txtDni.getText());
 //        personaControl.getPersona().setFechaNacimiento(txtFechaNacimiento.getText().matches("\\d+") ? Integer.parseInt(txtFechaNacimiento.getText()) : 0);
-try {
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    Date fechaNacimiento = dateFormat.parse(txtFechaNacimiento.getText());
-
-    personaControl.getPersona().setFechaNacimiento(fechaNacimiento);
-} catch (ParseException e) {
-    e.printStackTrace(); // Manejar la excepción de análisis de fecha si es necesario
-}
-
+        LocalDate fechaNacimiento = txtFechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(); // Manejar la excepción de análisis de fecha si es necesario
+        personaControl.getPersona().setFechaNacimientoi(fechaNacimiento);
         personaControl.getPersona().setNombre(txtNombre.getText());
         personaControl.getPersona().setTelefono(txtTelefono.getText());
-        control.merge(personaControl.getPersona(), tbPersona.getSelectedRow());
+        personaControl.merge(personaControl.getPersona(), tbPersona.getSelectedRow());
         cargarTabla();
         limpiar();
     }//GEN-LAST:event_btnModificarActionPerformed
-
-    private void jCalendar1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendar1PropertyChange
-        // TODO add your handling code here:
-        if(evt.getOldValue() != null){
-        SimpleDateFormat ff = new SimpleDateFormat("dd/mm/yyyy");
-        txtFechaNacimiento.setText(ff.format(jCalendar1.getCalendar().getTime()));
-    }
-    }//GEN-LAST:event_jCalendar1PropertyChange
 
     /**
      * @param args the command line arguments
@@ -537,7 +510,6 @@ try {
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox<String> cbxRol;
     private javax.swing.JButton jButton2;
-    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -553,7 +525,7 @@ try {
     private javax.swing.JTable tbPersona;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtDni;
-    private javax.swing.JTextField txtFechaNacimiento;
+    private com.toedter.calendar.JDateChooser txtFechaNacimiento;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables

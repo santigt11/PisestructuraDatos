@@ -4,7 +4,6 @@
  */
 package vista.listas.tablas;
 
-
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import javax.swing.table.AbstractTableModel;
@@ -25,7 +24,7 @@ public class ModeloTablaPersona extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 7;
+        return 6;
     }
 
     @Override
@@ -34,15 +33,17 @@ public class ModeloTablaPersona extends AbstractTableModel {
             Persona p = personas.getInfo(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return (p != null) ? p.getDni(): " ";
+                    return (p != null) ? p.getDni() : " ";
                 case 1:
-                    return (p != null) ? p.getApellido(): " ";
-               case 2:
-                    return (p != null) ? p.getNombre(): " ";
+                    return (p != null) ? p.getApellido() : " ";
+                case 2:
+                    return (p != null) ? p.getNombre() : " ";
                 case 3:
-                    return (p != null) ? p.getFechaNacimiento(): "";
+                    return (p != null) ? p.getFechaNacimientoi() : "";
                 case 4:
                     return (p != null) ? p.getTelefono() : "";
+                case 5:
+                    return (p != null) ? p.getRol() : "";
                 default:
                     return null;
             }
@@ -62,11 +63,10 @@ public class ModeloTablaPersona extends AbstractTableModel {
                 return "APELLIDO";
             case 3:
                 return "FECHA NACIMIENTO";
-           case 4:
+            case 4:
                 return "TELEFONO";
-          case 5:
+            case 5:
                 return "ROL";
-         
             default:
                 return null;
         }
