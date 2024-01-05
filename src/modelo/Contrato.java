@@ -7,7 +7,7 @@ public class Contrato {
     private LocalDate fechaRegistro;
     private LocalDate fechaCulminacion;
     private Integer idPersona;
-    private Integer idAsignatura;
+    private Integer codigoAsignatura;
 
     public Contrato() {
     }
@@ -17,7 +17,7 @@ public class Contrato {
         this.fechaRegistro = fechaRegistro;
         this.fechaCulminacion = fechaCulminacion;
         this.idPersona = idPersona;
-        this.idAsignatura = idAsignatura;
+        this.codigoAsignatura = idAsignatura;
     }
 
     public Integer getId() {
@@ -52,13 +52,11 @@ public class Contrato {
         this.idPersona = idPersona;
     }
 
-    public Integer getIdAsignatura() {
-        return idAsignatura;
+    public Integer getCodigoAsignatura() {
+        return codigoAsignatura;
     }
 
-    public void setIdAsignatura(Integer idAsignatura) {
-        this.idAsignatura = idAsignatura;
+    public void setCodigoAsignatura(Integer idAsignatura) {
+        this.codigoAsignatura = idAsignatura;
     }
-
-    
 }

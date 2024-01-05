@@ -3,6 +3,7 @@ package controlador.Academico;
 import controlador.DAO.Conexion;
 import controlador.DAO.DaoInterface;
 import controlador.TDA.listas.DynamicList;
+import controlador.TDA.listas.Exception.EmptyException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -103,10 +104,22 @@ public class PersonaArchivos implements DaoInterface<Persona> {
             conexion = instanciaMsql.conectar();
             consulta = conexion.prepareStatement("UPDATE persona SET nombre = ?, apellido = ?, WHERE dni = ?;");
             consulta.setString(1, data.getNombre());
+            consulta.setString(2, data.getApellido());
+            consulta.setString(3, data.getDni());
             consulta.executeUpdate();
             return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+    public boolean buscarDNI(String text) throws EmptyException {
+        personas = all();
+        for (int i = 0; i < personas.getLength(); i++) {
+            if (personas.getInfo(i).getDni().equals(text)) {
+                return true;
+            }
         }
         return false;
     }
