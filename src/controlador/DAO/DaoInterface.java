@@ -4,7 +4,7 @@ import controlador.TDA.listas.DynamicList;
 
 public interface DaoInterface<T> {
     public Boolean persist(T data);
-    public Boolean merge(T data, Integer index);
+    public Boolean merge(T data);
     public DynamicList<T> all();
     public T get(Integer id);
 }

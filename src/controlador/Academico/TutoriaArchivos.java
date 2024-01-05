@@ -105,7 +105,7 @@ public class TutoriaArchivos implements DaoInterface<Tutoria> {
     }
 
     @Override
-    public Boolean merge(Tutoria data, Integer index) {
+    public Boolean merge(Tutoria data) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

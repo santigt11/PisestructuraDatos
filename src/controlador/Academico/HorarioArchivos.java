@@ -118,7 +118,7 @@ public class HorarioArchivos implements DaoInterface<Horario> {
     }
 
     @Override
-    public Boolean merge(Horario data, Integer index) {
+    public Boolean merge(Horario data) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

@@ -79,10 +79,10 @@ public class AsignaturaArchivos implements DaoInterface<Asignatura> {
             consulta.setInt(4, asignatura.getTotalHoras());
             consulta.setInt(4, asignatura.getIdMalla());
             consulta.executeUpdate();
+            return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
         return false;
     }
 
@@ -118,7 +118,7 @@ public class AsignaturaArchivos implements DaoInterface<Asignatura> {
     }
 
     @Override
-    public Boolean merge(Asignatura data, Integer index) {
+    public Boolean merge(Asignatura data) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

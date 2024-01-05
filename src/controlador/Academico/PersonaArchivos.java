@@ -90,6 +90,7 @@ public class PersonaArchivos implements DaoInterface<Persona> {
             consulta.setString(6, persona.getTelefono());
             consulta.setString(7, String.valueOf(persona.getRol()));
             consulta.executeUpdate();
+            return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -97,15 +98,16 @@ public class PersonaArchivos implements DaoInterface<Persona> {
     }
 
     @Override
-    public Boolean merge(Persona data, Integer index) {
+    public Boolean merge(Persona data) {
         PreparedStatement consulta = null;
         Connection conexion = null;
         try {
             conexion = instanciaMsql.conectar();
-            consulta = conexion.prepareStatement("UPDATE persona SET nombre = ?, apellido = ?, WHERE dni = ?;");
+            consulta = conexion.prepareStatement("UPDATE PERSONA SET NOMBRE = ?, APELLIDO = ?, TELEFONO = ? WHERE DNI = ?");
             consulta.setString(1, data.getNombre());
             consulta.setString(2, data.getApellido());
-            consulta.setString(3, data.getDni());
+            consulta.setString(3, data.getTelefono());
+            consulta.setString(4, data.getDni());
             consulta.executeUpdate();
             return true;
         } catch (SQLException e) {
