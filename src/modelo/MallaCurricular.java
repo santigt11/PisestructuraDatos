@@ -1,16 +1,21 @@
 package modelo;
 
-import controlador.TDA.listas.DynamicList;
-
 public class MallaCurricular {
     private Integer id;
     private String descripcion;
     private String pensum;
     private Integer idCarrera;
-    private DynamicList<Asignatura> asignaturaList;
+    private boolean vigencia;
 
     public MallaCurricular() {
-        this.asignaturaList = new DynamicList<Asignatura>();
+    }
+
+    public MallaCurricular(Integer id, String descripcion, String pensum, Integer idCarrera, boolean vigencia) {
+        this.id = id;
+        this.descripcion = descripcion;
+        this.pensum = pensum;
+        this.idCarrera = idCarrera;
+        this.vigencia = vigencia;
     }
     
     public Integer getId() {
@@ -45,12 +50,12 @@ public class MallaCurricular {
         this.idCarrera = idCarrera;
     }
 
-    public DynamicList<Asignatura> getAsignaturaList() {
-        return asignaturaList;
+    public boolean isVigencia() {
+        return vigencia;
     }
 
-    public void setAsignaturaList(DynamicList<Asignatura> asignaturaList) {
-        this.asignaturaList = asignaturaList;
+    public void setVigencia(boolean vigencia) {
+        this.vigencia = vigencia;
     }
     
     @Override

@@ -63,7 +63,7 @@ public class AsignaturaControl {
         return asignaturas;
     }
 
-    public void setCarreras(DynamicList<Asignatura> asignaturas) {
+    public void setAsignaturas(DynamicList<Asignatura> asignaturas) {
         this.asignaturas = asignaturas;
     }
 

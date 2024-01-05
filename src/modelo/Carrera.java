@@ -6,6 +6,16 @@ public class Carrera {
     private Integer numCiclos;
     private Integer idFacultad;
 
+    public Carrera() {
+    }
+
+    public Carrera(Integer id, String nombre, Integer numCiclos, Integer idFacultad) {
+        this.id = id;
+        this.nombre = nombre;
+        this.numCiclos = numCiclos;
+        this.idFacultad = idFacultad;
+    }    
+    
     public Integer getId() {
         return id;
     }
