@@ -1,25 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelo;
 
-/**
- *
- * @author Santiago
- */
 public class MatriculaAsignatura {
+
     private Integer id;
     private String curso;
+    private Integer idMatricula;
     private Integer idAsignatura;
 
-    public MatriculaAsignatura(Integer id, String curso, Integer idAsignatura) {
-        this.id = id;
-        this.curso = curso;
-        this.idAsignatura = idAsignatura;
+    public MatriculaAsignatura() {
     }
 
-    public MatriculaAsignatura() {
+    public MatriculaAsignatura(Integer id, String curso, Integer idMatricula, Integer idAsignatura) {
+        this.id = id;
+        this.curso = curso;
+        this.idMatricula = idMatricula;
+        this.idAsignatura = idAsignatura;
     }
 
     public Integer getId() {
@@ -38,11 +33,24 @@ public class MatriculaAsignatura {
         this.curso = curso;
     }
 
+    public Integer getIdMatricula() {
+        return idMatricula;
+    }
+
+    public void setIdMatricula(Integer idMatricula) {
+        this.idMatricula = idMatricula;
+    }
+
     public Integer getIdAsignatura() {
         return idAsignatura;
     }
 
     public void setIdAsignatura(Integer idAsignatura) {
         this.idAsignatura = idAsignatura;
+    }
+
+    @Override
+    public String toString() {
+        return curso + "  -  " + idAsignatura;
     }
 }

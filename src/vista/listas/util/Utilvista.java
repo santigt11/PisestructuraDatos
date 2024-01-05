@@ -1,19 +1,23 @@
 package vista.listas.util;
 
+<<<<<<< HEAD
+import controlador.*;
+import controlador.Matricula.PeriodoArchivos;
+=======
 import controlador.Academico.AsignaturaArchivos;
 import controlador.Academico.HorarioArchivos;
+>>>>>>> main
 import controlador.TDA.listas.Exception.EmptyException;
 import javax.swing.JComboBox;
 import modelo.Facultad;
-import controlador.FacultadControl;
 import modelo.Carrera;
-import controlador.CarreraControl;
 import modelo.MallaCurricular;
-import controlador.MallaControl;
 import modelo.Asignatura;
-import controlador.AsignaturaControl;
 import controlador.Persona.PersonaArchivos;
-import controlador.PersonaControl;
+import controlador.MatriculaControl;
+import controlador.Matricula.MatriculaArchivos;
+import controlador.MatriculaAsignaturaControl;
+import controlador.Matricula.MatriculaAsignaturaArchivos;
 
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
@@ -63,6 +67,26 @@ public class Utilvista {
 
     public static MallaCurricular obtenerMallaControl(JComboBox cbx){
         return (MallaCurricular) cbx.getSelectedItem();
+    }
+
+    public static void cargarComboPeriodo(JComboBox cbx) throws EmptyException{
+        PeriodoAControl pc = new PeriodoAControl();
+        PeriodoArchivos vv = new PeriodoArchivos();
+        pc.setPeriodos(vv.all());
+        cbx.removeAllItems();
+        for (Integer i = 0; i < pc.getPeriodos().getLength(); i++) {
+                cbx.addItem(pc.getPeriodos().getInfo(i));
+        }
+    }
+
+    public static void cargarComboMatricula(JComboBox cbx) throws EmptyException{
+        MatriculaControl mc = new MatriculaControl();
+        MatriculaArchivos vv = new MatriculaArchivos();
+        mc.setMatriculas(vv.all());
+        cbx.removeAllItems();
+        for (Integer i = 0; i < mc.getMatriculas().getLength(); i++) {
+                cbx.addItem(mc.getMatriculas().getInfo(i));
+        }
     }
 
     public static void cargarListaFacultades(JList lst) throws EmptyException {
@@ -151,7 +175,32 @@ public class Utilvista {
         }
         lst.setModel(modeloLista);
     }
-    
+
+    public static void cargarListaEstudiantes(JList lst) throws EmptyException {
+        PersonaArchivos ap = new PersonaArchivos();
+        PersonaControl pc = new PersonaControl();
+        pc.setPersonas(ap.all());
+        DefaultListModel modeloLista = new DefaultListModel();
+        for (Integer i = 0; i < pc.getPersonas().getLength(); i++) {
+            if (pc.getPersonas().getInfo(i).getRol().toString().equals("ESTUDIANTE")) {
+                modeloLista.addElement(pc.getPersonas().getInfo(i));
+            }
+        }
+        lst.setModel(modeloLista);
+    }
+
+    public static void cargarListaMatriculasAsignaturas(JList lst, MatriculaControl matriculaControl, MatriculaAsignaturaControl matriculaAsignaturaControl) throws EmptyException {
+        MatriculaAsignaturaArchivos maa = new MatriculaAsignaturaArchivos();
+        matriculaAsignaturaControl.setAsgMatriculas(maa.all());
+        DefaultListModel modeloLista = new DefaultListModel();
+        for (Integer i = 0; i < matriculaAsignaturaControl.getAsgMatriculas().getLength(); i++) {
+            if (matriculaAsignaturaControl.getAsgMatriculas().getInfo(i).getIdMatricula().equals(matriculaControl.getMatricula().getId())) {
+                modeloLista.addElement(matriculaAsignaturaControl.getAsgMatriculas().getInfo(i));
+            }
+        }
+        lst.setModel(modeloLista);
+    }
+
     public static void limpiarLista(JList lst){
         DefaultListModel modeloLista = new DefaultListModel();
         lst.setModel(modeloLista);
