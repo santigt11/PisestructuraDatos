@@ -12,6 +12,19 @@ public class Persona {
     private String telefono;
     private Rol rol;
 
+    public Persona() {
+    }
+
+    public Persona(Integer id, String dni, String nombre, String apellido, LocalDate fechaNacimientoi, String telefono, Rol rol) {
+        this.id = id;
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.fechaNacimientoi = fechaNacimientoi;
+        this.telefono = telefono;
+        this.rol = rol;
+    }
+    
     public Integer getId() {
         return id;
     }

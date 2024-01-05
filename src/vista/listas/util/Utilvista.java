@@ -8,8 +8,11 @@ import modelo.Carrera;
 import controlador.CarreraControl;
 import modelo.MallaCurricular;
 import controlador.MallaControl;
+import modelo.Asignatura;
+import controlador.AsignaturaControl;
 import controlador.Persona.PersonaArchivos;
 import controlador.PersonaControl;
+
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
 
@@ -41,6 +44,22 @@ public class Utilvista {
 
     public static Carrera obtenerCarreraControl(JComboBox cbx){
         return (Carrera) cbx.getSelectedItem();
+    }
+
+    public static void cargarComboMalla(JComboBox cbx, Carrera carrera) throws EmptyException{
+        MallaControl mc = new MallaControl();
+        controlador.Academico.MallaArchivos vv = new controlador.Academico.MallaArchivos();
+        mc.setMallas(vv.all());
+        cbx.removeAllItems();
+        for (Integer i = 0; i < mc.getMallas().getLength(); i++) {
+            if (mc.getMallas().getInfo(i).getIdCarrera().equals(carrera.getId())) {
+                cbx.addItem(mc.getMallas().getInfo(i));
+            }
+        }
+    }
+
+    public static MallaCurricular obtenerMallaControl(JComboBox cbx){
+        return (MallaCurricular) cbx.getSelectedItem();
     }
 
     public static void cargarListaFacultades(JList lst) throws EmptyException {
@@ -94,9 +113,14 @@ public class Utilvista {
     }
 
     public static void cargarListaAsignaturas(JList lst, MallaCurricular malla) throws EmptyException {
+        AsignaturaControl ac = new AsignaturaControl();
+        controlador.Academico.AsignaturaArchivos aa = new controlador.Academico.AsignaturaArchivos();
+        ac.setAsignaturas(aa.all());
         DefaultListModel modeloLista = new DefaultListModel();
-        for (Integer i = 0; i < malla.getAsignaturaList().getLength(); i++) {
-            modeloLista.addElement(malla.getAsignaturaList().getInfo(i));
+        for (Integer i = 0; i < ac.getAsignaturas().getLength(); i++) {
+            if (ac.getAsignaturas().getInfo(i).getIdMalla().equals(malla.getId())) {
+                modeloLista.addElement(ac.getAsignaturas().getInfo(i));
+            }
         }
         lst.setModel(modeloLista);
     }

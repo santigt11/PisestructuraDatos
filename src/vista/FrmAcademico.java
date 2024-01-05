@@ -5,11 +5,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
+import controlador.TDA.listas.DynamicList;
+import controlador.Utiles.Utiles;
+
 import controlador.FacultadControl;
 import controlador.CarreraControl;
 import controlador.MallaControl;
-import controlador.TDA.listas.DynamicList;
-import controlador.Utiles.Utiles;
+import controlador.AsignaturaControl;
+
+import controlador.Academico.AsignaturaArchivos;
+import controlador.Academico.CarreraArchivos;
+import controlador.Academico.FacultadArchivos;
+import controlador.Academico.MallaArchivos;
 
 import modelo.Facultad;
 import modelo.Carrera;
@@ -25,16 +32,12 @@ public class FrmAcademico extends javax.swing.JFrame {
     private FacultadControl facultadControl = new FacultadControl();
     private CarreraControl carreraControl = new CarreraControl();
     private MallaControl mallaControl = new MallaControl();
+    private AsignaturaControl asignaturaControl = new AsignaturaControl();
 
-    private controlador.Academico.FacultadArchivos fControl = new controlador.Academico.FacultadArchivos();
-    private controlador.Academico.CarreraArchivos cControl = new controlador.Academico.CarreraArchivos();
-    private controlador.Academico.MallaArchivos mControl = new controlador.Academico.MallaArchivos();
-    private controlador.Academico.AsignaturaArchivos aControl = new controlador.Academico.AsignaturaArchivos();
-
-    private TablaAsignatura tad = new TablaAsignatura();
-    private TablaAsignatura taa = new TablaAsignatura();
-
-    FrmAsignatura nuevaAsignatura = new FrmAsignatura();
+    private FacultadArchivos fileFacultad = new FacultadArchivos();
+    private CarreraArchivos fileCarrera = new CarreraArchivos();
+    private MallaArchivos fileMalla = new MallaArchivos();
+    private AsignaturaArchivos fileAsignatura = new AsignaturaArchivos();
 
     public Boolean verificar(Integer var) {
         switch (var) {
@@ -49,8 +52,13 @@ public class FrmAcademico extends javax.swing.JFrame {
                 String flag2 = cbxCarrera.getSelectedItem() != null ? cbxCarrera.getSelectedItem().toString().trim() : "";
                 return (!flag2.isEmpty()
                         && !txtDescripcion.getText().trim().isEmpty()
-                        && !txtPensum.getText().trim().isEmpty()
-                        && !tbAsignaturasAsignadas.toString().trim().isEmpty());
+                        && !txtPensum.getText().trim().isEmpty());
+            case 4:
+                String flag3 = cbxMalla.getSelectedItem() != null ? cbxMalla.getSelectedItem().toString().trim() : "";
+                return (!flag3.isEmpty()
+                        && !txtNombreA.getText().trim().isEmpty()
+                        && !txtCodigoA.getText().trim().isEmpty()
+                        && !spnTotalHorasA.getValue().toString().trim().isEmpty());
             default:
                 throw new AssertionError();
         }
@@ -61,7 +69,7 @@ public class FrmAcademico extends javax.swing.JFrame {
             case 1:
                 limpiarSoft();
                 try {
-                    facultadControl.setFacultad(fControl.getFacultades().getInfo(lstFacultad.getSelectedIndex()));
+                    facultadControl.setFacultad(fileFacultad.getFacultades().getInfo(lstFacultad.getSelectedIndex()));
                     txtNombreF.setText(facultadControl.getFacultad().getNombre());
                     txtNombreF.setEnabled(false);
                     btCrearF.setEnabled(false);
@@ -69,13 +77,13 @@ public class FrmAcademico extends javax.swing.JFrame {
                     Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 break;
-            case 2: {
+            case 2: 
                 try {
-                    limpiarMalla();
-                } catch (EmptyException ex) {
-                    Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                limpiarMalla();
+            } catch (EmptyException ex) {
+                Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
             }
+
             Object c = lstCarrera.getSelectedValue();
             Carrera carrera = (Carrera) c;
             try {
@@ -93,13 +101,13 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
             break;
 
-            case 3: {
+            case 3: 
                 try {
-                    limpiarMalla();
-                } catch (EmptyException ex) {
-                    Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                limpiarMalla();
+            } catch (EmptyException ex) {
+                Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
             }
+
             Object m = lstMalla.getSelectedValue();
             MallaCurricular malla = (MallaCurricular) m;
             try {
@@ -107,111 +115,128 @@ public class FrmAcademico extends javax.swing.JFrame {
                 cbxCarrera.setSelectedIndex(mallaControl.getMalla().getIdCarrera());
                 txtDescripcion.setText(mallaControl.getMalla().getDescripcion());
                 txtPensum.setText(mallaControl.getMalla().getPensum());
-                cargarTablaAsignaturaA(malla.getAsignaturaList());
+                if (mallaControl.getMalla().isVigencia()) {
+                    cbxVigencia.setSelectedIndex(0);
+                } else if (mallaControl.getMalla().isVigencia() == false) {
+                    cbxVigencia.setSelectedIndex(1);
+                }
 
                 btCrearM.setEnabled(false);
                 cbxCarrera.setEnabled(false);
+                cbxVigencia.setEnabled(false);
                 txtDescripcion.setEnabled(false);
                 txtPensum.setEnabled(false);
-                tbAsignaturasDisponibles.setEnabled(false);
-                tbAsignaturasAsignadas.setEnabled(false);
-                btAgregarAsg.setEnabled(false);
-                btRemoverAsg.setEnabled(false);
-                btDescartar.setEnabled(false);
             } catch (Exception ex) {
                 Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
             }
             break;
+            case 4:
+                try {
+                limpiarAsignatura();
+            } catch (EmptyException ex) {
+                Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Object a = lstAsignatura.getSelectedValue();
+            Asignatura asignatura = (Asignatura) a;
+            try {
+                asignaturaControl.setAsignatura(asignatura);
+                cbxCarreraMalla.setSelectedIndex(fileCarrera.getCarreras().getInfo(fileMalla.getMallas().getInfo(asignaturaControl.getAsignatura().getIdMalla()).getIdCarrera()).getId());
+                cbxMalla.setSelectedIndex(-1);
+                txtMallaRegistrada.setText(fileMalla.getMallas().getInfo(asignaturaControl.getAsignatura().getIdMalla()).toString());
+                txtNombreA.setText(asignaturaControl.getAsignatura().getNombre());
+                txtCodigoA.setText(asignaturaControl.getAsignatura().getCodigo());
+                spnTotalHorasA.setValue(asignaturaControl.getAsignatura().getTotalHoras());
 
+                btCrearA.setEnabled(false);
+                cbxCarreraMalla.setEnabled(false);
+                cbxMalla.setEnabled(false);
+                txtNombreA.setEnabled(false);
+                txtCodigoA.setEnabled(false);
+                spnTotalHorasA.setEnabled(false);
+            } catch (Exception ex) {
+                Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            break;
             default:
                 throw new AssertionError();
         }
-    }
-
-    private void cargarTablaAsignaturaD() {
-        tad.setAsignaturas(aControl.all());
-        tbAsignaturasDisponibles.setModel(tad);
-        tbAsignaturasDisponibles.updateUI();
-    }
-
-    private void cargarTablaAsignaturaA(DynamicList<Asignatura> datos) throws EmptyException {
-        for (Integer i = 0; i < datos.getLength(); i++) {
-            taa.getAsignaturas().add(datos.getInfo(i));
-        }
-        tbAsignaturasAsignadas.setModel(taa);
-        tbAsignaturasAsignadas.updateUI();
-    }
-
-    private void actualizarTablaAsignaturaA() {
-        taa.setAsignaturas(mControl.getMalla().getAsignaturaList());
-        tbAsignaturasAsignadas.setModel(taa);
-        tbAsignaturasAsignadas.updateUI();
     }
 
     private void limpiar() throws EmptyException {
         try {
             Utilvista.cargarComboFacultades(cbxFacultad);
             Utilvista.cargarComboCarreras(cbxCarrera);
+            Utilvista.cargarComboCarreras(cbxCarreraMalla);
             Utilvista.cargarListaFacultades(lstFacultad);
             limpiarSoft();
             limpiarMalla();
+            limpiarAsignatura();
         } catch (EmptyException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        tbAsignaturasAsignadas.clearSelection();
-        tbAsignaturasDisponibles.clearSelection();
 
         txtNombreF.setText("");
 
         btGCFacultad.setEnabled(false);
         btGCCarrera.setEnabled(false);
         btGCMalla.setEnabled(false);
+        btGCAsignatura.setEnabled(false);
         btModificarFacultad.setEnabled(false);
         btModificarCarrera.setEnabled(false);
         btModificarMalla.setEnabled(false);
+        btModificarAsignatura.setEnabled(false);
 
         habilitarTodo();
 
         facultadControl.setFacultad(null);
         carreraControl.setCarrera(null);
         mallaControl.setMalla(null);
-
-        cargarTablaAsignaturaD();
     }
 
     private void limpiarSoft() {
         Utilvista.limpiarLista(lstCarrera);
         Utilvista.limpiarLista(lstMalla);
+        Utilvista.limpiarLista(lstAsignatura);
 
         cbxFacultad.setSelectedIndex(-1);
         txtNombreC.setText("");
         spnCiclo.setValue(0);
         try {
             limpiarMalla();
+            limpiarAsignatura();
         } catch (EmptyException ex) {
             Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     private void limpiarMalla() throws EmptyException {
+        limpiarAsignatura();
         cbxCarrera.setSelectedIndex(-1);
         txtDescripcion.setText("");
         txtPensum.setText("");
-        actualizarTablaAsignaturaA();
-
-        while (mControl.getMalla().getAsignaturaList().getLength() > 0) {
-            mControl.getMalla().getAsignaturaList().extract(0);
-        }
 
         cbxCarrera.setEnabled(true);
         txtDescripcion.setEnabled(true);
         txtPensum.setEnabled(true);
-        tbAsignaturasDisponibles.setEnabled(true);
-        tbAsignaturasAsignadas.setEnabled(true);
-        btDescartar.setEnabled(true);
         btCrearM.setEnabled(true);
-        btAgregarAsg.setEnabled(true);
-        btRemoverAsg.setEnabled(true);
+    }
+
+    private void limpiarAsignatura() throws EmptyException {
+        cbxCarreraMalla.setSelectedIndex(-1);
+        cbxMalla.setSelectedIndex(-1);
+        cbxVigencia.setSelectedIndex(0);
+        txtMallaRegistrada.setText("");
+        txtNombreA.setText("");
+        txtCodigoA.setText("");
+        spnTotalHorasA.setValue(0);
+        asignaturaControl.setAsignatura(null);
+        
+        btCrearA.setEnabled(true);
+        cbxCarreraMalla.setEnabled(true);
+        cbxMalla.setEnabled(true);
+        txtNombreA.setEnabled(true);
+        txtCodigoA.setEnabled(true);
+        spnTotalHorasA.setEnabled(true);
     }
 
     private void habilitarTodo() {
@@ -225,9 +250,6 @@ public class FrmAcademico extends javax.swing.JFrame {
         cbxCarrera.setEnabled(true);
         txtDescripcion.setEnabled(true);
         txtPensum.setEnabled(true);
-        tbAsignaturasDisponibles.setEnabled(true);
-        tbAsignaturasAsignadas.setEnabled(true);
-        btDescartar.setEnabled(true);
     }
 
     private void guardar(Integer flag) throws EmptyException {
@@ -236,8 +258,8 @@ public class FrmAcademico extends javax.swing.JFrame {
                 if (verificar(1)) {
                     facultadControl.getFacultad().setNombre(txtNombreF.getText());
                     if (facultadControl.guardar()) {
-                        fControl.setFacultad(facultadControl.getFacultad());
-                        fControl.persist();
+                        fileFacultad.setFacultad(facultadControl.getFacultad());
+                        fileFacultad.persist();
                         JOptionPane.showMessageDialog(null, "Datos guardados");
                         limpiar();
                         facultadControl.setFacultad(null);
@@ -256,8 +278,8 @@ public class FrmAcademico extends javax.swing.JFrame {
                     carreraControl.getCarrera().setNumCiclos((Integer) spnCiclo.getValue());
 
                     if (carreraControl.guardar()) {
-                        cControl.setCarrera(carreraControl.getCarrera());
-                        cControl.persist();
+                        fileCarrera.setCarrera(carreraControl.getCarrera());
+                        fileCarrera.persist();
                         JOptionPane.showMessageDialog(null, "Datos guardados");
                         limpiar();
                         carreraControl.setCarrera(null);
@@ -274,15 +296,38 @@ public class FrmAcademico extends javax.swing.JFrame {
                     mallaControl.getMalla().setIdCarrera(cbxCarrera.getSelectedIndex());
                     mallaControl.getMalla().setDescripcion(txtDescripcion.getText());
                     mallaControl.getMalla().setPensum(txtPensum.getText());
-                    mallaControl.getMalla().setAsignaturaList(mControl.getMalla().getAsignaturaList());
                     if (carreraControl.guardar()) {
-                        mControl.setMalla(mallaControl.getMalla());
-                        mControl.persist();
+                        fileMalla.setMalla(mallaControl.getMalla());
+                        fileMalla.persist();
                         JOptionPane.showMessageDialog(null, "Datos guardados");
                         limpiar();
                         mallaControl.setMalla(null);
                     } else {
                         JOptionPane.showMessageDialog(null, "No se pudo guardar, hubo un error");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+            case 4:
+                if (verificar(4)) {
+                    if (fileAsignatura.buscarCodigo(txtCodigoA.getText()) == false) {
+                        asignaturaControl.getAsignatura().setIdMalla(Utilvista.obtenerMallaControl(cbxMalla).getId());
+                        asignaturaControl.getAsignatura().setNombre(txtNombreA.getText());
+                        asignaturaControl.getAsignatura().setCodigo(txtCodigoA.getText());
+                        asignaturaControl.getAsignatura().setTotalHoras((Integer) spnTotalHorasA.getValue());
+
+                        if (asignaturaControl.guardar()) {
+                            fileAsignatura.setCarrera(asignaturaControl.getAsignatura());
+                            fileAsignatura.persist();
+                            JOptionPane.showMessageDialog(null, "Asignatura guardada");
+                            limpiar();
+                            asignaturaControl.setAsignatura(null);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No se pudo guardar, hubo un error");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "El codigo de la asignatura ya existe");
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -294,35 +339,11 @@ public class FrmAcademico extends javax.swing.JFrame {
 
     }
 
-    private void agregarAsignatura() throws EmptyException {
-        int fila = tbAsignaturasDisponibles.getSelectedRow();
-        if (fila < 0) {
-            JOptionPane.showMessageDialog(null, "Escoja una asignatura de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            if (Utiles.buscarAsignatura(mControl.getMalla().getAsignaturaList(), aControl.getAsignaturas().getInfo(fila))) {
-                JOptionPane.showMessageDialog(null, "La asignatura ya esta en la lista", "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                mControl.getMalla().getAsignaturaList().add(aControl.getAsignaturas().getInfo(fila));
-                actualizarTablaAsignaturaA();
-            }
-        }
-    }
-
-    private void removerAsignatura() throws EmptyException {
-        int fila = tbAsignaturasAsignadas.getSelectedRow();
-        if (fila < 0 || mControl.getMalla().getAsignaturaList().getLength() == 0) {
-            JOptionPane.showMessageDialog(null, "No hay ninguna asignatura en la malla", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            mControl.getMalla().getAsignaturaList().extract(fila);
-            actualizarTablaAsignaturaA();
-        }
-    }
-
     private void modificar(Integer flag) throws EmptyException {
         switch (flag) {
             case 1:
                 facultadControl.getFacultad().setNombre(txtNombreF.getText());
-                if (fControl.merge(facultadControl.getFacultad(), facultadControl.getFacultad().getId())) {
+                if (fileFacultad.merge(facultadControl.getFacultad(), facultadControl.getFacultad().getId())) {
                     JOptionPane.showMessageDialog(null, "Cambios guardados");
                     limpiar();
                 } else {
@@ -333,7 +354,7 @@ public class FrmAcademico extends javax.swing.JFrame {
                 carreraControl.getCarrera().setIdFacultad(Utilvista.obtenerFacultadControl(cbxFacultad).getId());
                 carreraControl.getCarrera().setNombre(txtNombreC.getText());
                 carreraControl.getCarrera().setNumCiclos((Integer) spnCiclo.getValue());
-                if (cControl.merge(carreraControl.getCarrera(), carreraControl.getCarrera().getId())) {
+                if (fileCarrera.merge(carreraControl.getCarrera(), carreraControl.getCarrera().getId())) {
                     JOptionPane.showMessageDialog(null, "Cambios guardados");
                     limpiar();
                 } else {
@@ -344,12 +365,33 @@ public class FrmAcademico extends javax.swing.JFrame {
                 mallaControl.getMalla().setIdCarrera(cbxCarrera.getSelectedIndex());
                 mallaControl.getMalla().setDescripcion(txtDescripcion.getText());
                 mallaControl.getMalla().setPensum(txtPensum.getText());
-                mallaControl.getMalla().setAsignaturaList(mControl.getMalla().getAsignaturaList());
-                if (mControl.merge(mallaControl.getMalla(), mallaControl.getMalla().getId())) {
+                if(cbxVigencia.getSelectedIndex() == 0){
+                    mallaControl.getMalla().setVigencia(true);
+                } else if(cbxVigencia.getSelectedIndex() == 1){
+                    mallaControl.getMalla().setVigencia(false);
+                }
+                
+                if (fileMalla.merge(mallaControl.getMalla(), mallaControl.getMalla().getId())) {
                     JOptionPane.showMessageDialog(null, "Cambios guardados");
                     limpiar();
                 } else {
                     JOptionPane.showMessageDialog(null, "No se pudo guardar los cambios, hubo un error");
+                }
+                break;
+            case 4:
+                if(verificar(4)){
+                asignaturaControl.getAsignatura().setIdMalla(Utilvista.obtenerMallaControl(cbxMalla).getId());
+                asignaturaControl.getAsignatura().setNombre(txtNombreA.getText());
+                asignaturaControl.getAsignatura().setCodigo(txtCodigoA.getText());
+                asignaturaControl.getAsignatura().setTotalHoras((Integer) spnTotalHorasA.getValue());
+                if (fileAsignatura.merge(asignaturaControl.getAsignatura(), asignaturaControl.getAsignatura().getId())) {
+                    JOptionPane.showMessageDialog(null, "Cambios guardados");
+                    limpiar();
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo guardar los cambios, hubo un error");
+                }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 break;
             default:
@@ -400,32 +442,44 @@ public class FrmAcademico extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         cbxCarrera = new javax.swing.JComboBox<>();
         txtPensum = new javax.swing.JTextField();
-        spAsignaturasAsignadas = new javax.swing.JScrollPane();
-        tbAsignaturasAsignadas = new javax.swing.JTable();
         btCrearM = new javax.swing.JButton();
-        spAsignaturas = new javax.swing.JScrollPane();
-        tbAsignaturasDisponibles = new javax.swing.JTable();
-        btNuevaAsignatura = new javax.swing.JButton();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        btAgregarAsg = new javax.swing.JButton();
-        btRemoverAsg = new javax.swing.JButton();
-        btDescartar = new javax.swing.JButton();
         btGCMalla = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
+        cbxVigencia = new javax.swing.JComboBox<>();
         jpRegistro = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        lstFacultad = new javax.swing.JList<>();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        lstCarrera = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         lstMalla = new javax.swing.JList<>();
-        btModificarFacultad = new javax.swing.JButton();
-        btModificarCarrera = new javax.swing.JButton();
         btModificarMalla = new javax.swing.JButton();
         btLimpiar = new javax.swing.JButton();
+        jLabel30 = new javax.swing.JLabel();
+        btModificarAsignatura = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        lstAsignatura = new javax.swing.JList<>();
+        jLabel11 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstFacultad = new javax.swing.JList<>();
+        btModificarFacultad = new javax.swing.JButton();
+        btModificarCarrera = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        lstCarrera = new javax.swing.JList<>();
+        jpAsignatura = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        cbxMalla = new javax.swing.JComboBox<>();
+        jLabel26 = new javax.swing.JLabel();
+        txtNombreA = new javax.swing.JTextField();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        spnTotalHorasA = new javax.swing.JSpinner();
+        btCrearA = new javax.swing.JButton();
+        btGCAsignatura = new javax.swing.JButton();
+        jLabel29 = new javax.swing.JLabel();
+        txtCodigoA = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        cbxCarreraMalla = new javax.swing.JComboBox<>();
+        jLabel31 = new javax.swing.JLabel();
+        txtMallaRegistrada = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -435,15 +489,18 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         jLabel15.setText("Academico General");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
         jLabel1.setText("Nueva Facultad");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel4.setText("Nombre:");
 
+        txtNombreF.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+
+        btCrearF.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         btCrearF.setText("Crear Facultad");
         btCrearF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -451,6 +508,7 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
 
+        btGCFacultad.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         btGCFacultad.setText("Guardar Cambios");
         btGCFacultad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -463,20 +521,19 @@ public class FrmAcademico extends javax.swing.JFrame {
         jpFacultadLayout.setHorizontalGroup(
             jpFacultadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpFacultadLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jpFacultadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpFacultadLayout.createSequentialGroup()
                         .addGroup(jpFacultadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
                             .addGroup(jpFacultadLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel1))
-                            .addGroup(jpFacultadLayout.createSequentialGroup()
-                                .addGap(62, 62, 62)
+                                .addGap(44, 44, 44)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtNombreF, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jpFacultadLayout.createSequentialGroup()
-                        .addGap(121, 121, 121)
+                        .addGap(103, 103, 103)
                         .addComponent(btCrearF)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btGCFacultad)))
@@ -485,7 +542,7 @@ public class FrmAcademico extends javax.swing.JFrame {
         jpFacultadLayout.setVerticalGroup(
             jpFacultadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpFacultadLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(jpFacultadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -498,20 +555,25 @@ public class FrmAcademico extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
         jLabel2.setText("Nueva Carrera");
 
         cbxFacultad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel5.setText("Facultad:");
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtNombreC.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+
+        jLabel6.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel6.setText("Numero de Ciclos:");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel7.setText("Nombre:");
 
+        spnCiclo.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+
+        btCrearC.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         btCrearC.setText("Crear Carrera");
         btCrearC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -519,6 +581,7 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
 
+        btGCCarrera.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         btGCCarrera.setText("Guardar Cambios");
         btGCCarrera.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -536,21 +599,24 @@ public class FrmAcademico extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2))
                     .addGroup(jpCarreraLayout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(57, 57, 57)
                         .addGroup(jpCarreraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6)
                             .addComponent(jLabel5)
                             .addComponent(jLabel7))
                         .addGap(18, 18, 18)
                         .addGroup(jpCarreraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNombreC, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jpCarreraLayout.createSequentialGroup()
+                                .addComponent(cbxFacultad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33)
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(spnCiclo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNombreC, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jpCarreraLayout.createSequentialGroup()
                                 .addComponent(btCrearC)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btGCCarrera))
-                            .addComponent(spnCiclo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxFacultad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(btGCCarrera)))))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
         jpCarreraLayout.setVerticalGroup(
             jpCarreraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -560,20 +626,18 @@ public class FrmAcademico extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jpCarreraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxFacultad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6)
+                    .addComponent(spnCiclo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
                 .addGroup(jpCarreraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombreC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addGap(18, 18, 18)
                 .addGroup(jpCarreraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(spnCiclo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addGroup(jpCarreraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btCrearC)
-                    .addComponent(btGCCarrera))
-                .addGap(11, 11, 11))
+                    .addComponent(btGCCarrera)
+                    .addComponent(btCrearC))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jpMalla.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -582,30 +646,26 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
         jLabel3.setText("Nueva Malla");
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel9.setText("Descripcion:");
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtDescripcion.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+
+        jLabel10.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel10.setText("Pensum:");
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel8.setText("Carrera:");
 
+        cbxCarrera.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         cbxCarrera.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        tbAsignaturasAsignadas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        txtPensum.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
 
-            },
-            new String [] {
-                "CODIGO", "NOMBRE", "TOTAL DE HORAS"
-            }
-        ));
-        spAsignaturasAsignadas.setViewportView(tbAsignaturasAsignadas);
-
+        btCrearM.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         btCrearM.setText("Crear Malla");
         btCrearM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -613,50 +673,7 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
 
-        tbAsignaturasDisponibles.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "CODIGO", "NOMBRE", "TOTAL DE HORAS"
-            }
-        ));
-        spAsignaturas.setViewportView(tbAsignaturasDisponibles);
-
-        btNuevaAsignatura.setText("Nueva Asignatura");
-        btNuevaAsignatura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btNuevaAsignaturaActionPerformed(evt);
-            }
-        });
-
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel16.setText("Asignaturas Disponibles");
-
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel17.setText("Asignaturas de la Malla");
-
-        btAgregarAsg.setText("Agregar Asigantura");
-        btAgregarAsg.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btAgregarAsgActionPerformed(evt);
-            }
-        });
-
-        btRemoverAsg.setText("Remover Asigantura");
-        btRemoverAsg.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btRemoverAsgActionPerformed(evt);
-            }
-        });
-
-        btDescartar.setText("Descartar");
-        btDescartar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btDescartarActionPerformed(evt);
-            }
-        });
-
+        btGCMalla.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         btGCMalla.setText("Guardar Cambios");
         btGCMalla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -664,117 +681,78 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
 
+        jLabel16.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
+        jLabel16.setText("Vigencia:");
+
+        cbxVigencia.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbxVigencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vigente", "No Vigente" }));
+        cbxVigencia.setEnabled(false);
+
         javax.swing.GroupLayout jpMallaLayout = new javax.swing.GroupLayout(jpMalla);
         jpMalla.setLayout(jpMallaLayout);
         jpMallaLayout.setHorizontalGroup(
             jpMallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpMallaLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jpMallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
                     .addGroup(jpMallaLayout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(spAsignaturas, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addGroup(jpMallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9))
                         .addGap(18, 18, 18)
-                        .addGroup(jpMallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btAgregarAsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btNuevaAsignatura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btRemoverAsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addComponent(spAsignaturasAsignadas, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE))
-                    .addGroup(jpMallaLayout.createSequentialGroup()
                         .addGroup(jpMallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpMallaLayout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(jLabel3))
-                            .addGroup(jpMallaLayout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addGroup(jpMallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel9))
+                                .addComponent(btCrearM)
                                 .addGap(18, 18, 18)
-                                .addGroup(jpMallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
-                                    .addComponent(txtPensum)
-                                    .addComponent(cbxCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(25, 25, 25)
-                        .addGroup(jpMallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btCrearM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btDescartar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btGCMalla)))
-                .addContainerGap())
-            .addGroup(jpMallaLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel16)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel17)
-                .addGap(83, 83, 83))
+                                .addComponent(btGCMalla))
+                            .addGroup(jpMallaLayout.createSequentialGroup()
+                                .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33)
+                                .addComponent(jLabel16)
+                                .addGap(18, 18, 18)
+                                .addComponent(cbxVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jpMallaLayout.createSequentialGroup()
+                                .addComponent(cbxCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(66, 66, 66)
+                                .addComponent(jLabel10)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtPensum, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpMallaLayout.setVerticalGroup(
             jpMallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpMallaLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
                 .addGroup(jpMallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpMallaLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addGroup(jpMallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbxCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addGap(18, 18, 18)
-                        .addGroup(jpMallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9)
-                            .addComponent(btCrearM))
-                        .addGap(18, 18, 18)
-                        .addGroup(jpMallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(txtPensum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btDescartar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMallaLayout.createSequentialGroup()
-                        .addComponent(btGCMalla)
-                        .addGap(36, 36, 36)))
+                    .addGroup(jpMallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel10)
+                        .addComponent(txtPensum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpMallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cbxCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel8)))
+                .addGap(25, 25, 25)
                 .addGroup(jpMallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
                     .addComponent(jLabel16)
-                    .addComponent(jLabel17))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpMallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpMallaLayout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(btAgregarAsg)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btRemoverAsg)
-                        .addGap(21, 21, 21)
-                        .addComponent(btNuevaAsignatura))
-                    .addComponent(spAsignaturas, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(spAsignaturasAsignadas, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 10, Short.MAX_VALUE))
+                    .addComponent(cbxVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jpMallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btCrearM)
+                    .addComponent(btGCMalla))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel11.setText("Facultades:");
+        jpRegistro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel12.setText("Carreras:");
-
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel13.setText("Mallas Curriculares:");
 
-        lstFacultad.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lstFacultadMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(lstFacultad);
-
-        lstCarrera.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lstCarreraMouseClicked(evt);
-            }
-        });
-        jScrollPane3.setViewportView(lstCarrera);
-
+        lstMalla.setFont(new java.awt.Font("Roboto Thin", 1, 12)); // NOI18N
         lstMalla.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lstMallaMouseClicked(evt);
@@ -782,20 +760,7 @@ public class FrmAcademico extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(lstMalla);
 
-        btModificarFacultad.setText("Modificar");
-        btModificarFacultad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btModificarFacultadActionPerformed(evt);
-            }
-        });
-
-        btModificarCarrera.setText("Modificar");
-        btModificarCarrera.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btModificarCarreraActionPerformed(evt);
-            }
-        });
-
+        btModificarMalla.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         btModificarMalla.setText("Modificar");
         btModificarMalla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -803,7 +768,7 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
 
-        btLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btLimpiar.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         btLimpiar.setText("Limpiar Todo");
         btLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -811,103 +776,348 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
 
+        jLabel30.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
+        jLabel30.setText("Asignaturas:");
+
+        btModificarAsignatura.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        btModificarAsignatura.setText("Modificar");
+        btModificarAsignatura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btModificarAsignaturaActionPerformed(evt);
+            }
+        });
+
+        lstAsignatura.setFont(new java.awt.Font("Roboto Thin", 1, 12)); // NOI18N
+        lstAsignatura.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstAsignaturaMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(lstAsignatura);
+
+        jLabel11.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
+        jLabel11.setText("Facultades:");
+
+        lstFacultad.setFont(new java.awt.Font("Roboto Thin", 1, 12)); // NOI18N
+        lstFacultad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstFacultadMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(lstFacultad);
+
+        btModificarFacultad.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        btModificarFacultad.setText("Modificar");
+        btModificarFacultad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btModificarFacultadActionPerformed(evt);
+            }
+        });
+
+        btModificarCarrera.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        btModificarCarrera.setText("Modificar");
+        btModificarCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btModificarCarreraActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
+        jLabel12.setText("Carreras:");
+
+        lstCarrera.setFont(new java.awt.Font("Roboto Thin", 1, 12)); // NOI18N
+        lstCarrera.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstCarreraMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(lstCarrera);
+
         javax.swing.GroupLayout jpRegistroLayout = new javax.swing.GroupLayout(jpRegistro);
         jpRegistro.setLayout(jpRegistroLayout);
         jpRegistroLayout.setHorizontalGroup(
             jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpRegistroLayout.createSequentialGroup()
-                .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpRegistroLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel13)
-                            .addGroup(jpRegistroLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jpRegistroLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(14, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpRegistroLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpRegistroLayout.createSequentialGroup()
+                        .addGap(78, 78, 78)
                         .addComponent(btModificarFacultad)
-                        .addGap(120, 120, 120))
+                        .addGap(114, 114, 114))
+                    .addComponent(jLabel11)
+                    .addGroup(jpRegistroLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpRegistroLayout.createSequentialGroup()
+                        .addGap(107, 107, 107)
                         .addComponent(btModificarCarrera)
-                        .addGap(121, 121, 121))
+                        .addGap(115, 115, 115))
+                    .addGroup(jpRegistroLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpRegistroLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel12)))
+                .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpRegistroLayout.createSequentialGroup()
+                        .addGap(111, 111, 111)
+                        .addComponent(btModificarMalla))
+                    .addGroup(jpRegistroLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpRegistroLayout.createSequentialGroup()
-                        .addComponent(btModificarMalla)
-                        .addGap(123, 123, 123))
+                        .addComponent(jLabel13)
+                        .addGap(193, 193, 193)))
+                .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpRegistroLayout.createSequentialGroup()
-                        .addComponent(btLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(93, 93, 93))))
+                        .addComponent(btModificarAsignatura)
+                        .addGap(119, 119, 119))
+                    .addGroup(jpRegistroLayout.createSequentialGroup()
+                        .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpRegistroLayout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jpRegistroLayout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(jLabel30)))
+                        .addContainerGap(12, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpRegistroLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(591, 591, 591))
         );
         jpRegistroLayout.setVerticalGroup(
             jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpRegistroLayout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addComponent(jLabel11)
-                .addGap(12, 12, 12)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btModificarFacultad)
-                .addGap(34, 34, 34)
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btModificarCarrera)
-                .addGap(34, 34, 34)
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btModificarMalla)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jpRegistroLayout.createSequentialGroup()
+                            .addComponent(jLabel12)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btModificarCarrera))
+                        .addGroup(jpRegistroLayout.createSequentialGroup()
+                            .addComponent(jLabel11)
+                            .addGap(12, 12, 12)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btModificarFacultad)))
+                    .addGroup(jpRegistroLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel30))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpRegistroLayout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btModificarMalla))
+                            .addGroup(jpRegistroLayout.createSequentialGroup()
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btModificarAsignatura)))))
+                .addGap(18, 18, 18)
                 .addComponent(btLimpiar)
-                .addGap(30, 30, 30))
+                .addContainerGap())
+        );
+
+        jLabel25.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        jLabel25.setText("Nueva Asignatura");
+
+        cbxMalla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxMallaActionPerformed(evt);
+            }
+        });
+
+        jLabel26.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
+        jLabel26.setText("Malla Curricular:");
+
+        txtNombreA.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+
+        jLabel27.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
+        jLabel27.setText("Total de Horas:");
+
+        jLabel28.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
+        jLabel28.setText("Nombre:");
+
+        spnTotalHorasA.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+
+        btCrearA.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        btCrearA.setText("Crear Asignatura");
+        btCrearA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCrearAActionPerformed(evt);
+            }
+        });
+
+        btGCAsignatura.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        btGCAsignatura.setText("Guardar Cambios");
+        btGCAsignatura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGCAsignaturaActionPerformed(evt);
+            }
+        });
+
+        jLabel29.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
+        jLabel29.setText("Codigo:");
+
+        txtCodigoA.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+
+        jLabel14.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
+        jLabel14.setText("Carrera:");
+
+        cbxCarreraMalla.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbxCarreraMalla.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxCarreraMalla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbxCarreraMallaMouseClicked(evt);
+            }
+        });
+        cbxCarreraMalla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxCarreraMallaActionPerformed(evt);
+            }
+        });
+
+        jLabel31.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
+        jLabel31.setText("Malla Registrada");
+
+        txtMallaRegistrada.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        txtMallaRegistrada.setEnabled(false);
+
+        javax.swing.GroupLayout jpAsignaturaLayout = new javax.swing.GroupLayout(jpAsignatura);
+        jpAsignatura.setLayout(jpAsignaturaLayout);
+        jpAsignaturaLayout.setHorizontalGroup(
+            jpAsignaturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpAsignaturaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpAsignaturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpAsignaturaLayout.createSequentialGroup()
+                        .addGap(0, 60, Short.MAX_VALUE)
+                        .addGroup(jpAsignaturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jpAsignaturaLayout.createSequentialGroup()
+                                .addComponent(jLabel28)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jpAsignaturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jpAsignaturaLayout.createSequentialGroup()
+                                        .addComponent(btCrearA)
+                                        .addGap(21, 21, 21)
+                                        .addComponent(btGCAsignatura))
+                                    .addGroup(jpAsignaturaLayout.createSequentialGroup()
+                                        .addComponent(txtNombreA, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(33, 33, 33)
+                                        .addComponent(jLabel29)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtCodigoA, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(33, 33, 33)
+                                        .addComponent(jLabel27)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(spnTotalHorasA, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap())
+                            .addGroup(jpAsignaturaLayout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cbxCarreraMalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel31)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtMallaRegistrada, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(44, 44, 44))))
+                    .addGroup(jpAsignaturaLayout.createSequentialGroup()
+                        .addComponent(jLabel25)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(jpAsignaturaLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbxMalla, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jpAsignaturaLayout.setVerticalGroup(
+            jpAsignaturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpAsignaturaLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jLabel25)
+                .addGroup(jpAsignaturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpAsignaturaLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jpAsignaturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbxCarreraMalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14))
+                        .addGap(18, 18, 18)
+                        .addGroup(jpAsignaturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbxMalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel26))
+                        .addGap(20, 20, 20)
+                        .addGroup(jpAsignaturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNombreA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel28)
+                            .addComponent(txtCodigoA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel29)
+                            .addComponent(jLabel27)
+                            .addComponent(spnTotalHorasA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jpAsignaturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btCrearA)
+                            .addComponent(btGCAsignatura)))
+                    .addGroup(jpAsignaturaLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(jpAsignaturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtMallaRegistrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel31))))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jpMalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jpFacultad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jpCarrera, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jpRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel15)
-                .addGap(437, 437, 437))
+                .addGap(573, 573, 573))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jpRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jpFacultad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(147, 147, 147))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jpMalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(37, 37, 37)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jpCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jpAsignatura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jpFacultad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jpCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(88, 88, 88)
                         .addComponent(jpMalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jpRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 20, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jpCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addComponent(jpAsignatura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(30, 30, 30)
+                .addComponent(jpRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -929,10 +1139,6 @@ public class FrmAcademico extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btCrearMActionPerformed
 
-    private void btNuevaAsignaturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNuevaAsignaturaActionPerformed
-        nuevaAsignatura.setVisible(true);
-    }//GEN-LAST:event_btNuevaAsignaturaActionPerformed
-
     private void btCrearFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCrearFActionPerformed
 
         try {
@@ -947,32 +1153,8 @@ public class FrmAcademico extends javax.swing.JFrame {
     }//GEN-LAST:event_formMouseDragged
 
     private void jpMallaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpMallaMouseEntered
-        cargarTablaAsignaturaD();
+
     }//GEN-LAST:event_jpMallaMouseEntered
-
-    private void btAgregarAsgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarAsgActionPerformed
-        try {
-            agregarAsignatura();
-        } catch (EmptyException ex) {
-            Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btAgregarAsgActionPerformed
-
-    private void btRemoverAsgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverAsgActionPerformed
-        try {
-            removerAsignatura();
-        } catch (EmptyException ex) {
-            Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btRemoverAsgActionPerformed
-
-    private void btDescartarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDescartarActionPerformed
-        try {
-            limpiarMalla();
-        } catch (EmptyException ex) {
-            Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btDescartarActionPerformed
 
     private void lstFacultadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstFacultadMouseClicked
         if (lstFacultad.getSelectedValue() != null) {
@@ -1017,6 +1199,13 @@ public class FrmAcademico extends javax.swing.JFrame {
         if (lstMalla.getSelectedValue() != null) {
             cargarVista(3);
             btModificarMalla.setEnabled(true);
+            Object m = lstMalla.getSelectedValue();
+            MallaCurricular malla = (MallaCurricular) m;
+            try {
+                Utilvista.cargarListaAsignaturas(lstAsignatura, malla);
+            } catch (EmptyException ex) {
+                Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             JOptionPane.showMessageDialog(null, "No existe ninguna malla curricular disponible", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -1027,11 +1216,8 @@ public class FrmAcademico extends javax.swing.JFrame {
         cbxCarrera.setEnabled(true);
         txtDescripcion.setEnabled(true);
         txtPensum.setEnabled(true);
-        tbAsignaturasDisponibles.setEnabled(true);
-        tbAsignaturasAsignadas.setEnabled(true);
         btGCMalla.setEnabled(true);
-        btAgregarAsg.setEnabled(true);
-        btRemoverAsg.setEnabled(true);
+        cbxVigencia.setEnabled(true);
     }//GEN-LAST:event_btModificarMallaActionPerformed
 
     private void btModificarFacultadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarFacultadActionPerformed
@@ -1080,6 +1266,63 @@ public class FrmAcademico extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btGCMallaActionPerformed
 
+    private void btCrearAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCrearAActionPerformed
+        try {
+            guardar(4);
+        } catch (EmptyException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_btCrearAActionPerformed
+
+    private void btGCAsignaturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGCAsignaturaActionPerformed
+        try {
+            modificar(4);
+        } catch (EmptyException ex) {
+            Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btGCAsignaturaActionPerformed
+
+    private void btModificarAsignaturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarAsignaturaActionPerformed
+        cargarVista(4);
+        cbxCarreraMalla.setEnabled(true);
+        cbxMalla.setEnabled(true);
+        txtNombreA.setEnabled(true);
+        txtCodigoA.setEnabled(true);
+        spnTotalHorasA.setEnabled(true);
+        btGCAsignatura.setEnabled(true);
+    }//GEN-LAST:event_btModificarAsignaturaActionPerformed
+
+    private void lstAsignaturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstAsignaturaMouseClicked
+        if (lstAsignatura.getSelectedValue() != null) {
+            cargarVista(4);
+            btModificarAsignatura.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "No existe ninguna asignatura disponible", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_lstAsignaturaMouseClicked
+
+    private void cbxCarreraMallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCarreraMallaActionPerformed
+        if (cbxCarreraMalla.getSelectedItem() != null) {
+            Carrera carrera = Utilvista.obtenerCarreraControl(cbxCarreraMalla);
+            try {
+                Utilvista.cargarComboMalla(cbxMalla, carrera);
+            } catch (EmptyException ex) {
+                Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_cbxCarreraMallaActionPerformed
+
+    private void cbxCarreraMallaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxCarreraMallaMouseClicked
+
+    }//GEN-LAST:event_cbxCarreraMallaMouseClicked
+
+    private void cbxMallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxMallaActionPerformed
+        if (cbxMalla.getSelectedItem() != null) {
+            MallaCurricular mallaAsg = (MallaCurricular) cbxMalla.getSelectedItem();
+            txtMallaRegistrada.setText(mallaAsg.toString());
+        }
+    }//GEN-LAST:event_cbxMallaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1120,32 +1363,41 @@ public class FrmAcademico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btAgregarAsg;
+    private javax.swing.JButton btCrearA;
     private javax.swing.JButton btCrearC;
     private javax.swing.JButton btCrearF;
     private javax.swing.JButton btCrearM;
-    private javax.swing.JButton btDescartar;
+    private javax.swing.JButton btGCAsignatura;
     private javax.swing.JButton btGCCarrera;
     private javax.swing.JButton btGCFacultad;
     private javax.swing.JButton btGCMalla;
     private javax.swing.JButton btLimpiar;
+    private javax.swing.JButton btModificarAsignatura;
     private javax.swing.JButton btModificarCarrera;
     private javax.swing.JButton btModificarFacultad;
     private javax.swing.JButton btModificarMalla;
-    private javax.swing.JButton btNuevaAsignatura;
-    private javax.swing.JButton btRemoverAsg;
     private javax.swing.JComboBox<String> cbxCarrera;
+    private javax.swing.JComboBox<String> cbxCarreraMalla;
     private javax.swing.JComboBox<String> cbxFacultad;
+    private javax.swing.JComboBox<String> cbxMalla;
+    private javax.swing.JComboBox<String> cbxVigencia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1155,19 +1407,22 @@ public class FrmAcademico extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JPanel jpAsignatura;
     private javax.swing.JPanel jpCarrera;
     private javax.swing.JPanel jpFacultad;
     private javax.swing.JPanel jpMalla;
     private javax.swing.JPanel jpRegistro;
+    private javax.swing.JList<String> lstAsignatura;
     private javax.swing.JList<String> lstCarrera;
     private javax.swing.JList<String> lstFacultad;
     private javax.swing.JList<String> lstMalla;
-    private javax.swing.JScrollPane spAsignaturas;
-    private javax.swing.JScrollPane spAsignaturasAsignadas;
     private javax.swing.JSpinner spnCiclo;
-    private javax.swing.JTable tbAsignaturasAsignadas;
-    private javax.swing.JTable tbAsignaturasDisponibles;
+    private javax.swing.JSpinner spnTotalHorasA;
+    private javax.swing.JTextField txtCodigoA;
     private javax.swing.JTextField txtDescripcion;
+    private javax.swing.JTextField txtMallaRegistrada;
+    private javax.swing.JTextField txtNombreA;
     private javax.swing.JTextField txtNombreC;
     private javax.swing.JTextField txtNombreF;
     private javax.swing.JTextField txtPensum;
