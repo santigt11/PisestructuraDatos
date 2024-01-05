@@ -63,12 +63,4 @@ public class Asignatura {
     public String toString() {
         return nombre;
     }
-
-    public Integer getIdMalla() {
-        return idMalla;
-    }
-
-    public void setIdMalla(Integer idMalla) {
-        this.idMalla = idMalla;
-    }
 }
