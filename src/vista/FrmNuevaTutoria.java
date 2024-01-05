@@ -1,10 +1,127 @@
 package vista;
 
+import controlador.Academico.AsignaturaArchivos;
+import controlador.Academico.HorarioArchivos;
+import controlador.Academico.TutoriaArchivos;
+
 public class FrmNuevaTutoria extends javax.swing.JFrame {
 
     public FrmNuevaTutoria() {
         initComponents();
+        txtTema.setEnabled(true);
     }
+    
+    private TutoriaArchivos tutoriaControl = new TutoriaArchivos();
+    private HorarioArchivos horarioControl = new HorarioArchivos();
+    private AsignaturaArchivos asignaturaControl = new AsignaturaArchivos();
+    private ModeloTablaPersona mtp = new ModeloTablaPersona();
+    
+
+    private void cargarVista() {
+        int fila = tbPersona.getSelectedRow();
+        if (fila < 0) {
+            JOptionPane.showMessageDialog(null, "Escoja un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                tutoriaControl.setPersona(mtp.getPersonas().getInfo(fila));
+                txtApellidos.setText(tutoriaControl.getPersona().getApellidos());
+                txtCorreo.setText("");
+                txtDNI.setText(tutoriaControl.getPersona().getDNI());
+                txtDNI.setEnabled(false);
+                txtDireccion.setText(tutoriaControl.getPersona().getDireccion());
+                txtNombres.setText(tutoriaControl.getPersona().getNombres());
+                txtTelefono.setText(tutoriaControl.getPersona().getTelefono());
+                cbxRol.setSelectedIndex(tutoriaControl.getPersona().getId_rol() - 1);
+            } catch (Exception ex) {
+                Logger.getLogger(FrmGuardarPersona.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    private void ordenar(){
+        String criterio = cbxCriterio.getSelectedItem().toString();
+        Integer tipo = 0;
+        if (btn_tipo.isSelected()) {
+            tipo = 1;
+        }
+        try {
+            mtp.setPersonas(control.ordenar(control.all(), tipo, criterio));
+            tbPersona.setModel(mtp);
+            tbPersona.updateUI();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public Boolean verificar() {
+        return (!txtApellidos.getText().trim().isEmpty()
+                && !txtDireccion.getText().trim().isEmpty()
+                && !txtCorreo.getText().trim().isEmpty()
+                && !txtDNI.getText().trim().isEmpty());
+    }
+
+    private void cargarTabla() {
+        mtp.setPersonas(control.all());
+        tutoriaControl.setPersonas(control.all());
+        tbPersona.setModel(mtp);
+        tbPersona.updateUI();
+    }
+    
+    private void buscar(){
+        String texto = txtTextoBuscar.getText();
+        try {
+            mtp.setPersonas(control.all());
+            tbPersona.setModel(mtp);
+            tbPersona.updateUI();
+        } catch (Exception e) {
+        }
+    }
+    
+    private void guardar() throws EmptyException {
+        if (verificar()) {
+            if (Utiles.validadorDeCedula(txtDNI.getText())) {
+                tutoriaControl.getPersona().setApellidos(txtApellidos.getText());
+                tutoriaControl.getPersona().setDNI(txtDNI.getText());
+                tutoriaControl.getPersona().setDireccion(txtDireccion.getText());
+                tutoriaControl.getPersona().setNombres(txtNombres.getText());
+                tutoriaControl.getPersona().setTelefono(txtTelefono.getText());
+                tutoriaControl.getPersona().setId_rol(Utilvista.obtenerRolControl(cbxRol).getId());
+                if (tutoriaControl.guardar()) {
+                    control.persist(tutoriaControl.getPersona());
+                    JOptionPane.showMessageDialog(null, "Datos guardados");
+                    cargarTabla();
+                    limpiar();
+                    tutoriaControl.setPersona(null);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo guardar, hubo un error");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Cedula no valida");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void limpiar() {
+        try {
+            Utilvista.cargarcomboRolesL(cbxRol);
+        } catch (EmptyException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        txtDNI.setEnabled(true);
+        tbPersona.clearSelection();
+        txtApellidos.setText("");
+        txtCorreo.setText("");
+        txtDNI.setText("");
+        txtDireccion.setText("");
+        txtNombres.setText("");
+        txtTelefono.setText("");
+        cargarTabla();
+        tutoriaControl.setPersona(null);
+        cbxRol.setSelectedIndex(0);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -14,14 +131,14 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        cbxAsignatura1 = new javax.swing.JComboBox<>();
+        cbxAsignatura = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        dcFecha1 = new com.toedter.calendar.JDateChooser();
+        dcFecha = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
-        cbxHorario1 = new javax.swing.JComboBox<>();
+        cbxHorario = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        txtTema1 = new javax.swing.JTextField();
+        txtTema = new javax.swing.JTextField();
         btDescartar = new javax.swing.JButton();
         btCrearTutoria1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -75,28 +192,33 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Asignatura:");
 
-        cbxAsignatura1.setBackground(new java.awt.Color(242, 242, 242));
-        cbxAsignatura1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        cbxAsignatura1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estructura de Datos" }));
-        cbxAsignatura1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cbxAsignatura.setBackground(new java.awt.Color(242, 242, 242));
+        cbxAsignatura.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbxAsignatura.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estructura de Datos" }));
+        cbxAsignatura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cbxAsignatura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxAsignaturaActionPerformed(evt);
+            }
+        });
 
         jLabel7.setBackground(new java.awt.Color(51, 51, 51));
         jLabel7.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("Fecha:");
 
-        dcFecha1.setBackground(new java.awt.Color(242, 242, 242));
-        dcFecha1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        dcFecha.setBackground(new java.awt.Color(242, 242, 242));
+        dcFecha.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
         jLabel8.setBackground(new java.awt.Color(51, 51, 51));
         jLabel8.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("Horario:");
 
-        cbxHorario1.setBackground(new java.awt.Color(242, 242, 242));
-        cbxHorario1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        cbxHorario1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3 AM - 5 PM" }));
-        cbxHorario1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cbxHorario.setBackground(new java.awt.Color(242, 242, 242));
+        cbxHorario.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbxHorario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3 AM - 5 PM" }));
+        cbxHorario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel9.setBackground(new java.awt.Color(51, 51, 51));
         jLabel9.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
@@ -105,16 +227,16 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
 
         jSeparator2.setBackground(new java.awt.Color(102, 102, 102));
 
-        txtTema1.setBackground(new java.awt.Color(242, 242, 242));
-        txtTema1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        txtTema1.setForeground(new java.awt.Color(0, 0, 0));
-        txtTema1.setText("Avance PIS");
-        txtTema1.setBorder(null);
-        txtTema1.setDisabledTextColor(new java.awt.Color(102, 102, 102));
-        txtTema1.setEnabled(false);
-        txtTema1.addActionListener(new java.awt.event.ActionListener() {
+        txtTema.setBackground(new java.awt.Color(242, 242, 242));
+        txtTema.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        txtTema.setForeground(new java.awt.Color(0, 0, 0));
+        txtTema.setText("Avance PIS");
+        txtTema.setBorder(null);
+        txtTema.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        txtTema.setEnabled(false);
+        txtTema.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTema1ActionPerformed(evt);
+                txtTemaActionPerformed(evt);
             }
         });
 
@@ -142,10 +264,10 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(dcFecha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(cbxAsignatura1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbxAsignatura, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 192, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -159,14 +281,14 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbxHorario1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(46, 46, 46)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jSeparator2)
-                            .addComponent(txtTema1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtTema, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -175,18 +297,18 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(cbxAsignatura1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxAsignatura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dcFecha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(cbxHorario1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTema1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -302,13 +424,17 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btAsignarEstudiante1ActionPerformed
 
-    private void txtTema1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTema1ActionPerformed
+    private void txtTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTemaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTema1ActionPerformed
+    }//GEN-LAST:event_txtTemaActionPerformed
 
     private void btRemoverEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverEstudianteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btRemoverEstudianteActionPerformed
+
+    private void cbxAsignaturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxAsignaturaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxAsignaturaActionPerformed
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -322,9 +448,9 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private javax.swing.JButton btCrearTutoria1;
     private javax.swing.JButton btDescartar;
     private javax.swing.JButton btRemoverEstudiante;
-    private javax.swing.JComboBox<String> cbxAsignatura1;
-    private javax.swing.JComboBox<String> cbxHorario1;
-    private com.toedter.calendar.JDateChooser dcFecha1;
+    private javax.swing.JComboBox<String> cbxAsignatura;
+    private javax.swing.JComboBox<String> cbxHorario;
+    private com.toedter.calendar.JDateChooser dcFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -338,6 +464,6 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JList<String> lstEstudiantes;
     private javax.swing.JList<String> lstEstudiantesAsignados;
-    private javax.swing.JTextField txtTema1;
+    private javax.swing.JTextField txtTema;
     // End of variables declaration//GEN-END:variables
 }

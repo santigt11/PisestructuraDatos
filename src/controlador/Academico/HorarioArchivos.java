@@ -26,6 +26,10 @@ public class HorarioArchivos implements DaoInterface<Horario> {
     }
 
     public DynamicList<Horario> getHorarios() {
+        return horarios;
+    }
+    
+    public DynamicList<Horario> getHorariosTodos() {
         horarios = all();
         return horarios;
     }

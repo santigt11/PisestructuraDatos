@@ -1,5 +1,7 @@
 package vista.listas.util;
 
+import controlador.Academico.AsignaturaArchivos;
+import controlador.Academico.HorarioArchivos;
 import controlador.TDA.listas.Exception.EmptyException;
 import javax.swing.JComboBox;
 import modelo.Facultad;
@@ -15,6 +17,7 @@ import controlador.PersonaControl;
 
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 public class Utilvista {
              
@@ -81,19 +84,30 @@ public class Utilvista {
         return (Facultad) facultad;
     }
 
-    public static void cargarListaCarreras(JList lst, Facultad facultad) throws EmptyException {
-        CarreraControl cc = new CarreraControl();
-        controlador.Academico.CarreraArchivos ac = new controlador.Academico.CarreraArchivos();
-        cc.setCarreras(ac.all());
-        DefaultListModel modeloLista = new DefaultListModel();
-        for (Integer i = 0; i < cc.getCarreras().getLength(); i++) {
-            if (cc.getCarreras().getInfo(i).getIdFacultad().equals(facultad.getId())) {
-                modeloLista.addElement(cc.getCarreras().getInfo(i));
+    public static void cargarcomboRolesAsignatura(JComboBox cbx) throws EmptyException{
+        AsignaturaArchivos aa = new AsignaturaArchivos();
+        cbx.removeAllItems();
+        if (aa.getAsignaturasTodas().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Lista vacia");
+        }else{
+            for (int i = 0; i < aa.getAsignaturas().getLength(); i++) {
+                cbx.addItem(aa.getAsignaturas().getInfo(i));
             }
         }
-        lst.setModel(modeloLista);
     }
-
+    
+    public static void cargarcomboRolesHorario(JComboBox cbx) throws EmptyException{
+        HorarioArchivos ha = new HorarioArchivos();
+        cbx.removeAllItems();
+        if (ha.getHorariosTodos().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Lista vacia");
+        }else{
+            for (int i = 0; i < ha.getHorarios().getLength(); i++) {
+                cbx.addItem(ha.getHorarios().getInfo(i));
+            }
+        }
+    }
+    
     public static Carrera obtenerCarreraControl(JList lst, Facultad facultad){
         Object carrera = lst.getSelectedValue();
         return (Carrera) carrera;

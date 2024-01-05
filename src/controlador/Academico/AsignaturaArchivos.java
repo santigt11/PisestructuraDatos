@@ -24,9 +24,13 @@ public class AsignaturaArchivos implements DaoInterface<Asignatura> {
         this.asignaturas = asignaturas;
         this.asignatura = asignatura;
     }
-
-    public DynamicList<Asignatura> getAsignaturas() {
+    
+    public DynamicList<Asignatura> getAsignaturasTodas() {
         asignaturas = all();
+        return asignaturas;
+    }
+    
+    public DynamicList<Asignatura> getAsignaturas() {
         return asignaturas;
     }
 
