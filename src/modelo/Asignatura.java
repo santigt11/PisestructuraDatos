@@ -51,6 +51,14 @@ public class Asignatura {
         this.totalHoras = totalHoras;
     }
 
+    public Integer getIdMalla() {
+        return idMalla;
+    }
+
+    public void setIdMalla(Integer idMalla) {
+        this.idMalla = idMalla;
+    }
+    
     @Override
     public String toString() {
         return nombre;
