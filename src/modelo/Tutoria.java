@@ -4,7 +4,7 @@
  */
 package modelo;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -12,20 +12,18 @@ import java.util.Date;
  */
 public class Tutoria {
     private Integer id;
-    private Date fecha;
+    private LocalDate fecha;
     private String tema;
     private Modalidad modalidad;
     private Boolean impartida;
-    private Integer idMatricula;
     private Integer idHorario;
 
-    public Tutoria(Integer id, Date fecha, String tema, Modalidad modalidad, Boolean impartida, Integer idMatricula, Integer idHorario) {
+    public Tutoria(Integer id, LocalDate fecha, String tema, Modalidad modalidad, Boolean impartida, Integer idHorario) {
         this.id = id;
         this.fecha = fecha;
         this.tema = tema;
         this.modalidad = modalidad;
         this.impartida = impartida;
-        this.idMatricula = idMatricula;
         this.idHorario = idHorario;
     }
     
@@ -40,11 +38,11 @@ public class Tutoria {
         this.id = id;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -70,14 +68,6 @@ public class Tutoria {
 
     public void setModalidad(Modalidad modalidad) {
         this.modalidad = modalidad;
-    }
-
-    public Integer getIdMatricula() {
-        return idMatricula;
-    }
-
-    public void setIdMatricula(Integer idMatricula) {
-        this.idMatricula = idMatricula;
     }
 
     public Integer getIdHorario() {

@@ -3,6 +3,7 @@ package controlador.Academico;
 import controlador.DAO.Conexion;
 import controlador.DAO.DaoInterface;
 import controlador.TDA.listas.DynamicList;
+import controlador.TDA.listas.Exception.EmptyException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -89,6 +90,7 @@ public class PersonaArchivos implements DaoInterface<Persona> {
             consulta.setString(6, persona.getTelefono());
             consulta.setString(7, String.valueOf(persona.getRol()));
             consulta.executeUpdate();
+            return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -96,17 +98,30 @@ public class PersonaArchivos implements DaoInterface<Persona> {
     }
 
     @Override
-    public Boolean merge(Persona data, Integer index) {
+    public Boolean merge(Persona data) {
         PreparedStatement consulta = null;
         Connection conexion = null;
         try {
             conexion = instanciaMsql.conectar();
-            consulta = conexion.prepareStatement("UPDATE persona SET nombre = ?, apellido = ?, WHERE dni = ?;");
+            consulta = conexion.prepareStatement("UPDATE PERSONA SET NOMBRE = ?, APELLIDO = ?, TELEFONO = ? WHERE DNI = ?");
             consulta.setString(1, data.getNombre());
+            consulta.setString(2, data.getApellido());
+            consulta.setString(3, data.getTelefono());
+            consulta.setString(4, data.getDni());
             consulta.executeUpdate();
             return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+    public boolean buscarDNI(String text) throws EmptyException {
+        personas = all();
+        for (int i = 0; i < personas.getLength(); i++) {
+            if (personas.getInfo(i).getDni().equals(text)) {
+                return true;
+            }
         }
         return false;
     }
