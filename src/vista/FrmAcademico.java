@@ -258,8 +258,7 @@ public class FrmAcademico extends javax.swing.JFrame {
                 if (verificar(1)) {
                     facultadControl.getFacultad().setNombre(txtNombreF.getText());
                     if (facultadControl.guardar()) {
-                        fileFacultad.setFacultad(facultadControl.getFacultad());
-                        fileFacultad.persist();
+                        fileFacultad.persist(fileFacultad.setFacultad(facultadControl.getFacultad()));
                         JOptionPane.showMessageDialog(null, "Datos guardados");
                         limpiar();
                         facultadControl.setFacultad(null);
@@ -278,8 +277,7 @@ public class FrmAcademico extends javax.swing.JFrame {
                     carreraControl.getCarrera().setNumCiclos((Integer) spnCiclo.getValue());
 
                     if (carreraControl.guardar()) {
-                        fileCarrera.setCarrera(carreraControl.getCarrera());
-                        fileCarrera.persist();
+                        fileCarrera.persist(fileCarrera.setCarrera(carreraControl.getCarrera()));
                         JOptionPane.showMessageDialog(null, "Datos guardados");
                         limpiar();
                         carreraControl.setCarrera(null);
@@ -297,8 +295,7 @@ public class FrmAcademico extends javax.swing.JFrame {
                     mallaControl.getMalla().setDescripcion(txtDescripcion.getText());
                     mallaControl.getMalla().setPensum(txtPensum.getText());
                     if (carreraControl.guardar()) {
-                        fileMalla.setMalla(mallaControl.getMalla());
-                        fileMalla.persist();
+                        fileMalla.persist(fileMalla.setMalla(mallaControl.getMalla()));
                         JOptionPane.showMessageDialog(null, "Datos guardados");
                         limpiar();
                         mallaControl.setMalla(null);
@@ -318,8 +315,7 @@ public class FrmAcademico extends javax.swing.JFrame {
                         asignaturaControl.getAsignatura().setTotalHoras((Integer) spnTotalHorasA.getValue());
 
                         if (asignaturaControl.guardar()) {
-                            fileAsignatura.setCarrera(asignaturaControl.getAsignatura());
-                            fileAsignatura.persist();
+                            fileAsignatura.persist(fileAsignatura.setCarrera(asignaturaControl.getAsignatura()));
                             JOptionPane.showMessageDialog(null, "Asignatura guardada");
                             limpiar();
                             asignaturaControl.setAsignatura(null);
