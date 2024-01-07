@@ -3,6 +3,7 @@ package vista;
 import controlador.Academico.AsignaturaArchivos;
 import controlador.Academico.HorarioArchivos;
 import controlador.Academico.TutoriaArchivos;
+import vista.listas.tablas.TablaPersona;
 
 public class FrmNuevaTutoria extends javax.swing.JFrame {
 
@@ -14,7 +15,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private TutoriaArchivos tutoriaControl = new TutoriaArchivos();
     private HorarioArchivos horarioControl = new HorarioArchivos();
     private AsignaturaArchivos asignaturaControl = new AsignaturaArchivos();
-    private ModeloTablaPersona mtp = new ModeloTablaPersona();
+    private TablaPersona mtp = new TablaPersona();
     
 
     private void cargarVista() {

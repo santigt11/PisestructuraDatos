@@ -1,7 +1,8 @@
 package vista.listas.tablas;
 
-import controlador.Matricula.PeriodoArchivos;
-import controlador.Persona.PersonaArchivos;
+
+import controlador.Academico.PeriodoArchivos;
+import controlador.Academico.PersonaArchivos;
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import javax.swing.table.AbstractTableModel;
