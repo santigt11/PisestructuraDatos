@@ -1,7 +1,5 @@
 package vista.listas.util;
 
-import controlador.*;
-import controlador.Matricula.PeriodoArchivos;
 import controlador.Academico.AsignaturaArchivos;
 import controlador.Academico.HorarioArchivos;
 import controlador.TDA.listas.Exception.EmptyException;
@@ -9,19 +7,21 @@ import javax.swing.JComboBox;
 import modelo.Facultad;
 import modelo.Carrera;
 import modelo.MallaCurricular;
-import modelo.Asignatura;
-import controlador.Persona.PersonaArchivos;
-import controlador.MatriculaControl;
-import controlador.Matricula.MatriculaArchivos;
-import controlador.MatriculaAsignaturaControl;
-import controlador.Matricula.MatriculaAsignaturaArchivos;
-
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 public class Utilvista {
-             
+    
+    public static void cargarComboHorario(JComboBox cbx) throws EmptyException{
+        HorarioArchivos horarioControl = new HorarioArchivos();
+        horarioControl.setHorarios(horarioControl.all());
+        cbx.removeAllItems();
+        for (Integer i = 0; i < horarioControl.getHorarios().getLength(); i++) {
+                cbx.addItem(horarioControl.getHorarios().getInfo(i));
+        }
+    }
+    
     public static void cargarComboFacultades(JComboBox cbx) throws EmptyException{
         FacultadControl fc = new FacultadControl();
         controlador.Academico.FacultadArchivos vv = new controlador.Academico.FacultadArchivos();

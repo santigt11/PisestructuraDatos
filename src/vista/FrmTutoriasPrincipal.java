@@ -44,6 +44,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
 
         btNuevaTutoria.setBackground(new java.awt.Color(242, 242, 242));
         btNuevaTutoria.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
+        btNuevaTutoria.setForeground(new java.awt.Color(0, 0, 0));
         btNuevaTutoria.setText("Nueva Tutoria");
         btNuevaTutoria.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btNuevaTutoria.addActionListener(new java.awt.event.ActionListener() {
@@ -54,6 +55,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
 
         btGenerarInforme.setBackground(new java.awt.Color(242, 242, 242));
         btGenerarInforme.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
+        btGenerarInforme.setForeground(new java.awt.Color(0, 0, 0));
         btGenerarInforme.setText("Generar Informe");
         btGenerarInforme.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btGenerarInforme.addActionListener(new java.awt.event.ActionListener() {
@@ -64,11 +66,21 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
 
         cbxAsignatura.setBackground(new java.awt.Color(242, 242, 242));
         cbxAsignatura.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbxAsignatura.setForeground(new java.awt.Color(0, 0, 0));
         cbxAsignatura.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estructura de Datos" }));
         cbxAsignatura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+<<<<<<< HEAD
+=======
+        dcFecha.setBackground(new java.awt.Color(242, 242, 242));
+        dcFecha.setForeground(new java.awt.Color(0, 0, 0));
+        dcFecha.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        dcFecha.setMinimumSize(new java.awt.Dimension(90, 25));
+
+>>>>>>> main
         cbxHorario.setBackground(new java.awt.Color(242, 242, 242));
         cbxHorario.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbxHorario.setForeground(new java.awt.Color(0, 0, 0));
         cbxHorario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3 AM - 5 PM" }));
         cbxHorario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
@@ -106,6 +118,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         bg.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 50));
 
         jLabel1.setFont(new java.awt.Font("Roboto Medium", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("PROXIMAS TUTORIAS");
         bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 750, -1));
@@ -114,6 +127,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
 
         lstTutorias.setBackground(new java.awt.Color(242, 242, 242));
         lstTutorias.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        lstTutorias.setForeground(new java.awt.Color(0, 0, 0));
         lstTutorias.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Avance Pis", "Revision de la Proporcion Poblacional", "Distribucion de la Media Muestral" };
             public int getSize() { return strings.length; }
