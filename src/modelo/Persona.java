@@ -128,4 +128,5 @@ public class Persona {
                 throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
         }
     }
+    
 }

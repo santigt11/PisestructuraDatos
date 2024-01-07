@@ -83,6 +83,21 @@ public class PersonaArchivos extends AdaptadorDao<Persona> {
         }
         return null;
     }
+    public Persona getPersonaID(Integer id) {
+        for (int i = 0; i < personas.getLength(); i++) {
+            Persona persona = null;
+            try {
+                persona = personas.getInfo(i);
+            } catch (EmptyException e) {
+                throw new RuntimeException(e);
+            }
+            if (persona.getId().equals(id)) {
+                return persona;
+            }
+        }
+        return null;
+    }
+    
 //    public static void main(String[] args) {
 //        Persona p = new Persona(1, "1106072588", "Estefania", "Torres", , telefono, Rol.DOCENTE)
 //    }

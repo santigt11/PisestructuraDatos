@@ -5,7 +5,7 @@ import controlador.TDA.listas.Exception.EmptyException;
 import static controlador.Utiles.Utiles.validadorDeCorreo;
 import controlador.dao.AdaptadorDao;
 import modelo.Persona;
-import modelo.Rol;
+
 import modelo.Usuario;
 
 public class UsuarioArchivos extends AdaptadorDao<Usuario> {
@@ -32,6 +32,11 @@ public class UsuarioArchivos extends AdaptadorDao<Usuario> {
         this.usuarios = tutorias;
     }
 
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
+
     public Usuario getUsuario() {
         if (usuario == null) {
             usuario = new Usuario();
@@ -48,7 +53,19 @@ public class UsuarioArchivos extends AdaptadorDao<Usuario> {
         obj.setId(all().getLength() + 1);
         return super.persist(obj);
     }
-
+    
+        public Persona getPerson(Integer idPersona) {
+        Persona persona = null;
+                 
+        for(int i=0;i<= getUsuarios().getLength(); i++){
+            if (usuario.getId_Persona().equals(idPersona)) {
+                persona = new PersonaArchivos().getPersonaID(idPersona);
+                break;
+            }
+        }
+        return persona;
+    }
+        
     public Usuario autenticarse(String correo, String clave) throws EmptyException {
         if (!validadorDeCorreo(correo)) {
             return null; // Si el correo no cumple con el formato esperado
@@ -70,7 +87,7 @@ public class UsuarioArchivos extends AdaptadorDao<Usuario> {
     }
     
         
-    public DynamicList<Usuario> buscarLineal(String campo, String valorBuscado) throws EmptyException {
+    /*public DynamicList<Usuario> buscarLineal(String campo, String valorBuscado) throws EmptyException {
         DynamicList<Usuario> lista = all();
         Usuario usuarios[] = lista.toArray();
         DynamicList<Usuario> listaBusqueda = new DynamicList<>();
@@ -102,6 +119,6 @@ public class UsuarioArchivos extends AdaptadorDao<Usuario> {
         }
         return null;
     }
-    
+ */   
    
 }

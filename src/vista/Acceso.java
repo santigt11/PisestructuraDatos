@@ -224,16 +224,17 @@ public class Acceso extends javax.swing.JFrame {
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         if (!txtNombreUsuario.getText().isEmpty() && !String.valueOf(txtContraseña.getPassword()).isEmpty()) {
-            Usuario user = null;
+            Usuario user= null;
             try {
                 user = controlUsuario.autenticarse(txtNombreUsuario.getText(), String.valueOf(txtContraseña.getPassword()));
             } catch (EmptyException ex) {
                 java.util.logging.Logger.getLogger(Acceso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
-
+            //controlUsuario.getPerson(user.getId_Persona())
+            controlUsuario.setUsuario(user);
             if (user != null) {
-                if (null != user.getRol()) {
-                    switch (user.getRol()) {
+                if (null != controlUsuario.getPerson(controlUsuario.getUsuario().getId()).getRol()) {
+                    switch (controlUsuario.getPerson(controlUsuario.getUsuario().getId()).getRol()) {
                         case ADMINISTRADOR -> {
                             Menu_Administrador menuAdmi = new Menu_Administrador(user);
                             menuAdmi.setVisible(true);

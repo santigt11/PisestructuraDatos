@@ -17,8 +17,8 @@ import java.sql.Connection;
 public class Conexion {
     public static final String DRIVER = "oracle.jdbc.OracleDriver";
     public static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-    public static final String USERNAME = "SANTIAGO";
-    public static final String PASSWORD = "santi1809";
+    public static final String USERNAME = "BDATOSA";
+    public static final String PASSWORD = "T24estefa";
     public static Connection instancia;
 
     public Conexion() {

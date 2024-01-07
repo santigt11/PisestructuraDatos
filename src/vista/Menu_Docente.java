@@ -112,7 +112,7 @@ public class Menu_Docente extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 550, -1, -1));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 530, -1, -1));
 
         btnNuevaTutoria.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         btnNuevaTutoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistaImagenes/images(1).png"))); // NOI18N

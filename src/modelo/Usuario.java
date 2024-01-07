@@ -13,7 +13,6 @@ public class Usuario {
     private Integer id;
     private String correo;
     private String clave;
-    private Rol rol;
     private Integer id_Persona;
 
     public Usuario() {
@@ -30,15 +29,6 @@ public class Usuario {
     public String getCorreo() {
         return correo;
     }
-
-    public Rol getRol() {
-        return rol;
-    }
-
-    public void setRol(Rol rol) {
-        this.rol = rol;
-    }
-
     public Integer getId_Persona() {
         return id_Persona;
     }
@@ -58,8 +48,10 @@ public class Usuario {
     public void setClave(String clave) {
         this.clave = clave;
     }
+    
 
-public Boolean compare(Usuario u, String field, Integer type) {
+
+/*public Boolean compare(Usuario u, String field, Integer type) {
         switch (type) {
             case 0 -> {
                 if (field.equalsIgnoreCase("correo")) {
@@ -94,5 +86,5 @@ public Boolean compare(Usuario u, String field, Integer type) {
             default:
                 throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
         }
-    }
+    }*/
 }
