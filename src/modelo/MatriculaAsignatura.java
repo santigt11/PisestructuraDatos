@@ -4,8 +4,8 @@ public class MatriculaAsignatura {
 
     private Integer id;
     private String curso;
-    private Integer idMatricula;
-    private Integer idAsignatura;
+    private Integer matricula_ID;
+    private Integer asignatura_ID;
 
     public MatriculaAsignatura() {
     }
@@ -13,8 +13,8 @@ public class MatriculaAsignatura {
     public MatriculaAsignatura(Integer id, String curso, Integer idMatricula, Integer idAsignatura) {
         this.id = id;
         this.curso = curso;
-        this.idMatricula = idMatricula;
-        this.idAsignatura = idAsignatura;
+        this.matricula_ID = idMatricula;
+        this.asignatura_ID = idAsignatura;
     }
 
     public Integer getId() {
@@ -34,23 +34,23 @@ public class MatriculaAsignatura {
     }
 
     public Integer getIdMatricula() {
-        return idMatricula;
+        return matricula_ID;
     }
 
     public void setIdMatricula(Integer idMatricula) {
-        this.idMatricula = idMatricula;
+        this.matricula_ID = idMatricula;
     }
 
     public Integer getIdAsignatura() {
-        return idAsignatura;
+        return asignatura_ID;
     }
 
     public void setIdAsignatura(Integer idAsignatura) {
-        this.idAsignatura = idAsignatura;
+        this.asignatura_ID = idAsignatura;
     }
 
     @Override
     public String toString() {
-        return curso + "  -  " + idAsignatura;
+        return curso + "  -  " + asignatura_ID;
     }
 }

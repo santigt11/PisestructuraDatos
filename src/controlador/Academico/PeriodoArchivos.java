@@ -1,11 +1,11 @@
-package controlador.Matricula;
 
-import controlador.Academico.*;
-import controlador.DAO.DaoImplement;
+package controlador.Academico;
+
 import controlador.TDA.listas.DynamicList;
+import controlador.dao.AdaptadorDao;
 import modelo.PeriodoAcademico;
 
-public class PeriodoArchivos extends DaoImplement<PeriodoAcademico> {
+public class PeriodoArchivos extends AdaptadorDao<PeriodoAcademico> {
     
     private DynamicList<PeriodoAcademico> periodos;
     private PeriodoAcademico periodo;
@@ -34,8 +34,9 @@ public class PeriodoArchivos extends DaoImplement<PeriodoAcademico> {
         this.periodo = periodo;
     }
 
-    public Boolean persist() {
-        periodo.setId(all().getLength());
-        return persist(periodo);
+    @Override
+    public Integer persist(PeriodoAcademico obj) throws Exception {
+        obj.setId(all().getLength()+1);
+        return super.persist(obj);
     }
 }

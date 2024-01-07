@@ -6,8 +6,8 @@ public class Contrato {
     private Integer id;
     private LocalDate fechaRegistro;
     private LocalDate fechaCulminacion;
-    private Integer idPersona;
-    private Integer codigoAsignatura;
+    private Integer persona_DNI;
+    private Integer asignatura_CODIGO;
 
     public Contrato() {
     }
@@ -16,8 +16,8 @@ public class Contrato {
         this.id = id;
         this.fechaRegistro = fechaRegistro;
         this.fechaCulminacion = fechaCulminacion;
-        this.idPersona = idPersona;
-        this.codigoAsignatura = idAsignatura;
+        this.persona_DNI = idPersona;
+        this.asignatura_CODIGO = idAsignatura;
     }
 
     public Integer getId() {
@@ -45,18 +45,18 @@ public class Contrato {
     }
 
     public Integer getIdPersona() {
-        return idPersona;
+        return persona_DNI;
     }
 
     public void setIdPersona(Integer idPersona) {
-        this.idPersona = idPersona;
+        this.persona_DNI = idPersona;
     }
 
     public Integer getCodigoAsignatura() {
-        return codigoAsignatura;
+        return asignatura_CODIGO;
     }
 
     public void setCodigoAsignatura(Integer idAsignatura) {
-        this.codigoAsignatura = idAsignatura;
+        this.asignatura_CODIGO = idAsignatura;
     }
 }

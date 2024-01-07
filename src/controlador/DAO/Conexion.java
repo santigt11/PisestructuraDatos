@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Connection;
 /**
  *
  * @author Santiago
@@ -18,16 +19,17 @@ public class Conexion {
     public static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
     public static final String USERNAME = "SANTIAGO";
     public static final String PASSWORD = "santi1809";
-    public static Conexion instancia;
+    public static Connection instancia;
 
-    private Conexion() {
-        // Constructor privado para Singleton
+    public Conexion() {
     }
-
-    public Connection conectar() throws SQLException {
+    
+    private Connection conectar() throws SQLException {
         return DriverManager.getConnection(URL, USERNAME, PASSWORD);
     }
-
+    
+    
+    
     public void desconectar(Connection conexion) {
         try {
             conexion.close();
@@ -52,9 +54,13 @@ public class Conexion {
         }
     }
 
-    public static Conexion getInstance() {
+    public Connection getConnection() throws SQLException {
         if (instancia == null)
-            instancia = new Conexion();
+            instancia = conectar();
         return instancia;
+    }
+    
+    public void setConnection(Connection connection) {
+        this.instancia = connection;
     }
 }

@@ -4,14 +4,14 @@ public class MallaCurricular {
     private Integer id;
     private String descripcion;
     private String pensum;
-    private Integer idCarrera;
     private boolean vigencia;
+    private Integer carrera_ID;
 
     public MallaCurricular(Integer id, String descripcion, String pensum, Integer idCarrera) {
         this.id = id;
         this.descripcion = descripcion;
         this.pensum = pensum;
-        this.idCarrera = idCarrera;
+        this.carrera_ID = idCarrera;
     }
     
     public MallaCurricular() {
@@ -21,8 +21,8 @@ public class MallaCurricular {
         this.id = id;
         this.descripcion = descripcion;
         this.pensum = pensum;
-        this.idCarrera = idCarrera;
         this.vigencia = vigencia;
+        this.carrera_ID = idCarrera;
     }
     
     public Integer getId() {
@@ -50,11 +50,11 @@ public class MallaCurricular {
     }
 
     public Integer getIdCarrera() {
-        return idCarrera;
+        return carrera_ID;
     }
 
     public void setIdCarrera(Integer idCarrera) {
-        this.idCarrera = idCarrera;
+        this.carrera_ID = idCarrera;
     }
 
     public boolean isVigencia() {

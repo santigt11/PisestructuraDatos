@@ -10,16 +10,16 @@ package modelo;
  */
 public class TutoriaMatricula {
     private Integer id;
-    private Integer idMatricula;
-    private Integer idTutoria;
+    private Integer matricula_ID;
+    private Integer tutoria_ID;
 
     public TutoriaMatricula() {
     }
 
     public TutoriaMatricula(Integer id, Integer idMatricula, Integer idTutoria) {
         this.id = id;
-        this.idMatricula = idMatricula;
-        this.idTutoria = idTutoria;
+        this.matricula_ID = idMatricula;
+        this.tutoria_ID = idTutoria;
     }
 
     public Integer getId() {
@@ -31,19 +31,19 @@ public class TutoriaMatricula {
     }
 
     public Integer getIdMatricula() {
-        return idMatricula;
+        return matricula_ID;
     }
 
     public void setIdMatricula(Integer idMatricula) {
-        this.idMatricula = idMatricula;
+        this.matricula_ID = idMatricula;
     }
 
     public Integer getIdTutoria() {
-        return idTutoria;
+        return tutoria_ID;
     }
 
     public void setIdTutoria(Integer idTutoria) {
-        this.idTutoria = idTutoria;
+        this.tutoria_ID = idTutoria;
     }
     
 }

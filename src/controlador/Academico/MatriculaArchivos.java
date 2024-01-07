@@ -1,11 +1,11 @@
-package controlador.Matricula;
 
-import controlador.Academico.*;
-import controlador.DAO.DaoImplement;
+package controlador.Academico;
+
 import controlador.TDA.listas.DynamicList;
+import controlador.dao.AdaptadorDao;
 import modelo.Matricula;
 
-public class MatriculaArchivos extends DaoImplement<Matricula> {
+public class MatriculaArchivos extends AdaptadorDao<Matricula> {
     
     private DynamicList<Matricula> matriculas;
     private Matricula matricula;
@@ -34,8 +34,9 @@ public class MatriculaArchivos extends DaoImplement<Matricula> {
         this.matricula = matricula;
     }
 
-    public Boolean persist() {
-        matricula.setId(all().getLength());
-        return persist(matricula);
+    @Override
+    public Integer persist(Matricula obj) throws Exception {
+        obj.setId(all().getLength()+1);
+        return super.persist(obj);
     }
 }
