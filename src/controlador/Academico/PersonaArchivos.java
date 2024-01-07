@@ -5,6 +5,8 @@ import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.dao.AdaptadorDao;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import modelo.Persona;
 import modelo.Rol;
 
@@ -45,7 +47,12 @@ public class PersonaArchivos extends AdaptadorDao<Persona> {
 
     @Override
     public Integer persist(Persona obj) throws Exception {
+<<<<<<< HEAD
         obj.setId(all().getLength() + 1);
+=======
+        DynamicList<Persona> personas = all();
+        obj.setId(personas.getLength() + 1);
+>>>>>>> Santiago-Guachizaca
         return super.persist(obj);
     }
 
@@ -81,7 +88,16 @@ public class PersonaArchivos extends AdaptadorDao<Persona> {
         }
         return null;
     }
-//    public static void main(String[] args) {
-//        Persona p = new Persona(1, "1106072588", "Estefania", "Torres", , telefono, Rol.DOCENTE)
+
+//    public static void main(String[] args) throws Exception {
+//        PersonaArchivos pa = new PersonaArchivos();
+//        pa.getPersona().setApellido("Guachizaca");
+//        pa.getPersona().setDni("1150357679");
+//        pa.getPersona().setFechaNacimiento(new Date(24, 9, 18).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+//        System.out.println(pa.getPersona().getFechaNacimiento());
+//        pa.getPersona().setNombre("Santiago");
+//        pa.getPersona().setRol(Rol.ESTUDIANTE);
+//        pa.getPersona().setTelefono("0980170669");
+//        pa.persist(pa.getPersona());
 //    }
 }
