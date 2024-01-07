@@ -159,8 +159,9 @@ public class Acceso extends javax.swing.JFrame {
             try {
                 user = controlUsuario.autenticarse(txtNombreUsuario.getText(), String.valueOf(txtContraseña.getPassword()));
             } catch (EmptyException ex) {
-                Logger.getLogger(Acceso.class.getName()).log(Level.SEVERE, null, ex);
+                java.util.logging.Logger.getLogger(Acceso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
+           
             if (user != null) {
                 if (null != user.getRol()) {
                     switch (user.getRol()) {
