@@ -6,6 +6,7 @@ import controlador.Academico.MatriculaAsignaturaArchivos;
 import controlador.Academico.TutoriaArchivos;
 import vista.listas.tablas.TablaMatricula;
 import vista.listas.tablas.TablaPersona;
+import vista.listas.util.Utilvista;
 
 public class FrmNuevaTutoria extends javax.swing.JFrame {
 
@@ -19,20 +20,20 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private AsignaturaArchivos asignaturaControl = new AsignaturaArchivos();
     private MatriculaAsignaturaArchivos matriculaAsignControl = new MatriculaAsignaturaArchivos();
     
-    private void ordenar(){
-        String criterio = cbxCriterio.getSelectedItem().toString();
-        Integer tipo = 0;
-        if (btn_tipo.isSelected()) {
-            tipo = 1;
-        }
-        try {
-            mtp.setPersonas(control.ordenar(control.all(), tipo, criterio));
-            tbPersona.setModel(mtp);
-            tbPersona.updateUI();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-    }
+//    private void ordenar(){
+//        String criterio = cbxCriterio.getSelectedItem().toString();
+//        Integer tipo = 0;
+//        if (btn_tipo.isSelected()) {
+//            tipo = 1;
+//        }
+//        try {
+//            mtp.setPersonas(control.ordenar(control.all(), tipo, criterio));
+//            tbPersona.setModel(mtp);
+//            tbPersona.updateUI();
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+//        }
+//    }
     
     public Boolean verificar() {
         return (!txtTema.getText().trim().isEmpty()
@@ -41,8 +42,8 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
                 && !(cbxAsignatura.getSelectedIndex() > 0));
     }
 
-    private void cargarTabla() {
-        mtp.setPersonas(control.all());
+    private void cargarLista() {
+        lstMatriculaAsignatura.setPersonas(control.all());
         tutoriaControl.setPersonas(control.all());
         tbPersona.setModel(mtp);
         tbPersona.updateUI();
@@ -86,7 +87,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
 
     private void limpiar() {
         try {
-            Utilvista.cargarcomboRolesL(cbxRol);
+            Utilvista.cargarcomboRolesHorario(cbxHorario);
         } catch (EmptyException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
@@ -126,7 +127,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         btAsignarEstudiante1 = new javax.swing.JButton();
         btRemoverEstudiante = new javax.swing.JButton();
         jScrollPane8 = new javax.swing.JScrollPane();
-        lstEstudiantes = new javax.swing.JList<>();
+        lstMatriculaAsignatura = new javax.swing.JList<>();
         jScrollPane7 = new javax.swing.JScrollPane();
         lstEstudiantesAsignados = new javax.swing.JList<>();
 
@@ -166,6 +167,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         bg.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, -1));
 
         jPanel3.setBackground(new java.awt.Color(242, 242, 242));
+        jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
         jLabel6.setBackground(new java.awt.Color(51, 51, 51));
         jLabel6.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
@@ -313,6 +315,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         bg.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 450, 220));
 
         jPanel2.setBackground(new java.awt.Color(242, 242, 242));
+        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
         btAsignarEstudiante1.setBackground(new java.awt.Color(88, 156, 20));
         btAsignarEstudiante1.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
@@ -338,21 +341,21 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
 
         jScrollPane8.setBorder(null);
 
-        lstEstudiantes.setBackground(new java.awt.Color(229, 229, 229));
-        lstEstudiantes.setBorder(javax.swing.BorderFactory.createBevelBorder(null));
-        lstEstudiantes.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        lstEstudiantes.setForeground(new java.awt.Color(0, 0, 0));
-        lstEstudiantes.setModel(new javax.swing.AbstractListModel<String>() {
+        lstMatriculaAsignatura.setBackground(new java.awt.Color(229, 229, 229));
+        lstMatriculaAsignatura.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lstMatriculaAsignatura.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        lstMatriculaAsignatura.setForeground(new java.awt.Color(0, 0, 0));
+        lstMatriculaAsignatura.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Jose Roberto Alcachofa Tercero", "Pepe Roberto Alcachofa Segundo" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane8.setViewportView(lstEstudiantes);
+        jScrollPane8.setViewportView(lstMatriculaAsignatura);
 
         jScrollPane7.setBorder(null);
 
         lstEstudiantesAsignados.setBackground(new java.awt.Color(229, 229, 229));
-        lstEstudiantesAsignados.setBorder(javax.swing.BorderFactory.createBevelBorder(null));
+        lstEstudiantesAsignados.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lstEstudiantesAsignados.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         lstEstudiantesAsignados.setForeground(new java.awt.Color(0, 0, 0));
         lstEstudiantesAsignados.setModel(new javax.swing.AbstractListModel<String>() {
@@ -458,8 +461,8 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JList<String> lstEstudiantes;
     private javax.swing.JList<String> lstEstudiantesAsignados;
+    private javax.swing.JList<String> lstMatriculaAsignatura;
     private javax.swing.JTextField txtTema;
     // End of variables declaration//GEN-END:variables
 }
