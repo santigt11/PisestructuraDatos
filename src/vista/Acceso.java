@@ -15,7 +15,9 @@ import static java.lang.reflect.Array.set;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import modelo.Persona;
 import modelo.Rol;
+import static modelo.Rol.ADMINISTRADOR;
 import modelo.Usuario;
 
 /**
@@ -225,16 +227,27 @@ public class Acceso extends javax.swing.JFrame {
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         if (!txtNombreUsuario.getText().isEmpty() && !String.valueOf(txtContraseña.getPassword()).isEmpty()) {
             Usuario user= null;
+           
             try {
                 user = controlUsuario.autenticarse(txtNombreUsuario.getText(), String.valueOf(txtContraseña.getPassword()));
+                //System.out.println(user.getClave());
+                //System.out.println(user.getCorreo());
             } catch (EmptyException ex) {
                 java.util.logging.Logger.getLogger(Acceso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
             //controlUsuario.getPerson(user.getId_Persona())
             controlUsuario.setUsuario(user);
-            if (user != null) {
-                if (null != controlUsuario.getPerson(controlUsuario.getUsuario().getId()).getRol()) {
-                    switch (controlUsuario.getPerson(controlUsuario.getUsuario().getId()).getRol()) {
+            Persona persona = null;
+            try {
+                persona = controlPersona.buscarBinaria("dni", user.getPersona_DNI());
+                //System.out.println(persona.getNombre().toString());
+            } catch (EmptyException ex) {
+                java.util.logging.Logger.getLogger(Acceso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+            if (persona != null) {
+                //System.out.println(persona.getRol().getName());
+                if (null != persona.getRol()) {
+                    switch ( persona.getRol()) {
                         case ADMINISTRADOR -> {
                             Menu_Administrador menuAdmi = new Menu_Administrador(user);
                             menuAdmi.setVisible(true);

@@ -35,7 +35,6 @@ public class UsuarioArchivos extends AdaptadorDao<Usuario> {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
 
     public Usuario getUsuario() {
         if (usuario == null) {
@@ -53,24 +52,12 @@ public class UsuarioArchivos extends AdaptadorDao<Usuario> {
         obj.setId(all().getLength() + 1);
         return super.persist(obj);
     }
-    
-        public Persona getPerson(Integer idPersona) {
-        Persona persona = null;
-                 
-        for(int i=0;i<= getUsuarios().getLength(); i++){
-            if (usuario.getId_Persona().equals(idPersona)) {
-                persona = new PersonaArchivos().getPersonaID(idPersona);
-                break;
-            }
-        }
-        return persona;
-    }
-        
+
     public Usuario autenticarse(String correo, String clave) throws EmptyException {
         if (!validadorDeCorreo(correo)) {
             return null; // Si el correo no cumple con el formato esperado
         } else {
-
+          
             DynamicList<Usuario> usuarios = getUsuarios(); // Método para obtener la lista de usuarios
             for (int i = 0; i < usuarios.getLength(); i++) {
                 Usuario usuario = usuarios.getInfo(i);
@@ -86,9 +73,7 @@ public class UsuarioArchivos extends AdaptadorDao<Usuario> {
         return claveAlmacenada.equalsIgnoreCase(claveIngresada);
     }
     
-        
-    /*public DynamicList<Usuario> buscarLineal(String campo, String valorBuscado) throws EmptyException {
-        DynamicList<Usuario> lista = all();
+public DynamicList<Usuario> buscarLineal(DynamicList<Usuario> lista, String campo, String valorBuscado) throws EmptyException {
         Usuario usuarios[] = lista.toArray();
         DynamicList<Usuario> listaBusqueda = new DynamicList<>();
         for (int i = 0; i < lista.getLength(); i++) {
@@ -99,7 +84,6 @@ public class UsuarioArchivos extends AdaptadorDao<Usuario> {
         }
         return listaBusqueda;
     }
-    
     public Usuario buscarBinaria(String campo, String valorBuscado) throws EmptyException {
         int inicio = 0;
         DynamicList<Usuario> lista = all();
@@ -119,6 +103,5 @@ public class UsuarioArchivos extends AdaptadorDao<Usuario> {
         }
         return null;
     }
- */   
-   
+
 }

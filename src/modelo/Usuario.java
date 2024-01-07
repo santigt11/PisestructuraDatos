@@ -13,7 +13,7 @@ public class Usuario {
     private Integer id;
     private String correo;
     private String clave;
-    private Integer id_Persona;
+    private String persona_DNI;
 
     public Usuario() {
     }
@@ -29,12 +29,13 @@ public class Usuario {
     public String getCorreo() {
         return correo;
     }
-    public Integer getId_Persona() {
-        return id_Persona;
+
+    public String getPersona_DNI() {
+        return persona_DNI;
     }
 
-    public void setId_Persona(Integer id_Persona) {
-        this.id_Persona = id_Persona;
+    public void setPersona_DNI(String persona_DNI) {
+        this.persona_DNI = persona_DNI;
     }
 
     public void setCorreo(String correo) {
@@ -48,25 +49,22 @@ public class Usuario {
     public void setClave(String clave) {
         this.clave = clave;
     }
-    
-
-
-/*public Boolean compare(Usuario u, String field, Integer type) {
+public Boolean compare(Usuario u, String field, Integer type) {
         switch (type) {
             case 0 -> {
                 if (field.equalsIgnoreCase("correo")) {
                     return this.getCorreo().toLowerCase().compareTo(u.getCorreo().toLowerCase()) < 0;
                 }
-                else if (field.equalsIgnoreCase("rol")) {
-                    return this.rol.getName().compareTo(u.getRol().getName()) > 0;
+                else if (field.equalsIgnoreCase("correo")) {
+                    return this.getCorreo().compareTo(u.getCorreo().toLowerCase()) > 0;
                 }
             }
-            case 1 -> {
-                if (field.equalsIgnoreCase("correo")) {
-                    return this.getCorreo().toLowerCase().compareTo(u.getCorreo().toLowerCase()) < 0;
+             case 1 -> {
+                if (field.equalsIgnoreCase("persona_DNI")) {
+                    return this.getPersona_DNI().toLowerCase().compareTo(u.getCorreo().toLowerCase()) < 0;
                 }
-                else if (field.equalsIgnoreCase("rol")) {
-                    return this.rol.getName().compareTo(u.getRol().getName()) < 0;
+                else if (field.equalsIgnoreCase("persona_DNI")) {
+                    return this.getPersona_DNI().compareTo(u.getCorreo().toLowerCase()) > 0;
                 }
             }
             default -> {
@@ -80,11 +78,10 @@ public class Usuario {
         switch (campo.toLowerCase()) {
             case "correo":
                 return this.getCorreo().compareToIgnoreCase(valorBuscado);
-            case "rol":
-                return this.getRol().getName().compareToIgnoreCase(campo);
-
+                case "persona_DNI":
+                return this.getPersona_DNI().compareToIgnoreCase(valorBuscado);
             default:
                 throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
         }
-    }*/
+    }
 }
