@@ -39,14 +39,14 @@ public class HorarioArchivos implements DaoInterface<Horario> {
     }
 
     public Horario getAsignatura() {
-        if (horario == null) {
-            horario = new Horario();
+        if (getHorario() == null) {
+            setHorario(new Horario());
         }
-        return horario;
+        return getHorario();
     }
 
     public void setCarrera(Horario horario) {
-        this.horario = horario;
+        this.setHorario(horario);
     }
 
     @Override
@@ -124,5 +124,19 @@ public class HorarioArchivos implements DaoInterface<Horario> {
     @Override
     public Boolean merge(Horario data) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    /**
+     * @return the horario
+     */
+    public Horario getHorario() {
+        return horario;
+    }
+
+    /**
+     * @param horario the horario to set
+     */
+    public void setHorario(Horario horario) {
+        this.horario = horario;
     }
 }
