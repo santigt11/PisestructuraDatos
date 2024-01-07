@@ -2,7 +2,9 @@ package vista;
 
 import controlador.Academico.AsignaturaArchivos;
 import controlador.Academico.HorarioArchivos;
+import controlador.Academico.MatriculaAsignaturaArchivos;
 import controlador.Academico.TutoriaArchivos;
+import vista.listas.tablas.TablaMatricula;
 import vista.listas.tablas.TablaPersona;
 
 public class FrmNuevaTutoria extends javax.swing.JFrame {
@@ -15,29 +17,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private TutoriaArchivos tutoriaControl = new TutoriaArchivos();
     private HorarioArchivos horarioControl = new HorarioArchivos();
     private AsignaturaArchivos asignaturaControl = new AsignaturaArchivos();
-    private TablaPersona mtp = new TablaPersona();
-    
-
-    private void cargarVista() {
-        int fila = tbPersona.getSelectedRow();
-        if (fila < 0) {
-            JOptionPane.showMessageDialog(null, "Escoja un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            try {
-                tutoriaControl.setPersona(mtp.getPersonas().getInfo(fila));
-                txtApellidos.setText(tutoriaControl.getPersona().getApellidos());
-                txtCorreo.setText("");
-                txtDNI.setText(tutoriaControl.getPersona().getDNI());
-                txtDNI.setEnabled(false);
-                txtDireccion.setText(tutoriaControl.getPersona().getDireccion());
-                txtNombres.setText(tutoriaControl.getPersona().getNombres());
-                txtTelefono.setText(tutoriaControl.getPersona().getTelefono());
-                cbxRol.setSelectedIndex(tutoriaControl.getPersona().getId_rol() - 1);
-            } catch (Exception ex) {
-                Logger.getLogger(FrmGuardarPersona.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
+    private MatriculaAsignaturaArchivos matriculaAsignControl = new MatriculaAsignaturaArchivos();
     
     private void ordenar(){
         String criterio = cbxCriterio.getSelectedItem().toString();
@@ -55,10 +35,10 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     }
     
     public Boolean verificar() {
-        return (!txtApellidos.getText().trim().isEmpty()
-                && !txtDireccion.getText().trim().isEmpty()
-                && !txtCorreo.getText().trim().isEmpty()
-                && !txtDNI.getText().trim().isEmpty());
+        return (!txtTema.getText().trim().isEmpty()
+                && !(cbxHorario.getSelectedIndex() > 0)
+                && !dcFecha.getDate().equals(null)
+                && !(cbxAsignatura.getSelectedIndex() > 0));
     }
 
     private void cargarTabla() {
@@ -186,15 +166,16 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         bg.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, -1));
 
         jPanel3.setBackground(new java.awt.Color(242, 242, 242));
-        jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
         jLabel6.setBackground(new java.awt.Color(51, 51, 51));
         jLabel6.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Asignatura:");
 
         cbxAsignatura.setBackground(new java.awt.Color(242, 242, 242));
         cbxAsignatura.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbxAsignatura.setForeground(new java.awt.Color(0, 0, 0));
         cbxAsignatura.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estructura de Datos" }));
         cbxAsignatura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cbxAsignatura.addActionListener(new java.awt.event.ActionListener() {
@@ -205,6 +186,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
 
         jLabel7.setBackground(new java.awt.Color(51, 51, 51));
         jLabel7.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("Fecha:");
 
@@ -213,16 +195,19 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
 
         jLabel8.setBackground(new java.awt.Color(51, 51, 51));
         jLabel8.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("Horario:");
 
         cbxHorario.setBackground(new java.awt.Color(242, 242, 242));
         cbxHorario.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbxHorario.setForeground(new java.awt.Color(0, 0, 0));
         cbxHorario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3 AM - 5 PM" }));
         cbxHorario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel9.setBackground(new java.awt.Color(51, 51, 51));
         jLabel9.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel9.setText("Tema:");
 
@@ -252,6 +237,11 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         btCrearTutoria1.setForeground(new java.awt.Color(255, 255, 255));
         btCrearTutoria1.setText("Crear Tutoria");
         btCrearTutoria1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btCrearTutoria1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCrearTutoria1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -323,7 +313,6 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         bg.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 450, 220));
 
         jPanel2.setBackground(new java.awt.Color(242, 242, 242));
-        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
         btAsignarEstudiante1.setBackground(new java.awt.Color(88, 156, 20));
         btAsignarEstudiante1.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
@@ -350,8 +339,9 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         jScrollPane8.setBorder(null);
 
         lstEstudiantes.setBackground(new java.awt.Color(229, 229, 229));
-        lstEstudiantes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lstEstudiantes.setBorder(javax.swing.BorderFactory.createBevelBorder(null));
         lstEstudiantes.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        lstEstudiantes.setForeground(new java.awt.Color(0, 0, 0));
         lstEstudiantes.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Jose Roberto Alcachofa Tercero", "Pepe Roberto Alcachofa Segundo" };
             public int getSize() { return strings.length; }
@@ -362,8 +352,9 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         jScrollPane7.setBorder(null);
 
         lstEstudiantesAsignados.setBackground(new java.awt.Color(229, 229, 229));
-        lstEstudiantesAsignados.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lstEstudiantesAsignados.setBorder(javax.swing.BorderFactory.createBevelBorder(null));
         lstEstudiantesAsignados.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        lstEstudiantesAsignados.setForeground(new java.awt.Color(0, 0, 0));
         lstEstudiantesAsignados.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Jose Ignacio Foquencio Cuarto", "Federico Medellin Nirvana Octavo" };
             public int getSize() { return strings.length; }
@@ -436,6 +427,10 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private void cbxAsignaturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxAsignaturaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxAsignaturaActionPerformed
+
+    private void btCrearTutoria1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCrearTutoria1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btCrearTutoria1ActionPerformed
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
