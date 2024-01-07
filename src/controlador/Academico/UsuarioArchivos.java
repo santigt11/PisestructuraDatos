@@ -1,6 +1,8 @@
 package controlador.Academico;
 
 import controlador.TDA.listas.DynamicList;
+import controlador.TDA.listas.Exception.EmptyException;
+import static controlador.Utiles.Utiles.validadorDeCorreo;
 import controlador.dao.AdaptadorDao;
 import modelo.Rol;
 import modelo.Usuario;
@@ -46,8 +48,26 @@ public class UsuarioArchivos extends AdaptadorDao<Usuario> {
         return super.persist(obj);
     }
 
-    public Rol autenticarse(String nombreUsuario, String contraseña) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Rol autenticarse(String correo, String clave) throws EmptyException {
+         if (!validadorDeCorreo(correo)) {
+        return null; // Si el correo no cumple con el formato esperado
+    }
+
+    DynamicList<Usuario> usuarios = getUsuarios(); // Método para obtener la lista de usuarios
+    for (int i = 0; i < usuarios.getLength(); i++) {
+        Usuario usuario = usuarios.getInfo(i);
+        if (usuario.getCorreo().equals(correo) && verificarClave(usuario.getClave(), clave)) {
+            return usuario.getRol(); // Devuelve el rol del usuario autenticado
+        }
+    }
+    return null;
+    }
+
+    private boolean verificarClave(String claveAlmacenada, String claveIngresada) {
+
+
+
+        return false;
     }
     
 }

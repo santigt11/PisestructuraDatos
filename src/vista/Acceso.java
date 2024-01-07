@@ -7,6 +7,7 @@ package vista;
 
 import controlador.Academico.PersonaArchivos;
 import controlador.Academico.UsuarioArchivos;
+import controlador.TDA.listas.Exception.EmptyException;
 import java.awt.Graphics;
 import java.awt.Image;
 import static java.lang.reflect.Array.set;
@@ -38,13 +39,12 @@ public class Acceso extends javax.swing.JFrame {
         return (!txtNombreUsuario.getText().trim().isEmpty()
                 && !txtContraseña.getText().trim().isEmpty());          
     }
-    public void guardar(){
+    public void guardar() throws EmptyException{
         if (verificar()) {
-        String nombreUsuario = txtNombreUsuario.getText();
-        String contraseña = txtContraseña.getText();
+        String correo = txtNombreUsuario.getText();
+        String clave = txtContraseña.getText();
 
-        UsuarioArchivos controlUsuario = new UsuarioArchivos();
-        Rol usuarioRol = controlUsuario.autenticarse(nombreUsuario, contraseña);
+        Rol usuarioRol = controlUsuario.autenticarse(correo, clave);
 
         if (usuarioRol != null) {
             JOptionPane.showMessageDialog(null, "¡Inicio de sesión exitoso como " + usuarioRol + "!");

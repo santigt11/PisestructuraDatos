@@ -7,6 +7,8 @@ import modelo.Asignatura;
 import modelo.MallaCurricular;
 
 import java.lang.reflect.Field;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Utiles {
 
@@ -85,5 +87,13 @@ public class Utiles {
             }
         }
         return encontrado;
+    }
+        public static boolean validadorDeCorreo(String correo) {
+        String patron = "^[A-Za-z0-9+_.-]+@unl\\.edu\\.ec$";
+        Pattern pattern = Pattern.compile(patron);
+   
+        // Verificar si el correo coincide con el patrón
+        Matcher matcher = pattern.matcher(correo);
+        return matcher.find();
     }
 }
