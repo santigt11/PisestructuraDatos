@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.Rol;
-import vista.listas.tablas.ModeloTablaPersona;
+import vista.listas.tablas.TablaPersona;
 
 /**
  *
@@ -23,7 +23,7 @@ import vista.listas.tablas.ModeloTablaPersona;
 public class FrmGuardarPersona extends javax.swing.JFrame {
 
     private PersonaArchivos personaControl = new PersonaArchivos();
-    private ModeloTablaPersona mtp = new ModeloTablaPersona();
+    private TablaPersona mtp = new TablaPersona();
 
     private void cargarVista() {
         int fila = tbPersona.getSelectedRow();
@@ -60,7 +60,7 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
         tbPersona.updateUI();
     }
 
-    private void guardar() throws EmptyException, ParseException {
+    private void guardar() throws EmptyException, ParseException, Exception {
         if (verificar()) {
             if (Utiles.validadorDeCedula(txtDni.getText())) {
                 personaControl.getPersona().setApellido(txtApellido.getText());
@@ -98,15 +98,13 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
                             throw new AssertionError();
                     }
                 }
-                personaControl.getPersona().setFechaNacimientoi(txtFechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-                if (personaControl.persist(personaControl.getPersona())) {
-                    JOptionPane.showMessageDialog(null, "Datos guardados");
-                    cargarTabla();
-                    limpiar();
-                    personaControl.setPersona(null);
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo guardar, hubo un error");
-                }
+                personaControl.getPersona().setFechaNacimiento(txtFechaNacimiento.getDate());
+                personaControl.persist(personaControl.getPersona());
+                JOptionPane.showMessageDialog(null, "Datos guardados");
+                cargarTabla();
+                limpiar();
+                personaControl.setPersona(null);
+
             } else {
                 JOptionPane.showMessageDialog(null, "Cedula no valida");
             }
@@ -426,12 +424,11 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxRolActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
         try {
             guardar();
-        } catch (EmptyException ex) {
-            System.out.println(ex.getMessage());
         } catch (ParseException ex) {
+            Logger.getLogger(FrmGuardarPersona.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(FrmGuardarPersona.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -457,7 +454,11 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
         personaControl.getPersona().setDni(txtDni.getText());
         personaControl.getPersona().setNombre(txtNombre.getText());
         personaControl.getPersona().setTelefono(txtTelefono.getText());
-        personaControl.merge(personaControl.getPersona());
+        try {
+            personaControl.merge(personaControl.getPersona());
+        } catch (Exception ex) {
+            Logger.getLogger(FrmGuardarPersona.class.getName()).log(Level.SEVERE, null, ex);
+        }
         cargarTabla();
         limpiar();
     }//GEN-LAST:event_btnModificarActionPerformed
