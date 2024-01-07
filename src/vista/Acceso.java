@@ -62,7 +62,6 @@ public class Acceso extends javax.swing.JFrame {
         jCheckBox1 = new javax.swing.JCheckBox();
         btnRecuperarClave = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         txtContraseña = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -72,9 +71,9 @@ public class Acceso extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/photo4987874516348807274.jpg"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -50, 510, 600));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, -130, 510, 760));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 11, 510, 510));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 510, 490));
 
         jPanel3.setBackground(new java.awt.Color(153, 153, 153));
         jPanel3.setDoubleBuffered(false);
@@ -95,24 +94,24 @@ public class Acceso extends javax.swing.JFrame {
                 txtNombreUsuarioActionPerformed(evt);
             }
         });
-        jPanel2.add(txtNombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 290, 30));
+        jPanel2.add(txtNombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 290, 30));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Nombre del Usuario:");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, -1, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Contraseña:");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, -1, -1));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Franklin Gothic Medium Cond", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(102, 102, 0));
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("INICIAR SESÍON");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, -1, -1));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, -1, -1));
 
-        btnIniciar.setBackground(new java.awt.Color(50, 40, 0));
+        btnIniciar.setBackground(new java.awt.Color(0, 102, 102));
         btnIniciar.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
         btnIniciar.setForeground(new java.awt.Color(255, 255, 255));
         btnIniciar.setText("Iniciar Sesion");
@@ -123,27 +122,26 @@ public class Acceso extends javax.swing.JFrame {
                 btnIniciarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnIniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 350, 199, 34));
+        jPanel2.add(btnIniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 350, 199, 34));
 
         jCheckBox1.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
         jCheckBox1.setForeground(new java.awt.Color(0, 0, 0));
         jCheckBox1.setText("Recuérdame");
-        jPanel2.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, -1, -1));
+        jPanel2.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, -1, -1));
 
         btnRecuperarClave.setBackground(new java.awt.Color(102, 102, 102));
         btnRecuperarClave.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnRecuperarClave.setForeground(new java.awt.Color(204, 204, 204));
         btnRecuperarClave.setText("Recuperar Contraseña");
         btnRecuperarClave.setBorder(null);
-        jPanel2.add(btnRecuperarClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 410, 160, 23));
+        jPanel2.add(btnRecuperarClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 413, 160, 20));
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 51, -1, 133));
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 220, 110));
 
         txtContraseña.setBackground(new java.awt.Color(255, 255, 204));
         txtContraseña.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel2.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 258, 290, 30));
+        jPanel2.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 290, 30));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 490, 510));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 70, 500, 490));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -244,7 +242,6 @@ public class Acceso extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
