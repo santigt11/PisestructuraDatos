@@ -1,12 +1,9 @@
 package vista.listas.util;
 
-<<<<<<< HEAD
 import controlador.*;
 import controlador.Matricula.PeriodoArchivos;
-=======
 import controlador.Academico.AsignaturaArchivos;
 import controlador.Academico.HorarioArchivos;
->>>>>>> main
 import controlador.TDA.listas.Exception.EmptyException;
 import javax.swing.JComboBox;
 import modelo.Facultad;
