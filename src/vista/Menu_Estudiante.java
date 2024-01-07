@@ -4,6 +4,8 @@
  */
 package vista;
 
+import modelo.Usuario;
+
 /**
  *
  * @author Usuario
@@ -13,7 +15,12 @@ public class Menu_Estudiante extends javax.swing.JFrame {
     /**
      * Creates new form Menu_Estudiante
      */
-    public Menu_Estudiante() {
+    Usuario user;
+    public Menu_Estudiante(Usuario usuario) {
+        initComponents();
+        this.user=usuario;
+    }
+      public Menu_Estudiante() {
         initComponents();
     }
 

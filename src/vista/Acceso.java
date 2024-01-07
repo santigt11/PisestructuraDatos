@@ -235,19 +235,19 @@ public class Acceso extends javax.swing.JFrame {
                 if (null != user.getRol()) {
                     switch (user.getRol()) {
                         case ADMINISTRADOR -> {
-                            Menu_Administrador menuAdmi = new Menu_Administrador();
+                            Menu_Administrador menuAdmi = new Menu_Administrador(user);
                             menuAdmi.setVisible(true);
                             this.dispose();
                             JOptionPane.showMessageDialog(this, "¡Inicio de sesión exitoso como ADMINISTRADOR!");
                         }
                         case DOCENTE -> {// Abrir Frm_Main_Docente
-                            Menu_Docente menuDoc = new Menu_Docente();
+                            Menu_Docente menuDoc = new Menu_Docente(user);
                             menuDoc.setVisible(true);
                             this.dispose();
                             JOptionPane.showMessageDialog(this, "¡Inicio de sesión exitoso como DOCENTE!");
                         }
                         case ESTUDIANTE -> {// Abrir Frm_Main_Estudiante.
-                            Menu_Estudiante menuEstu = new Menu_Estudiante();
+                            Menu_Estudiante menuEstu = new Menu_Estudiante(user);
                             menuEstu.setVisible(true);
                             this.dispose();
                             JOptionPane.showMessageDialog(this, "¡Inicio de sesión exitoso como ESTUDIANTE!");

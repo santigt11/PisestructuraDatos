@@ -4,6 +4,8 @@
  */
 package vista;
 
+import modelo.Usuario;
+
 /**
  *
  * @author Usuario
@@ -13,8 +15,14 @@ public class Menu_Administrador extends javax.swing.JFrame {
     /**
      * Creates new form Menu_Administrador
      */
-    public Menu_Administrador() {
+    Usuario user;
+    public Menu_Administrador(Usuario usuario) {
         initComponents();
+        this.user=usuario;
+    }
+     public Menu_Administrador() {
+        initComponents();
+     
     }
 
     /**
