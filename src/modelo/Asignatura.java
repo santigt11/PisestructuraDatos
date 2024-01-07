@@ -6,7 +6,7 @@ public class Asignatura {
     private String nombre;
     private String codigo;
     private Integer totalHoras;
-    private Integer idMalla;
+    private Integer mallaCurricular_ID;
 
     public Asignatura() {
     }
@@ -16,7 +16,7 @@ public class Asignatura {
         this.nombre = nombre;
         this.codigo = codigo;
         this.totalHoras = totalHoras;
-        this.idMalla = idMalla;
+        this.mallaCurricular_ID = idMalla;
     }
 
     public Integer getId() {
@@ -52,11 +52,11 @@ public class Asignatura {
     }
 
     public Integer getIdMalla() {
-        return idMalla;
+        return mallaCurricular_ID;
     }
 
     public void setIdMalla(Integer idMalla) {
-        this.idMalla = idMalla;
+        this.mallaCurricular_ID = idMalla;
     }
     
     @Override

@@ -1,20 +1,24 @@
 package vista.listas.util;
 
+import controlador.*;
+import controlador.Matricula.PeriodoArchivos;
+import controlador.Academico.AsignaturaArchivos;
+import controlador.Academico.HorarioArchivos;
 import controlador.TDA.listas.Exception.EmptyException;
 import javax.swing.JComboBox;
 import modelo.Facultad;
-import controlador.FacultadControl;
 import modelo.Carrera;
-import controlador.CarreraControl;
 import modelo.MallaCurricular;
-import controlador.MallaControl;
 import modelo.Asignatura;
-import controlador.AsignaturaControl;
 import controlador.Persona.PersonaArchivos;
-import controlador.PersonaControl;
+import controlador.MatriculaControl;
+import controlador.Matricula.MatriculaArchivos;
+import controlador.MatriculaAsignaturaControl;
+import controlador.Matricula.MatriculaAsignaturaArchivos;
 
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 public class Utilvista {
              
@@ -62,6 +66,26 @@ public class Utilvista {
         return (MallaCurricular) cbx.getSelectedItem();
     }
 
+    public static void cargarComboPeriodo(JComboBox cbx) throws EmptyException{
+        PeriodoAControl pc = new PeriodoAControl();
+        PeriodoArchivos vv = new PeriodoArchivos();
+        pc.setPeriodos(vv.all());
+        cbx.removeAllItems();
+        for (Integer i = 0; i < pc.getPeriodos().getLength(); i++) {
+                cbx.addItem(pc.getPeriodos().getInfo(i));
+        }
+    }
+
+    public static void cargarComboMatricula(JComboBox cbx) throws EmptyException{
+        MatriculaControl mc = new MatriculaControl();
+        MatriculaArchivos vv = new MatriculaArchivos();
+        mc.setMatriculas(vv.all());
+        cbx.removeAllItems();
+        for (Integer i = 0; i < mc.getMatriculas().getLength(); i++) {
+                cbx.addItem(mc.getMatriculas().getInfo(i));
+        }
+    }
+
     public static void cargarListaFacultades(JList lst) throws EmptyException {
         FacultadControl fc = new FacultadControl();
         controlador.Academico.FacultadArchivos af = new controlador.Academico.FacultadArchivos();
@@ -81,19 +105,30 @@ public class Utilvista {
         return (Facultad) facultad;
     }
 
-    public static void cargarListaCarreras(JList lst, Facultad facultad) throws EmptyException {
-        CarreraControl cc = new CarreraControl();
-        controlador.Academico.CarreraArchivos ac = new controlador.Academico.CarreraArchivos();
-        cc.setCarreras(ac.all());
-        DefaultListModel modeloLista = new DefaultListModel();
-        for (Integer i = 0; i < cc.getCarreras().getLength(); i++) {
-            if (cc.getCarreras().getInfo(i).getIdFacultad().equals(facultad.getId())) {
-                modeloLista.addElement(cc.getCarreras().getInfo(i));
+    public static void cargarcomboRolesAsignatura(JComboBox cbx) throws EmptyException{
+        AsignaturaArchivos aa = new AsignaturaArchivos();
+        cbx.removeAllItems();
+        if (aa.getAsignaturasTodas().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Lista vacia");
+        }else{
+            for (int i = 0; i < aa.getAsignaturas().getLength(); i++) {
+                cbx.addItem(aa.getAsignaturas().getInfo(i));
             }
         }
-        lst.setModel(modeloLista);
     }
-
+    
+    public static void cargarcomboRolesHorario(JComboBox cbx) throws EmptyException{
+        HorarioArchivos ha = new HorarioArchivos();
+        cbx.removeAllItems();
+        if (ha.getHorariosTodos().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Lista vacia");
+        }else{
+            for (int i = 0; i < ha.getHorarios().getLength(); i++) {
+                cbx.addItem(ha.getHorarios().getInfo(i));
+            }
+        }
+    }
+    
     public static Carrera obtenerCarreraControl(JList lst, Facultad facultad){
         Object carrera = lst.getSelectedValue();
         return (Carrera) carrera;
@@ -137,7 +172,32 @@ public class Utilvista {
         }
         lst.setModel(modeloLista);
     }
-    
+
+    public static void cargarListaEstudiantes(JList lst) throws EmptyException {
+        PersonaArchivos ap = new PersonaArchivos();
+        PersonaControl pc = new PersonaControl();
+        pc.setPersonas(ap.all());
+        DefaultListModel modeloLista = new DefaultListModel();
+        for (Integer i = 0; i < pc.getPersonas().getLength(); i++) {
+            if (pc.getPersonas().getInfo(i).getRol().toString().equals("ESTUDIANTE")) {
+                modeloLista.addElement(pc.getPersonas().getInfo(i));
+            }
+        }
+        lst.setModel(modeloLista);
+    }
+
+    public static void cargarListaMatriculasAsignaturas(JList lst, MatriculaControl matriculaControl, MatriculaAsignaturaControl matriculaAsignaturaControl) throws EmptyException {
+        MatriculaAsignaturaArchivos maa = new MatriculaAsignaturaArchivos();
+        matriculaAsignaturaControl.setAsgMatriculas(maa.all());
+        DefaultListModel modeloLista = new DefaultListModel();
+        for (Integer i = 0; i < matriculaAsignaturaControl.getAsgMatriculas().getLength(); i++) {
+            if (matriculaAsignaturaControl.getAsgMatriculas().getInfo(i).getIdMatricula().equals(matriculaControl.getMatricula().getId())) {
+                modeloLista.addElement(matriculaAsignaturaControl.getAsgMatriculas().getInfo(i));
+            }
+        }
+        lst.setModel(modeloLista);
+    }
+
     public static void limpiarLista(JList lst){
         DefaultListModel modeloLista = new DefaultListModel();
         lst.setModel(modeloLista);

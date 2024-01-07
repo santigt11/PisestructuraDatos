@@ -1,10 +1,10 @@
 package controlador.Academico;
 
-import controlador.DAO.DaoImplement;
 import controlador.TDA.listas.DynamicList;
+import controlador.dao.AdaptadorDao;
 import modelo.Facultad;
 
-public class FacultadArchivos extends DaoImplement<Facultad> {
+public class FacultadArchivos extends AdaptadorDao<Facultad> {
 
     private DynamicList<Facultad> facultades;
     private Facultad facultad;
@@ -33,8 +33,9 @@ public class FacultadArchivos extends DaoImplement<Facultad> {
         this.facultad = facultad;
     }
 
-    public Boolean persist() {
-        facultad.setId(all().getLength());
-        return persist(facultad);
+    @Override
+    public Integer persist(Facultad obj) throws Exception {
+        obj.setId(all().getLength()+1);
+        return super.persist(obj);
     }
 }
