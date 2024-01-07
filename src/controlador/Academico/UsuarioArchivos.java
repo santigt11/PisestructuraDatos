@@ -67,4 +67,6 @@ public class UsuarioArchivos extends AdaptadorDao<Usuario> {
     private boolean verificarClave(String claveAlmacenada, String claveIngresada) {
         return claveAlmacenada.equalsIgnoreCase(claveIngresada);
     }
+    
+   
 }
