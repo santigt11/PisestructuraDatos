@@ -119,6 +119,8 @@ public class Menu_Docente extends javax.swing.JFrame {
         });
         jPanel2.add(btnNuevaTutoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 229, 96));
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
