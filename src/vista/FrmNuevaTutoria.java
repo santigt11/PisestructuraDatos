@@ -1,9 +1,14 @@
 package vista;
 
 import controlador.Academico.AsignaturaArchivos;
+import controlador.Academico.ContratoArchivos;
 import controlador.Academico.HorarioArchivos;
 import controlador.Academico.MatriculaAsignaturaArchivos;
+import controlador.Academico.PersonaArchivos;
 import controlador.Academico.TutoriaArchivos;
+import controlador.TDA.listas.Exception.EmptyException;
+import javax.swing.JOptionPane;
+import modelo.Persona;
 import vista.listas.tablas.TablaMatricula;
 import vista.listas.tablas.TablaPersona;
 import vista.listas.util.Utilvista;
@@ -19,7 +24,16 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private HorarioArchivos horarioControl = new HorarioArchivos();
     private AsignaturaArchivos asignaturaControl = new AsignaturaArchivos();
     private MatriculaAsignaturaArchivos matriculaAsignControl = new MatriculaAsignaturaArchivos();
+    private static PersonaArchivos personaControl = new PersonaArchivos();
+    private ContratoArchivos contratoControl = new ContratoArchivos();
     
+    public static void cargarDocente(Persona persona){
+        personaControl.setPersona(persona);
+    }
+    
+    private void buscarContratos(){
+        contratoControl.setAsignaturas(contratoControl.busquedaLineal("DNI", personaControl.getPersona().getDni()));
+    }
 //    private void ordenar(){
 //        String criterio = cbxCriterio.getSelectedItem().toString();
 //        Integer tipo = 0;
@@ -86,7 +100,9 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     }
 
     private void limpiar() {
+        
         try {
+            Utilvista.cargarComboAsignatura(cbxAsignatura);
             Utilvista.cargarcomboRolesHorario(cbxHorario);
         } catch (EmptyException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);

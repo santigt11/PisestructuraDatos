@@ -1,7 +1,9 @@
 package vista.listas.util;
 
 import controlador.Academico.AsignaturaArchivos;
+import controlador.Academico.ContratoArchivos;
 import controlador.Academico.HorarioArchivos;
+import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import javax.swing.JComboBox;
 import modelo.Facultad;
@@ -10,6 +12,8 @@ import modelo.MallaCurricular;
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import modelo.Asignatura;
+import modelo.Contrato;
 
 public class Utilvista {
     
@@ -105,14 +109,16 @@ public class Utilvista {
         return (Facultad) facultad;
     }
 
-    public static void cargarcomboRolesAsignatura(JComboBox cbx) throws EmptyException{
-        AsignaturaArchivos aa = new AsignaturaArchivos();
+    public static void cargarComboAsignatura(DynamicList<Contrato> contratos, JComboBox cbx) throws EmptyException{
+        ContratoArchivos ca = new ContratoArchivos();
+        DynamicList<Asignatura> asignaturas = new DynamicList<>();
+        Contrato contratosArray[] = contratos.toArray();
         cbx.removeAllItems();
-        if (aa.getAsignaturasTodas().isEmpty()) {
+        if (contratos.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Lista vacia");
         }else{
-            for (int i = 0; i < aa.getAsignaturas().getLength(); i++) {
-                cbx.addItem(aa.getAsignaturas().getInfo(i));
+            for (int i = 0; i < contratos.getLength(); i++) {
+                asignaturas.add(contratosArray[i].getCodigoAsignatura());
             }
         }
     }
