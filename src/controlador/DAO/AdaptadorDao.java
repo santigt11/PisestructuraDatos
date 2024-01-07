@@ -8,6 +8,7 @@ package controlador.dao;
 import controlador.DAO.Conexion;
 import controlador.DAO.DaoInterface;
 import controlador.TDA.listas.DynamicList;
+import controlador.TDA.listas.Exception.EmptyException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.PreparedStatement;
@@ -279,5 +280,50 @@ public class AdaptadorDao<T> implements DaoInterface<T> {
         query += " WHERE id = " + id;
         return query;
     }
+    
+    public DynamicList<T> ordenar(DynamicList<T> lista, String field, Integer tipo) throws EmptyException {
+        if (lista.getLength() > 1) {
+            DynamicList<T> izquierda = new DynamicList<>();
+            DynamicList<T> derecha = new DynamicList<>();
+            int mitad = lista.getLength() / 2;
+            for (int i = 0; i < mitad; i++) {
+                izquierda.add(lista.getInfo(i));
+            }
+            for (int i = mitad; i < lista.getLength(); i++) {
+                derecha.add(lista.getInfo(i));
+            }
+            izquierda = ordenar(izquierda, field, tipo);
+            derecha = ordenar(derecha, field, tipo);
+            mezclar(lista, izquierda, derecha, field, tipo);
+        }
+        return lista;
+    }
 
+    private void mezclar(DynamicList<T> lista, DynamicList<T> list1, DynamicList<T> list2, String field, Integer tipo) throws EmptyException {
+        int indiceIzq = 0, indiceDer = 0, indiceLista = 0;
+        T[] izquierda = list1.toArray();
+        T[] derecha = list2.toArray();
+        while (indiceIzq < izquierda.length && indiceDer < derecha.length) {
+            if (izquierda[indiceIzq].compareTo(derecha[indiceDer]) < 0) {
+                lista.merge(izquierda[indiceIzq], indiceLista);
+                indiceIzq += 1;
+            } else {
+                lista.merge(derecha[indiceDer], indiceLista);
+                indiceDer += 1;
+            }
+            indiceLista += 1;
+        }
+
+        while (indiceIzq < izquierda.length) {
+            lista.merge(izquierda[indiceIzq], indiceLista);
+            indiceIzq += 1;
+            indiceLista += 1;
+        }
+
+        while (indiceDer < derecha.length) {
+            lista.merge(derecha[indiceDer], indiceLista);
+            indiceDer += 1;
+            indiceLista += 1;
+        }
+    }
 }
