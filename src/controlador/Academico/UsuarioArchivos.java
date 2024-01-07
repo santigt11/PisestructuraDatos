@@ -47,27 +47,23 @@ public class UsuarioArchivos extends AdaptadorDao<Usuario> {
         obj.setId(all().getLength()+1);
         return super.persist(obj);
     }
-
-    public Rol autenticarse(String correo, String clave) throws EmptyException {
+public Usuario autenticarse(String correo, String clave) throws EmptyException {
          if (!validadorDeCorreo(correo)) {
         return null; // Si el correo no cumple con el formato esperado
-    }
+    }else{
 
     DynamicList<Usuario> usuarios = getUsuarios(); // Método para obtener la lista de usuarios
     for (int i = 0; i < usuarios.getLength(); i++) {
         Usuario usuario = usuarios.getInfo(i);
         if (usuario.getCorreo().equals(correo) && verificarClave(usuario.getClave(), clave)) {
-            return usuario.getRol(); // Devuelve el rol del usuario autenticado
+            return usuario; // Devuelve el rol del usuario autenticado
         }
     }
     return null;
+         }
     }
 
-    private boolean verificarClave(String claveAlmacenada, String claveIngresada) {
-
-
-
-        return false;
+   private boolean verificarClave(String claveAlmacenada, String claveIngresada) {
+        return claveAlmacenada.equalsIgnoreCase(claveIngresada);
     }
-    
 }

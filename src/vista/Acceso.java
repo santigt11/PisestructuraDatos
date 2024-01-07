@@ -4,17 +4,19 @@
  */
 package vista;
 
-
 import controlador.Academico.PersonaArchivos;
 import controlador.Academico.UsuarioArchivos;
 import controlador.TDA.listas.Exception.EmptyException;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import static java.lang.reflect.Array.set;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import modelo.Rol;
+import modelo.Usuario;
 
 /**
  *
@@ -25,49 +27,20 @@ public class Acceso extends javax.swing.JFrame {
     /**
      * Creates new form Acceso
      */
-    
     public Acceso() {
-      
+
         initComponents();
-        
+
     }
-    private PersonaArchivos controlPersona=new PersonaArchivos();
-    private UsuarioArchivos controlUsuario=new UsuarioArchivos ();
+    private PersonaArchivos controlPersona = new PersonaArchivos();
+    private UsuarioArchivos controlUsuario = new UsuarioArchivos();
 
     
-    public Boolean verificar() {
-        return (!txtNombreUsuario.getText().trim().isEmpty()
-                && !txtContraseña.getText().trim().isEmpty());          
-    }
-    public void guardar() throws EmptyException{
-        if (verificar()) {
-        String correo = txtNombreUsuario.getText();
-        String clave = txtContraseña.getText();
-
-        Rol usuarioRol = controlUsuario.autenticarse(correo, clave);
-
-        if (usuarioRol != null) {
-            JOptionPane.showMessageDialog(null, "¡Inicio de sesión exitoso como " + usuarioRol + "!");
-            
-            limpiar();
-        } else {
-            JOptionPane.showMessageDialog(null, "Credenciales incorrectas",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    } else {
-        JOptionPane.showMessageDialog(null, "Falta llenar campos",
-                "Error", JOptionPane.ERROR_MESSAGE);
-    }
-    }
-
     private void limpiar() {
         txtContraseña.setText("");
         txtNombreUsuario.setText("");
-       
-    }
-    
-    
 
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -181,26 +154,36 @@ public class Acceso extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreUsuarioActionPerformed
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
-if (!txtNombreUsuario.getText().isEmpty() && !String.valueOf(txtContraseña.getPassword()).isEmpty()) {
-            Rol rolUsuario = controlUsuario.autenticarse(txtNombreUsuario.getText(), String.valueOf(txtContraseña.getPassword()));
-            if (rolUsuario != null) {
-                if (rolUsuario == Rol.ADMINISTRADOR) {
-                    //   rol de administrador
-                    JOptionPane.showMessageDialog(this, "¡Inicio de sesión exitoso como ADMINISTRADOR!");
-                } else if (rolUsuario == Rol.DOCENTE) {
-                    // Acción para el rol de docente
-                    JOptionPane.showMessageDialog(this, "¡Inicio de sesión exitoso como DOCENTE!");
-                } else if (rolUsuario == Rol.ESTUDIANTE) {
-                    // rol de estudiante
-                    JOptionPane.showMessageDialog(this, "¡Inicio de sesión exitoso como ESTUDIANTE!");
+        if (!txtNombreUsuario.getText().isEmpty() && !String.valueOf(txtContraseña.getPassword()).isEmpty()) {
+            Usuario user = null;
+            try {
+                user = controlUsuario.autenticarse(txtNombreUsuario.getText(), String.valueOf(txtContraseña.getPassword()));
+            } catch (EmptyException ex) {
+                Logger.getLogger(Acceso.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (user != null) {
+                if (null != user.getRol()) {
+                    switch (user.getRol()) {
+                        case ADMINISTRADOR -> // Abrir Frm_Main_Admin
+                            JOptionPane.showMessageDialog(this, "¡Inicio de sesión exitoso como ADMINISTRADOR!");
+                        case DOCENTE -> // Abrir Frm_Main_Docente
+                            JOptionPane.showMessageDialog(this, "¡Inicio de sesión exitoso como DOCENTE!");
+                        case ESTUDIANTE -> // Abrir Frm_Main_Estudiante
+                            JOptionPane.showMessageDialog(this, "¡Inicio de sesión exitoso como ESTUDIANTE!");
+                        default -> {
+                        }
+                    }
+                } else {
+                    System.out.println("No se pudo identificar el rol");
                 }
                 limpiar();
             } else {
                 JOptionPane.showMessageDialog(this, "Usuario o clave incorrectos");
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Falta ingresar usuario o clave");
+            JOptionPane.showMessageDialog(this, "Rellene todos los campos");
         }
+
 
     }//GEN-LAST:event_btnIniciarActionPerformed
 
@@ -257,6 +240,4 @@ if (!txtNombreUsuario.getText().isEmpty() && !String.valueOf(txtContraseña.getP
     private javax.swing.JTextField txtNombreUsuario;
     // End of variables declaration//GEN-END:variables
 
-
 }
-
