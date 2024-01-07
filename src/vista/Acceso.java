@@ -4,10 +4,9 @@
  */
 package vista;
 
-import control.Acceso.ControlPersona;
-import control.Acceso.ControlUsuario;
-import controlador.DAO.Implements.ControlPersona;
-import controlador.DAO.Implements.ControlUsuario;
+
+import controlador.Academico.PersonaArchivos;
+import controlador.Academico.UsuarioArchivos;
 import java.awt.Graphics;
 import java.awt.Image;
 import static java.lang.reflect.Array.set;
@@ -31,8 +30,8 @@ public class Acceso extends javax.swing.JFrame {
         initComponents();
         
     }
-    private ControlPersona controlPersona=new ControlPersona();
-    private ControlUsuario controlUsuario=new ControlUsuario();
+    private PersonaArchivos controlPersona=new PersonaArchivos();
+    private UsuarioArchivos controlUsuario=new UsuarioArchivos ();
 
     
     public Boolean verificar() {
@@ -44,7 +43,7 @@ public class Acceso extends javax.swing.JFrame {
         String nombreUsuario = txtNombreUsuario.getText();
         String contraseña = txtContraseña.getText();
 
-        ControlUsuario controlUsuario = new ControlUsuario();
+        UsuarioArchivos controlUsuario = new UsuarioArchivos();
         Rol usuarioRol = controlUsuario.autenticarse(nombreUsuario, contraseña);
 
         if (usuarioRol != null) {
@@ -100,7 +99,7 @@ public class Acceso extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/photo4987874516348807274.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/photo4987874516348807274.jpg"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 470));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 433, 475));
@@ -172,7 +171,7 @@ public class Acceso extends javax.swing.JFrame {
         txtContraseña.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel2.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 258, 290, 30));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 0, 470, 480));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 460, 470));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

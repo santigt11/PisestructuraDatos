@@ -2,6 +2,7 @@ package controlador.Academico;
 
 import controlador.TDA.listas.DynamicList;
 import controlador.dao.AdaptadorDao;
+import modelo.Rol;
 import modelo.Usuario;
 
 public class UsuarioArchivos extends AdaptadorDao<Usuario> {
@@ -44,4 +45,9 @@ public class UsuarioArchivos extends AdaptadorDao<Usuario> {
         obj.setId(all().getLength()+1);
         return super.persist(obj);
     }
+
+    public Rol autenticarse(String nombreUsuario, String contraseña) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
 }

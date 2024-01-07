@@ -2,6 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/PISestructuraDatos/src/vista/FrmAcademico.java</file>
+            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/PISestructuraDatos/src/vista/Acceso.java</file>
+            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/PISestructuraDatos/src/vista/listas/util/Utilvista.java</file>
+            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/PISestructuraDatos/src/vista/listas/tablas/TablaContrato.java</file>
+            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/PISestructuraDatos/src/controlador/Academico/UsuarioArchivos.java</file>
+            <file>file:/C:/Users/Usuario/OneDrive/Documentos/GitHub/PISestructuraDatos/src/controlador/Academico/PersonaArchivos.java</file>
+        </group>
     </open-files>
 </project-private>
