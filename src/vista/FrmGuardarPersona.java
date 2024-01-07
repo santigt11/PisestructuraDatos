@@ -8,10 +8,8 @@ import controlador.Academico.PersonaArchivos;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.Utiles.Utiles;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -457,12 +455,9 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
         // TODO add your handling code here:
         personaControl.getPersona().setApellido(txtApellido.getText());
         personaControl.getPersona().setDni(txtDni.getText());
-//        personaControl.getPersona().setFechaNacimiento(txtFechaNacimiento.getText().matches("\\d+") ? Integer.parseInt(txtFechaNacimiento.getText()) : 0);
-        LocalDate fechaNacimiento = txtFechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(); // Manejar la excepción de análisis de fecha si es necesario
-        personaControl.getPersona().setFechaNacimientoi(fechaNacimiento);
         personaControl.getPersona().setNombre(txtNombre.getText());
         personaControl.getPersona().setTelefono(txtTelefono.getText());
-        personaControl.merge(personaControl.getPersona(), tbPersona.getSelectedRow());
+        personaControl.merge(personaControl.getPersona());
         cargarTabla();
         limpiar();
     }//GEN-LAST:event_btnModificarActionPerformed

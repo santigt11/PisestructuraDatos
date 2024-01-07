@@ -1,10 +1,10 @@
 package controlador.Academico;
 
-import controlador.DAO.DaoImplement;
 import controlador.TDA.listas.DynamicList;
+import controlador.dao.AdaptadorDao;
 import modelo.MallaCurricular;
 
-public class MallaArchivos extends DaoImplement<MallaCurricular> {
+public class MallaArchivos extends AdaptadorDao<MallaCurricular> {
 
     private DynamicList<MallaCurricular> mallas;
     private MallaCurricular malla;
@@ -33,8 +33,9 @@ public class MallaArchivos extends DaoImplement<MallaCurricular> {
         this.malla = malla;
     }
 
-    public Boolean persist() {
-        malla.setId(all().getLength());
-        return persist(malla);
+    @Override
+    public Integer persist(MallaCurricular obj) throws Exception {
+        obj.setId(all().getLength()+1);
+        return super.persist(obj);
     }
 }

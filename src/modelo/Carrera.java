@@ -4,7 +4,7 @@ public class Carrera {
     private Integer id;
     private String nombre;
     private Integer numCiclos;
-    private Integer idFacultad;
+    private Integer facultad_ID;
 
     public Carrera() {
     }
@@ -13,7 +13,7 @@ public class Carrera {
         this.id = id;
         this.nombre = nombre;
         this.numCiclos = numCiclos;
-        this.idFacultad = idFacultad;
+        this.facultad_ID = idFacultad;
     }    
     
     public Integer getId() {
@@ -41,11 +41,11 @@ public class Carrera {
     }
 
     public Integer getIdFacultad() {
-        return idFacultad;
+        return facultad_ID;
     }
 
     public void setIdFacultad(Integer idFacultad) {
-        this.idFacultad = idFacultad;
+        this.facultad_ID = idFacultad;
     }
     
     @Override
