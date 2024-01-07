@@ -1,7 +1,7 @@
 package vista.listas.tablas;
 
 import controlador.Academico.AsignaturaArchivos;
-import controlador.Persona.PersonaArchivos;
+import controlador.Academico.PersonaArchivos;
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import javax.swing.table.AbstractTableModel;
@@ -29,9 +29,9 @@ public class TablaContrato extends AbstractTableModel {
             Contrato ct = contratos.getInfo(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return (ct != null) ? filePersona.getPersonas().getInfo(ct.getIdPersona()).getApellido() + " " + filePersona.getPersonas().getInfo(ct.getIdPersona()).getNombre(): " ";
+                    return (ct != null) ? filePersona.buscarBinaria("dni", ct.getDniPersona()).getApellido() + " " + filePersona.buscarBinaria("dni", ct.getDniPersona()).getNombre(): " ";
                 case 1:
-                    return (ct != null) ? fileAsignatura.getAsignaturas().getInfo(ct.getIdAsignatura()).getCodigo(): "";
+                    return (ct != null) ? fileAsignatura.buscarBinaria("codigo", ct.getCodAsignatura()).getCodigo(): "";
                 case 2:
                     return (ct != null) ? ct.getFechaRegistro(): "";
                 case 3:

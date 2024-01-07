@@ -8,9 +8,8 @@ import java.time.LocalDate;
 import modelo.Persona;
 import modelo.Rol;
 
-
 public class PersonaArchivos extends AdaptadorDao<Persona> {
-    
+
     private DynamicList<Persona> personas;
     private Persona persona;
 
@@ -46,11 +45,10 @@ public class PersonaArchivos extends AdaptadorDao<Persona> {
 
     @Override
     public Integer persist(Persona obj) throws Exception {
-        obj.setId(all().getLength()+1);
+        obj.setId(all().getLength() + 1);
         return super.persist(obj);
     }
-    
-    
+
     public DynamicList<Persona> buscarLineal(String campo, String valorBuscado) throws EmptyException {
         DynamicList<Persona> lista = all();
         Persona personas[] = lista.toArray();
@@ -63,7 +61,7 @@ public class PersonaArchivos extends AdaptadorDao<Persona> {
         }
         return listaBusqueda;
     }
-    
+
     public Persona buscarBinaria(String campo, String valorBuscado) throws EmptyException {
         int inicio = 0;
         DynamicList<Persona> lista = all();
