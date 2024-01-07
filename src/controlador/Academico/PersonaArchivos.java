@@ -47,8 +47,12 @@ public class PersonaArchivos extends AdaptadorDao<Persona> {
 
     @Override
     public Integer persist(Persona obj) throws Exception {
+<<<<<<< HEAD
+        obj.setId(all().getLength() + 1);
+=======
         DynamicList<Persona> personas = all();
         obj.setId(personas.getLength() + 1);
+>>>>>>> Santiago-Guachizaca
         return super.persist(obj);
     }
 

@@ -12,7 +12,8 @@ public class Usuario {
     private Integer id;
     private String cooreo;
     private String clave;
-
+    private String persona_DNI;
+    
     public Usuario() {
     }
 
@@ -44,5 +45,13 @@ public class Usuario {
 
     public void setClave(String clave) {
         this.clave = clave;
+    }
+
+    public String getPersona_DNI() {
+        return persona_DNI;
+    }
+
+    public void setPersona_DNI(String persona_DNI) {
+        this.persona_DNI = persona_DNI;
     }
 }
