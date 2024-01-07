@@ -4,6 +4,7 @@ import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import static controlador.Utiles.Utiles.validadorDeCorreo;
 import controlador.dao.AdaptadorDao;
+import modelo.Persona;
 import modelo.Rol;
 import modelo.Usuario;
 
@@ -66,6 +67,40 @@ public class UsuarioArchivos extends AdaptadorDao<Usuario> {
 
     private boolean verificarClave(String claveAlmacenada, String claveIngresada) {
         return claveAlmacenada.equalsIgnoreCase(claveIngresada);
+    }
+    
+        
+    public DynamicList<Usuario> buscarLineal(String campo, String valorBuscado) throws EmptyException {
+        DynamicList<Usuario> lista = all();
+        Usuario usuarios[] = lista.toArray();
+        DynamicList<Usuario> listaBusqueda = new DynamicList<>();
+        for (int i = 0; i < lista.getLength(); i++) {
+            Usuario usuario = usuarios[i];
+            if (usuario.compareCampo(campo, valorBuscado) == 0) {
+                listaBusqueda.add(usuario);
+            }
+        }
+        return listaBusqueda;
+    }
+    
+    public Usuario buscarBinaria(String campo, String valorBuscado) throws EmptyException {
+        int inicio = 0;
+        DynamicList<Usuario> lista = all();
+        int fin = lista.getLength() - 1;
+        Usuario usuarios[] = lista.toArray();
+        while (inicio <= fin) {
+            int medio = (inicio + fin) / 2;
+            Usuario usuario = usuarios[medio];
+            int comparacion = usuario.compareCampo(campo, valorBuscado);
+            if (comparacion == 0) {
+                return usuario;
+            } else if (comparacion < 0) {
+                inicio = medio + 1;
+            } else {
+                fin = medio - 1;
+            }
+        }
+        return null;
     }
     
    
