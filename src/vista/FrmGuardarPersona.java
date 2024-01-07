@@ -98,8 +98,9 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
                             throw new AssertionError();
                     }
                 }
-                personaControl.getPersona().setFechaNacimiento(txtFechaNacimiento.getDate());
-                personaControl.persist(personaControl.getPersona());
+                personaControl.getPersona().setFechaNacimiento(txtFechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                System.out.println(personaControl.getPersona().getFechaNacimiento());
+//                personaControl.persist(personaControl.getPersona());
                 JOptionPane.showMessageDialog(null, "Datos guardados");
                 cargarTabla();
                 limpiar();

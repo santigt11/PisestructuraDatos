@@ -1,5 +1,7 @@
 package modelo;
 
+import controlador.Academico.MatriculaArchivos;
+
 public class MatriculaAsignatura {
 
     private Integer id;
