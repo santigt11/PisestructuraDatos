@@ -28,7 +28,7 @@ public class Menu_Docente extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         btnGenerarInforme = new javax.swing.JButton();
-        btnTutoria = new javax.swing.JButton();
+        btnTutoriaAgenda = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -49,17 +49,17 @@ public class Menu_Docente extends javax.swing.JFrame {
         btnGenerarInforme.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jPanel2.add(btnGenerarInforme, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, 229, 96));
 
-        btnTutoria.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        btnTutoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistaImagenes/6391572(1).png"))); // NOI18N
-        btnTutoria.setText("Tutoria");
-        btnTutoria.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnTutoria.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnTutoria.addActionListener(new java.awt.event.ActionListener() {
+        btnTutoriaAgenda.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        btnTutoriaAgenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistaImagenes/6391572(1).png"))); // NOI18N
+        btnTutoriaAgenda.setText("Tutorias Agendadas");
+        btnTutoriaAgenda.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnTutoriaAgenda.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnTutoriaAgenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTutoriaActionPerformed(evt);
+                btnTutoriaAgendaActionPerformed(evt);
             }
         });
-        jPanel2.add(btnTutoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 229, 96));
+        jPanel2.add(btnTutoriaAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 229, 96));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setDoubleBuffered(false);
@@ -100,7 +100,12 @@ public class Menu_Docente extends javax.swing.JFrame {
         jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 220, -1));
 
         jButton1.setText("Exit");
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 550, -1, -1));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 550, -1, -1));
 
         btnNuevaTutoria.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         btnNuevaTutoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistaImagenes/images(1).png"))); // NOI18N
@@ -147,13 +152,17 @@ public class Menu_Docente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnTutoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTutoriaActionPerformed
+    private void btnTutoriaAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTutoriaAgendaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnTutoriaActionPerformed
+    }//GEN-LAST:event_btnTutoriaAgendaActionPerformed
 
     private void btnNuevaTutoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaTutoriaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnNuevaTutoriaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,7 +202,7 @@ public class Menu_Docente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGenerarInforme;
     private javax.swing.JToggleButton btnNuevaTutoria;
-    private javax.swing.JButton btnTutoria;
+    private javax.swing.JButton btnTutoriaAgenda;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

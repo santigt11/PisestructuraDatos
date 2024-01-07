@@ -14,7 +14,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         btNuevaTutoria = new javax.swing.JButton();
         btGenerarInforme = new javax.swing.JButton();
         cbxAsignatura = new javax.swing.JComboBox<>();
-        dcFecha = new com.toedter.calendar.JDateChooser();
+        dcFecha = new org.netbeans.modules.form.InvalidComponent();
         cbxHorario = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -46,6 +46,11 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         btNuevaTutoria.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
         btNuevaTutoria.setText("Nueva Tutoria");
         btNuevaTutoria.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btNuevaTutoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNuevaTutoriaActionPerformed(evt);
+            }
+        });
 
         btGenerarInforme.setBackground(new java.awt.Color(242, 242, 242));
         btGenerarInforme.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
@@ -61,10 +66,6 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         cbxAsignatura.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         cbxAsignatura.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estructura de Datos" }));
         cbxAsignatura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        dcFecha.setBackground(new java.awt.Color(242, 242, 242));
-        dcFecha.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        dcFecha.setMinimumSize(new java.awt.Dimension(90, 25));
 
         cbxHorario.setBackground(new java.awt.Color(242, 242, 242));
         cbxHorario.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -315,6 +316,10 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     private void chkNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkNoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_chkNoActionPerformed
+
+    private void btNuevaTutoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNuevaTutoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btNuevaTutoriaActionPerformed
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -330,7 +335,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbxHorario;
     private javax.swing.JCheckBox chkNo;
     private javax.swing.JCheckBox chkSi;
-    private com.toedter.calendar.JDateChooser dcFecha;
+    private org.netbeans.modules.form.InvalidComponent dcFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

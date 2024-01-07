@@ -27,7 +27,6 @@ public class Menu_Estudiante extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        btnAdministarDoc = new javax.swing.JButton();
         adminMatricula = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -35,18 +34,12 @@ public class Menu_Estudiante extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         btnAdminEstudiantes = new javax.swing.JToggleButton();
+        jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnAdministarDoc.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        btnAdministarDoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistaImagenes/6012601(1).png"))); // NOI18N
-        btnAdministarDoc.setText("Generar Informe");
-        btnAdministarDoc.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnAdministarDoc.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel2.add(btnAdministarDoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 229, 96));
 
         adminMatricula.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         adminMatricula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistaImagenes/6391572(1).png"))); // NOI18N
@@ -58,7 +51,7 @@ public class Menu_Estudiante extends javax.swing.JFrame {
                 adminMatriculaActionPerformed(evt);
             }
         });
-        jPanel2.add(adminMatricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 229, 96));
+        jPanel2.add(adminMatricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 229, 96));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setDoubleBuffered(false);
@@ -103,7 +96,7 @@ public class Menu_Estudiante extends javax.swing.JFrame {
 
         btnAdminEstudiantes.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         btnAdminEstudiantes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistaImagenes/images(1).png"))); // NOI18N
-        btnAdminEstudiantes.setText("Generar Nueva Tutoria");
+        btnAdminEstudiantes.setText(".");
         btnAdminEstudiantes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnAdminEstudiantes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnAdminEstudiantes.addActionListener(new java.awt.event.ActionListener() {
@@ -111,7 +104,18 @@ public class Menu_Estudiante extends javax.swing.JFrame {
                 btnAdminEstudiantesActionPerformed(evt);
             }
         });
-        jPanel2.add(btnAdminEstudiantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 229, 96));
+        jPanel2.add(btnAdminEstudiantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 229, 96));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 699, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -120,12 +124,16 @@ public class Menu_Estudiante extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(711, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 12, Short.MAX_VALUE))
         );
 
@@ -178,12 +186,12 @@ public class Menu_Estudiante extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adminMatricula;
     private javax.swing.JToggleButton btnAdminEstudiantes;
-    private javax.swing.JButton btnAdministarDoc;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }
