@@ -35,7 +35,6 @@ public class Acceso extends javax.swing.JFrame {
     private PersonaArchivos controlPersona = new PersonaArchivos();
     private UsuarioArchivos controlUsuario = new UsuarioArchivos();
 
-    
     private void limpiar() {
         txtContraseña.setText("");
         txtNombreUsuario.setText("");
@@ -73,9 +72,9 @@ public class Acceso extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/photo4987874516348807274.jpg"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 470));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -50, 510, 600));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 433, 475));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 11, 510, 510));
 
         jPanel3.setBackground(new java.awt.Color(153, 153, 153));
         jPanel3.setDoubleBuffered(false);
@@ -144,7 +143,7 @@ public class Acceso extends javax.swing.JFrame {
         txtContraseña.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel2.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 258, 290, 30));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 460, 470));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 490, 510));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -161,16 +160,28 @@ public class Acceso extends javax.swing.JFrame {
             } catch (EmptyException ex) {
                 java.util.logging.Logger.getLogger(Acceso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
-           
+
             if (user != null) {
                 if (null != user.getRol()) {
                     switch (user.getRol()) {
-                        case ADMINISTRADOR -> // Abrir Frm_Main_Admin
+                        case ADMINISTRADOR -> {
+                            Menu_Administrador menuAdmi = new Menu_Administrador();
+                            menuAdmi.setVisible(true);
+                            this.dispose();
                             JOptionPane.showMessageDialog(this, "¡Inicio de sesión exitoso como ADMINISTRADOR!");
-                        case DOCENTE -> // Abrir Frm_Main_Docente
+                        }
+                        case DOCENTE -> {// Abrir Frm_Main_Docente
+                            Menu_Docente menuDoc = new Menu_Docente();
+                            menuDoc.setVisible(true);
+                            this.dispose();
                             JOptionPane.showMessageDialog(this, "¡Inicio de sesión exitoso como DOCENTE!");
-                        case ESTUDIANTE -> // Abrir Frm_Main_Estudiante
+                        }
+                        case ESTUDIANTE -> {// Abrir Frm_Main_Estudiante.
+                            Menu_Estudiante menuEstu = new Menu_Estudiante();
+                            menuEstu.setVisible(true);
+                            this.dispose();
                             JOptionPane.showMessageDialog(this, "¡Inicio de sesión exitoso como ESTUDIANTE!");
+                        }
                         default -> {
                         }
                     }
