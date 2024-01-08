@@ -36,7 +36,7 @@ public class FrmContrato extends javax.swing.JFrame {
             Object a = lstAsignatura.getSelectedValue();
             Asignatura asignatura = (Asignatura) a;
             fileContrato.getContrato().setDniPersona(docente.getDni());
-            fileContrato.getContrato().setCodAsignatura(asignatura.getCodigo());
+            fileContrato.getContrato().setAsignatura_CODIGO(asignatura.getCodigo());
             fileContrato.getContrato().setFechaRegistro(dtRegistro.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             fileContrato.getContrato().setFechaCulminacion(dtCulminacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 
@@ -81,7 +81,7 @@ public class FrmContrato extends javax.swing.JFrame {
                     txtApellidos.setText(docente.getApellido());
                     txtNombres.setText(docente.getNombre());
                     txtTelefono.setText(docente.getTelefono());
-                    txtAsignatura.setText(fileAsignatura.buscarBinaria("codigo", fileContrato.getContrato().getCodAsignatura()).getNombre());
+                    txtAsignatura.setText(fileAsignatura.buscarBinaria("codigo", fileContrato.getContrato().getAsignatura_CODIGO()).getNombre());
                     dtRegistro.setDate(java.sql.Date.valueOf(fileContrato.getContrato().getFechaRegistro()));
                     dtCulminacion.setDate(java.sql.Date.valueOf(fileContrato.getContrato().getFechaCulminacion()));
                 }
@@ -171,9 +171,9 @@ public class FrmContrato extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        dtRegistro = new org.netbeans.modules.form.InvalidComponent();
+        dtRegistro = new com.toedter.calendar.JDateChooser();
         jLabel13 = new javax.swing.JLabel();
-        dtCulminacion = new org.netbeans.modules.form.InvalidComponent();
+        dtCulminacion = new com.toedter.calendar.JDateChooser();
         btCrearContrato = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -320,6 +320,15 @@ public class FrmContrato extends javax.swing.JFrame {
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel13.setText("Fecha de Culminacion del Contrato:");
+
+        dtCulminacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dtCulminacionMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                dtCulminacionMouseEntered(evt);
+            }
+        });
 
         btCrearContrato.setText("Crear Nuevo Contrato");
         btCrearContrato.addActionListener(new java.awt.event.ActionListener() {
@@ -674,8 +683,8 @@ public class FrmContrato extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCrearContrato;
-    private org.netbeans.modules.form.InvalidComponent dtCulminacion;
-    private org.netbeans.modules.form.InvalidComponent dtRegistro;
+    private com.toedter.calendar.JDateChooser dtCulminacion;
+    private com.toedter.calendar.JDateChooser dtRegistro;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
