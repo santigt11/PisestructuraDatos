@@ -1,10 +1,38 @@
 package vista;
 
+import controlador.Academico.AsignaturaArchivos;
+import controlador.Academico.CarreraArchivos;
+import controlador.Academico.ContratoArchivos;
+import controlador.Academico.FacultadArchivos;
+import controlador.Academico.MallaArchivos;
+import controlador.Admin.PersonaArchivos;
+import controlador.Matriculas.MatriculaAsignaturaArchivos;
+import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
+import controlador.Tutorias.TutoriaArchivos;
+import controlador.Tutorias.TutoriaMatriculaArchivos;
+import java.time.format.DateTimeFormatter;
+import modelo.Asignatura;
+import modelo.Contrato;
+import modelo.MatriculaAsignatura;
 import modelo.Persona;
+import modelo.Tutoria;
+import modelo.TutoriaMatricula;
 import vista.listas.util.Utilvista;
 
 public class FrmTutoriasPrincipal extends javax.swing.JFrame {
+    
+    private TutoriaMatriculaArchivos fileTutoriaM = new TutoriaMatriculaArchivos();
+    private TutoriaArchivos fileTutoria = new TutoriaArchivos();
+    private MatriculaAsignaturaArchivos fileMatriculaAsg = new MatriculaAsignaturaArchivos();
+    private static PersonaArchivos personaControl = new PersonaArchivos();
+    private FacultadArchivos fileFacultad = new FacultadArchivos();
+    private CarreraArchivos fileCarrera = new CarreraArchivos();
+    private MallaArchivos fileMalla = new MallaArchivos();
+    private AsignaturaArchivos fileAsignatura = new AsignaturaArchivos();
+    private ContratoArchivos contratoControl = new ContratoArchivos();
+    private AsignaturaArchivos asignaturaControl = new AsignaturaArchivos();
+    private MatriculaAsignaturaArchivos matriculaAsignaturaControl = new MatriculaAsignaturaArchivos();
     
     public FrmTutoriasPrincipal() {
         initComponents();
@@ -13,11 +41,64 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     public static void cargarDocente(Persona persona) {
         personaControl.setPersona(persona);
     }
+    
 
-    private void cargarContratos() throws EmptyException {
-        contratoControl.setContratos(contratoControl.buscarLineal(contratoControl.all(), "DNI", String.valueOf(personaControl.getPersona().getDni())));
-        Utilvista.cargarComboAsignaturaContrato(contratoControl.getContratos(), cbxHorario);
+    private void limpiar() {
+        txtAsignatura.setText("");
+        txtTema.setText("");
+        txtFecha.setText("");
+        chkSi.setSelected(false);
+        chkNo.setSelected(false);
     }
+    
+    private void cargarTutoriasLista(DynamicList<TutoriaMatricula> tutoriasM) throws EmptyException{
+        Utilvista.cargarListaTutoriaMatricula(tutoriasM, lstTutorias);
+    }
+    
+    private void cargarTutorias() throws EmptyException {
+        personaControl.setPersona(personaControl.buscarBinaria("dni", "1101201301"));
+        contratoControl.setContratos(contratoControl.buscarLineal(contratoControl.all(), "DNIDocente", String.valueOf(personaControl.getPersona().getDni())));
+        Contrato contratos[] = contratoControl.getContratos().toArray();
+        Contrato contrato;
+        DynamicList<Asignatura> asignaturas= new DynamicList<>();
+        for (int i = 0; i < contratoControl.getContratos().getLength(); i++) {
+            contrato = contratoControl.get(contratos[i].getId());
+            asignaturas.add(asignaturaControl.buscarBinaria("codigo", contrato.getAsignatura_CODIGO()));
+        }
+        Asignatura asignaturasArray[] = asignaturaControl.getAsignaturas().toArray();
+        Asignatura asignatura;
+        DynamicList<MatriculaAsignatura> matriculasAsignaturas = new DynamicList<>();
+        for (int i = 0; i < asignaturaControl.getAsignaturas().getLength(); i++) {
+            asignatura = asignaturaControl.get(asignaturasArray[i].getId());
+            matriculasAsignaturas.add(matriculaAsignaturaControl.buscarBinaria("codigo", asignatura.getCodigo()));
+        }
+        MatriculaAsignatura tMatriculas[] = matriculaAsignaturaControl.getAsgMatriculas().toArray();
+        TutoriaMatricula tMatricula;
+        DynamicList<TutoriaMatricula> tutoriasMatricula = new DynamicList<>();
+        for (int i = 0; i < matriculaAsignaturaControl.getAsgMatriculas().getLength(); i++) {
+            tMatricula = fileTutoriaM.get(tMatriculas[i].getId());
+            tutoriasMatricula.add(tMatricula);
+        }
+    }
+    
+    private void cargarVista(TutoriaMatricula tutoriaAsg) throws EmptyException {
+        fileTutoriaM.setTutoria(tutoriaAsg);
+        MatriculaAsignatura matriculaAsg = fileMatriculaAsg.buscarBinaria("id", fileTutoriaM.getTutoriaMatricula().getMatriculaAsignatura_ID().toString());
+        Asignatura asignatura = fileAsignatura.buscarBinaria("id", matriculaAsg.getAsignatura_Codigo().toString());
+        Tutoria tutoria = fileTutoria.buscarBinaria("id", fileTutoriaM.getTutoriaMatricula().getTutoria_ID().toString());
+
+        txtAsignatura.setText(asignatura.getNombre());
+        txtTema.setText(tutoria.getTema());
+        txtFecha.setText(tutoria.getFecha().format((DateTimeFormatter) Utilvista.FORMATO_FECHA));
+        if (fileTutoriaM.getTutoriaMatricula().isImpartida()) {
+            chkSi.setSelected(true);
+            chkNo.setSelected(false);
+        } else {
+            chkSi.setSelected(false);
+            chkNo.setSelected(true);
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -26,9 +107,6 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btNuevaTutoria = new javax.swing.JButton();
         btGenerarInforme = new javax.swing.JButton();
-        cbxAsignatura = new javax.swing.JComboBox<>();
-        dcFecha = new com.toedter.calendar.JDateChooser();
-        cbxHorario = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstTutorias = new javax.swing.JList<>();
@@ -45,6 +123,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         chkSi = new javax.swing.JCheckBox();
         chkNo = new javax.swing.JCheckBox();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -72,35 +151,12 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
             }
         });
 
-        cbxAsignatura.setBackground(new java.awt.Color(242, 242, 242));
-        cbxAsignatura.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        cbxAsignatura.setForeground(new java.awt.Color(0, 0, 0));
-        cbxAsignatura.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estructura de Datos" }));
-        cbxAsignatura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        dcFecha.setBackground(new java.awt.Color(242, 242, 242));
-        dcFecha.setForeground(new java.awt.Color(0, 0, 0));
-        dcFecha.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        dcFecha.setMinimumSize(new java.awt.Dimension(90, 25));
-
-        cbxHorario.setBackground(new java.awt.Color(242, 242, 242));
-        cbxHorario.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        cbxHorario.setForeground(new java.awt.Color(0, 0, 0));
-        cbxHorario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3 AM - 5 PM" }));
-        cbxHorario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(cbxAsignatura, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(dcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cbxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                .addContainerGap(505, Short.MAX_VALUE)
                 .addComponent(btNuevaTutoria)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btGenerarInforme)
@@ -110,14 +166,10 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(dcFecha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btNuevaTutoria)
-                        .addComponent(btGenerarInforme)
-                        .addComponent(cbxAsignatura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cbxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btNuevaTutoria)
+                    .addComponent(btGenerarInforme))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         bg.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 50));
@@ -137,6 +189,11 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
             String[] strings = { "Avance Pis", "Revision de la Proporcion Poblacional", "Distribucion de la Media Muestral" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
+        });
+        lstTutorias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstTutoriasMouseClicked(evt);
+            }
         });
         jScrollPane1.setViewportView(lstTutorias);
 
@@ -295,6 +352,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         );
 
         bg.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, 480, 280));
+        bg.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -335,6 +393,18 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     private void chkNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkNoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_chkNoActionPerformed
+
+    private void lstTutoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTutoriasMouseClicked
+         if (lstTutorias.getSelectedValue() != null) {
+            Object t = lstTutorias.getSelectedValue();
+             TutoriaMatricula tutoria = (TutoriaMatricula) t;
+            try {
+                cargarVista(tutoria);
+            } catch (EmptyException ex) {
+                
+            }
+        }
+    }//GEN-LAST:event_lstTutoriasMouseClicked
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -346,11 +416,8 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel bg;
     private javax.swing.JButton btGenerarInforme;
     private javax.swing.JButton btNuevaTutoria;
-    private javax.swing.JComboBox<String> cbxAsignatura;
-    private javax.swing.JComboBox<String> cbxHorario;
     private javax.swing.JCheckBox chkNo;
     private javax.swing.JCheckBox chkSi;
-    private com.toedter.calendar.JDateChooser dcFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -362,6 +429,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JList<String> lstTutorias;
     private javax.swing.JTextField txtAsignatura;
     private javax.swing.JTextField txtFecha;

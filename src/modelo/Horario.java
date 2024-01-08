@@ -13,12 +13,12 @@ public class Horario {
     private Integer id;
     private String horaInicio;
     private String horaFin;
-    private boolean disponible;
+    private Boolean disponible;
 
     public Horario() {
     }
 
-    public Horario(Integer id, String horaInicio, String horaFin, boolean disponible) {
+    public Horario(Integer id, String horaInicio, String horaFin, Boolean disponible) {
         this.id = id;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
@@ -49,11 +49,11 @@ public class Horario {
         this.horaFin = horaFin;
     }
 
-    public boolean getDisponible() {
+    public Boolean getDisponible() {
         return disponible;
     }
 
-    public void setDisponible(boolean disponible) {
+    public void setDisponible(Boolean disponible) {
         this.disponible = disponible;
     }
 

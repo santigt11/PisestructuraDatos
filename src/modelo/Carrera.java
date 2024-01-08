@@ -41,11 +41,11 @@ public class Carrera {
         this.numCiclos = numCiclos;
     }
 
-    public Integer getIdFacultad() {
+    public Integer getFacultad_ID() {
         return facultad_ID;
     }
 
-    public void setIdFacultad(Integer idFacultad) {
+    public void setFacultad_ID(Integer idFacultad) {
         this.facultad_ID = idFacultad;
     }
 
@@ -60,7 +60,7 @@ public class Carrera {
                 return this.id.compareTo(Integer.parseInt(valorBuscado));
             case "nombre":
                 return this.nombre.compareToIgnoreCase(valorBuscado);
-            case "idfacultad":
+            case "facultad_ID":
                 return this.facultad_ID.compareTo(Integer.parseInt(valorBuscado));
             default:
                 throw new IllegalArgumentException("Campo no válido para comparación: " + campo);

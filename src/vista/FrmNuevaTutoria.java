@@ -2,9 +2,9 @@ package vista;
 
 import controlador.Academico.AsignaturaArchivos;
 import controlador.Academico.ContratoArchivos;
-import controlador.Academico.MatriculaArchivos;
-import controlador.Academico.MatriculaAsignaturaArchivos;
 import controlador.Admin.PersonaArchivos;
+import controlador.Matriculas.MatriculaArchivos;
+import controlador.Matriculas.MatriculaAsignaturaArchivos;
 import controlador.Tutorias.TutoriaArchivos;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.Tutorias.HorarioArchivos;
@@ -35,17 +35,18 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private ContratoArchivos contratoControl = new ContratoArchivos();
     private MatriculaArchivos matriculaControl = new MatriculaArchivos();
     private TutoriaMatriculaArchivos tutoriaMatrControl = new TutoriaMatriculaArchivos();
-
+    
     public static void cargarDocente(Persona persona) {
         personaControl.setPersona(persona);
     }
 
     private void cargarContratos() throws EmptyException {
-        contratoControl.setContratos(contratoControl.buscarLineal(contratoControl.all(), "DNI", String.valueOf(personaControl.getPersona().getDni())));
+        personaControl.setPersona(personaControl.buscarBinaria("dni", "1101201301"));
+        contratoControl.setContratos(contratoControl.buscarLineal(contratoControl.all(), "DNIDocente",personaControl.getPersona().getDni()));
         Utilvista.cargarComboAsignaturaContrato(contratoControl.getContratos(), cbxHorario);
     }
 
-//    private void ordenar(){
+//    private void ordenar(){1101201301"
 //        String criterio = cbxCriterio.getSelectedItem().toString();
 //        Integer tipo = 0;
 //        if (btn_tipo.isSelected()) {
@@ -67,17 +68,21 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     }
 
     private void cargarListaMatriculaAsignatura() throws EmptyException {
-        matriculaAsignControl.setAsgMatriculas(matriculaAsignControl.buscarLineal(matriculaAsignControl.getAsgMatriculasTodas(), "asignatura_codigo", String.valueOf(cbxAsignatura.getSelectedItem())));
+        matriculaAsignControl.setAsgMatriculas(matriculaAsignControl.buscarLineal(matriculaAsignControl.getAsgMatriculasTodas(), "asignatura_codigo", asignaturaControl.get(cbxAsignatura.getSelectedIndex()+1).getCodigo()));
+        System.out.println(matriculaControl.all());
         MatriculaAsignatura matriculasA[] = matriculaAsignControl.getAsgMatriculas().toArray();
+        System.out.println(matriculasA[0]);
         Matricula matricula;
         for (int i = 0; i < matriculaAsignControl.getAsgMatriculas().getLength(); i++) {
-            matricula = matriculaControl.get(matriculasA[i].getIdMatricula());
+            matricula = matriculaControl.get(matriculasA[i].getMatricula_ID());
             matriculaControl.getMatriculas().add(matricula);
         }
+        System.out.println(matriculaControl.getMatriculas());
         Matricula matriculas[] = matriculaControl.getMatriculas().toArray();
         Persona persona;
         for (int i = 0; i < matriculaControl.getMatriculas().getLength(); i++) {
-            persona = personaControl.get(matriculas[i].getIdPersona());
+//            matriculaControl.buscarLineal(matriculaControl.getMatriculas(), "persona_dni", valorBuscado)
+            persona = personaControl.buscarBinaria("dni", matriculas[i].getPersona_DNI());
             personaControl.getPersonas().add(persona);
         }
         Utilvista.cargarListaPersonas(personaControl.getPersonas(), lstMatriculaAsignatura);
@@ -108,6 +113,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
 
     private void limpiar() throws EmptyException {
         cargarContratos();
+        cargarListaMatriculaAsignatura();
         try {
             Utilvista.cargarComboAsignaturaContrato(contratoControl.getContratos(), cbxAsignatura);
             Utilvista.cargarcomboRolesHorario(cbxHorario);

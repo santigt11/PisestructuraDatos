@@ -13,6 +13,7 @@ public class AsignaturaArchivos extends AdaptadorDao<Asignatura> {
 
     public AsignaturaArchivos() {
         super(Asignatura.class);
+        asignaturas = new DynamicList<>();
     }
 
     public AsignaturaArchivos(DynamicList<Asignatura> asignaturas, Asignatura asignatura, Class clazz) {

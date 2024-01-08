@@ -55,9 +55,9 @@ public class FrmMatricula extends javax.swing.JFrame {
                 if (verificar(1)) {
                     Object p = lstEstudiante.getSelectedValue();
                     Persona estudiante = (Persona) p;
-                    fileMatricula.getMatricula().setIdPersona(estudiante.getId());
+                    fileMatricula.getMatricula().setPersona_DNI(estudiante.getDni());
                     fileMatricula.getMatricula().setFecha(dtRegistro.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-                    fileMatricula.getMatricula().setIdPAcademico(cbxPeriodo.getSelectedIndex());
+                    fileMatricula.getMatricula().setPeriodoAcademico_ID(cbxPeriodo.getSelectedIndex());
                     fileMatricula.getMatricula().setExpActivo(true);
 
                     fileMatricula.persist(fileMatricula.getMatricula());
@@ -72,8 +72,8 @@ public class FrmMatricula extends javax.swing.JFrame {
                 if (verificar(2)) {
                     Object a = lstAsignatura.getSelectedValue();
                     Asignatura asignatura = (Asignatura) a;
-                    fileMatriculaAsg.getAsgMatricula().setIdMatricula(cbxMatricula.getSelectedIndex());
-                    fileMatriculaAsg.getAsgMatricula().setIdAsignatura(asignatura.getId());
+                    fileMatriculaAsg.getAsgMatricula().setMatricula_ID(cbxMatricula.getSelectedIndex());
+                    fileMatriculaAsg.getAsgMatricula().setAsignatura_Codigo(asignatura.getId());
                     fileMatriculaAsg.getAsgMatricula().setCurso(txtCurso.getText());
 
                     fileMatriculaAsg.persist(fileMatriculaAsg.getAsgMatricula());

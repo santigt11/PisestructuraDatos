@@ -17,6 +17,7 @@ public class PersonaArchivos extends AdaptadorDao<Persona> {
 
     public PersonaArchivos() {
         super(Persona.class);
+        personas = new DynamicList<>();
     }
 
     public PersonaArchivos(DynamicList<Persona> personas, Persona persona, Class clazz) {

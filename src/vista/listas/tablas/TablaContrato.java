@@ -32,7 +32,7 @@ public class TablaContrato extends AbstractTableModel {
                 case 0:
                     return (ct != null) ? filePersona.buscarBinaria("dni", ct.getDniPersona()).getApellido() + " " + filePersona.buscarBinaria("dni", ct.getDniPersona()).getNombre(): " ";
                 case 1:
-                    return (ct != null) ? fileAsignatura.buscarBinaria("codigo", ct.getCodAsignatura()).getCodigo(): "";
+                    return (ct != null) ? fileAsignatura.buscarBinaria("codigo", ct.getAsignatura_CODIGO()).getCodigo(): "";
                 case 2:
                     return (ct != null) ? ct.getFechaRegistro(): "";
                 case 3:

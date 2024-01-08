@@ -33,14 +33,6 @@ public class TutoriaMatricula {
         this.id = id;
     }
 
-    public Integer getIdMatricula() {
-        return matriculaAsignatura_ID;
-    }
-
-    public void setIdMatricula(Integer idMatricula) {
-        this.matriculaAsignatura_ID = idMatricula;
-    }
-
     public Integer getMatriculaAsignatura_ID() {
         return matriculaAsignatura_ID;
     }
@@ -69,9 +61,9 @@ public class TutoriaMatricula {
         switch (campo.toLowerCase()) {
             case "id":
                 return this.id.compareTo(Integer.parseInt(valorBuscado));
-            case "idmatricula":
+            case "matriculaAsignatura_id":
                 return this.matriculaAsignatura_ID.compareTo(Integer.parseInt(valorBuscado));
-            case "idtutoria":
+            case "tutoria_id":
                 return this.tutoria_ID.compareTo(Integer.parseInt(valorBuscado)); 
             case "impartida":
                 return this.impartida == Boolean.parseBoolean(valorBuscado) ? 0 : 1;

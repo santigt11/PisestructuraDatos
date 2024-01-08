@@ -68,6 +68,7 @@ public class AdaptadorDao<T> implements DaoInterface<T> {
                         Statement.RETURN_GENERATED_KEYS);
         statement.executeUpdate();
         ResultSet generatedKeys = statement.getGeneratedKeys();
+        System.out.println(query);
         if (generatedKeys.next()) {
             idGenerado = generatedKeys.getInt(1);
         }
@@ -185,8 +186,8 @@ public class AdaptadorDao<T> implements DaoInterface<T> {
 
             if (f.getType().getSimpleName().equalsIgnoreCase("Boolean")) {
                 m = clazz.getMethod("set" + atributo, Boolean.class);
-                int booleanValue = rs.getInt(atributo);
-                boolean convertedValue = (booleanValue == 1);
+                Integer booleanValue = rs.getInt(atributo);
+                Boolean convertedValue = (booleanValue == 1);
                 m.invoke(data, convertedValue);
             }
 

@@ -3,18 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/santi.LENOVO/Desktop/Tercer%20Ciclo/PISestructuraDatos/src/modelo/Contrato.java</file>
-            <file>file:/C:/Users/santi.LENOVO/Desktop/Tercer%20Ciclo/PISestructuraDatos/src/vista/FrmMatricula.java</file>
-            <file>file:/C:/Users/santi.LENOVO/Desktop/Tercer%20Ciclo/PISestructuraDatos/src/vista/FrmNuevaTutoria.java</file>
-            <file>file:/C:/Users/santi.LENOVO/Desktop/Tercer%20Ciclo/PISestructuraDatos/src/vista/listas/tablas/TablaContrato.java</file>
-            <file>file:/C:/Users/santi.LENOVO/Desktop/Tercer%20Ciclo/PISestructuraDatos/src/vista/listas/util/Utilvista.java</file>
             <file>file:/C:/Users/santi.LENOVO/Desktop/Tercer%20Ciclo/PISestructuraDatos/src/modelo/Horario.java</file>
+            <file>file:/C:/Users/santi.LENOVO/Desktop/Tercer%20Ciclo/PISestructuraDatos/src/vista/FrmNuevaTutoria.java</file>
             <file>file:/C:/Users/santi.LENOVO/Desktop/Tercer%20Ciclo/PISestructuraDatos/src/vista/FrmTutoriasPrincipal.java</file>
+            <file>file:/C:/Users/santi.LENOVO/Desktop/Tercer%20Ciclo/PISestructuraDatos/src/controlador/Tutorias/TutoriaArchivos.java</file>
+            <file>file:/C:/Users/santi.LENOVO/Desktop/Tercer%20Ciclo/PISestructuraDatos/src/controlador/Tutorias/HorarioArchivos.java</file>
+            <file>file:/C:/Users/santi.LENOVO/Desktop/Tercer%20Ciclo/PISestructuraDatos/src/vista/listas/util/Utilvista.java</file>
+            <file>file:/C:/Users/santi.LENOVO/Desktop/Tercer%20Ciclo/PISestructuraDatos/src/modelo/MatriculaAsignatura.java</file>
+            <file>file:/C:/Users/santi.LENOVO/Desktop/Tercer%20Ciclo/PISestructuraDatos/src/controlador/Tutorias/TutoriaMatriculaArchivos.java</file>
+            <file>file:/C:/Users/santi.LENOVO/Desktop/Tercer%20Ciclo/PISestructuraDatos/src/modelo/TutoriaMatricula.java</file>
             <file>file:/C:/Users/santi.LENOVO/Desktop/Tercer%20Ciclo/PISestructuraDatos/src/controlador/DAO/AdaptadorDao.java</file>
-            <file>file:/C:/Users/santi.LENOVO/Desktop/Tercer%20Ciclo/PISestructuraDatos/src/vista/FrmContrato.java</file>
-            <file>file:/C:/Users/santi.LENOVO/Desktop/Tercer%20Ciclo/PISestructuraDatos/src/vista/FrmGuardarPersona.java</file>
-            <file>file:/C:/Users/santi.LENOVO/Desktop/Tercer%20Ciclo/PISestructuraDatos/src/vista/FrmPeriodoAcademico.java</file>
-            <file>file:/C:/Users/santi.LENOVO/Desktop/Tercer%20Ciclo/PISestructuraDatos/src/vista/FrmGenerarInforme.java</file>
+            <file>file:/C:/Users/santi.LENOVO/Desktop/Tercer%20Ciclo/PISestructuraDatos/src/modelo/Tutoria.java</file>
         </group>
     </open-files>
 </project-private>
