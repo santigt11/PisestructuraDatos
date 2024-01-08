@@ -15,11 +15,14 @@ public class Menu_Estudiante extends javax.swing.JFrame {
     /**
      * Creates new form Menu_Estudiante
      */
+    //declaracion de una variable global
     Usuario user;
+    // Constructor 
     public Menu_Estudiante(Usuario usuario) {
         initComponents();
         this.user=usuario;
     }
+    //Constructor
       public Menu_Estudiante() {
         initComponents();
     }
@@ -36,6 +39,7 @@ public class Menu_Estudiante extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         adminMatricula1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -51,6 +55,9 @@ public class Menu_Estudiante extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistaImagenes/3135768(1).png"))); // NOI18N
 
+        jLabel2.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        jLabel2.setText("ESTUDIANTE");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -58,23 +65,30 @@ public class Menu_Estudiante extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 220, -1));
 
         jButton1.setText("Exit");
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 510, -1, -1));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 480, -1, -1));
 
         adminMatricula1.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         adminMatricula1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistaImagenes/6391572(1).png"))); // NOI18N
         adminMatricula1.setText("Tutoria");
+        adminMatricula1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         adminMatricula1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         adminMatricula1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         adminMatricula1.addActionListener(new java.awt.event.ActionListener() {
@@ -163,6 +177,7 @@ public class Menu_Estudiante extends javax.swing.JFrame {
     private javax.swing.JButton adminMatricula1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

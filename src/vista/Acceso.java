@@ -34,9 +34,10 @@ public class Acceso extends javax.swing.JFrame {
         initComponents();
 
     }
+    //creacion de instancia de los controladores
     private PersonaArchivos controlPersona = new PersonaArchivos();
     private UsuarioArchivos controlUsuario = new UsuarioArchivos();
-
+    // limpiar
     private void limpiar() {
         txtContraseña.setText("");
         txtNombreUsuario.setText("");
