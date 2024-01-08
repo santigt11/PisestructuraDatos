@@ -2,10 +2,10 @@ package vista;
 
 import controlador.Academico.AsignaturaArchivos;
 import controlador.Academico.ContratoArchivos;
-import controlador.Academico.HorarioArchivos;
-import controlador.Academico.MatriculaAsignaturaArchivos;
-import controlador.Academico.PersonaArchivos;
-import controlador.Academico.TutoriaArchivos;
+import controlador.Tutorias.HorarioArchivos;
+import controlador.Matriculas.MatriculaAsignaturaArchivos;
+import controlador.Admin.PersonaArchivos;
+import controlador.Tutorias.TutoriaArchivos;
 import controlador.TDA.listas.Exception.EmptyException;
 import javax.swing.JOptionPane;
 import modelo.Persona;

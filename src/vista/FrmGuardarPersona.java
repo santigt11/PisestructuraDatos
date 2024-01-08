@@ -4,7 +4,7 @@
  */
 package Vista;
 
-import controlador.Academico.PersonaArchivos;
+import controlador.Admin.PersonaArchivos;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.Utiles.Utiles;
 import java.text.ParseException;

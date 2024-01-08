@@ -1,6 +1,6 @@
 package modelo;
 
-import controlador.Academico.MatriculaArchivos;
+import controlador.Matriculas.MatriculaArchivos;
 
 public class MatriculaAsignatura {
 
@@ -54,5 +54,20 @@ public class MatriculaAsignatura {
     @Override
     public String toString() {
         return curso + "  -  " + asignatura_ID;
+    }
+
+    public int compareCampo(String campo, String valorBuscado) {
+        switch (campo.toLowerCase()) {
+            case "id":
+                return this.id.compareTo(Integer.parseInt(valorBuscado));
+            case "curso":
+                return this.curso.compareToIgnoreCase(valorBuscado);
+            case "idmatricula":
+                return this.matricula_ID.compareTo(Integer.parseInt(valorBuscado));
+            case "idasignatura":
+                return this.asignatura_ID.compareTo(Integer.parseInt(valorBuscado));
+            default:
+                throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
+        }
     }
 }
