@@ -107,6 +107,12 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btNuevaTutoria = new javax.swing.JButton();
         btGenerarInforme = new javax.swing.JButton();
+<<<<<<< HEAD
+=======
+        cbxAsignatura = new javax.swing.JComboBox<>();
+        dcFecha = new org.netbeans.modules.form.InvalidComponent();
+        cbxHorario = new javax.swing.JComboBox<>();
+>>>>>>> Estefania-Torres
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstTutorias = new javax.swing.JList<>();
@@ -139,6 +145,11 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         btNuevaTutoria.setForeground(new java.awt.Color(0, 0, 0));
         btNuevaTutoria.setText("Nueva Tutoria");
         btNuevaTutoria.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btNuevaTutoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNuevaTutoriaActionPerformed(evt);
+            }
+        });
 
         btGenerarInforme.setBackground(new java.awt.Color(242, 242, 242));
         btGenerarInforme.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
@@ -151,6 +162,29 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
             }
         });
 
+<<<<<<< HEAD
+=======
+        cbxAsignatura.setBackground(new java.awt.Color(242, 242, 242));
+        cbxAsignatura.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbxAsignatura.setForeground(new java.awt.Color(0, 0, 0));
+        cbxAsignatura.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estructura de Datos" }));
+        cbxAsignatura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+<<<<<<< HEAD
+=======
+        dcFecha.setBackground(new java.awt.Color(242, 242, 242));
+        dcFecha.setForeground(new java.awt.Color(0, 0, 0));
+        dcFecha.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        dcFecha.setMinimumSize(new java.awt.Dimension(90, 25));
+
+>>>>>>> main
+        cbxHorario.setBackground(new java.awt.Color(242, 242, 242));
+        cbxHorario.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbxHorario.setForeground(new java.awt.Color(0, 0, 0));
+        cbxHorario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3 AM - 5 PM" }));
+        cbxHorario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+>>>>>>> Estefania-Torres
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -394,6 +428,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_chkNoActionPerformed
 
+<<<<<<< HEAD
     private void lstTutoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTutoriasMouseClicked
          if (lstTutorias.getSelectedValue() != null) {
             Object t = lstTutorias.getSelectedValue();
@@ -405,6 +440,11 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_lstTutoriasMouseClicked
+=======
+    private void btNuevaTutoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNuevaTutoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btNuevaTutoriaActionPerformed
+>>>>>>> Estefania-Torres
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -418,6 +458,10 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btNuevaTutoria;
     private javax.swing.JCheckBox chkNo;
     private javax.swing.JCheckBox chkSi;
+<<<<<<< HEAD
+=======
+    private org.netbeans.modules.form.InvalidComponent dcFecha;
+>>>>>>> Estefania-Torres
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

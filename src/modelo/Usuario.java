@@ -18,12 +18,15 @@ public class Usuario {
     public Usuario() {
     }
 
+<<<<<<< HEAD
     public Usuario(Integer id, String correo, String clave) {
         this.id = id;
         this.correo = correo;
         this.clave = clave;
     }
 
+=======
+>>>>>>> Estefania-Torres
     public Integer getId() {
         return id;
     }
@@ -36,6 +39,17 @@ public class Usuario {
         return correo;
     }
 
+<<<<<<< HEAD
+=======
+    public String getPersona_DNI() {
+        return persona_DNI;
+    }
+
+    public void setPersona_DNI(String persona_DNI) {
+        this.persona_DNI = persona_DNI;
+    }
+
+>>>>>>> Estefania-Torres
     public void setCorreo(String correo) {
         this.correo = correo;
     }
@@ -47,6 +61,7 @@ public class Usuario {
     public void setClave(String clave) {
         this.clave = clave;
     }
+<<<<<<< HEAD
 
     public String getPersona_DNI() {
         return persona_DNI;
@@ -54,6 +69,31 @@ public class Usuario {
 
     public void setPersona_DNI(String persona_DNI) {
         this.persona_DNI = persona_DNI;
+=======
+public Boolean compare(Usuario u, String field, Integer type) {
+        switch (type) {
+            case 0 -> {
+                if (field.equalsIgnoreCase("correo")) {
+                    return this.getCorreo().toLowerCase().compareTo(u.getCorreo().toLowerCase()) < 0;
+                }
+                else if (field.equalsIgnoreCase("correo")) {
+                    return this.getCorreo().compareTo(u.getCorreo().toLowerCase()) > 0;
+                }
+            }
+             case 1 -> {
+                if (field.equalsIgnoreCase("persona_DNI")) {
+                    return this.getPersona_DNI().toLowerCase().compareTo(u.getCorreo().toLowerCase()) < 0;
+                }
+                else if (field.equalsIgnoreCase("persona_DNI")) {
+                    return this.getPersona_DNI().compareTo(u.getCorreo().toLowerCase()) > 0;
+                }
+            }
+            default -> {
+                return false;
+            }
+        }
+        return null;
+>>>>>>> Estefania-Torres
     }
 
     public int compareCampo(String campo, String valorBuscado) {
@@ -62,8 +102,11 @@ public class Usuario {
                 return this.id.compareTo(Integer.parseInt(valorBuscado));
             case "correo":
                 return this.correo.compareToIgnoreCase(valorBuscado);
+<<<<<<< HEAD
             case "clave":
                 return this.clave.compareToIgnoreCase(valorBuscado);
+=======
+>>>>>>> Estefania-Torres
             case "idpersona":
                 return this.persona_DNI.compareToIgnoreCase(valorBuscado);
             default:

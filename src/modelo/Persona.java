@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class Persona {
 
+    //atributos
     private Integer id;
     private String dni;
     private String nombre;
@@ -12,9 +13,11 @@ public class Persona {
     private String telefono;
     private Rol rol;
 
+    //constructor vacio
     public Persona() {
     }
 
+    //constructor que iniciliza los atributos
     public Persona(Integer id, String dni, String nombre, String apellido, LocalDate fechaNacimientoi, String telefono, Rol rol) {
         this.id = id;
         this.dni = dni;
@@ -25,6 +28,7 @@ public class Persona {
         this.rol = rol;
     }
 
+    //getters and setters
     public Integer getId() {
         return id;
     }
@@ -81,17 +85,19 @@ public class Persona {
         this.rol = rol;
     }
 
+    //toString
     @Override
     public String toString() {
         return dni + " - " + apellido + " " + nombre;
     }
 
+//metodo para comparar atributos de dos personas basado en un campo y tipo específico
     public Boolean compare(Persona p, String field, Integer type) {
         //0 menor 1 mayor
         switch (type) {
-            case 0:
+            case 0:// Si el tipo es 0 es menor
                 if (field.equalsIgnoreCase("apellidos")) {
-                    return apellido.compareTo(p.getApellido()) < 0;
+                    return apellido.compareTo(p.getApellido()) < 0;//compara
                 } else if (field.equalsIgnoreCase("nombres")) {
                     return nombre.compareTo(p.getNombre()) < 0;
                 } else if (field.equalsIgnoreCase("dni")) {
@@ -99,9 +105,9 @@ public class Persona {
                 } else if (field.equalsIgnoreCase("id")) {
                     return id.compareTo(p.getId()) < 0;
                 }
-            case 1:
+            case 1: //si el tipo es 1 es mayor
                 if (field.equalsIgnoreCase("apellidos")) {
-                    return apellido.compareTo(p.getApellido()) > 0;
+                    return apellido.compareTo(p.getApellido()) > 0;//compara
                 } else if (field.equalsIgnoreCase("nombres")) {
                     return nombre.compareTo(p.getNombre()) > 0;
                 } else if (field.equalsIgnoreCase("dni")) {
@@ -114,10 +120,11 @@ public class Persona {
         }
     }
 
+    // Método para comparar un campo específico de la persona con un valor buscado
     public int compareCampo(String campo, String valorBuscado) {
         switch (campo.toLowerCase()) {
             case "nombre":
-                return this.nombre.compareToIgnoreCase(valorBuscado);
+                return this.nombre.compareToIgnoreCase(valorBuscado);//Compara el nombre ignorando mayúsculas/minúsculas
             case "apellido":
                 return this.apellido.compareToIgnoreCase(valorBuscado);
             case "id":
@@ -125,7 +132,9 @@ public class Persona {
             case "dni":
                 return this.dni.compareToIgnoreCase(valorBuscado);
             default:
+                //Lanza una excepción si el campo no es válido
                 throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
         }
     }
+
 }
