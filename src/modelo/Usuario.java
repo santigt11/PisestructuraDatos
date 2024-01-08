@@ -74,7 +74,7 @@ public Boolean compare(Usuario u, String field, Integer type) {
         return null;
     }
 
-      public int compareCampo(String campo, String valorBuscado) {
+    public int compareCampo(String campo, String valorBuscado) {
         switch (campo.toLowerCase()) {
             case "id":
                 return this.id.compareTo(Integer.parseInt(valorBuscado));
