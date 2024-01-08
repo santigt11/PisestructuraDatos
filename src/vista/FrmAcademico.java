@@ -5,14 +5,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-import controlador.TDA.listas.DynamicList;
-import controlador.Utiles.Utiles;
-
-import controlador.FacultadControl;
-import controlador.CarreraControl;
-import controlador.MallaControl;
-import controlador.AsignaturaControl;
-
 import controlador.Academico.AsignaturaArchivos;
 import controlador.Academico.CarreraArchivos;
 import controlador.Academico.FacultadArchivos;
@@ -23,16 +15,9 @@ import modelo.Carrera;
 import modelo.MallaCurricular;
 import modelo.Asignatura;
 
-import vista.listas.tablas.TablaAsignatura;
-
 import vista.listas.util.Utilvista;
 
 public class FrmAcademico extends javax.swing.JFrame {
-
-    private FacultadControl facultadControl = new FacultadControl();
-    private CarreraControl carreraControl = new CarreraControl();
-    private MallaControl mallaControl = new MallaControl();
-    private AsignaturaControl asignaturaControl = new AsignaturaControl();
 
     private FacultadArchivos fileFacultad = new FacultadArchivos();
     private CarreraArchivos fileCarrera = new CarreraArchivos();
@@ -47,7 +32,7 @@ public class FrmAcademico extends javax.swing.JFrame {
                 String flag1 = cbxFacultad.getSelectedItem() != null ? cbxFacultad.getSelectedItem().toString().trim() : "";
                 return (!flag1.isEmpty()
                         && !txtNombreC.getText().trim().isEmpty()
-                        && !spnCiclo.getValue().toString().trim().isEmpty());
+                        && (Integer) spnCiclo.getValue() != 0);
             case 3:
                 String flag2 = cbxCarrera.getSelectedItem() != null ? cbxCarrera.getSelectedItem().toString().trim() : "";
                 return (!flag2.isEmpty()
@@ -58,7 +43,7 @@ public class FrmAcademico extends javax.swing.JFrame {
                 return (!flag3.isEmpty()
                         && !txtNombreA.getText().trim().isEmpty()
                         && !txtCodigoA.getText().trim().isEmpty()
-                        && !spnTotalHorasA.getValue().toString().trim().isEmpty());
+                        && (Integer) spnTotalHorasA.getValue() != 0);
             default:
                 throw new AssertionError();
         }
@@ -69,8 +54,8 @@ public class FrmAcademico extends javax.swing.JFrame {
             case 1:
                 limpiarSoft();
                 try {
-                    facultadControl.setFacultad(fileFacultad.getFacultades().getInfo(lstFacultad.getSelectedIndex()));
-                    txtNombreF.setText(facultadControl.getFacultad().getNombre());
+                    fileFacultad.setFacultad(fileFacultad.getFacultades().getInfo(lstFacultad.getSelectedIndex()));
+                    txtNombreF.setText(fileFacultad.getFacultad().getNombre());
                     txtNombreF.setEnabled(false);
                     btCrearF.setEnabled(false);
                 } catch (Exception ex) {
@@ -87,10 +72,10 @@ public class FrmAcademico extends javax.swing.JFrame {
             Object c = lstCarrera.getSelectedValue();
             Carrera carrera = (Carrera) c;
             try {
-                carreraControl.setCarrera(carrera);
-                cbxFacultad.setSelectedIndex(carreraControl.getCarrera().getIdFacultad());
-                txtNombreC.setText(carreraControl.getCarrera().getNombre());
-                spnCiclo.setValue(carreraControl.getCarrera().getNumCiclos());
+                fileCarrera.setCarrera(carrera);
+                cbxFacultad.setSelectedIndex(fileCarrera.getCarrera().getIdFacultad());
+                txtNombreC.setText(fileCarrera.getCarrera().getNombre());
+                spnCiclo.setValue(fileCarrera.getCarrera().getNumCiclos());
 
                 btCrearC.setEnabled(false);
                 cbxFacultad.setEnabled(false);
@@ -111,13 +96,13 @@ public class FrmAcademico extends javax.swing.JFrame {
             Object m = lstMalla.getSelectedValue();
             MallaCurricular malla = (MallaCurricular) m;
             try {
-                mallaControl.setMalla(malla);
-                cbxCarrera.setSelectedIndex(mallaControl.getMalla().getIdCarrera());
-                txtDescripcion.setText(mallaControl.getMalla().getDescripcion());
-                txtPensum.setText(mallaControl.getMalla().getPensum());
-                if (mallaControl.getMalla().isVigencia()) {
+                fileMalla.setMalla(malla);
+                cbxCarrera.setSelectedIndex(fileMalla.getMalla().getIdCarrera());
+                txtDescripcion.setText(fileMalla.getMalla().getDescripcion());
+                txtPensum.setText(fileMalla.getMalla().getPensum());
+                if (fileMalla.getMalla().isVigencia()) {
                     cbxVigencia.setSelectedIndex(0);
-                } else if (mallaControl.getMalla().isVigencia() == false) {
+                } else if (fileMalla.getMalla().isVigencia() == false) {
                     cbxVigencia.setSelectedIndex(1);
                 }
 
@@ -139,13 +124,13 @@ public class FrmAcademico extends javax.swing.JFrame {
             Object a = lstAsignatura.getSelectedValue();
             Asignatura asignatura = (Asignatura) a;
             try {
-                asignaturaControl.setAsignatura(asignatura);
-                cbxCarreraMalla.setSelectedIndex(fileCarrera.getCarreras().getInfo(fileMalla.getMallas().getInfo(asignaturaControl.getAsignatura().getIdMalla()).getIdCarrera()).getId());
+                fileAsignatura.setAsignatura(asignatura);
+                cbxCarreraMalla.setSelectedIndex(fileCarrera.getCarreras().getInfo(fileMalla.getMallas().getInfo(fileAsignatura.getAsignatura().getIdMalla()).getIdCarrera()).getId());
                 cbxMalla.setSelectedIndex(-1);
-                txtMallaRegistrada.setText(fileMalla.getMallas().getInfo(asignaturaControl.getAsignatura().getIdMalla()).toString());
-                txtNombreA.setText(asignaturaControl.getAsignatura().getNombre());
-                txtCodigoA.setText(asignaturaControl.getAsignatura().getCodigo());
-                spnTotalHorasA.setValue(asignaturaControl.getAsignatura().getTotalHoras());
+                txtMallaRegistrada.setText(fileMalla.getMallas().getInfo(fileAsignatura.getAsignatura().getIdMalla()).toString());
+                txtNombreA.setText(fileAsignatura.getAsignatura().getNombre());
+                txtCodigoA.setText(fileAsignatura.getAsignatura().getCodigo());
+                spnTotalHorasA.setValue(fileAsignatura.getAsignatura().getTotalHoras());
 
                 btCrearA.setEnabled(false);
                 cbxCarreraMalla.setEnabled(false);
@@ -188,9 +173,9 @@ public class FrmAcademico extends javax.swing.JFrame {
 
         habilitarTodo();
 
-        facultadControl.setFacultad(null);
-        carreraControl.setCarrera(null);
-        mallaControl.setMalla(null);
+        fileFacultad.setFacultad(null);
+        fileCarrera.setCarrera(null);
+        fileMalla.setMalla(null);
     }
 
     private void limpiarSoft() {
@@ -229,8 +214,8 @@ public class FrmAcademico extends javax.swing.JFrame {
         txtNombreA.setText("");
         txtCodigoA.setText("");
         spnTotalHorasA.setValue(0);
-        asignaturaControl.setAsignatura(null);
-        
+        fileAsignatura.setAsignatura(null);
+
         btCrearA.setEnabled(true);
         cbxCarreraMalla.setEnabled(true);
         cbxMalla.setEnabled(true);
@@ -252,20 +237,16 @@ public class FrmAcademico extends javax.swing.JFrame {
         txtPensum.setEnabled(true);
     }
 
-    private void guardar(Integer flag) throws EmptyException {
+    private void guardar(Integer flag) throws EmptyException, Exception {
         switch (flag) {
             case 1:
                 if (verificar(1)) {
-                    facultadControl.getFacultad().setNombre(txtNombreF.getText());
-                    if (facultadControl.guardar()) {
-                        fileFacultad.setFacultad(facultadControl.getFacultad());
-                        fileFacultad.persist();
-                        JOptionPane.showMessageDialog(null, "Datos guardados");
-                        limpiar();
-                        facultadControl.setFacultad(null);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "No se pudo guardar, hubo un error");
-                    }
+                    fileFacultad.getFacultad().setNombre(txtNombreF.getText());
+
+                    fileFacultad.persist(fileFacultad.getFacultad());
+                    JOptionPane.showMessageDialog(null, "Datos guardados");
+                    limpiar();
+                    fileFacultad.setFacultad(null);
                 } else {
                     JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -273,19 +254,14 @@ public class FrmAcademico extends javax.swing.JFrame {
 
             case 2:
                 if (verificar(2)) {
-                    carreraControl.getCarrera().setIdFacultad(Utilvista.obtenerFacultadControl(cbxFacultad).getId());
-                    carreraControl.getCarrera().setNombre(txtNombreC.getText());
-                    carreraControl.getCarrera().setNumCiclos((Integer) spnCiclo.getValue());
+                    fileCarrera.getCarrera().setIdFacultad(Utilvista.obtenerFacultadControl(cbxFacultad).getId());
+                    fileCarrera.getCarrera().setNombre(txtNombreC.getText());
+                    fileCarrera.getCarrera().setNumCiclos((Integer) spnCiclo.getValue());
 
-                    if (carreraControl.guardar()) {
-                        fileCarrera.setCarrera(carreraControl.getCarrera());
-                        fileCarrera.persist();
-                        JOptionPane.showMessageDialog(null, "Datos guardados");
-                        limpiar();
-                        carreraControl.setCarrera(null);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "No se pudo guardar, hubo un error");
-                    }
+                    fileCarrera.persist(fileCarrera.getCarrera());
+                    JOptionPane.showMessageDialog(null, "Datos guardados");
+                    limpiar();
+                    fileCarrera.setCarrera(null);
                 } else {
                     JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -293,18 +269,13 @@ public class FrmAcademico extends javax.swing.JFrame {
 
             case 3:
                 if (verificar(3)) {
-                    mallaControl.getMalla().setIdCarrera(cbxCarrera.getSelectedIndex());
-                    mallaControl.getMalla().setDescripcion(txtDescripcion.getText());
-                    mallaControl.getMalla().setPensum(txtPensum.getText());
-                    if (carreraControl.guardar()) {
-                        fileMalla.setMalla(mallaControl.getMalla());
-                        fileMalla.persist();
-                        JOptionPane.showMessageDialog(null, "Datos guardados");
-                        limpiar();
-                        mallaControl.setMalla(null);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "No se pudo guardar, hubo un error");
-                    }
+                    fileMalla.getMalla().setIdCarrera(cbxCarrera.getSelectedIndex());
+                    fileMalla.getMalla().setDescripcion(txtDescripcion.getText());
+                    fileMalla.getMalla().setPensum(txtPensum.getText());
+                    fileMalla.persist(fileMalla.getMalla());
+                    JOptionPane.showMessageDialog(null, "Datos guardados");
+                    limpiar();
+                    fileMalla.setMalla(null);
                 } else {
                     JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -312,20 +283,15 @@ public class FrmAcademico extends javax.swing.JFrame {
             case 4:
                 if (verificar(4)) {
                     if (fileAsignatura.buscarCodigo(txtCodigoA.getText()) == false) {
-                        asignaturaControl.getAsignatura().setIdMalla(Utilvista.obtenerMallaControl(cbxMalla).getId());
-                        asignaturaControl.getAsignatura().setNombre(txtNombreA.getText());
-                        asignaturaControl.getAsignatura().setCodigo(txtCodigoA.getText());
-                        asignaturaControl.getAsignatura().setTotalHoras((Integer) spnTotalHorasA.getValue());
+                        fileAsignatura.getAsignatura().setIdMalla(Utilvista.obtenerMallaControl(cbxMalla).getId());
+                        fileAsignatura.getAsignatura().setNombre(txtNombreA.getText());
+                        fileAsignatura.getAsignatura().setCodigo(txtCodigoA.getText());
+                        fileAsignatura.getAsignatura().setTotalHoras((Integer) spnTotalHorasA.getValue());
 
-                        if (asignaturaControl.guardar()) {
-                            fileAsignatura.setCarrera(asignaturaControl.getAsignatura());
-                            fileAsignatura.persist();
-                            JOptionPane.showMessageDialog(null, "Asignatura guardada");
-                            limpiar();
-                            asignaturaControl.setAsignatura(null);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "No se pudo guardar, hubo un error");
-                        }
+                        fileAsignatura.persist(fileAsignatura.getAsignatura());
+                        JOptionPane.showMessageDialog(null, "Asignatura guardada");
+                        limpiar();
+                        fileAsignatura.setAsignatura(null);
                     } else {
                         JOptionPane.showMessageDialog(null, "El codigo de la asignatura ya existe");
                     }
@@ -339,57 +305,49 @@ public class FrmAcademico extends javax.swing.JFrame {
 
     }
 
-    private void modificar(Integer flag) throws EmptyException {
+    private void modificar(Integer flag) throws EmptyException, Exception {
         switch (flag) {
             case 1:
-                facultadControl.getFacultad().setNombre(txtNombreF.getText());
-                if (fileFacultad.merge(facultadControl.getFacultad(), facultadControl.getFacultad().getId())) {
-                    JOptionPane.showMessageDialog(null, "Cambios guardados");
-                    limpiar();
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo guardar los cambios, hubo un error");
-                }
+                fileFacultad.getFacultad().setNombre(txtNombreF.getText());
+                
+                fileFacultad.merge(fileFacultad.getFacultad());
+                JOptionPane.showMessageDialog(null, "Cambios guardados");
+                limpiar();
                 break;
             case 2:
-                carreraControl.getCarrera().setIdFacultad(Utilvista.obtenerFacultadControl(cbxFacultad).getId());
-                carreraControl.getCarrera().setNombre(txtNombreC.getText());
-                carreraControl.getCarrera().setNumCiclos((Integer) spnCiclo.getValue());
-                if (fileCarrera.merge(carreraControl.getCarrera(), carreraControl.getCarrera().getId())) {
-                    JOptionPane.showMessageDialog(null, "Cambios guardados");
-                    limpiar();
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo guardar los cambios, hubo un error");
-                }
+                fileCarrera.getCarrera().setIdFacultad(Utilvista.obtenerFacultadControl(cbxFacultad).getId());
+                fileCarrera.getCarrera().setNombre(txtNombreC.getText());
+                fileCarrera.getCarrera().setNumCiclos((Integer) spnCiclo.getValue());
+                
+                fileCarrera.merge(fileCarrera.getCarrera());
+                JOptionPane.showMessageDialog(null, "Cambios guardados");
+                limpiar();
                 break;
             case 3:
-                mallaControl.getMalla().setIdCarrera(cbxCarrera.getSelectedIndex());
-                mallaControl.getMalla().setDescripcion(txtDescripcion.getText());
-                mallaControl.getMalla().setPensum(txtPensum.getText());
-                if(cbxVigencia.getSelectedIndex() == 0){
-                    mallaControl.getMalla().setVigencia(true);
-                } else if(cbxVigencia.getSelectedIndex() == 1){
-                    mallaControl.getMalla().setVigencia(false);
+                fileMalla.getMalla().setIdCarrera(cbxCarrera.getSelectedIndex());
+                fileMalla.getMalla().setDescripcion(txtDescripcion.getText());
+                fileMalla.getMalla().setPensum(txtPensum.getText());
+                if (cbxVigencia.getSelectedIndex() == 0) {
+                    fileMalla.getMalla().setVigencia(true);
+                } else if (cbxVigencia.getSelectedIndex() == 1) {
+                    fileMalla.getMalla().setVigencia(false);
                 }
-                
-                if (fileMalla.merge(mallaControl.getMalla(), mallaControl.getMalla().getId())) {
-                    JOptionPane.showMessageDialog(null, "Cambios guardados");
-                    limpiar();
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo guardar los cambios, hubo un error");
-                }
+
+                fileMalla.merge(fileMalla.getMalla());
+                JOptionPane.showMessageDialog(null, "Cambios guardados");
+                limpiar();
+
                 break;
             case 4:
-                if(verificar(4)){
-                asignaturaControl.getAsignatura().setIdMalla(Utilvista.obtenerMallaControl(cbxMalla).getId());
-                asignaturaControl.getAsignatura().setNombre(txtNombreA.getText());
-                asignaturaControl.getAsignatura().setCodigo(txtCodigoA.getText());
-                asignaturaControl.getAsignatura().setTotalHoras((Integer) spnTotalHorasA.getValue());
-                if (fileAsignatura.merge(asignaturaControl.getAsignatura(), asignaturaControl.getAsignatura().getId())) {
+                if (verificar(4)) {
+                    fileAsignatura.getAsignatura().setIdMalla(Utilvista.obtenerMallaControl(cbxMalla).getId());
+                    fileAsignatura.getAsignatura().setNombre(txtNombreA.getText());
+                    fileAsignatura.getAsignatura().setCodigo(txtCodigoA.getText());
+                    fileAsignatura.getAsignatura().setTotalHoras((Integer) spnTotalHorasA.getValue());
+                    
+                    fileAsignatura.merge(fileAsignatura.getAsignatura());
                     JOptionPane.showMessageDialog(null, "Cambios guardados");
                     limpiar();
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo guardar los cambios, hubo un error");
-                }
                 } else {
                     JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -1128,6 +1086,8 @@ public class FrmAcademico extends javax.swing.JFrame {
             guardar(2);
         } catch (EmptyException ex) {
             Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btCrearCActionPerformed
 
@@ -1135,6 +1095,8 @@ public class FrmAcademico extends javax.swing.JFrame {
         try {
             guardar(3);
         } catch (EmptyException ex) {
+            Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btCrearMActionPerformed
@@ -1144,6 +1106,8 @@ public class FrmAcademico extends javax.swing.JFrame {
         try {
             guardar(1);
         } catch (EmptyException ex) {
+            Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btCrearFActionPerformed
@@ -1247,6 +1211,8 @@ public class FrmAcademico extends javax.swing.JFrame {
             modificar(1);
         } catch (EmptyException ex) {
             Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btGCFacultadActionPerformed
 
@@ -1254,6 +1220,8 @@ public class FrmAcademico extends javax.swing.JFrame {
         try {
             modificar(2);
         } catch (EmptyException ex) {
+            Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btGCCarreraActionPerformed
@@ -1263,6 +1231,8 @@ public class FrmAcademico extends javax.swing.JFrame {
             modificar(3);
         } catch (EmptyException ex) {
             Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btGCMallaActionPerformed
 
@@ -1271,6 +1241,8 @@ public class FrmAcademico extends javax.swing.JFrame {
             guardar(4);
         } catch (EmptyException ex) {
             System.out.println(ex.getMessage());
+        } catch (Exception ex) {
+            Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btCrearAActionPerformed
 
@@ -1278,6 +1250,8 @@ public class FrmAcademico extends javax.swing.JFrame {
         try {
             modificar(4);
         } catch (EmptyException ex) {
+            Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btGCAsignaturaActionPerformed
@@ -1348,6 +1322,7 @@ public class FrmAcademico extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrmAcademico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

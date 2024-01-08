@@ -1,4 +1,4 @@
-package controlador.Academico;
+package controlador.Matriculas;
 
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
@@ -14,12 +14,8 @@ public class MatriculaAsignaturaArchivos extends AdaptadorDao<MatriculaAsignatur
         super(MatriculaAsignatura.class);
     }
 
-    public DynamicList<MatriculaAsignatura> getAsgMatriculasTodas() {
-        asgMatriculas = all();
-        return asgMatriculas;
-    }
-
     public DynamicList<MatriculaAsignatura> getAsgMatriculas() {
+        asgMatriculas = all();
         return asgMatriculas;
     }
 
@@ -75,4 +71,5 @@ public class MatriculaAsignaturaArchivos extends AdaptadorDao<MatriculaAsignatur
         }
         return null;
     }
+
 }

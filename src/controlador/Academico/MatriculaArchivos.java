@@ -14,8 +14,12 @@ public class MatriculaArchivos extends AdaptadorDao<Matricula> {
         super(Matricula.class);
     }
 
-    public DynamicList<Matricula> getMatriculas() {
+    public DynamicList<Matricula> getMatriculasTodos() {
         matriculas = all();
+        return matriculas;
+    }
+    
+    public DynamicList<Matricula> getMatriculas() {
         return matriculas;
     }
 
