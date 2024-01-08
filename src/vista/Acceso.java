@@ -239,13 +239,12 @@ public class Acceso extends javax.swing.JFrame {
             controlUsuario.setUsuario(user);
             Persona persona = null;
             try {
-                persona = controlPersona.buscarBinaria("dni", user.getPersona_DNI());
-                //System.out.println(persona.getNombre().toString());
+            persona = controlPersona.buscarBinaria("dni", user.getPersona_DNI());                //System.out.println(persona.getNombre().toString());
             } catch (EmptyException ex) {
                 java.util.logging.Logger.getLogger(Acceso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
             if (persona != null) {
-                System.out.println(persona.getRol().getName());
+                //System.out.println(persona.getRol().getName());
                 if (null != persona.getRol()) {
                     switch ( persona.getRol()) {
                         case ADMINISTRADOR -> {

@@ -1,7 +1,9 @@
 package modelo;
 
 public enum Rol {
-    ADMINISTRADOR("Administrador"), DOCENTE("Docente"), ESTUDIANTE("Estudiante");
+    ADMINISTRADOR, DOCENTE, ESTUDIANTE;
+    
+    /*ADMINISTRADOR("Administrador"), DOCENTE("Docente"), ESTUDIANTE("Estudiante");
     
     private String name;
     
@@ -23,7 +25,7 @@ public enum Rol {
 
     public String getName() {
         return name;
-    }
+    }*/
 
 
 }

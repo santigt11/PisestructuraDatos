@@ -74,12 +74,14 @@ public Boolean compare(Usuario u, String field, Integer type) {
         return null;
     }
 
-    public int compareCampo(String campo, String valorBuscado) {
+      public int compareCampo(String campo, String valorBuscado) {
         switch (campo.toLowerCase()) {
+            case "id":
+                return this.id.compareTo(Integer.parseInt(valorBuscado));
             case "correo":
-                return this.getCorreo().compareToIgnoreCase(valorBuscado);
-                case "persona_DNI":
-                return this.getPersona_DNI().compareToIgnoreCase(valorBuscado);
+                return this.correo.compareToIgnoreCase(valorBuscado);
+            case "idpersona":
+                return this.persona_DNI.compareToIgnoreCase(valorBuscado);
             default:
                 throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
         }
