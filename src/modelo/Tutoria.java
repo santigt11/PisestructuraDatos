@@ -11,6 +11,7 @@ import java.time.LocalDate;
  * @author Santiago
  */
 public class Tutoria {
+
     private Integer id;
     private LocalDate fecha;
     private String tema;
@@ -24,7 +25,7 @@ public class Tutoria {
         this.modalidad = modalidad;
         this.horario_ID = idHorario;
     }
-    
+
     public Tutoria() {
     }
 
@@ -67,5 +68,22 @@ public class Tutoria {
     public void setIdHorario(Integer idHorario) {
         this.horario_ID = idHorario;
     }
-    
+
+    public int compareCampo(String campo, String valorBuscado) {
+        switch (campo.toLowerCase()) {
+            case "id":
+                return this.id.compareTo(Integer.parseInt(valorBuscado));
+            case "fecha":
+                return this.fecha.compareTo(LocalDate.parse(valorBuscado));
+            case "tema":
+                return this.tema.compareToIgnoreCase(valorBuscado);
+            case "modalidad":
+                return this.modalidad.compareTo(Modalidad.valueOf(valorBuscado));
+            case "idhorario":
+                return this.horario_ID.compareTo(Integer.parseInt(valorBuscado));
+            default:
+                throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
+        }
+    }
+
 }

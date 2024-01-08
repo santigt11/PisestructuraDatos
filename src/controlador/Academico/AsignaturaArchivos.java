@@ -51,8 +51,7 @@ public class AsignaturaArchivos extends AdaptadorDao<Asignatura> {
         return super.persist(obj);
     }
 
-    public DynamicList<Asignatura> buscarLineal(String campo, String valorBuscado) throws EmptyException {
-        DynamicList<Asignatura> lista = all();
+    public DynamicList<Asignatura> buscarLineal(DynamicList<Asignatura> lista, String campo, String valorBuscado) throws EmptyException {
         Asignatura asignaturas[] = lista.toArray();
         DynamicList<Asignatura> listaBusqueda = new DynamicList<>();
         for (int i = 0; i < lista.getLength(); i++) {

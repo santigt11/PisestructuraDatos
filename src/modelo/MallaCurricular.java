@@ -1,6 +1,7 @@
 package modelo;
 
 public class MallaCurricular {
+
     private Integer id;
     private String descripcion;
     private String pensum;
@@ -13,7 +14,7 @@ public class MallaCurricular {
         this.pensum = pensum;
         this.carrera_ID = idCarrera;
     }
-    
+
     public MallaCurricular() {
     }
 
@@ -24,7 +25,7 @@ public class MallaCurricular {
         this.vigencia = vigencia;
         this.carrera_ID = idCarrera;
     }
-    
+
     public Integer getId() {
         return id;
     }
@@ -64,9 +65,24 @@ public class MallaCurricular {
     public void setVigencia(boolean vigencia) {
         this.vigencia = vigencia;
     }
-    
+
     @Override
     public String toString() {
         return pensum + "  -  " + descripcion;
+    }
+
+    public int compareCampo(String campo, String valorBuscado) {
+        switch (campo.toLowerCase()) {
+            case "id":
+                return this.id.compareTo(Integer.parseInt(valorBuscado));
+            case "descripcion":
+                return this.descripcion.compareToIgnoreCase(valorBuscado);
+            case "pensum":
+                return this.pensum.compareToIgnoreCase(valorBuscado);
+            case "idcarrera":
+                return this.carrera_ID.compareTo(Integer.parseInt(valorBuscado));
+            default:
+                throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
+        }
     }
 }

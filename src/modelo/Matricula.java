@@ -1,9 +1,9 @@
-
 package modelo;
 
 import java.time.LocalDate;
 
 public class Matricula {
+
     private Integer id;
     private LocalDate fecha;
     private boolean expActivo;
@@ -60,9 +60,24 @@ public class Matricula {
     public void setIdPAcademico(Integer idPAcademico) {
         this.periodoAcademico_ID = idPAcademico;
     }
-    
+
     @Override
     public String toString() {
         return id + " - " + fecha;
+    }
+
+    public int compareCampo(String campo, String valorBuscado) {
+        switch (campo.toLowerCase()) {
+            case "id":
+                return this.id.compareTo(Integer.parseInt(valorBuscado));
+            case "fecha":
+                return this.fecha.compareTo(LocalDate.parse(valorBuscado));
+            case "dnipersona":
+                return this.persona_DNI.compareTo(Integer.parseInt(valorBuscado));
+            case "idperiodo":
+                return this.periodoAcademico_ID.compareTo(Integer.parseInt(valorBuscado));
+            default:
+                throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
+        }
     }
 }

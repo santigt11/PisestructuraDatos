@@ -9,17 +9,18 @@ package modelo;
  * @author Santiago
  */
 public class Usuario {
+
     private Integer id;
-    private String cooreo;
+    private String correo;
     private String clave;
     private String persona_DNI;
-    
+
     public Usuario() {
     }
 
-    public Usuario(Integer id, String cooreo, String clave) {
+    public Usuario(Integer id, String correo, String clave) {
         this.id = id;
-        this.cooreo = cooreo;
+        this.correo = correo;
         this.clave = clave;
     }
 
@@ -31,12 +32,12 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getCooreo() {
-        return cooreo;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setCooreo(String cooreo) {
-        this.cooreo = cooreo;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public String getClave() {
@@ -53,5 +54,20 @@ public class Usuario {
 
     public void setPersona_DNI(String persona_DNI) {
         this.persona_DNI = persona_DNI;
+    }
+
+    public int compareCampo(String campo, String valorBuscado) {
+        switch (campo.toLowerCase()) {
+            case "id":
+                return this.id.compareTo(Integer.parseInt(valorBuscado));
+            case "correo":
+                return this.correo.compareToIgnoreCase(valorBuscado);
+            case "clave":
+                return this.clave.compareToIgnoreCase(valorBuscado);
+            case "idpersona":
+                return this.persona_DNI.compareToIgnoreCase(valorBuscado);
+            default:
+                throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
+        }
     }
 }

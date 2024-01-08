@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 import controlador.Academico.ContratoArchivos;
-import controlador.Academico.PersonaArchivos;
+import controlador.Admin.PersonaArchivos;
 import java.time.ZoneId;
 import modelo.*;
 

@@ -1,4 +1,4 @@
-package controlador.Academico;
+package controlador.Admin;
 
 import controlador.DAO.Conexion;
 import controlador.TDA.listas.DynamicList;

@@ -9,6 +9,7 @@ package modelo;
  * @author Santiago
  */
 public class TutoriaMatricula {
+
     private Integer id;
     private boolean impartida;
     private Integer matriculaAsignatura_ID;
@@ -16,12 +17,12 @@ public class TutoriaMatricula {
 
     public TutoriaMatricula() {
     }
-
-    public TutoriaMatricula(Integer id, boolean impartida, Integer matriculaAsignatura_ID, Integer tutoria_ID) {
+    
+    public TutoriaMatricula(Integer id, Integer matriculaAsignatura_ID, Integer tutoria_ID, boolean impartida) {
         this.id = id;
-        this.impartida = impartida;
         this.matriculaAsignatura_ID = matriculaAsignatura_ID;
         this.tutoria_ID = tutoria_ID;
+        this.impartida = impartida;
     }
 
     public Integer getId() {
@@ -47,5 +48,44 @@ public class TutoriaMatricula {
     public void setIdTutoria(Integer idTutoria) {
         this.tutoria_ID = idTutoria;
     }
-    
+
+    public Integer getMatriculaAsignatura_ID() {
+        return matriculaAsignatura_ID;
+    }
+
+    public void setMatriculaAsignatura_ID(Integer matriculaAsignatura_ID) {
+        this.matriculaAsignatura_ID = matriculaAsignatura_ID;
+    }
+
+    public Integer getTutoria_ID() {
+        return tutoria_ID;
+    }
+
+    public void setTutoria_ID(Integer tutoria_ID) {
+        this.tutoria_ID = tutoria_ID;
+    }
+
+    public boolean isImpartida() {
+        return impartida;
+    }
+
+    public void setImpartida(boolean impartida) {
+        this.impartida = impartida;
+    }
+
+    public int compareCampo(String campo, String valorBuscado) {
+        switch (campo.toLowerCase()) {
+            case "id":
+                return this.id.compareTo(Integer.parseInt(valorBuscado));
+            case "idmatricula":
+                return this.matriculaAsignatura_ID.compareTo(Integer.parseInt(valorBuscado));
+            case "idtutoria":
+                return this.tutoria_ID.compareTo(Integer.parseInt(valorBuscado)); 
+            case "impartida":
+                return this.impartida == Boolean.parseBoolean(valorBuscado) ? 0 : 1;
+            default:
+                throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
+        }
+    }
+
 }

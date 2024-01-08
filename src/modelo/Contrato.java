@@ -3,6 +3,7 @@ package modelo;
 import java.time.LocalDate;
 
 public class Contrato {
+
     private Integer id;
     private LocalDate fechaRegistro;
     private LocalDate fechaCulminacion;
@@ -58,5 +59,20 @@ public class Contrato {
 
     public void setCodAsignatura(String asignatura_CODIGO) {
         this.asignatura_CODIGO = asignatura_CODIGO;
+    }
+
+    public int compareCampo(String campo, String valorBuscado) {
+        switch (campo.toLowerCase()) {
+            case "id":
+                return this.id.compareTo(Integer.parseInt(valorBuscado));
+            case "fecharegistro":
+                return this.fechaRegistro.compareTo(LocalDate.parse(valorBuscado));
+            case "dnidocente":
+                return this.persona_DNI.compareToIgnoreCase(valorBuscado);
+            case "codasignatura":
+                return this.asignatura_CODIGO.compareToIgnoreCase(valorBuscado);
+            default:
+                throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
+        }
     }
 }
