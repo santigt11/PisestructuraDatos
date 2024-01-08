@@ -15,15 +15,13 @@ public class Tutoria {
     private LocalDate fecha;
     private String tema;
     private Modalidad modalidad;
-    private Boolean impartida;
     private Integer horario_ID;
 
-    public Tutoria(Integer id, LocalDate fecha, String tema, Modalidad modalidad, Boolean impartida, Integer idHorario) {
+    public Tutoria(Integer id, LocalDate fecha, String tema, Modalidad modalidad, Integer idHorario) {
         this.id = id;
         this.fecha = fecha;
         this.tema = tema;
         this.modalidad = modalidad;
-        this.impartida = impartida;
         this.horario_ID = idHorario;
     }
     
@@ -52,14 +50,6 @@ public class Tutoria {
 
     public void setTema(String tema) {
         this.tema = tema;
-    }
-
-    public Boolean getImpartida() {
-        return impartida;
-    }
-
-    public void setImpartida(Boolean impartida) {
-        this.impartida = impartida;
     }
 
     public Modalidad getModalidad() {

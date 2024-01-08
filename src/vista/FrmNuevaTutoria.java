@@ -3,14 +3,19 @@ package vista;
 import controlador.Academico.AsignaturaArchivos;
 import controlador.Academico.ContratoArchivos;
 import controlador.Academico.HorarioArchivos;
+import controlador.Academico.MatriculaArchivos;
 import controlador.Academico.MatriculaAsignaturaArchivos;
 import controlador.Academico.PersonaArchivos;
 import controlador.Academico.TutoriaArchivos;
 import controlador.TDA.listas.Exception.EmptyException;
+import java.time.ZoneId;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import modelo.Matricula;
+import modelo.MatriculaAsignatura;
+import modelo.Modalidad;
 import modelo.Persona;
-import vista.listas.tablas.TablaMatricula;
-import vista.listas.tablas.TablaPersona;
 import vista.listas.util.Utilvista;
 
 public class FrmNuevaTutoria extends javax.swing.JFrame {
@@ -19,19 +24,20 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         initComponents();
         txtTema.setEnabled(true);
     }
-    
+
     private TutoriaArchivos tutoriaControl = new TutoriaArchivos();
     private HorarioArchivos horarioControl = new HorarioArchivos();
     private AsignaturaArchivos asignaturaControl = new AsignaturaArchivos();
     private MatriculaAsignaturaArchivos matriculaAsignControl = new MatriculaAsignaturaArchivos();
     private static PersonaArchivos personaControl = new PersonaArchivos();
     private ContratoArchivos contratoControl = new ContratoArchivos();
-    
-    public static void cargarDocente(Persona persona){
+    private MatriculaArchivos matriculaControl = new MatriculaArchivos();
+
+    public static void cargarDocente(Persona persona) {
         personaControl.setPersona(persona);
     }
-    
-    private void buscarContratos(){
+
+    private void buscarContratos() {
         contratoControl.setAsignaturas(contratoControl.busquedaLineal("DNI", personaControl.getPersona().getDni()));
     }
 //    private void ordenar(){
@@ -48,7 +54,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
 //            JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 //        }
 //    }
-    
+
     public Boolean verificar() {
         return (!txtTema.getText().trim().isEmpty()
                 && !(cbxHorario.getSelectedIndex() > 0)
@@ -56,14 +62,24 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
                 && !(cbxAsignatura.getSelectedIndex() > 0));
     }
 
-    private void cargarLista() {
-        lstMatriculaAsignatura.setPersonas(control.all());
-        tutoriaControl.setPersonas(control.all());
-        tbPersona.setModel(mtp);
-        tbPersona.updateUI();
+    private void cargarListaMatriculaAsignatura() throws EmptyException {
+        matriculaAsignControl.setAsgMatriculas(matriculaAsignControl.buscarLineal(matriculaAsignControl.getAsgMatriculasTodas(), "asignatura_codigo", String.valueOf(cbxAsignatura.getSelectedItem())));
+        MatriculaAsignatura matriculasA[] = matriculaAsignControl.getAsgMatriculas().toArray();
+        Matricula matricula;
+        for (int i = 0; i < matriculaAsignControl.getAsgMatriculas().getLength(); i++) {
+            matricula = matriculaControl.get(matriculasA[i].getIdMatricula());
+            matriculaControl.getMatriculas().add(matricula);
+        }
+        Matricula matriculas[] = matriculaControl.getMatriculas().toArray();
+        Persona persona;
+        for (int i = 0; i < matriculaControl.getMatriculas().getLength(); i++) {
+            persona = personaControl.get(matriculas[i].getIdPersona());
+            personaControl.getPersonas().add(persona);
+        }
+        Utilvista.cargarListaPersonas(personaControl.getPersonas(), lstMatriculaAsignatura);
     }
-    
-    private void buscar(){
+
+    private void buscar() {
         String texto = txtTextoBuscar.getText();
         try {
             mtp.setPersonas(control.all());
@@ -72,54 +88,35 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }
-    
-    private void guardar() throws EmptyException {
+
+    private void guardar() throws EmptyException, Exception {
         if (verificar()) {
-            if (Utiles.validadorDeCedula(txtDNI.getText())) {
-                tutoriaControl.getPersona().setApellidos(txtApellidos.getText());
-                tutoriaControl.getPersona().setDNI(txtDNI.getText());
-                tutoriaControl.getPersona().setDireccion(txtDireccion.getText());
-                tutoriaControl.getPersona().setNombres(txtNombres.getText());
-                tutoriaControl.getPersona().setTelefono(txtTelefono.getText());
-                tutoriaControl.getPersona().setId_rol(Utilvista.obtenerRolControl(cbxRol).getId());
-                if (tutoriaControl.guardar()) {
-                    control.persist(tutoriaControl.getPersona());
-                    JOptionPane.showMessageDialog(null, "Datos guardados");
-                    cargarTabla();
-                    limpiar();
-                    tutoriaControl.setPersona(null);
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo guardar, hubo un error");
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Cedula no valida");
-            }
+            tutoriaControl.getTutoria().setFecha(dcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            tutoriaControl.getTutoria().setIdHorario(horarioControl.get(cbxHorario.getSelectedIndex()).getId());
+            tutoriaControl.getTutoria().setModalidad(Modalidad.PRESENCIAL);
+            tutoriaControl.getTutoria().setTema(txtTema.getText());
+            tutoriaControl.persist(tutoriaControl.getTutoria());
+            JOptionPane.showMessageDialog(null, "Datos guardados");
+            limpiar();
         } else {
             JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     private void limpiar() {
-        
+
         try {
-            Utilvista.cargarComboAsignatura(cbxAsignatura);
+            Utilvista.cargarComboAsignatura(contratoControl.getContratos(), cbxAsignatura);
             Utilvista.cargarcomboRolesHorario(cbxHorario);
         } catch (EmptyException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        txtDNI.setEnabled(true);
-        tbPersona.clearSelection();
-        txtApellidos.setText("");
-        txtCorreo.setText("");
-        txtDNI.setText("");
-        txtDireccion.setText("");
-        txtNombres.setText("");
-        txtTelefono.setText("");
-        cargarTabla();
-        tutoriaControl.setPersona(null);
-        cbxRol.setSelectedIndex(0);
+        lstEstudiantesAsignados.clearSelection();
+        txtTema.setText("");
+        cbxAsignatura.setSelectedIndex(0);
+        cbxHorario.setSelectedIndex(0);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -448,7 +445,11 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxAsignaturaActionPerformed
 
     private void btCrearTutoria1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCrearTutoria1ActionPerformed
-        // TODO add your handling code here:
+        try {
+            guardar();
+        } catch (Exception ex) {
+            Logger.getLogger(FrmNuevaTutoria.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btCrearTutoria1ActionPerformed
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

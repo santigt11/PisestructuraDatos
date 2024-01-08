@@ -13,11 +13,15 @@ public class ContratoArchivos extends AdaptadorDao<Contrato> {
         super(Contrato.class);
     }
 
-    public DynamicList<Contrato> getContratos() {
+    public DynamicList<Contrato> getContratosTodos() {
         contratos = all();
         return contratos;
     }
-
+    
+    public DynamicList<Contrato> getContratos() {
+        return contratos;
+    }
+    
     public void setAsignaturas(DynamicList<Contrato> contratos) {
         this.contratos = contratos;
     }

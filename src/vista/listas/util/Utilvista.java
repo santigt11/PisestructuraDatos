@@ -23,6 +23,7 @@ import modelo.Asignatura;
 import modelo.Contrato;
 import modelo.Matricula;
 import modelo.MatriculaAsignatura;
+import modelo.Persona;
 
 public class Utilvista {
 
@@ -62,7 +63,7 @@ public class Utilvista {
         return (Carrera) cbx.getSelectedItem();
     }
 
-    public static void cargarComboMalla(JComboBox cbx, Carrera carrera) throws EmptyException{
+    public static void cargarComboMalla(JComboBox cbx, Carrera carrera) throws EmptyException {
         MallaArchivos ma = new MallaArchivos();
         ma.setMallas(ma.all());
         cbx.removeAllItems();
@@ -219,6 +220,14 @@ public class Utilvista {
             if (matriculaAsignaturaControl.getAsgMatriculas().getInfo(i).getIdMatricula().equals(matriculaControl.getMatricula().getId())) {
                 modeloLista.addElement(matriculaAsignaturaControl.getAsgMatriculas().getInfo(i));
             }
+        }
+        lst.setModel(modeloLista);
+    }
+
+    public static void cargarListaPersonas(DynamicList<Persona> lista, JList lst) throws EmptyException {
+        DefaultListModel modeloLista = new DefaultListModel();
+        for (Integer i = 0; i < lista.getLength(); i++) {
+            modeloLista.addElement(lista.getInfo(i));
         }
         lst.setModel(modeloLista);
     }

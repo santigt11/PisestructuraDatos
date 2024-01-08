@@ -55,4 +55,19 @@ public class MatriculaAsignatura {
     public String toString() {
         return curso + "  -  " + asignatura_ID;
     }
+
+    public int compareCampo(String campo, String valorBuscado) {
+        switch (campo.toLowerCase()) {
+            case "id":
+                return this.id.compareTo(Integer.parseInt(valorBuscado));
+            case "curso":
+                return this.curso.compareToIgnoreCase(valorBuscado);
+            case "id_matricula":
+                return this.matricula_ID.compareTo(Integer.parseInt(valorBuscado));
+            case "id_asignatura":
+                return this.asignatura_ID.compareTo(Integer.parseInt(valorBuscado));
+            default:
+                throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
+        }
+    }
 }

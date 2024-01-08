@@ -26,6 +26,10 @@ public class PersonaArchivos extends AdaptadorDao<Persona> {
     }
 
     public DynamicList<Persona> getPersonas() {
+        return personas;
+    }
+    
+    public DynamicList<Persona> getPersonasTodos() {
         personas = all();
         return personas;
     }
@@ -53,8 +57,7 @@ public class PersonaArchivos extends AdaptadorDao<Persona> {
         return super.persist(obj);
     }
 
-    public DynamicList<Persona> buscarLineal(String campo, String valorBuscado) throws EmptyException {
-        DynamicList<Persona> lista = all();
+    public DynamicList<Persona> buscarLineal(DynamicList<Persona> lista, String campo, String valorBuscado) throws EmptyException {
         Persona personas[] = lista.toArray();
         DynamicList<Persona> listaBusqueda = new DynamicList<>();
         for (int i = 0; i < lista.getLength(); i++) {

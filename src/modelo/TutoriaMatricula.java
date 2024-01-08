@@ -10,16 +10,18 @@ package modelo;
  */
 public class TutoriaMatricula {
     private Integer id;
+    private boolean impartida;
     private Integer matriculaAsignatura_ID;
     private Integer tutoria_ID;
 
     public TutoriaMatricula() {
     }
 
-    public TutoriaMatricula(Integer id, Integer idMatricula, Integer idTutoria) {
+    public TutoriaMatricula(Integer id, boolean impartida, Integer matriculaAsignatura_ID, Integer tutoria_ID) {
         this.id = id;
-        this.matriculaAsignatura_ID = idMatricula;
-        this.tutoria_ID = idTutoria;
+        this.impartida = impartida;
+        this.matriculaAsignatura_ID = matriculaAsignatura_ID;
+        this.tutoria_ID = tutoria_ID;
     }
 
     public Integer getId() {
