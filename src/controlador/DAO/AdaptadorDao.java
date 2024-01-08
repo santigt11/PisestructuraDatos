@@ -168,6 +168,13 @@ public class AdaptadorDao<T> implements DaoInterface<T> {
                 m.invoke(data, rs.getString(atributo));
             }
 
+            if (f.getType().isEnum()) {
+                String enumValue = rs.getString(atributo);
+                Object enumConstant = Enum.valueOf((Class<Enum>) f.getType(), enumValue);
+                m = clazz.getMethod("set" + atributo, f.getType());
+                m.invoke(data, enumConstant);
+            }
+
             if (f.getType().getSimpleName().equalsIgnoreCase("Integer")) {
                 m = clazz.getMethod("set" + atributo, Integer.class);
                 m.invoke(data, rs.getInt(atributo));
