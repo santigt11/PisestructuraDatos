@@ -21,9 +21,10 @@ import vista.listas.util.Utilvista;
 
 public class FrmNuevaTutoria extends javax.swing.JFrame {
 
-    public FrmNuevaTutoria() {
+    public FrmNuevaTutoria() throws EmptyException {
         initComponents();
         txtTema.setEnabled(true);
+        limpiar();
     }
 
     private TutoriaArchivos tutoriaControl = new TutoriaArchivos();
@@ -39,8 +40,9 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         personaControl.setPersona(persona);
     }
 
-    private void buscarContratos() throws EmptyException {
+    private void cargarContratos() throws EmptyException {
         contratoControl.setContratos(contratoControl.buscarLineal(contratoControl.all(), "DNI", String.valueOf(personaControl.getPersona().getDni())));
+        Utilvista.cargarComboAsignaturaContrato(contratoControl.getContratos(), cbxHorario);
     }
 
 //    private void ordenar(){
@@ -104,18 +106,18 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         }
     }
 
-    private void limpiar() {
-
+    private void limpiar() throws EmptyException {
+        cargarContratos();
         try {
-            Utilvista.cargarComboAsignatura(contratoControl.getContratos(), cbxAsignatura);
+            Utilvista.cargarComboAsignaturaContrato(contratoControl.getContratos(), cbxAsignatura);
             Utilvista.cargarcomboRolesHorario(cbxHorario);
         } catch (EmptyException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        lstEstudiantesAsignados.clearSelection();
-        txtTema.setText("");
-        cbxAsignatura.setSelectedIndex(0);
-        cbxHorario.setSelectedIndex(0);
+//        lstEstudiantesAsignados.clearSelection();
+//        txtTema.setText("");
+//        cbxAsignatura.setSelectedIndex(0);
+//        cbxHorario.setSelectedIndex(0);
     }
 
     private void cargarEstudiante() {
@@ -464,7 +466,11 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmNuevaTutoria().setVisible(true);
+                try {
+                    new FrmNuevaTutoria().setVisible(true);
+                } catch (EmptyException ex) {
+                    Logger.getLogger(FrmNuevaTutoria.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

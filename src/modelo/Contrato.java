@@ -53,11 +53,19 @@ public class Contrato {
         this.persona_DNI = persona_DNI;
     }
 
-    public String getCodAsignatura() {
+    public String getPersona_DNI() {
+        return persona_DNI;
+    }
+
+    public void setPersona_DNI(String persona_DNI) {
+        this.persona_DNI = persona_DNI;
+    }
+
+    public String getAsignatura_CODIGO() {
         return asignatura_CODIGO;
     }
 
-    public void setCodAsignatura(String asignatura_CODIGO) {
+    public void setAsignatura_CODIGO(String asignatura_CODIGO) {
         this.asignatura_CODIGO = asignatura_CODIGO;
     }
 

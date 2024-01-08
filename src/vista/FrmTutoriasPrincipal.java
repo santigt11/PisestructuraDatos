@@ -1,9 +1,22 @@
 package vista;
 
-public class FrmTutoriasPrincipal extends javax.swing.JFrame {
+import controlador.TDA.listas.Exception.EmptyException;
+import modelo.Persona;
+import vista.listas.util.Utilvista;
 
+public class FrmTutoriasPrincipal extends javax.swing.JFrame {
+    
     public FrmTutoriasPrincipal() {
         initComponents();
+    }
+    
+    public static void cargarDocente(Persona persona) {
+        personaControl.setPersona(persona);
+    }
+
+    private void cargarContratos() throws EmptyException {
+        contratoControl.setContratos(contratoControl.buscarLineal(contratoControl.all(), "DNI", String.valueOf(personaControl.getPersona().getDni())));
+        Utilvista.cargarComboAsignaturaContrato(contratoControl.getContratos(), cbxHorario);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

@@ -133,8 +133,8 @@ public class Utilvista {
         return (Facultad) facultad;
     }
 
-    public static void cargarComboAsignatura(DynamicList<Contrato> contratos, JComboBox cbx) throws EmptyException {
-        ContratoArchivos ca = new ContratoArchivos();
+    public static void cargarComboAsignaturaContrato(DynamicList<Contrato> contratos, JComboBox cbx) throws EmptyException {
+        AsignaturaArchivos aa = new AsignaturaArchivos();
         DynamicList<Asignatura> asignaturas = new DynamicList<>();
         Contrato contratosArray[] = contratos.toArray();
         cbx.removeAllItems();
@@ -142,13 +142,14 @@ public class Utilvista {
             JOptionPane.showMessageDialog(null, "Lista vacia");
         } else {
             for (int i = 0; i < contratos.getLength(); i++) {
-                asignaturas.add(contratosArray[i].getCodigoAsignatura());
+                cbx.addItem(aa.buscarBinaria("codigo", contratosArray[i].getAsignatura_CODIGO()));
             }
         }
     }
 
     public static void cargarcomboRolesHorario(JComboBox cbx) throws EmptyException {
         HorarioArchivos ha = new HorarioArchivos();
+        System.out.println(ha.getHorariosTodos().toString());
         cbx.removeAllItems();
         if (ha.getHorariosTodos().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Lista vacia");

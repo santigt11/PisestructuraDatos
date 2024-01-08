@@ -71,4 +71,10 @@ public class Horario {
                 throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
         }
     }
+
+    @Override
+    public String toString() {
+        return horaInicio + " - " + horaFin;
+    }
+    
 }
