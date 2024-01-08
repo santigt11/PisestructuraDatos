@@ -37,6 +37,7 @@ public class Acceso extends javax.swing.JFrame {
     //creacion de instancia de los controladores
     private PersonaArchivos controlPersona = new PersonaArchivos();
     private UsuarioArchivos controlUsuario = new UsuarioArchivos();
+    
     // limpiar
     private void limpiar() {
         txtContraseña.setText("");
@@ -226,6 +227,7 @@ public class Acceso extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreUsuarioActionPerformed
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
+        //Verifica si los campos de nombre de usuario y contraseña no están vacíos
         if (!txtNombreUsuario.getText().isEmpty() && !String.valueOf(txtContraseña.getPassword()).isEmpty()) {
             Usuario user= null;
            
@@ -237,18 +239,24 @@ public class Acceso extends javax.swing.JFrame {
                 java.util.logging.Logger.getLogger(Acceso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
             //controlUsuario.getPerson(user.getId_Persona())
+            //Actualiza el usuario en el controlador de usuarios
             controlUsuario.setUsuario(user);
-            Persona persona = null;
+            Persona persona = null;//
             try {
+                //buscar persona por medio del dni
             persona = controlPersona.buscarBinaria("dni", user.getPersona_DNI());                //System.out.println(persona.getNombre().toString());
             } catch (EmptyException ex) {
+                //Manejo de excepciones si no se encuentra la persona
                 java.util.logging.Logger.getLogger(Acceso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
+            
             if (persona != null) {
                 //System.out.println(persona.getRol().getName());
+                // Si se encontró la persona, verifica su rol
                 if (null != persona.getRol()) {
                     switch ( persona.getRol()) {
                         case ADMINISTRADOR -> {
+                            //Inicia sesión como administrador y muestra un mensaje
                             Menu_Administrador menuAdmi = new Menu_Administrador(user);
                             menuAdmi.setVisible(true);
                             this.dispose();
