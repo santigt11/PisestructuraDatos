@@ -41,14 +41,6 @@ public class TutoriaMatricula {
         this.matriculaAsignatura_ID = idMatricula;
     }
 
-    public Integer getIdTutoria() {
-        return tutoria_ID;
-    }
-
-    public void setIdTutoria(Integer idTutoria) {
-        this.tutoria_ID = idTutoria;
-    }
-
     public Integer getMatriculaAsignatura_ID() {
         return matriculaAsignatura_ID;
     }

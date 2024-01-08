@@ -460,7 +460,7 @@
             <Property name="text" type="java.lang.String" value="Fecha de Registro del Contrato:"/>
           </Properties>
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="dtRegistro">
+        <Component class="org.netbeans.modules.form.InvalidComponent" name="dtRegistro">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel13">
           <Properties>
@@ -470,11 +470,7 @@
             <Property name="text" type="java.lang.String" value="Fecha de Culminacion del Contrato:"/>
           </Properties>
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="dtCulminacion">
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="dtCulminacionMouseClicked"/>
-            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="dtCulminacionMouseEntered"/>
-          </Events>
+        <Component class="org.netbeans.modules.form.InvalidComponent" name="dtCulminacion">
         </Component>
         <Component class="javax.swing.JButton" name="btCrearContrato">
           <Properties>

@@ -171,9 +171,9 @@ public class FrmContrato extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        dtRegistro = new com.toedter.calendar.JDateChooser();
+        dtRegistro = new org.netbeans.modules.form.InvalidComponent();
         jLabel13 = new javax.swing.JLabel();
-        dtCulminacion = new com.toedter.calendar.JDateChooser();
+        dtCulminacion = new org.netbeans.modules.form.InvalidComponent();
         btCrearContrato = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -320,15 +320,6 @@ public class FrmContrato extends javax.swing.JFrame {
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel13.setText("Fecha de Culminacion del Contrato:");
-
-        dtCulminacion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                dtCulminacionMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                dtCulminacionMouseEntered(evt);
-            }
-        });
 
         btCrearContrato.setText("Crear Nuevo Contrato");
         btCrearContrato.addActionListener(new java.awt.event.ActionListener() {
@@ -683,8 +674,8 @@ public class FrmContrato extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCrearContrato;
-    private com.toedter.calendar.JDateChooser dtCulminacion;
-    private com.toedter.calendar.JDateChooser dtRegistro;
+    private org.netbeans.modules.form.InvalidComponent dtCulminacion;
+    private org.netbeans.modules.form.InvalidComponent dtRegistro;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

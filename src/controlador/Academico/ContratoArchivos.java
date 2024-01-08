@@ -23,7 +23,7 @@ public class ContratoArchivos extends AdaptadorDao<Contrato> {
         return contratos;
     }
     
-    public void setAsignaturas(DynamicList<Contrato> contratos) {
+    public void setContratos(DynamicList<Contrato> contratos) {
         this.contratos = contratos;
     }
 

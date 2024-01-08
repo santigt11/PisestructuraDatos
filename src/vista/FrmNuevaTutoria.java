@@ -2,19 +2,13 @@ package vista;
 
 import controlador.Academico.AsignaturaArchivos;
 import controlador.Academico.ContratoArchivos;
-<<<<<<< HEAD
-import controlador.Academico.HorarioArchivos;
 import controlador.Academico.MatriculaArchivos;
 import controlador.Academico.MatriculaAsignaturaArchivos;
-import controlador.Academico.PersonaArchivos;
-import controlador.Academico.TutoriaArchivos;
-=======
-import controlador.Tutorias.HorarioArchivos;
-import controlador.Matriculas.MatriculaAsignaturaArchivos;
 import controlador.Admin.PersonaArchivos;
 import controlador.Tutorias.TutoriaArchivos;
->>>>>>> main
 import controlador.TDA.listas.Exception.EmptyException;
+import controlador.Tutorias.HorarioArchivos;
+import controlador.Tutorias.TutoriaMatriculaArchivos;
 import java.time.ZoneId;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,14 +33,16 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private static PersonaArchivos personaControl = new PersonaArchivos();
     private ContratoArchivos contratoControl = new ContratoArchivos();
     private MatriculaArchivos matriculaControl = new MatriculaArchivos();
+    private TutoriaMatriculaArchivos tutoriaMatrControl = new TutoriaMatriculaArchivos();
 
     public static void cargarDocente(Persona persona) {
         personaControl.setPersona(persona);
     }
 
-    private void buscarContratos() {
-        contratoControl.setAsignaturas(contratoControl.busquedaLineal("DNI", personaControl.getPersona().getDni()));
+    private void buscarContratos() throws EmptyException {
+        contratoControl.setContratos(contratoControl.buscarLineal(contratoControl.all(), "DNI", String.valueOf(personaControl.getPersona().getDni())));
     }
+
 //    private void ordenar(){
 //        String criterio = cbxCriterio.getSelectedItem().toString();
 //        Integer tipo = 0;
@@ -61,7 +57,6 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
 //            JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 //        }
 //    }
-
     public Boolean verificar() {
         return (!txtTema.getText().trim().isEmpty()
                 && !(cbxHorario.getSelectedIndex() > 0)
@@ -86,16 +81,15 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         Utilvista.cargarListaPersonas(personaControl.getPersonas(), lstMatriculaAsignatura);
     }
 
-    private void buscar() {
-        String texto = txtTextoBuscar.getText();
-        try {
-            mtp.setPersonas(control.all());
-            tbPersona.setModel(mtp);
-            tbPersona.updateUI();
-        } catch (Exception e) {
-        }
-    }
-
+//    private void buscar() {
+//        String texto = txtTextoBuscar.getText();
+//        try {
+//            mtp.setPersonas(control.all());
+//            tbPersona.setModel(mtp);
+//            tbPersona.updateUI();
+//        } catch (Exception e) {
+//        }
+//    }
     private void guardar() throws EmptyException, Exception {
         if (verificar()) {
             tutoriaControl.getTutoria().setFecha(dcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
@@ -122,6 +116,15 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         txtTema.setText("");
         cbxAsignatura.setSelectedIndex(0);
         cbxHorario.setSelectedIndex(0);
+    }
+
+    private void cargarEstudiante() {
+        Object p = lstMatriculaAsignatura.getSelectedValue();
+        MatriculaAsignatura estudiante = (MatriculaAsignatura) p;
+        tutoriaMatrControl.getTutoriaMatricula().setImpartida(true);
+        tutoriaMatrControl.getTutoriaMatricula().setMatriculaAsignatura_ID(estudiante.getId());
+        tutoriaMatrControl.getTutoriaMatricula().setTutoria_ID(tutoriaControl.getTutoria().getId());
+        tutoriaMatrControl.getTutoriaMatriculas().add(tutoriaMatrControl.getTutoriaMatricula());
     }
 
     @SuppressWarnings("unchecked")
@@ -436,7 +439,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btAsignarEstudiante1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAsignarEstudiante1ActionPerformed
-        // TODO add your handling code here:
+        cargarEstudiante();
     }//GEN-LAST:event_btAsignarEstudiante1ActionPerformed
 
     private void txtTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTemaActionPerformed

@@ -1,7 +1,5 @@
 package controlador.Tutorias;
 
-import controlador.DAO.Conexion;
-import controlador.DAO.DaoInterface;
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.dao.AdaptadorDao;
@@ -14,6 +12,7 @@ public class TutoriaMatriculaArchivos extends AdaptadorDao<TutoriaMatricula> {
 
     public TutoriaMatriculaArchivos() {
         super(null);
+        tutorias = new DynamicList<>();
     }
 
     public TutoriaMatriculaArchivos(DynamicList<TutoriaMatricula> tutorias, TutoriaMatricula tutoria) {
@@ -22,11 +21,15 @@ public class TutoriaMatriculaArchivos extends AdaptadorDao<TutoriaMatricula> {
         this.tutoria = tutoria;
     }
 
-    public DynamicList<TutoriaMatricula> getTutorias() {
+    public DynamicList<TutoriaMatricula> getTutoriaMatriculasTodos() {
         tutorias = all();
         return tutorias;
     }
-
+    
+    public DynamicList<TutoriaMatricula> getTutoriaMatriculas() {
+        return tutorias;
+    }
+    
     public void setTutorias(DynamicList<TutoriaMatricula> tutorias) {
         this.tutorias = tutorias;
     }
