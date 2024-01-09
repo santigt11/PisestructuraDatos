@@ -1,20 +1,22 @@
 package modelo;
 
+import controlador.Matriculas.MatriculaArchivos;
+
 public class MatriculaAsignatura {
 
     private Integer id;
     private String curso;
     private Integer matricula_ID;
-    private Integer asignatura_ID;
+    private String asignatura_Codigo;
 
     public MatriculaAsignatura() {
     }
 
-    public MatriculaAsignatura(Integer id, String curso, Integer idMatricula, Integer idAsignatura) {
+    public MatriculaAsignatura(Integer id, String curso, Integer idMatricula, String idAsignatura) {
         this.id = id;
         this.curso = curso;
         this.matricula_ID = idMatricula;
-        this.asignatura_ID = idAsignatura;
+        this.asignatura_Codigo = idAsignatura;
     }
 
     public Integer getId() {
@@ -33,24 +35,40 @@ public class MatriculaAsignatura {
         this.curso = curso;
     }
 
-    public Integer getIdMatricula() {
+    public Integer getMatricula_ID() {
         return matricula_ID;
     }
 
-    public void setIdMatricula(Integer idMatricula) {
+    public void setMatricula_ID(Integer idMatricula) {
         this.matricula_ID = idMatricula;
     }
 
-    public Integer getIdAsignatura() {
-        return asignatura_ID;
+    public String getAsignatura_Codigo() {
+        return asignatura_Codigo;
     }
 
-    public void setIdAsignatura(Integer idAsignatura) {
-        this.asignatura_ID = idAsignatura;
+    public void setAsignatura_Codigo(String idAsignatura) {
+        this.asignatura_Codigo = idAsignatura;
     }
 
     @Override
     public String toString() {
-        return curso + "  -  " + asignatura_ID;
+        return curso + "  -  " + asignatura_Codigo;
+    }
+
+    public int compareCampo(String campo, String valorBuscado) {
+        switch (campo.toLowerCase()) {
+            case "id":
+                return this.id.compareTo(Integer.parseInt(valorBuscado));
+            case "curso":
+                return this.curso.compareToIgnoreCase(valorBuscado);
+            case "matricula_id":
+//                System.out.println(this.matricula_ID.compareTo(Integer.parseInt(valorBuscado)));
+                return this.matricula_ID.compareTo(Integer.parseInt(valorBuscado));
+            case "asignatura_codigo":
+                return this.asignatura_Codigo.compareTo(valorBuscado);
+            default:
+                throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
+        }
     }
 }

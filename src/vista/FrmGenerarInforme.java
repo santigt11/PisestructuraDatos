@@ -13,7 +13,6 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btGenerar = new javax.swing.JButton();
         cbxAsignatura = new javax.swing.JComboBox<>();
-        dcFecha = new com.toedter.calendar.JDateChooser();
         cbxHorario = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -46,9 +45,6 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
         cbxAsignatura.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estructura de Datos" }));
         cbxAsignatura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        dcFecha.setBackground(new java.awt.Color(242, 242, 242));
-        dcFecha.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-
         cbxHorario.setBackground(new java.awt.Color(242, 242, 242));
         cbxHorario.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         cbxHorario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3 AM - 5 PM" }));
@@ -61,11 +57,9 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(cbxAsignatura, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(dcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(110, 110, 110)
                 .addComponent(cbxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(btGenerar)
                 .addGap(14, 14, 14))
         );
@@ -73,12 +67,10 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(dcFecha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btGenerar)
-                        .addComponent(cbxAsignatura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cbxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btGenerar)
+                    .addComponent(cbxAsignatura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -107,7 +99,6 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
         jLabel6.setText("Total de Horas:");
         bg.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 380, -1, 20));
 
-        txtTotalHoras.setBackground(new java.awt.Color(255, 255, 255));
         txtTotalHoras.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txtTotalHoras.setText("1180");
         txtTotalHoras.setBorder(null);
@@ -159,7 +150,6 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
     private javax.swing.JButton btGenerar;
     private javax.swing.JComboBox<String> cbxAsignatura;
     private javax.swing.JComboBox<String> cbxHorario;
-    private com.toedter.calendar.JDateChooser dcFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;

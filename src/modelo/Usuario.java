@@ -9,19 +9,24 @@ package modelo;
  * @author Santiago
  */
 public class Usuario {
+
     private Integer id;
-    private String cooreo;
+    private String correo;
     private String clave;
+    private String persona_DNI;
 
     public Usuario() {
     }
 
-    public Usuario(Integer id, String cooreo, String clave) {
+<<<<<<< HEAD
+    public Usuario(Integer id, String correo, String clave) {
         this.id = id;
-        this.cooreo = cooreo;
+        this.correo = correo;
         this.clave = clave;
     }
 
+=======
+>>>>>>> Estefania-Torres
     public Integer getId() {
         return id;
     }
@@ -30,12 +35,23 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getCooreo() {
-        return cooreo;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setCooreo(String cooreo) {
-        this.cooreo = cooreo;
+<<<<<<< HEAD
+=======
+    public String getPersona_DNI() {
+        return persona_DNI;
+    }
+
+    public void setPersona_DNI(String persona_DNI) {
+        this.persona_DNI = persona_DNI;
+    }
+
+>>>>>>> Estefania-Torres
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public String getClave() {
@@ -44,5 +60,57 @@ public class Usuario {
 
     public void setClave(String clave) {
         this.clave = clave;
+    }
+<<<<<<< HEAD
+
+    public String getPersona_DNI() {
+        return persona_DNI;
+    }
+
+    public void setPersona_DNI(String persona_DNI) {
+        this.persona_DNI = persona_DNI;
+=======
+public Boolean compare(Usuario u, String field, Integer type) {
+        switch (type) {
+            case 0 -> {
+                if (field.equalsIgnoreCase("correo")) {
+                    return this.getCorreo().toLowerCase().compareTo(u.getCorreo().toLowerCase()) < 0;
+                }
+                else if (field.equalsIgnoreCase("correo")) {
+                    return this.getCorreo().compareTo(u.getCorreo().toLowerCase()) > 0;
+                }
+            }
+             case 1 -> {
+                if (field.equalsIgnoreCase("persona_DNI")) {
+                    return this.getPersona_DNI().toLowerCase().compareTo(u.getCorreo().toLowerCase()) < 0;
+                }
+                else if (field.equalsIgnoreCase("persona_DNI")) {
+                    return this.getPersona_DNI().compareTo(u.getCorreo().toLowerCase()) > 0;
+                }
+            }
+            default -> {
+                return false;
+            }
+        }
+        return null;
+>>>>>>> Estefania-Torres
+    }
+
+    public int compareCampo(String campo, String valorBuscado) {
+        switch (campo.toLowerCase()) {
+            case "id":
+                return this.id.compareTo(Integer.parseInt(valorBuscado));
+            case "correo":
+                return this.correo.compareToIgnoreCase(valorBuscado);
+<<<<<<< HEAD
+            case "clave":
+                return this.clave.compareToIgnoreCase(valorBuscado);
+=======
+>>>>>>> Estefania-Torres
+            case "idpersona":
+                return this.persona_DNI.compareToIgnoreCase(valorBuscado);
+            default:
+                throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
+        }
     }
 }

@@ -9,6 +9,7 @@ package modelo;
  * @author Santiago
  */
 public class Horario {
+
     private Integer id;
     private String horaInicio;
     private String horaFin;
@@ -55,4 +56,25 @@ public class Horario {
     public void setDisponible(Boolean disponible) {
         this.disponible = disponible;
     }
+
+    public int compareCampo(String campo, String valorBuscado) {
+        switch (campo.toLowerCase()) {
+            case "id":
+                return this.id.compareTo(Integer.parseInt(valorBuscado));
+            case "horaInicio":
+                return this.horaInicio.compareToIgnoreCase(valorBuscado);
+            case "horaFin":
+                return this.horaFin.compareToIgnoreCase(valorBuscado);
+            case "disponible":
+                return this.disponible == Boolean.parseBoolean(valorBuscado) ? 0 : 1;
+            default:
+                throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return horaInicio + " - " + horaFin;
+    }
+    
 }

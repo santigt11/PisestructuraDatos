@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 import controlador.Academico.ContratoArchivos;
-import controlador.Academico.PersonaArchivos;
+import controlador.Admin.PersonaArchivos;
 import java.time.ZoneId;
 import modelo.*;
 
@@ -36,7 +36,7 @@ public class FrmContrato extends javax.swing.JFrame {
             Object a = lstAsignatura.getSelectedValue();
             Asignatura asignatura = (Asignatura) a;
             fileContrato.getContrato().setDniPersona(docente.getDni());
-            fileContrato.getContrato().setCodAsignatura(asignatura.getCodigo());
+            fileContrato.getContrato().setAsignatura_CODIGO(asignatura.getCodigo());
             fileContrato.getContrato().setFechaRegistro(dtRegistro.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             fileContrato.getContrato().setFechaCulminacion(dtCulminacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 
@@ -81,7 +81,7 @@ public class FrmContrato extends javax.swing.JFrame {
                     txtApellidos.setText(docente.getApellido());
                     txtNombres.setText(docente.getNombre());
                     txtTelefono.setText(docente.getTelefono());
-                    txtAsignatura.setText(fileAsignatura.buscarBinaria("codigo", fileContrato.getContrato().getCodAsignatura()).getNombre());
+                    txtAsignatura.setText(fileAsignatura.buscarBinaria("codigo", fileContrato.getContrato().getAsignatura_CODIGO()).getNombre());
                     dtRegistro.setDate(java.sql.Date.valueOf(fileContrato.getContrato().getFechaRegistro()));
                     dtCulminacion.setDate(java.sql.Date.valueOf(fileContrato.getContrato().getFechaCulminacion()));
                 }

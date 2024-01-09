@@ -1,8 +1,8 @@
 package vista.listas.tablas;
 
 
-import controlador.Academico.PeriodoArchivos;
-import controlador.Academico.PersonaArchivos;
+import controlador.Matriculas.PeriodoArchivos;
+import controlador.Admin.PersonaArchivos;
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import javax.swing.table.AbstractTableModel;
@@ -31,11 +31,11 @@ public class TablaMatricula extends AbstractTableModel {
             Matricula mt = matriculas.getInfo(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return (mt != null) ? filePersona.getPersonas().getInfo(mt.getIdPersona()).getApellido() + " " + filePersona.getPersonas().getInfo(mt.getIdPersona()).getNombre(): " ";
+                    return (mt != null) ? filePersona.getPersonas().getInfo(mt.getPersona_DNI()).getApellido() + " " + filePersona.getPersonas().getInfo(mt.getPersona_DNI()).getNombre(): " ";
                 case 1:
                     return (mt != null) ? mt.getFecha(): "";
                 case 2:
-                    return (mt != null) ? filePeriodo.getPeriodos().getInfo(mt.getIdPAcademico()).getFechaIncio() + " " + filePeriodo.getPeriodos().getInfo(mt.getIdPAcademico()).getFechaFin(): "";
+                    return (mt != null) ? filePeriodo.getPeriodos().getInfo(mt.getPeriodoAcademico_ID()).getFechaIncio() + " " + filePeriodo.getPeriodos().getInfo(mt.getPeriodoAcademico_ID()).getFechaFin(): "";
                 case 3:
                     return (mt != null) ? mt.isExpActivo() ? "ACTIVO" : "INACTIVO" : "";
                 default:
