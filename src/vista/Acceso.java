@@ -230,7 +230,6 @@ public class Acceso extends javax.swing.JFrame {
         //Verifica si los campos de nombre de usuario y contraseña no están vacíos
         if (!txtNombreUsuario.getText().isEmpty() && !String.valueOf(txtContraseña.getPassword()).isEmpty()) {
             Usuario user= null;
-           
             try {
                 user = controlUsuario.autenticarse(txtNombreUsuario.getText(), String.valueOf(txtContraseña.getPassword()));
                 //System.out.println(user.getClave());
