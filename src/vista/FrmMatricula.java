@@ -73,7 +73,7 @@ public class FrmMatricula extends javax.swing.JFrame {
                     Object a = lstAsignatura.getSelectedValue();
                     Asignatura asignatura = (Asignatura) a;
                     fileMatriculaAsg.getAsgMatricula().setMatricula_ID(cbxMatricula.getSelectedIndex());
-                    fileMatriculaAsg.getAsgMatricula().setAsignatura_Codigo(asignatura.getId());
+                    fileMatriculaAsg.getAsgMatricula().setAsignatura_Codigo(asignatura.getCodigo());
                     fileMatriculaAsg.getAsgMatricula().setCurso(txtCurso.getText());
 
                     fileMatriculaAsg.persist(fileMatriculaAsg.getAsgMatricula());
