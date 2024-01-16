@@ -4,8 +4,8 @@
  */
 package vista;
 
-import controlador.Academico.PersonaArchivos;
 import controlador.Academico.UsuarioArchivos;
+import controlador.Admin.PersonaArchivos;
 import controlador.TDA.listas.Exception.EmptyException;
 import java.awt.Graphics;
 import java.awt.Image;
