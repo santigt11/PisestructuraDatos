@@ -68,6 +68,7 @@ public class AdaptadorDao<T> implements DaoInterface<T> {
                         Statement.RETURN_GENERATED_KEYS);
         statement.executeUpdate();
         ResultSet generatedKeys = statement.getGeneratedKeys();
+        System.out.println(query);
         if (generatedKeys.next()) {
             idGenerado = generatedKeys.getInt(1);
         }
@@ -106,12 +107,10 @@ public class AdaptadorDao<T> implements DaoInterface<T> {
         try {
             Statement stmt = conexion.getConnection().createStatement();
             String query = "SELECT * FROM " + clazz.getSimpleName().toUpperCase();
-            System.out.println(query);
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 lista.add(llenarObjeto(rs));
             }
-
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -187,7 +186,9 @@ public class AdaptadorDao<T> implements DaoInterface<T> {
 
             if (f.getType().getSimpleName().equalsIgnoreCase("Boolean")) {
                 m = clazz.getMethod("set" + atributo, Boolean.class);
-                m.invoke(data, rs.getBoolean(atributo));
+                Integer booleanValue = rs.getInt(atributo);
+                Boolean convertedValue = (booleanValue == 1);
+                m.invoke(data, convertedValue);
             }
 
             if (f.getType().getSimpleName().equalsIgnoreCase("Date")) {

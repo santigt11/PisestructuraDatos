@@ -61,12 +61,12 @@ public class Persona {
         this.apellido = apellido;
     }
 
-    public LocalDate getFechaNacimientoi() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimientoi(LocalDate fechaNacimientoi) {
-        this.fechaNacimiento = fechaNacimientoi;
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public String getTelefono() {

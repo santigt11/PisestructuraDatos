@@ -1,17 +1,17 @@
 package vista;
 
-import controlador.Matricula.PeriodoArchivos;
-import controlador.PeriodoAControl;
+import controlador.Matriculas.PeriodoArchivos;
 import controlador.TDA.listas.Exception.EmptyException;
 import java.awt.Color;
 import java.time.ZoneId;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class FrmPeriodoAcademico extends javax.swing.JFrame {
     
     int xMouse, yMouse;
-    
-    private PeriodoAControl periodoControl = new PeriodoAControl();
+
     private PeriodoArchivos filePeriodo = new PeriodoArchivos();
     
     public Boolean verificar() {
@@ -19,20 +19,15 @@ public class FrmPeriodoAcademico extends javax.swing.JFrame {
                 && !dtFin.getDate().toString().isEmpty());
     }
 
-    private void guardar() throws EmptyException {
+    private void guardar() throws EmptyException, Exception {
         if (verificar()) {
-                periodoControl.getPeriodo().setFechaIncio(dtInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-                periodoControl.getPeriodo().setFechaFin(dtFin.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                filePeriodo.getPeriodo().setFechaIncio(dtInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                filePeriodo.getPeriodo().setFechaFin(dtFin.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
                 
-                if (periodoControl.guardar()) {
-                    filePeriodo.setPeriodo(periodoControl.getPeriodo());
-                    filePeriodo.persist();
+                    filePeriodo.persist(filePeriodo.getPeriodo());
                     JOptionPane.showMessageDialog(null, "Periodo Academico guardada");
                     limpiar();
-                    periodoControl.setPeriodo(null);
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo guardar, hubo un error");
-                }
+                    filePeriodo.setPeriodo(null);
         } else {
             JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -41,7 +36,7 @@ public class FrmPeriodoAcademico extends javax.swing.JFrame {
     private void limpiar() {
         dtInicio.setDate(null);
         dtFin.setDate(null);
-        periodoControl.setPeriodo(null);
+        filePeriodo.setPeriodo(null);
     }
 
     /**
@@ -237,6 +232,8 @@ public class FrmPeriodoAcademico extends javax.swing.JFrame {
             guardar();
         } catch (EmptyException ex) {
             System.out.println(ex.getMessage());
+        } catch (Exception ex) {
+            Logger.getLogger(FrmPeriodoAcademico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btCrearAsignaturaActionPerformed
 

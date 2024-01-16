@@ -7,28 +7,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-import controlador.ContratoControl;
-import controlador.Academico.ContratoArchivos;
 import controlador.Academico.FacultadArchivos;
 import controlador.Academico.MallaArchivos;
-import controlador.Matricula.MatriculaArchivos;
-import controlador.Matricula.MatriculaAsignaturaArchivos;
-import controlador.MatriculaAsignaturaControl;
-import controlador.MatriculaControl;
-import controlador.Persona.PersonaArchivos;
+import controlador.Admin.PersonaArchivos;
+import controlador.Matriculas.MatriculaArchivos;
+import controlador.Matriculas.MatriculaAsignaturaArchivos;
 import java.time.ZoneId;
 import modelo.*;
 
-import vista.listas.tablas.TablaContrato;
 import vista.listas.tablas.TablaMatricula;
 import vista.listas.util.Utilvista;
 
 public class FrmMatricula extends javax.swing.JFrame {
 
     FrmPeriodoAcademico nuevoPeriodo = new FrmPeriodoAcademico();
-
-    private MatriculaControl matriculaControl = new MatriculaControl();
-    private MatriculaAsignaturaControl matriculaAsgControl = new MatriculaAsignaturaControl();
 
     private MatriculaArchivos fileMatricula = new MatriculaArchivos();
     private MatriculaAsignaturaArchivos fileMatriculaAsg = new MatriculaAsignaturaArchivos();
@@ -57,25 +49,21 @@ public class FrmMatricula extends javax.swing.JFrame {
         }
     }
 
-    private void guardar(Integer var) {
+    private void guardar(Integer var) throws Exception {
         switch (var) {
             case 1:
                 if (verificar(1)) {
                     Object p = lstEstudiante.getSelectedValue();
                     Persona estudiante = (Persona) p;
-                    matriculaControl.getMatricula().setIdPersona(estudiante.getId());
-                    matriculaControl.getMatricula().setFecha(dtRegistro.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-                    matriculaControl.getMatricula().setIdPAcademico(cbxPeriodo.getSelectedIndex());
-                    matriculaControl.getMatricula().setExpActivo(true);
-                    if (matriculaControl.guardar()) {
-                        fileMatricula.setMatricula(matriculaControl.getMatricula());
-                        fileMatricula.persist();
-                        JOptionPane.showMessageDialog(null, "Datos guardados");
-                        limpiar();
-                        matriculaControl.setMatricula(null);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "No se pudo guardar, hubo un error");
-                    }
+                    fileMatricula.getMatricula().setPersona_DNI(estudiante.getDni());
+                    fileMatricula.getMatricula().setFecha(dtRegistro.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                    fileMatricula.getMatricula().setPeriodoAcademico_ID(cbxPeriodo.getSelectedIndex());
+                    fileMatricula.getMatricula().setExpActivo(true);
+
+                    fileMatricula.persist(fileMatricula.getMatricula());
+                    JOptionPane.showMessageDialog(null, "Datos guardados");
+                    limpiar();
+                    fileMatricula.setMatricula(null);
                 } else {
                     JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -84,18 +72,14 @@ public class FrmMatricula extends javax.swing.JFrame {
                 if (verificar(2)) {
                     Object a = lstAsignatura.getSelectedValue();
                     Asignatura asignatura = (Asignatura) a;
-                    matriculaAsgControl.getAsgMatricula().setIdMatricula(cbxMatricula.getSelectedIndex());
-                    matriculaAsgControl.getAsgMatricula().setIdAsignatura(asignatura.getId());
-                    matriculaAsgControl.getAsgMatricula().setCurso(txtCurso.getText());
-                    if (matriculaAsgControl.guardar()) {
-                        fileMatriculaAsg.setAsgMatricula(matriculaAsgControl.getAsgMatricula());
-                        fileMatriculaAsg.persist();
-                        JOptionPane.showMessageDialog(null, "Datos guardados");
-                        limpiar();
-                        matriculaAsgControl.setAsgMatricula(null);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
+                    fileMatriculaAsg.getAsgMatricula().setMatricula_ID(cbxMatricula.getSelectedIndex());
+                    fileMatriculaAsg.getAsgMatricula().setAsignatura_Codigo(asignatura.getCodigo());
+                    fileMatriculaAsg.getAsgMatricula().setCurso(txtCurso.getText());
+
+                    fileMatriculaAsg.persist(fileMatriculaAsg.getAsgMatricula());
+                    JOptionPane.showMessageDialog(null, "Datos guardados");
+                    limpiar();
+                    fileMatriculaAsg.setAsgMatricula(null);
                 }
                 break;
 
@@ -139,9 +123,9 @@ public class FrmMatricula extends javax.swing.JFrame {
             case 3:
                 if (tbMatricula.getSelectedRow() > -1) {
                     limpiarSoft();
-                    if (matriculaControl.getMatricula().isExpActivo()) {
+                    if (fileMatricula.getMatricula().isExpActivo()) {
                         cbxExpediente.setSelectedIndex(0);
-                    } else if (matriculaControl.getMatricula().isExpActivo() == false) {
+                    } else if (fileMatricula.getMatricula().isExpActivo() == false) {
                         cbxExpediente.setSelectedIndex(1);
                     }
                 }
@@ -161,8 +145,8 @@ public class FrmMatricula extends javax.swing.JFrame {
         try {
             Utilvista.cargarListaFacultades(lstFacultad);
             Utilvista.cargarListaEstudiantes(lstEstudiante);
-            Utilvista.cargarComboPeriodo(cbxPeriodo);
-            Utilvista.cargarComboMatricula(cbxMatricula);
+            Utilvista.cargarComboPeriodos(cbxPeriodo);
+            Utilvista.cargarComboMatriculas(cbxMatricula);
         } catch (EmptyException ex) {
             Logger.getLogger(FrmMatricula.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -221,7 +205,6 @@ public class FrmMatricula extends javax.swing.JFrame {
 //            }
 //        }
 //    }
-
     /**
      * Creates new form FrmContrato
      */
@@ -916,7 +899,11 @@ public class FrmMatricula extends javax.swing.JFrame {
     }//GEN-LAST:event_lstAsignaturaMouseClicked
 
     private void btCrearMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCrearMatriculaActionPerformed
-        guardar(1);
+        try {
+            guardar(1);
+        } catch (Exception ex) {
+            Logger.getLogger(FrmMatricula.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btCrearMatriculaActionPerformed
 
     private void lstEstudianteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstEstudianteMouseClicked
@@ -930,7 +917,7 @@ public class FrmMatricula extends javax.swing.JFrame {
     private void tbMatriculaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbMatriculaMouseClicked
         try {
             cargarVista(3);
-            Utilvista.cargarListaMatriculasAsignaturas(lstMatriculaAsg, matriculaControl, matriculaAsgControl);
+            Utilvista.cargarListaMatriculasAsignaturas(lstMatriculaAsg, fileMatricula, fileMatriculaAsg);
         } catch (EmptyException ex) {
             Logger.getLogger(FrmMatricula.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -957,7 +944,11 @@ public class FrmMatricula extends javax.swing.JFrame {
     }//GEN-LAST:event_lstMatriculaAsgMouseClicked
 
     private void btAgregarAsignaturaMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarAsignaturaMatriculaActionPerformed
-        guardar(2);
+        try {
+            guardar(2);
+        } catch (Exception ex) {
+            Logger.getLogger(FrmMatricula.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btAgregarAsignaturaMatriculaActionPerformed
 
     /**

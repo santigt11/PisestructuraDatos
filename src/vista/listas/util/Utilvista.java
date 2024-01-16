@@ -1,8 +1,19 @@
 package vista.listas.util;
 
 import controlador.Academico.AsignaturaArchivos;
-import controlador.Academico.HorarioArchivos;
+import controlador.Academico.CarreraArchivos;
+import controlador.Academico.ContratoArchivos;
+import controlador.Academico.FacultadArchivos;
+import controlador.Tutorias.HorarioArchivos;
+import controlador.Academico.MallaArchivos;
+import controlador.Matriculas.MatriculaArchivos;
+import controlador.Matriculas.MatriculaAsignaturaArchivos;
+import controlador.Matriculas.PeriodoArchivos;
+import controlador.Admin.PersonaArchivos;
+import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
+import controlador.Tutorias.TutoriaMatriculaArchivos;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JComboBox;
 import modelo.Facultad;
 import modelo.Carrera;
@@ -10,195 +21,243 @@ import modelo.MallaCurricular;
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import modelo.Asignatura;
+import modelo.Contrato;
+import modelo.Matricula;
+import modelo.MatriculaAsignatura;
+import modelo.Persona;
+import modelo.TutoriaMatricula;
 
 public class Utilvista {
-    
-    public static void cargarComboHorario(JComboBox cbx) throws EmptyException{
+
+    public static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    public static void cargarComboHorario(JComboBox cbx) throws EmptyException {
         HorarioArchivos horarioControl = new HorarioArchivos();
         horarioControl.setHorarios(horarioControl.all());
         cbx.removeAllItems();
         for (Integer i = 0; i < horarioControl.getHorarios().getLength(); i++) {
-                cbx.addItem(horarioControl.getHorarios().getInfo(i));
-        }
-    }
-    
-    public static void cargarComboFacultades(JComboBox cbx) throws EmptyException{
-        FacultadControl fc = new FacultadControl();
-        controlador.Academico.FacultadArchivos vv = new controlador.Academico.FacultadArchivos();
-        fc.setFacultades(vv.all());
-        cbx.removeAllItems();
-        for (Integer i = 0; i < fc.getFacultades().getLength(); i++) {
-                cbx.addItem(fc.getFacultades().getInfo(i));
+            cbx.addItem(horarioControl.getHorarios().getInfo(i));
         }
     }
 
-    public static Facultad obtenerFacultadControl(JComboBox cbx){
+    public static void cargarComboFacultades(JComboBox cbx) throws EmptyException {
+        FacultadArchivos fa = new FacultadArchivos();
+        fa.setFacultades(fa.all());
+        cbx.removeAllItems();
+        for (Integer i = 0; i < fa.getFacultades().getLength(); i++) {
+            cbx.addItem(fa.getFacultades().getInfo(i));
+        }
+
+    }
+
+    public static Facultad obtenerFacultadControl(JComboBox cbx) {
         return (Facultad) cbx.getSelectedItem();
     }
-    
-    public static void cargarComboCarreras(JComboBox cbx) throws EmptyException{
-        CarreraControl cc = new CarreraControl();
-        controlador.Academico.CarreraArchivos vv = new controlador.Academico.CarreraArchivos();
-        cc.setCarreras(vv.all());
+
+    public static void cargarComboCarreras(JComboBox cbx) throws EmptyException {
+        CarreraArchivos ca = new CarreraArchivos();
+        ca.setCarreras(ca.all());
         cbx.removeAllItems();
-        for (Integer i = 0; i < cc.getCarreras().getLength(); i++) {
-                cbx.addItem(cc.getCarreras().getInfo(i));
+        for (Integer i = 0; i < ca.getCarreras().getLength(); i++) {
+            cbx.addItem(ca.getCarreras().getInfo(i));
         }
     }
 
-    public static Carrera obtenerCarreraControl(JComboBox cbx){
+    public static Carrera obtenerCarreraControl(JComboBox cbx) {
         return (Carrera) cbx.getSelectedItem();
     }
 
-    public static void cargarComboMalla(JComboBox cbx, Carrera carrera) throws EmptyException{
-        MallaControl mc = new MallaControl();
-        controlador.Academico.MallaArchivos vv = new controlador.Academico.MallaArchivos();
-        mc.setMallas(vv.all());
+    public static void cargarComboMalla(JComboBox cbx, Carrera carrera) throws EmptyException {
+        MallaArchivos ma = new MallaArchivos();
+        ma.setMallas(ma.all());
         cbx.removeAllItems();
-        for (Integer i = 0; i < mc.getMallas().getLength(); i++) {
-            if (mc.getMallas().getInfo(i).getIdCarrera().equals(carrera.getId())) {
-                cbx.addItem(mc.getMallas().getInfo(i));
+        for (Integer i = 0; i < ma.getMallas().getLength(); i++) {
+            if (ma.getMallas().getInfo(i).getCarrera_ID().equals(carrera.getId())) {
+                cbx.addItem(ma.getMallas().getInfo(i));
             }
         }
     }
 
-    public static MallaCurricular obtenerMallaControl(JComboBox cbx){
+    public static MallaCurricular obtenerMallaControl(JComboBox cbx) {
         return (MallaCurricular) cbx.getSelectedItem();
     }
 
-    public static void cargarComboPeriodo(JComboBox cbx) throws EmptyException{
-        PeriodoAControl pc = new PeriodoAControl();
-        PeriodoArchivos vv = new PeriodoArchivos();
-        pc.setPeriodos(vv.all());
+    public static void cargarComboPeriodos(JComboBox cbx) throws EmptyException {
+        PeriodoArchivos pa = new PeriodoArchivos();
+        pa.setPeriodos(pa.all());
         cbx.removeAllItems();
-        for (Integer i = 0; i < pc.getPeriodos().getLength(); i++) {
-                cbx.addItem(pc.getPeriodos().getInfo(i));
+        for (Integer i = 0; i < pa.getPeriodos().getLength(); i++) {
+            cbx.addItem(pa.getPeriodos().getInfo(i));
         }
     }
 
-    public static void cargarComboMatricula(JComboBox cbx) throws EmptyException{
-        MatriculaControl mc = new MatriculaControl();
-        MatriculaArchivos vv = new MatriculaArchivos();
-        mc.setMatriculas(vv.all());
+    //Matricula
+    public static void cargarComboMatriculas(JComboBox cbx) throws EmptyException {
+        MatriculaArchivos ma = new MatriculaArchivos();
+        ma.setMatriculas(ma.all());
         cbx.removeAllItems();
-        for (Integer i = 0; i < mc.getMatriculas().getLength(); i++) {
-                cbx.addItem(mc.getMatriculas().getInfo(i));
+        for (Integer i = 0; i < ma.getMatriculas().getLength(); i++) {
+            cbx.addItem(ma.getMatriculas().getInfo(i));
         }
+    }
+
+    public static Matricula obtenerMatriculaControl(JComboBox cbx) {
+        return (Matricula) cbx.getSelectedItem();
+    }
+
+    //Matricula-Asignatura
+    public static void cargarComboMatriculasAsignaturas(JComboBox cbx) throws EmptyException {
+        MatriculaAsignaturaArchivos maa = new MatriculaAsignaturaArchivos();
+        maa.setAsgMatriculas(maa.all());
+        cbx.removeAllItems();
+        for (Integer i = 0; i < maa.getAsgMatriculas().getLength(); i++) {
+            cbx.addItem(maa.getAsgMatriculas().getInfo(i));
+        }
+    }
+
+    public static MatriculaAsignatura obtenerMatriculaAsignaturaControl(JComboBox cbx) {
+        return (MatriculaAsignatura) cbx.getSelectedItem();
     }
 
     public static void cargarListaFacultades(JList lst) throws EmptyException {
-        FacultadControl fc = new FacultadControl();
-        controlador.Academico.FacultadArchivos af = new controlador.Academico.FacultadArchivos();
-        fc.setFacultades(af.all());
+        FacultadArchivos fa = new FacultadArchivos();
+        fa.setFacultades(fa.all());
 
         DefaultListModel modeloLista = new DefaultListModel();
 
-        for (Integer i = 0; i < fc.getFacultades().getLength(); i++) {
-            modeloLista.addElement(fc.getFacultades().getInfo(i));
+        for (Integer i = 0; i < fa.getFacultades().getLength(); i++) {
+            modeloLista.addElement(fa.getFacultades().getInfo(i));
         }
 
         lst.setModel(modeloLista);
     }
 
-    public static Facultad obtenerCarreraControl(JList lst){
+    public static Facultad obtenerCarreraControl(JList lst) {
         Object facultad = lst.getSelectedValue();
         return (Facultad) facultad;
     }
 
-    public static void cargarcomboRolesAsignatura(JComboBox cbx) throws EmptyException{
+    public static void cargarComboAsignaturaContrato(DynamicList<Contrato> contratos, JComboBox cbx) throws EmptyException {
         AsignaturaArchivos aa = new AsignaturaArchivos();
+        Contrato contratosArray[] = contratos.toArray();
         cbx.removeAllItems();
-        if (aa.getAsignaturasTodas().isEmpty()) {
+        if (contratos.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Lista vacia");
-        }else{
-            for (int i = 0; i < aa.getAsignaturas().getLength(); i++) {
-                cbx.addItem(aa.getAsignaturas().getInfo(i));
+        } else {
+            for (int i = 0; i < contratos.getLength(); i++) {
+                cbx.addItem(aa.buscarBinaria("codigo", contratosArray[i].getAsignatura_CODIGO()));
             }
         }
     }
-    
-    public static void cargarcomboRolesHorario(JComboBox cbx) throws EmptyException{
+
+    public static void cargarcomboRolesHorario(JComboBox cbx) throws EmptyException {
         HorarioArchivos ha = new HorarioArchivos();
         cbx.removeAllItems();
         if (ha.getHorariosTodos().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Lista vacia");
-        }else{
+        } else {
             for (int i = 0; i < ha.getHorarios().getLength(); i++) {
                 cbx.addItem(ha.getHorarios().getInfo(i));
             }
         }
     }
-    
-    public static Carrera obtenerCarreraControl(JList lst, Facultad facultad){
+
+    public static Carrera obtenerCarreraControl(JList lst, Facultad facultad) {
         Object carrera = lst.getSelectedValue();
         return (Carrera) carrera;
     }
-    
+
     public static void cargarListaMallas(JList lst, Carrera carrera) throws EmptyException {
-        MallaControl mc = new MallaControl();
-        controlador.Academico.MallaArchivos am = new controlador.Academico.MallaArchivos();
-        mc.setMallas(am.all());
+        MallaArchivos ma = new MallaArchivos();
+        ma.setMallas(ma.all());
         DefaultListModel modeloLista = new DefaultListModel();
-        for (Integer i = 0; i < mc.getMallas().getLength(); i++) {
-            if (mc.getMallas().getInfo(i).getIdCarrera().equals(carrera.getId())) {
-                modeloLista.addElement(mc.getMallas().getInfo(i));
+        for (Integer i = 0; i < ma.getMallas().getLength(); i++) {
+            if (ma.getMallas().getInfo(i).getCarrera_ID().equals(carrera.getId())) {
+                modeloLista.addElement(ma.getMallas().getInfo(i));
             }
         }
         lst.setModel(modeloLista);
     }
 
     public static void cargarListaAsignaturas(JList lst, MallaCurricular malla) throws EmptyException {
-        AsignaturaControl ac = new AsignaturaControl();
-        controlador.Academico.AsignaturaArchivos aa = new controlador.Academico.AsignaturaArchivos();
-        ac.setAsignaturas(aa.all());
+        AsignaturaArchivos aa = new AsignaturaArchivos();
+        aa.setAsignaturas(aa.all());
         DefaultListModel modeloLista = new DefaultListModel();
-        for (Integer i = 0; i < ac.getAsignaturas().getLength(); i++) {
-            if (ac.getAsignaturas().getInfo(i).getIdMalla().equals(malla.getId())) {
-                modeloLista.addElement(ac.getAsignaturas().getInfo(i));
+        for (Integer i = 0; i < aa.getAsignaturas().getLength(); i++) {
+            if (aa.getAsignaturas().getInfo(i).getMallaCurricular_ID().equals(malla.getId())) {
+                modeloLista.addElement(aa.getAsignaturas().getInfo(i));
             }
         }
         lst.setModel(modeloLista);
     }
 
     public static void cargarListaDocentes(JList lst) throws EmptyException {
-        PersonaArchivos ap = new PersonaArchivos();
-        PersonaControl pc = new PersonaControl();
-        pc.setPersonas(ap.all());
+        PersonaArchivos pa = new PersonaArchivos();
+        pa.setPersonas(pa.all());
+        System.out.println(pa.all().toString());
         DefaultListModel modeloLista = new DefaultListModel();
-        for (Integer i = 0; i < pc.getPersonas().getLength(); i++) {
-            if (pc.getPersonas().getInfo(i).getRol().toString().equals("DOCENTE")) {
-                modeloLista.addElement(pc.getPersonas().getInfo(i));
+        for (Integer i = 0; i < pa.getPersonas().getLength(); i++) {
+            if (pa.getPersonas().getInfo(i).getRol().toString().equals("DOCENTE")) {
+                modeloLista.addElement(pa.getPersonas().getInfo(i));
             }
         }
         lst.setModel(modeloLista);
     }
 
     public static void cargarListaEstudiantes(JList lst) throws EmptyException {
-        PersonaArchivos ap = new PersonaArchivos();
-        PersonaControl pc = new PersonaControl();
-        pc.setPersonas(ap.all());
+        PersonaArchivos ea = new PersonaArchivos();
+        ea.setPersonas(ea.all());
         DefaultListModel modeloLista = new DefaultListModel();
-        for (Integer i = 0; i < pc.getPersonas().getLength(); i++) {
-            if (pc.getPersonas().getInfo(i).getRol().toString().equals("ESTUDIANTE")) {
-                modeloLista.addElement(pc.getPersonas().getInfo(i));
+        for (Integer i = 0; i < ea.getPersonas().getLength(); i++) {
+            if (ea.getPersonas().getInfo(i).getRol().toString().equals("ESTUDIANTE")) {
+                modeloLista.addElement(ea.getPersonas().getInfo(i));
             }
         }
         lst.setModel(modeloLista);
     }
 
-    public static void cargarListaMatriculasAsignaturas(JList lst, MatriculaControl matriculaControl, MatriculaAsignaturaControl matriculaAsignaturaControl) throws EmptyException {
+    public static void cargarListaTutoriaMatricula(DynamicList<TutoriaMatricula> tutoriasM, JList lst) throws EmptyException {
+        DefaultListModel modeloLista = new DefaultListModel();
+        for (Integer i = 0; i < tutoriasM.getLength(); i++) {
+            modeloLista.addElement(tutoriasM);
+        }
+        lst.setModel(modeloLista);
+    }
+
+    public static void cargarListaMatriculasAsignaturas(JList lst, MatriculaArchivos matriculaControl, MatriculaAsignaturaArchivos matriculaAsignaturaControl) throws EmptyException {
         MatriculaAsignaturaArchivos maa = new MatriculaAsignaturaArchivos();
         matriculaAsignaturaControl.setAsgMatriculas(maa.all());
         DefaultListModel modeloLista = new DefaultListModel();
         for (Integer i = 0; i < matriculaAsignaturaControl.getAsgMatriculas().getLength(); i++) {
-            if (matriculaAsignaturaControl.getAsgMatriculas().getInfo(i).getIdMatricula().equals(matriculaControl.getMatricula().getId())) {
+            if (matriculaAsignaturaControl.getAsgMatriculas().getInfo(i).getMatricula_ID().equals(matriculaControl.getMatricula().getId())) {
                 modeloLista.addElement(matriculaAsignaturaControl.getAsgMatriculas().getInfo(i));
             }
         }
         lst.setModel(modeloLista);
     }
 
-    public static void limpiarLista(JList lst){
+    public static void cargarListaPersonas(DynamicList<Persona> lista, JList lst) throws EmptyException {
+        DefaultListModel modeloLista = new DefaultListModel();
+        for (Integer i = 0; i < lista.getLength(); i++) {
+            modeloLista.addElement(lista.getInfo(i));
+        }
+        lst.setModel(modeloLista);
+    }
+
+    public static void cargarListaCarreras(JList lst, Facultad facultad) throws EmptyException {
+        CarreraArchivos ca = new CarreraArchivos();
+        ca.setCarreras(ca.all());
+        DefaultListModel modeloLista = new DefaultListModel();
+        for (Integer i = 0; i < ca.getCarreras().getLength(); i++) {
+            if (ca.getCarreras().getInfo(i).getFacultad_ID().equals(facultad.getId())) {
+                modeloLista.addElement(ca.getCarreras().getInfo(i));
+            }
+        }
+        lst.setModel(modeloLista);
+    }
+
+    public static void limpiarLista(JList lst) {
         DefaultListModel modeloLista = new DefaultListModel();
         lst.setModel(modeloLista);
     }

@@ -51,16 +51,29 @@ public class Asignatura {
         this.totalHoras = totalHoras;
     }
 
-    public Integer getIdMalla() {
+    public Integer getMallaCurricular_ID() {
         return mallaCurricular_ID;
     }
 
-    public void setIdMalla(Integer idMalla) {
-        this.mallaCurricular_ID = idMalla;
+    public void setMallaCurricular_ID(Integer mallaCurricular_ID) {
+        this.mallaCurricular_ID = mallaCurricular_ID;
     }
-    
+
     @Override
     public String toString() {
         return nombre;
+    }
+
+    public int compareCampo(String campo, String valorBuscado) {
+        switch (campo.toLowerCase()) {
+            case "codigo":
+                return this.codigo.compareToIgnoreCase(valorBuscado);
+            case "nombre":
+                return this.nombre.compareToIgnoreCase(valorBuscado);
+            case "mallaCurricular_ID":
+                return this.mallaCurricular_ID.compareTo(Integer.parseInt(valorBuscado));
+            default:
+                throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
+        }
     }
 }
