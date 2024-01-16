@@ -1,127 +1,140 @@
 package vista;
 
 import controlador.Academico.AsignaturaArchivos;
-import controlador.Academico.HorarioArchivos;
-import controlador.Academico.TutoriaArchivos;
+import controlador.Academico.ContratoArchivos;
+import controlador.Admin.PersonaArchivos;
+import controlador.Matriculas.MatriculaArchivos;
+import controlador.Matriculas.MatriculaAsignaturaArchivos;
+import controlador.Tutorias.TutoriaArchivos;
+import controlador.TDA.listas.Exception.EmptyException;
+import controlador.Tutorias.HorarioArchivos;
+import controlador.Tutorias.TutoriaMatriculaArchivos;
+import java.time.ZoneId;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import modelo.Matricula;
+import modelo.MatriculaAsignatura;
+import modelo.Modalidad;
+import modelo.Persona;
+import vista.listas.util.Utilvista;
 
 public class FrmNuevaTutoria extends javax.swing.JFrame {
 
-    public FrmNuevaTutoria() {
+    public FrmNuevaTutoria() throws EmptyException {
         initComponents();
         txtTema.setEnabled(true);
+        limpiar();
     }
-    
+
     private TutoriaArchivos tutoriaControl = new TutoriaArchivos();
     private HorarioArchivos horarioControl = new HorarioArchivos();
     private AsignaturaArchivos asignaturaControl = new AsignaturaArchivos();
-    private ModeloTablaPersona mtp = new ModeloTablaPersona();
+    private MatriculaAsignaturaArchivos matriculaAsignControl = new MatriculaAsignaturaArchivos();
+    private static PersonaArchivos personaControl = new PersonaArchivos();
+    private ContratoArchivos contratoControl = new ContratoArchivos();
+    private MatriculaArchivos matriculaControl = new MatriculaArchivos();
+    private TutoriaMatriculaArchivos tutoriaMatrControl = new TutoriaMatriculaArchivos();
     
+    public static void cargarDocente(Persona persona) {
+        personaControl.setPersona(persona);
+    }
 
-    private void cargarVista() {
-        int fila = tbPersona.getSelectedRow();
-        if (fila < 0) {
-            JOptionPane.showMessageDialog(null, "Escoja un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            try {
-                tutoriaControl.setPersona(mtp.getPersonas().getInfo(fila));
-                txtApellidos.setText(tutoriaControl.getPersona().getApellidos());
-                txtCorreo.setText("");
-                txtDNI.setText(tutoriaControl.getPersona().getDNI());
-                txtDNI.setEnabled(false);
-                txtDireccion.setText(tutoriaControl.getPersona().getDireccion());
-                txtNombres.setText(tutoriaControl.getPersona().getNombres());
-                txtTelefono.setText(tutoriaControl.getPersona().getTelefono());
-                cbxRol.setSelectedIndex(tutoriaControl.getPersona().getId_rol() - 1);
-            } catch (Exception ex) {
-                Logger.getLogger(FrmGuardarPersona.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+    private void cargarContratos() throws EmptyException {
+        personaControl.setPersona(personaControl.buscarBinaria("dni", "1101201301"));
+        contratoControl.setContratos(contratoControl.buscarLineal(contratoControl.all(), "DNIDocente",personaControl.getPersona().getDni()));
+        Utilvista.cargarComboAsignaturaContrato(contratoControl.getContratos(), cbxHorario);
     }
-    
-    private void ordenar(){
-        String criterio = cbxCriterio.getSelectedItem().toString();
-        Integer tipo = 0;
-        if (btn_tipo.isSelected()) {
-            tipo = 1;
-        }
-        try {
-            mtp.setPersonas(control.ordenar(control.all(), tipo, criterio));
-            tbPersona.setModel(mtp);
-            tbPersona.updateUI();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
+
+//    private void ordenar(){1101201301"
+//        String criterio = cbxCriterio.getSelectedItem().toString();
+//        Integer tipo = 0;
+//        if (btn_tipo.isSelected()) {
+//            tipo = 1;
+//        }
+//        try {
+//            mtp.setPersonas(control.ordenar(control.all(), tipo, criterio));
+//            tbPersona.setModel(mtp);
+//            tbPersona.updateUI();
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+//        }
+//    }
     public Boolean verificar() {
-        return (!txtApellidos.getText().trim().isEmpty()
-                && !txtDireccion.getText().trim().isEmpty()
-                && !txtCorreo.getText().trim().isEmpty()
-                && !txtDNI.getText().trim().isEmpty());
+        return (!txtTema.getText().trim().isEmpty()
+                && !(cbxHorario.getSelectedIndex() > 0)
+                && !dcFecha.getDate().equals(null)
+                && !(cbxAsignatura.getSelectedIndex() > 0));
     }
 
-    private void cargarTabla() {
-        mtp.setPersonas(control.all());
-        tutoriaControl.setPersonas(control.all());
-        tbPersona.setModel(mtp);
-        tbPersona.updateUI();
-    }
-    
-    private void buscar(){
-        String texto = txtTextoBuscar.getText();
-        try {
-            mtp.setPersonas(control.all());
-            tbPersona.setModel(mtp);
-            tbPersona.updateUI();
-        } catch (Exception e) {
+    private void cargarListaMatriculaAsignatura() throws EmptyException {
+        matriculaAsignControl.setAsgMatriculas(matriculaAsignControl.buscarLineal(matriculaAsignControl.getAsgMatriculasTodas(), "asignatura_codigo", asignaturaControl.get(cbxAsignatura.getSelectedIndex()+1).getCodigo()));
+        System.out.println(matriculaControl.all());
+        MatriculaAsignatura matriculasA[] = matriculaAsignControl.getAsgMatriculas().toArray();
+        System.out.println(matriculasA[0]);
+        Matricula matricula;
+        for (int i = 0; i < matriculaAsignControl.getAsgMatriculas().getLength(); i++) {
+            matricula = matriculaControl.get(matriculasA[i].getMatricula_ID());
+            matriculaControl.getMatriculas().add(matricula);
         }
+        System.out.println(matriculaControl.getMatriculas());
+        Matricula matriculas[] = matriculaControl.getMatriculas().toArray();
+        Persona persona;
+        for (int i = 0; i < matriculaControl.getMatriculas().getLength(); i++) {
+//            matriculaControl.buscarLineal(matriculaControl.getMatriculas(), "persona_dni", valorBuscado)
+            persona = personaControl.buscarBinaria("dni", matriculas[i].getPersona_DNI());
+            personaControl.getPersonas().add(persona);
+        }
+        Utilvista.cargarListaPersonas(personaControl.getPersonas(), lstMatriculaAsignatura);
     }
-    
-    private void guardar() throws EmptyException {
+
+//    private void buscar() {
+//        String texto = txtTextoBuscar.getText();
+//        try {
+//            mtp.setPersonas(control.all());
+//            tbPersona.setModel(mtp);
+//            tbPersona.updateUI();
+//        } catch (Exception e) {
+//        }
+//    }
+    private void guardar() throws EmptyException, Exception {
         if (verificar()) {
-            if (Utiles.validadorDeCedula(txtDNI.getText())) {
-                tutoriaControl.getPersona().setApellidos(txtApellidos.getText());
-                tutoriaControl.getPersona().setDNI(txtDNI.getText());
-                tutoriaControl.getPersona().setDireccion(txtDireccion.getText());
-                tutoriaControl.getPersona().setNombres(txtNombres.getText());
-                tutoriaControl.getPersona().setTelefono(txtTelefono.getText());
-                tutoriaControl.getPersona().setId_rol(Utilvista.obtenerRolControl(cbxRol).getId());
-                if (tutoriaControl.guardar()) {
-                    control.persist(tutoriaControl.getPersona());
-                    JOptionPane.showMessageDialog(null, "Datos guardados");
-                    cargarTabla();
-                    limpiar();
-                    tutoriaControl.setPersona(null);
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo guardar, hubo un error");
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Cedula no valida");
-            }
+            tutoriaControl.getTutoria().setFecha(dcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            tutoriaControl.getTutoria().setIdHorario(horarioControl.get(cbxHorario.getSelectedIndex()).getId());
+            tutoriaControl.getTutoria().setModalidad(Modalidad.PRESENCIAL);
+            tutoriaControl.getTutoria().setTema(txtTema.getText());
+            tutoriaControl.persist(tutoriaControl.getTutoria());
+            JOptionPane.showMessageDialog(null, "Datos guardados");
+            limpiar();
         } else {
             JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void limpiar() {
+    private void limpiar() throws EmptyException {
+        cargarContratos();
+        cargarListaMatriculaAsignatura();
         try {
-            Utilvista.cargarcomboRolesL(cbxRol);
+            Utilvista.cargarComboAsignaturaContrato(contratoControl.getContratos(), cbxAsignatura);
+            Utilvista.cargarcomboRolesHorario(cbxHorario);
         } catch (EmptyException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        txtDNI.setEnabled(true);
-        tbPersona.clearSelection();
-        txtApellidos.setText("");
-        txtCorreo.setText("");
-        txtDNI.setText("");
-        txtDireccion.setText("");
-        txtNombres.setText("");
-        txtTelefono.setText("");
-        cargarTabla();
-        tutoriaControl.setPersona(null);
-        cbxRol.setSelectedIndex(0);
+//        lstEstudiantesAsignados.clearSelection();
+//        txtTema.setText("");
+//        cbxAsignatura.setSelectedIndex(0);
+//        cbxHorario.setSelectedIndex(0);
     }
-    
+
+    private void cargarEstudiante() {
+        Object p = lstMatriculaAsignatura.getSelectedValue();
+        MatriculaAsignatura estudiante = (MatriculaAsignatura) p;
+        tutoriaMatrControl.getTutoriaMatricula().setImpartida(true);
+        tutoriaMatrControl.getTutoriaMatricula().setMatriculaAsignatura_ID(estudiante.getId());
+        tutoriaMatrControl.getTutoriaMatricula().setTutoria_ID(tutoriaControl.getTutoria().getId());
+        tutoriaMatrControl.getTutoriaMatriculas().add(tutoriaMatrControl.getTutoriaMatricula());
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -145,7 +158,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         btAsignarEstudiante1 = new javax.swing.JButton();
         btRemoverEstudiante = new javax.swing.JButton();
         jScrollPane8 = new javax.swing.JScrollPane();
-        lstEstudiantes = new javax.swing.JList<>();
+        lstMatriculaAsignatura = new javax.swing.JList<>();
         jScrollPane7 = new javax.swing.JScrollPane();
         lstEstudiantesAsignados = new javax.swing.JList<>();
 
@@ -189,11 +202,13 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
 
         jLabel6.setBackground(new java.awt.Color(51, 51, 51));
         jLabel6.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Asignatura:");
 
         cbxAsignatura.setBackground(new java.awt.Color(242, 242, 242));
         cbxAsignatura.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbxAsignatura.setForeground(new java.awt.Color(0, 0, 0));
         cbxAsignatura.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estructura de Datos" }));
         cbxAsignatura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cbxAsignatura.addActionListener(new java.awt.event.ActionListener() {
@@ -204,6 +219,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
 
         jLabel7.setBackground(new java.awt.Color(51, 51, 51));
         jLabel7.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("Fecha:");
 
@@ -212,16 +228,19 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
 
         jLabel8.setBackground(new java.awt.Color(51, 51, 51));
         jLabel8.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("Horario:");
 
         cbxHorario.setBackground(new java.awt.Color(242, 242, 242));
         cbxHorario.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbxHorario.setForeground(new java.awt.Color(0, 0, 0));
         cbxHorario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3 AM - 5 PM" }));
         cbxHorario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel9.setBackground(new java.awt.Color(51, 51, 51));
         jLabel9.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel9.setText("Tema:");
 
@@ -251,6 +270,11 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         btCrearTutoria1.setForeground(new java.awt.Color(255, 255, 255));
         btCrearTutoria1.setText("Crear Tutoria");
         btCrearTutoria1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btCrearTutoria1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCrearTutoria1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -348,21 +372,23 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
 
         jScrollPane8.setBorder(null);
 
-        lstEstudiantes.setBackground(new java.awt.Color(229, 229, 229));
-        lstEstudiantes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lstEstudiantes.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        lstEstudiantes.setModel(new javax.swing.AbstractListModel<String>() {
+        lstMatriculaAsignatura.setBackground(new java.awt.Color(229, 229, 229));
+        lstMatriculaAsignatura.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lstMatriculaAsignatura.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        lstMatriculaAsignatura.setForeground(new java.awt.Color(0, 0, 0));
+        lstMatriculaAsignatura.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Jose Roberto Alcachofa Tercero", "Pepe Roberto Alcachofa Segundo" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane8.setViewportView(lstEstudiantes);
+        jScrollPane8.setViewportView(lstMatriculaAsignatura);
 
         jScrollPane7.setBorder(null);
 
         lstEstudiantesAsignados.setBackground(new java.awt.Color(229, 229, 229));
         lstEstudiantesAsignados.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lstEstudiantesAsignados.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        lstEstudiantesAsignados.setForeground(new java.awt.Color(0, 0, 0));
         lstEstudiantesAsignados.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Jose Ignacio Foquencio Cuarto", "Federico Medellin Nirvana Octavo" };
             public int getSize() { return strings.length; }
@@ -421,7 +447,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btAsignarEstudiante1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAsignarEstudiante1ActionPerformed
-        // TODO add your handling code here:
+        cargarEstudiante();
     }//GEN-LAST:event_btAsignarEstudiante1ActionPerformed
 
     private void txtTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTemaActionPerformed
@@ -435,10 +461,22 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private void cbxAsignaturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxAsignaturaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxAsignaturaActionPerformed
+
+    private void btCrearTutoria1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCrearTutoria1ActionPerformed
+        try {
+            guardar();
+        } catch (Exception ex) {
+            Logger.getLogger(FrmNuevaTutoria.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btCrearTutoria1ActionPerformed
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmNuevaTutoria().setVisible(true);
+                try {
+                    new FrmNuevaTutoria().setVisible(true);
+                } catch (EmptyException ex) {
+                    Logger.getLogger(FrmNuevaTutoria.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -462,8 +500,8 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JList<String> lstEstudiantes;
     private javax.swing.JList<String> lstEstudiantesAsignados;
+    private javax.swing.JList<String> lstMatriculaAsignatura;
     private javax.swing.JTextField txtTema;
     // End of variables declaration//GEN-END:variables
 }

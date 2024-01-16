@@ -1,30 +1,31 @@
 package modelo;
 
 public class MallaCurricular {
+
     private Integer id;
     private String descripcion;
     private String pensum;
-    private Integer idCarrera;
-    private boolean vigencia;
+    private Boolean vigencia;
+    private Integer carrera_ID;
 
     public MallaCurricular(Integer id, String descripcion, String pensum, Integer idCarrera) {
         this.id = id;
         this.descripcion = descripcion;
         this.pensum = pensum;
-        this.idCarrera = idCarrera;
+        this.carrera_ID = idCarrera;
     }
-    
+
     public MallaCurricular() {
     }
 
-    public MallaCurricular(Integer id, String descripcion, String pensum, Integer idCarrera, boolean vigencia) {
+    public MallaCurricular(Integer id, String descripcion, String pensum, Integer idCarrera, Boolean vigencia) {
         this.id = id;
         this.descripcion = descripcion;
         this.pensum = pensum;
-        this.idCarrera = idCarrera;
         this.vigencia = vigencia;
+        this.carrera_ID = idCarrera;
     }
-    
+
     public Integer getId() {
         return id;
     }
@@ -49,24 +50,39 @@ public class MallaCurricular {
         this.pensum = pensum;
     }
 
-    public Integer getIdCarrera() {
-        return idCarrera;
+    public Integer getCarrera_ID() {
+        return carrera_ID;
     }
 
-    public void setIdCarrera(Integer idCarrera) {
-        this.idCarrera = idCarrera;
+    public void setCarrera_ID(Integer idCarrera) {
+        this.carrera_ID = idCarrera;
     }
 
-    public boolean isVigencia() {
+    public boolean getVigencia() {
         return vigencia;
     }
 
-    public void setVigencia(boolean vigencia) {
+    public void setVigencia(Boolean vigencia) {
         this.vigencia = vigencia;
     }
-    
+
     @Override
     public String toString() {
         return pensum + "  -  " + descripcion;
+    }
+
+    public int compareCampo(String campo, String valorBuscado) {
+        switch (campo.toLowerCase()) {
+            case "id":
+                return this.id.compareTo(Integer.parseInt(valorBuscado));
+            case "descripcion":
+                return this.descripcion.compareToIgnoreCase(valorBuscado);
+            case "pensum":
+                return this.pensum.compareToIgnoreCase(valorBuscado);
+            case "carrera_ID":
+                return this.carrera_ID.compareTo(Integer.parseInt(valorBuscado));
+            default:
+                throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
+        }
     }
 }

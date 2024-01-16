@@ -1,23 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelo;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-/**
- *
- * @author Santiago
- */
 public class PeriodoAcademico {
-    private Integer id;
-    private Date fechaIncio;
-    private Date fechaFin;
 
-    public PeriodoAcademico(Integer id, Date fechaIncio, Date fechaFin) {
+    private Integer id;
+    private LocalDate fechaInicio;
+    private LocalDate fechaFin;
+
+    public PeriodoAcademico(Integer id, LocalDate fechaIncio, LocalDate fechaFin) {
         this.id = id;
-        this.fechaIncio = fechaIncio;
+        this.fechaInicio = fechaIncio;
         this.fechaFin = fechaFin;
     }
 
@@ -32,19 +25,37 @@ public class PeriodoAcademico {
         this.id = id;
     }
 
-    public Date getFechaIncio() {
-        return fechaIncio;
+    public LocalDate getFechaIncio() {
+        return fechaInicio;
     }
 
-    public void setFechaIncio(Date fechaIncio) {
-        this.fechaIncio = fechaIncio;
+    public void setFechaIncio(LocalDate fechaIncio) {
+        this.fechaInicio = fechaIncio;
     }
 
-    public Date getFechaFin() {
+    public LocalDate getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(Date fechaFin) {
+    public void setFechaFin(LocalDate fechaFin) {
         this.fechaFin = fechaFin;
+    }
+
+    @Override
+    public String toString() {
+        return fechaInicio + "  -  " + fechaFin;
+    }
+
+    public int compareCampo(String campo, String valorBuscado) {
+        switch (campo.toLowerCase()) {
+            case "id":
+                return this.id.compareTo(Integer.parseInt(valorBuscado));
+            case "fechainicio":
+                return this.fechaInicio.compareTo(LocalDate.parse(valorBuscado));
+            case "fechafin":
+                return this.fechaFin.compareTo(LocalDate.parse(valorBuscado));
+            default:
+                throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
+        }
     }
 }

@@ -1,29 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelo;
 
-import controlador.TDA.listas.DynamicList;
-import java.util.Date;
+import java.time.LocalDate;
 
-/**
- *
- * @author Santiago
- */
 public class Matricula {
-    private Integer id;
-    private Date fecha;
-    private Boolean expActivo;
-    private Integer idPersona;
-    private Integer idPAcademico;
 
-    public Matricula(Integer id, Date fecha, Boolean expActivo, Integer idPersona, Integer idPAcademico) {
+    private Integer id;
+    private LocalDate fecha;
+    private Boolean expActivo;
+    private String persona_DNI;
+    private Integer periodoAcademico_ID;
+
+    public Matricula(Integer id, LocalDate fecha, Boolean expActivo, String idPersona, Integer idPAcademico) {
         this.id = id;
         this.fecha = fecha;
         this.expActivo = expActivo;
-        this.idPersona = idPersona;
-        this.idPAcademico = idPAcademico;
+        this.persona_DNI = idPersona;
+        this.periodoAcademico_ID = idPAcademico;
     }
 
     public Matricula() {
@@ -37,35 +29,55 @@ public class Matricula {
         this.id = id;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
-    public Boolean getExpActivo() {
+    public boolean isExpActivo() {
         return expActivo;
     }
 
-    public void setExpActivo(Boolean expActivo) {
+    public void setExpActivo(boolean expActivo) {
         this.expActivo = expActivo;
     }
 
-    public Integer getIdPersona() {
-        return idPersona;
+    public String getPersona_DNI() {
+        return persona_DNI;
     }
 
-    public void setIdPersona(Integer idPersona) {
-        this.idPersona = idPersona;
+    public void setPersona_DNI(String idPersona) {
+        this.persona_DNI = idPersona;
     }
 
-    public Integer getIdPAcademico() {
-        return idPAcademico;
+    public Integer getPeriodoAcademico_ID() {
+        return periodoAcademico_ID;
     }
 
-    public void setIdPAcademico(Integer idPAcademico) {
-        this.idPAcademico = idPAcademico;
+    public void setPeriodoAcademico_ID(Integer idPAcademico) {
+        this.periodoAcademico_ID = idPAcademico;
+    }
+
+    @Override
+    public String toString() {
+        return id + " - " + fecha;
+    }
+
+    public int compareCampo(String campo, String valorBuscado) {
+        switch (campo.toLowerCase()) {
+            case "id":
+                return this.id.compareTo(Integer.parseInt(valorBuscado));
+            case "fecha":
+                return this.fecha.compareTo(LocalDate.parse(valorBuscado));
+            case "persona_dni":
+                return this.persona_DNI.compareTo(valorBuscado);
+            case "periodoacademico_id":
+                return this.periodoAcademico_ID.compareTo(Integer.parseInt(valorBuscado));
+            default:
+                throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
+        }
     }
 }

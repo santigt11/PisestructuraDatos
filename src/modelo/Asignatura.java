@@ -6,7 +6,7 @@ public class Asignatura {
     private String nombre;
     private String codigo;
     private Integer totalHoras;
-    private Integer idMalla;
+    private Integer mallaCurricular_ID;
 
     public Asignatura() {
     }
@@ -16,7 +16,7 @@ public class Asignatura {
         this.nombre = nombre;
         this.codigo = codigo;
         this.totalHoras = totalHoras;
-        this.idMalla = idMalla;
+        this.mallaCurricular_ID = idMalla;
     }
 
     public Integer getId() {
@@ -51,16 +51,29 @@ public class Asignatura {
         this.totalHoras = totalHoras;
     }
 
-    public Integer getIdMalla() {
-        return idMalla;
+    public Integer getMallaCurricular_ID() {
+        return mallaCurricular_ID;
     }
 
-    public void setIdMalla(Integer idMalla) {
-        this.idMalla = idMalla;
+    public void setMallaCurricular_ID(Integer mallaCurricular_ID) {
+        this.mallaCurricular_ID = mallaCurricular_ID;
     }
-    
+
     @Override
     public String toString() {
         return nombre;
+    }
+
+    public int compareCampo(String campo, String valorBuscado) {
+        switch (campo.toLowerCase()) {
+            case "codigo":
+                return this.codigo.compareToIgnoreCase(valorBuscado);
+            case "nombre":
+                return this.nombre.compareToIgnoreCase(valorBuscado);
+            case "mallaCurricular_ID":
+                return this.mallaCurricular_ID.compareTo(Integer.parseInt(valorBuscado));
+            default:
+                throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
+        }
     }
 }

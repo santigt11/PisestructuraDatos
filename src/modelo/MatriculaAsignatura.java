@@ -1,25 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelo;
 
-/**
- *
- * @author Santiago
- */
+import controlador.Matriculas.MatriculaArchivos;
+
 public class MatriculaAsignatura {
+
     private Integer id;
     private String curso;
-    private Integer idAsignatura;
-
-    public MatriculaAsignatura(Integer id, String curso, Integer idAsignatura) {
-        this.id = id;
-        this.curso = curso;
-        this.idAsignatura = idAsignatura;
-    }
+    private Integer matricula_ID;
+    private String asignatura_Codigo;
 
     public MatriculaAsignatura() {
+    }
+
+    public MatriculaAsignatura(Integer id, String curso, Integer idMatricula, String idAsignatura) {
+        this.id = id;
+        this.curso = curso;
+        this.matricula_ID = idMatricula;
+        this.asignatura_Codigo = idAsignatura;
     }
 
     public Integer getId() {
@@ -38,11 +35,40 @@ public class MatriculaAsignatura {
         this.curso = curso;
     }
 
-    public Integer getIdAsignatura() {
-        return idAsignatura;
+    public Integer getMatricula_ID() {
+        return matricula_ID;
     }
 
-    public void setIdAsignatura(Integer idAsignatura) {
-        this.idAsignatura = idAsignatura;
+    public void setMatricula_ID(Integer idMatricula) {
+        this.matricula_ID = idMatricula;
+    }
+
+    public String getAsignatura_Codigo() {
+        return asignatura_Codigo;
+    }
+
+    public void setAsignatura_Codigo(String idAsignatura) {
+        this.asignatura_Codigo = idAsignatura;
+    }
+
+    @Override
+    public String toString() {
+        return curso + "  -  " + asignatura_Codigo;
+    }
+
+    public int compareCampo(String campo, String valorBuscado) {
+        switch (campo.toLowerCase()) {
+            case "id":
+                return this.id.compareTo(Integer.parseInt(valorBuscado));
+            case "curso":
+                return this.curso.compareToIgnoreCase(valorBuscado);
+            case "matricula_id":
+//                System.out.println(this.matricula_ID.compareTo(Integer.parseInt(valorBuscado)));
+                return this.matricula_ID.compareTo(Integer.parseInt(valorBuscado));
+            case "asignatura_codigo":
+                return this.asignatura_Codigo.compareTo(valorBuscado);
+            default:
+                throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
+        }
     }
 }
