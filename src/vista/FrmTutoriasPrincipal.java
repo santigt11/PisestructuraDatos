@@ -107,6 +107,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btNuevaTutoria = new javax.swing.JButton();
         btGenerarInforme = new javax.swing.JButton();
+
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstTutorias = new javax.swing.JList<>();
@@ -139,6 +140,11 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         btNuevaTutoria.setForeground(new java.awt.Color(0, 0, 0));
         btNuevaTutoria.setText("Nueva Tutoria");
         btNuevaTutoria.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btNuevaTutoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNuevaTutoriaActionPerformed(evt);
+            }
+        });
 
         btGenerarInforme.setBackground(new java.awt.Color(242, 242, 242));
         btGenerarInforme.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
@@ -394,6 +400,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_chkNoActionPerformed
 
+
     private void lstTutoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTutoriasMouseClicked
          if (lstTutorias.getSelectedValue() != null) {
             Object t = lstTutorias.getSelectedValue();
@@ -405,6 +412,11 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_lstTutoriasMouseClicked
+
+    private void btNuevaTutoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNuevaTutoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btNuevaTutoriaActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

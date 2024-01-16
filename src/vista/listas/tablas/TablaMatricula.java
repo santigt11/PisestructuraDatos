@@ -31,7 +31,7 @@ public class TablaMatricula extends AbstractTableModel {
             Matricula mt = matriculas.getInfo(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return (mt != null) ? filePersona.getPersonas().getInfo(mt.getId()).getApellido() + " " + filePersona.getPersonas().getInfo(mt.getId()).getNombre(): " ";
+                    return (mt != null) ? filePersona.buscarBinaria("dni", mt.getPersona_DNI()).getApellido() + " " + filePersona.buscarBinaria("dni", mt.getPersona_DNI()).getNombre(): " ";
                 case 1:
                     return (mt != null) ? mt.getFecha(): "";
                 case 2:
