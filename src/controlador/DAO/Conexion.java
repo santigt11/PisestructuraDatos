@@ -18,8 +18,8 @@ public class Conexion {
     //Detalles de la base de datos
     public static final String DRIVER = "oracle.jdbc.OracleDriver";
     public static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-    public static final String USERNAME = "BDATOSA";
-    public static final String PASSWORD = "T24estefa";
+    public static final String USERNAME = "BDD3A";
+    public static final String PASSWORD = "Mariobros1";
     public static Connection instancia;
     
     // Constructor por defecto

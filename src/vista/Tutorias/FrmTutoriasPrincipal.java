@@ -1,4 +1,4 @@
-package vista;
+package vista.Tutorias;
 
 import controlador.Academico.AsignaturaArchivos;
 import controlador.Academico.CarreraArchivos;
@@ -107,7 +107,6 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btNuevaTutoria = new javax.swing.JButton();
         btGenerarInforme = new javax.swing.JButton();
-
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstTutorias = new javax.swing.JList<>();
@@ -140,11 +139,6 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         btNuevaTutoria.setForeground(new java.awt.Color(0, 0, 0));
         btNuevaTutoria.setText("Nueva Tutoria");
         btNuevaTutoria.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btNuevaTutoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btNuevaTutoriaActionPerformed(evt);
-            }
-        });
 
         btGenerarInforme.setBackground(new java.awt.Color(242, 242, 242));
         btGenerarInforme.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
