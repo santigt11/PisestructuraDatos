@@ -4,19 +4,11 @@
  */
 package vista;
 
-import controlador.Academico.UsuarioArchivos;
 import controlador.Admin.PersonaArchivos;
 import controlador.TDA.listas.Exception.EmptyException;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
-import static java.lang.reflect.Array.set;
-import javax.swing.ImageIcon;
+import controlador.login.UsuarioArchivos;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import modelo.Persona;
-import modelo.Rol;
 import static modelo.Rol.ADMINISTRADOR;
 import modelo.Usuario;
 

@@ -5,7 +5,6 @@ import controlador.TDA.listas.Exception.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
 import controlador.Academico.ContratoArchivos;
 import controlador.Admin.PersonaArchivos;
 import java.time.ZoneId;
@@ -75,7 +74,7 @@ public class FrmContrato extends javax.swing.JFrame {
                 if (tbContrato.getSelectedRow() > -1) {
                     limpiarSoft();
                     Persona docente = filePersona.buscarBinaria("dni", fileContrato.getContrato().getDniPersona());
-                    
+
                     fileContrato.setContrato(tc.getContratos().getInfo(tbContrato.getSelectedRow()));
                     txtDni.setText(docente.getDni());
                     txtApellidos.setText(docente.getApellido());

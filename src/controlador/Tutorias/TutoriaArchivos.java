@@ -42,7 +42,7 @@ public class TutoriaArchivos extends AdaptadorDao<Tutoria> {
     }
 
     @Override
-    public Integer persist(Tutoria obj) throws Exception {
+    public Boolean persist(Tutoria obj){
         obj.setId(all().getLength() + 1);
         return super.persist(obj);
     }

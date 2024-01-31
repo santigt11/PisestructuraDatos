@@ -63,8 +63,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     public Boolean verificar() {
         return (!txtTema.getText().trim().isEmpty()
                 && !(cbxHorario.getSelectedIndex() > 0)
-                && !dcFecha.getDate().equals(null)
-                && !(cbxAsignatura.getSelectedIndex() > 0));
+                && !dcFecha.getDate().equals(null));
     }
 
     private void cargarListaMatriculaAsignatura() throws EmptyException {
@@ -98,17 +97,18 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
 //        }
 //    }
     private void guardar() throws EmptyException, Exception {
-        if (verificar()) {
+//        if (verificar()) {
             tutoriaControl.getTutoria().setFecha(dcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-            tutoriaControl.getTutoria().setIdHorario(horarioControl.get(cbxHorario.getSelectedIndex()).getId());
+            tutoriaControl.getTutoria().setIdHorario(horarioControl.get(cbxHorario.getSelectedIndex()+1).getId());
             tutoriaControl.getTutoria().setModalidad(Modalidad.PRESENCIAL);
             tutoriaControl.getTutoria().setTema(txtTema.getText());
+            tutoriaControl.getTutoria().setImpartida(true);
             tutoriaControl.persist(tutoriaControl.getTutoria());
             JOptionPane.showMessageDialog(null, "Datos guardados");
             limpiar();
-        } else {
+//        } else {
             JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+//        }
     }
 
     private void limpiar() throws EmptyException {
