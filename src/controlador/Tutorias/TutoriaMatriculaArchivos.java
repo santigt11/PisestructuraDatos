@@ -46,7 +46,7 @@ public class TutoriaMatriculaArchivos extends AdaptadorDao<TutoriaMatricula> {
     }
 
     @Override
-    public Integer persist(TutoriaMatricula obj) throws Exception {
+    public Boolean persist(TutoriaMatricula obj){
         obj.setId(all().getLength() + 1);
         return super.persist(obj);
     }

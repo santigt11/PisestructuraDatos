@@ -35,7 +35,7 @@ public class CarreraArchivos extends AdaptadorDao<Carrera> {
     }
 
     @Override
-    public Integer persist(Carrera obj) throws Exception {
+    public Boolean persist(Carrera obj){
         obj.setId(all().getLength() + 1);
         return super.persist(obj);
     }

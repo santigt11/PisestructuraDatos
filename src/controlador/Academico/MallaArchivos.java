@@ -35,7 +35,7 @@ public class MallaArchivos extends AdaptadorDao<MallaCurricular> {
     }
 
     @Override
-    public Integer persist(MallaCurricular obj) throws Exception {
+    public Boolean persist(MallaCurricular obj){
         obj.setId(all().getLength() + 1);
         return super.persist(obj);
     }

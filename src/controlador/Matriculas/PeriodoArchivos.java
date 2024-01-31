@@ -35,7 +35,7 @@ public class PeriodoArchivos extends AdaptadorDao<PeriodoAcademico> {
     }
 
     @Override
-    public Integer persist(PeriodoAcademico obj) throws Exception {
+    public Boolean persist(PeriodoAcademico obj){
         obj.setId(all().getLength() + 1);
         return super.persist(obj);
     }
