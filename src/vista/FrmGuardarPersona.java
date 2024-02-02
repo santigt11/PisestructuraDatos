@@ -8,7 +8,6 @@ import controlador.Admin.PersonaArchivos;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.Utiles.Utiles;
 import java.text.ParseException;
-import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -99,12 +98,15 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
                     }
                 }
                 personaControl.getPersona().setFechaNacimiento(txtFechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-                System.out.println(personaControl.getPersona().getFechaNacimiento());
-//                personaControl.persist(personaControl.getPersona());
-                JOptionPane.showMessageDialog(null, "Datos guardados");
-                cargarTabla();
-                limpiar();
-                personaControl.setPersona(null);
+                System.out.println(personaControl.getPersona().getFechaNacimiento().toString());
+                if (personaControl.persist(personaControl.getPersona())) {
+                    JOptionPane.showMessageDialog(null, "Datos guardados");
+                    cargarTabla();
+                    limpiar();
+                    personaControl.setPersona(null);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al guardar ");
+                }
 
             } else {
                 JOptionPane.showMessageDialog(null, "Cedula no valida");
@@ -300,6 +302,11 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
         });
 
         jButton2.setText("Limpiar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         btnSeleccionar.setText("Selecionar");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
@@ -458,6 +465,11 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
         cargarTabla();
         limpiar();
     }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        cargarTabla();
+        limpiar();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

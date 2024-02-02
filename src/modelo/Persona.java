@@ -18,12 +18,12 @@ public class Persona {
     }
 
     //constructor que iniciliza los atributos
-    public Persona(Integer id, String dni, String nombre, String apellido, LocalDate fechaNacimientoi, String telefono, Rol rol) {
+    public Persona(Integer id, String dni, String nombre, String apellido, LocalDate fechaNacimiento, String telefono, Rol rol) {
         this.id = id;
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.fechaNacimiento = fechaNacimientoi;
+        this.fechaNacimiento = fechaNacimiento;
         this.telefono = telefono;
         this.rol = rol;
     }

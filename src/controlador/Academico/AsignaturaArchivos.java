@@ -47,7 +47,7 @@ public class AsignaturaArchivos extends AdaptadorDao<Asignatura> {
     }
 
     @Override
-    public Integer persist(Asignatura obj) throws Exception {
+    public Boolean persist(Asignatura obj){
         obj.setId(all().getLength() + 1);
         return super.persist(obj);
     }
