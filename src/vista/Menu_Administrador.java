@@ -9,7 +9,9 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import modelo.Usuario;
 import prepis.sSlide;
 
@@ -23,41 +25,50 @@ public class Menu_Administrador extends javax.swing.JFrame {
      * Creates new form Menu_Administrador
      */
     //variable global
-    Usuario user;
-    sSlide slide;
+    private Usuario user;
+    private sSlide slide;
+    private JPanel panel1;
+    private JPanel panel2;
 
-    //constructor con parametros
+    private FrmGenerarInforme frmGenerarInforme;
+    private FrmTutoriasPrincipal frmTutoriasPrincipal;
+
+    // constructor con parámetros
     public Menu_Administrador(Usuario usuario) {
         initComponents();
         this.user = usuario;
+                inicializarPaneles();
     }
 
-    //contructor 
+    // constructor
     public Menu_Administrador() {
         initComponents();
-        this.setLocationRelativeTo(null);
+       
         slide = new sSlide();
-        
-
-        mostrarGif();
+               inicializarPaneles();
     }
 
-    private void mostarGif() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1122, 670);
+   private void inicializarPaneles() {
+    panel1 = new javax.swing.JPanel();
+    panel2 = new javax.swing.JPanel();
+    this.setLocationRelativeTo(null);
+    slide = new sSlide();
+    // FrmGenerarInforme frm = new FrmGenerarInforme(); // Esto lo comentamos
+    // panel2.add(frm, java.awt.BorderLayout.CENTER); // Esto lo comentamos
 
-        // Crea un JLabel y carga el GIF
-        ImageIcon gifIcon = new ImageIcon("src/imagenes/GIF.gif"); // Reemplaza con la ruta de tu archivo GIF
-        JLabel backgroundLabel = new JLabel(gifIcon);
+    // Puedes mostrar el formulario directamente
+    FrmGenerarInforme frm = new FrmGenerarInforme();
+    frm.setVisible(true);
+    panel2.add(frm.getContentPane(), java.awt.BorderLayout.CENTER);
 
-        // Establece el layout del JFrame como BorderLayout
-        setLayout(new BorderLayout());
+    mostrarPanel(panel2);  // Mostrar el panel2 por defecto
+}
 
-        // Agrega el JLabel al fondo del JFrame
-        getContentPane().add(backgroundLabel, BorderLayout.CENTER);
-
-        // Hacer visible el JFrame
-        setVisible(true);
+    // Método para mostrar un panel específico
+    private void mostrarPanel(JPanel panel) {
+        panel1.setVisible(false);
+        panel2.setVisible(false);
+        panel.setVisible(true);
     }
 
     /**
@@ -72,6 +83,8 @@ public class Menu_Administrador extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        circleComponent1 = new com.jgoodies.animation.components.CircleComponent();
+        Panel2 = new javax.swing.JPanel();
         Panel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -82,15 +95,12 @@ public class Menu_Administrador extends javax.swing.JFrame {
         btnDocentes = new org.edisoncor.gui.button.ButtonTransluceIcon();
         btnEstudiantes = new org.edisoncor.gui.button.ButtonTransluceIcon();
         BtnMatricula = new org.edisoncor.gui.button.ButtonTransluceIcon();
-        buttonTransluceIcon2 = new org.edisoncor.gui.button.ButtonTransluceIcon();
-        buttonTransluceIcon5 = new org.edisoncor.gui.button.ButtonTransluceIcon();
+        btnPeriodoAcademicos = new org.edisoncor.gui.button.ButtonTransluceIcon();
+        btnAdministrarAsignaturas = new org.edisoncor.gui.button.ButtonTransluceIcon();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        circleComponent1 = new com.jgoodies.animation.components.CircleComponent();
-        BtnInicio = new javax.swing.JLabel();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -106,6 +116,12 @@ public class Menu_Administrador extends javax.swing.JFrame {
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 62, 0, 0));
         jPanel2.getAccessibleContext().setAccessibleName("");
         jPanel2.getAccessibleContext().setAccessibleDescription("");
+
+        getContentPane().add(circleComponent1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, -1, -1));
+
+        Panel2.setBackground(new java.awt.Color(255, 255, 255));
+        Panel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(Panel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 1110, 670));
 
         Panel1.setBackground(new java.awt.Color(151, 133, 95));
         Panel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -167,23 +183,23 @@ public class Menu_Administrador extends javax.swing.JFrame {
             }
         });
 
-        buttonTransluceIcon2.setBackground(new java.awt.Color(203, 222, 188));
-        buttonTransluceIcon2.setForeground(new java.awt.Color(255, 255, 204));
-        buttonTransluceIcon2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/images_1_-removebg-preview.png"))); // NOI18N
-        buttonTransluceIcon2.setText("buttonTransluceIcon1");
-        buttonTransluceIcon2.addActionListener(new java.awt.event.ActionListener() {
+        btnPeriodoAcademicos.setBackground(new java.awt.Color(203, 222, 188));
+        btnPeriodoAcademicos.setForeground(new java.awt.Color(255, 255, 204));
+        btnPeriodoAcademicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/images_1_-removebg-preview.png"))); // NOI18N
+        btnPeriodoAcademicos.setText("buttonTransluceIcon1");
+        btnPeriodoAcademicos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonTransluceIcon2ActionPerformed(evt);
+                btnPeriodoAcademicosActionPerformed(evt);
             }
         });
 
-        buttonTransluceIcon5.setBackground(new java.awt.Color(203, 222, 188));
-        buttonTransluceIcon5.setForeground(new java.awt.Color(255, 255, 204));
-        buttonTransluceIcon5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pngtree-flat-green-laptop-icon-with-computer-screen-answer-fill-form-vector-png-image_12719274.png"))); // NOI18N
-        buttonTransluceIcon5.setText("buttonTransluceIcon1");
-        buttonTransluceIcon5.addActionListener(new java.awt.event.ActionListener() {
+        btnAdministrarAsignaturas.setBackground(new java.awt.Color(203, 222, 188));
+        btnAdministrarAsignaturas.setForeground(new java.awt.Color(255, 255, 204));
+        btnAdministrarAsignaturas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pngtree-flat-green-laptop-icon-with-computer-screen-answer-fill-form-vector-png-image_12719274.png"))); // NOI18N
+        btnAdministrarAsignaturas.setText("buttonTransluceIcon1");
+        btnAdministrarAsignaturas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonTransluceIcon5ActionPerformed(evt);
+                btnAdministrarAsignaturasActionPerformed(evt);
             }
         });
 
@@ -210,10 +226,10 @@ public class Menu_Administrador extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)))
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(42, 42, 42))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,65 +241,48 @@ public class Menu_Administrador extends javax.swing.JFrame {
             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jButton2.setText("X");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout Panel1Layout = new javax.swing.GroupLayout(Panel1);
         Panel1.setLayout(Panel1Layout);
         Panel1Layout.setHorizontalGroup(
             Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel1Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnDocentes, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEstudiantes, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
                 .addGroup(Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(Panel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel1Layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel1Layout.createSequentialGroup()
                         .addGroup(Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(buttonTransluceIcon5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonTransluceIcon2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BtnMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnDocentes, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEstudiantes, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BtnMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPeriodoAcademicos, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAdministrarAsignaturas, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(Panel1Layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addComponent(jLabel3))
+                                .addGap(14, 14, 14)
+                                .addGroup(Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(Panel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addContainerGap(13, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(18, 18, 18))))
                             .addGroup(Panel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(Panel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5)))
-                        .addGap(40, 40, 40))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel1Layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(26, 26, 26))))
-            .addGroup(Panel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(Panel1Layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         Panel1Layout.setVerticalGroup(
             Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton2)
-                .addGap(16, 16, 16)
+                .addGap(40, 40, 40)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addGroup(Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDocentes, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -301,62 +300,55 @@ public class Menu_Administrador extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(buttonTransluceIcon2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnPeriodoAcademicos, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39)
                 .addGroup(Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonTransluceIcon5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAdministrarAsignaturas, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(167, 167, 167))
         );
 
-        getContentPane().add(Panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 680));
-        getContentPane().add(circleComponent1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, -1, -1));
-
-        BtnInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pngtree-menu-vector-icon-png-image_4279471-removebg-preview(1).png"))); // NOI18N
-        BtnInicio.setText("jLabel12");
-        BtnInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BtnInicio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnInicioMouseClicked(evt);
-            }
-        });
-        getContentPane().add(BtnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 57, 48));
+        getContentPane().add(Panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 280, 690));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void BtnInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnInicioMouseClicked
-        
-        slide.JPanelXIzquierda(0, -299, 10, 5, Panel1);
-        slide.JPanelXDerecha(-299, 0, 10, 5, Panel1);
-
-    }//GEN-LAST:event_BtnInicioMouseClicked
 
     private void btnDocentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDocentesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDocentesActionPerformed
 
-    private void buttonTransluceIcon2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTransluceIcon2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonTransluceIcon2ActionPerformed
+    private void btnPeriodoAcademicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeriodoAcademicosActionPerformed
+    if (frmGenerarInforme == null) {
+        frmGenerarInforme = new FrmGenerarInforme();
+    }
+
+    Panel2.setLayout(new BorderLayout());
+    Panel2.removeAll();  // Elimina cualquier componente existente en Panel2
+    Panel2.add(frmGenerarInforme.getContentPane(), BorderLayout.CENTER);
+    Panel2.revalidate();
+    Panel2.repaint();
+    }//GEN-LAST:event_btnPeriodoAcademicosActionPerformed
 
     private void BtnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMatriculaActionPerformed
-        // TODO add your handling code here:
+       if (frmTutoriasPrincipal == null) {
+        frmTutoriasPrincipal = new FrmTutoriasPrincipal();
+    }
+
+    Panel2.setLayout(new BorderLayout());
+    Panel2.removeAll();
+    Panel2.add(frmTutoriasPrincipal.getContentPane(), BorderLayout.CENTER);
+    Panel2.revalidate();
+    Panel2.repaint();
+
     }//GEN-LAST:event_BtnMatriculaActionPerformed
 
     private void btnEstudiantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstudiantesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEstudiantesActionPerformed
 
-    private void buttonTransluceIcon5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTransluceIcon5ActionPerformed
+    private void btnAdministrarAsignaturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministrarAsignaturasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_buttonTransluceIcon5ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnAdministrarAsignaturasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -388,23 +380,22 @@ public class Menu_Administrador extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                new Menu_Administrador().setVisible(true);
                 
             }
         });
-        SwingUtilities.invokeLater(() -> new Menu_Administrador().mostarGif());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel BtnInicio;
     private org.edisoncor.gui.button.ButtonTransluceIcon BtnMatricula;
     private javax.swing.JPanel Panel1;
+    private javax.swing.JPanel Panel2;
+    private org.edisoncor.gui.button.ButtonTransluceIcon btnAdministrarAsignaturas;
     private org.edisoncor.gui.button.ButtonTransluceIcon btnDocentes;
     private org.edisoncor.gui.button.ButtonTransluceIcon btnEstudiantes;
-    private org.edisoncor.gui.button.ButtonTransluceIcon buttonTransluceIcon2;
-    private org.edisoncor.gui.button.ButtonTransluceIcon buttonTransluceIcon5;
+    private org.edisoncor.gui.button.ButtonTransluceIcon btnPeriodoAcademicos;
     private com.jgoodies.animation.components.CircleComponent circleComponent1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
