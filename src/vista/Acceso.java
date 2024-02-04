@@ -7,6 +7,7 @@ package vista;
 import controlador.Academico.UsuarioArchivos;
 import controlador.Admin.PersonaArchivos;
 import controlador.TDA.listas.Exception.EmptyException;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -16,9 +17,12 @@ import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import static java.lang.reflect.Array.set;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import modelo.Persona;
 import modelo.Rol;
@@ -38,10 +42,28 @@ public class Acceso extends javax.swing.JFrame {
     public Acceso() {
 
         initComponents();
-        jPanel1.setBackground(Color.BLACK);
-        this.getContentPane().setBackground(new Color(40, 40,40));
-  
+        //jPanel1.setBackground(Color.BLACK);
+        //this.getContentPane().setBackground(new Color(255,255,255));
+       mostarGif();
     }
+    private void mostarGif() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(1122, 670);
+
+        // Crea un JLabel y carga el GIF
+        ImageIcon gifIcon = new ImageIcon("src/imagenes/GIF.gif"); // Reemplaza con la ruta de tu archivo GIF
+        JLabel backgroundLabel = new JLabel(gifIcon);
+
+        // Establece el layout del JFrame como BorderLayout
+        setLayout(new BorderLayout());
+
+        // Agrega el JLabel al fondo del JFrame
+        getContentPane().add(backgroundLabel, BorderLayout.CENTER);
+
+        // Hacer visible el JFrame
+        setVisible(true);
+    }
+
     //creacion de instancia de los controladores
     private PersonaArchivos controlPersona = new PersonaArchivos();
     private UsuarioArchivos controlUsuario = new UsuarioArchivos();
@@ -95,7 +117,7 @@ public class Acceso extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(204, 204, 204), null, null));
-        jPanel2.setForeground(new java.awt.Color(184, 243, 175));
+        jPanel2.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtNombreUsuario.setForeground(new java.awt.Color(0, 0, 0));
@@ -110,23 +132,23 @@ public class Acceso extends javax.swing.JFrame {
         jPanel2.add(txtNombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, 242, 40));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setForeground(new java.awt.Color(23, 61, 40));
         jLabel2.setText("Nombre del Usuario:");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 136, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setForeground(new java.awt.Color(23, 61, 40));
         jLabel4.setText("Contraseña:");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 251, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Franklin Gothic Medium Cond", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setForeground(new java.awt.Color(23, 61, 40));
         jLabel3.setText("INICIAR SESIÓN");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, -1, -1));
 
         jCheckBox1.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBox1.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
-        jCheckBox1.setForeground(new java.awt.Color(0, 0, 0));
+        jCheckBox1.setForeground(new java.awt.Color(23, 61, 40));
         jCheckBox1.setText("Recuérdame");
         jPanel2.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 344, -1, -1));
 
@@ -137,21 +159,22 @@ public class Acceso extends javax.swing.JFrame {
         jPanel2.add(btnRecuperarClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 420, 160, 20));
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 51, -1, 133));
 
+        txtContraseña.setForeground(new java.awt.Color(0, 0, 0));
         txtContraseña.setBorder(null);
         jPanel2.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 280, 240, 40));
 
-        jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
-        jSeparator1.setForeground(new java.awt.Color(51, 51, 51));
+        jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator1.setForeground(new java.awt.Color(51, 51, 0));
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 227, 310, 12));
 
-        jSeparator2.setBackground(new java.awt.Color(0, 0, 0));
-        jSeparator2.setForeground(new java.awt.Color(51, 51, 51));
+        jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator2.setForeground(new java.awt.Color(51, 51, 0));
         jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 326, 310, 12));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/2I.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/2I-removebg-preview.png"))); // NOI18N
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, 54, 48));
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Image1.png"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Image1-removebg-preview.png"))); // NOI18N
         jLabel7.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 170, 54, 48));
 
@@ -174,8 +197,8 @@ public class Acceso extends javax.swing.JFrame {
                 .addGap(100, 100, 100)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(100, 100, 100)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(107, 107, 107)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -288,13 +311,15 @@ public class Acceso extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Acceso().setVisible(true);
+                
+                               
             }
         });
+          SwingUtilities.invokeLater(() -> new Acceso().mostarGif());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
