@@ -4,7 +4,16 @@
  */
 package vista;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import modelo.Usuario;
+import prepis.sSlide;
 
 /**
  *
@@ -16,16 +25,50 @@ public class Menu_Administrador extends javax.swing.JFrame {
      * Creates new form Menu_Administrador
      */
     //variable global
-    Usuario user;
-    //constructor con parametros
+    private Usuario user;
+    private sSlide slide;
+    private JPanel panel1;
+    private JPanel panel2;
+
+    private FrmGenerarInforme frmGenerarInforme;
+    private FrmTutoriasPrincipal frmTutoriasPrincipal;
+
+    // constructor con parámetros
     public Menu_Administrador(Usuario usuario) {
         initComponents();
-        this.user=usuario;
+        this.user = usuario;
+                inicializarPaneles();
     }
-    //contructor 
-     public Menu_Administrador() {
+
+    // constructor
+    public Menu_Administrador() {
         initComponents();
-     
+       
+        slide = new sSlide();
+               inicializarPaneles();
+    }
+
+   private void inicializarPaneles() {
+    panel1 = new javax.swing.JPanel();
+    panel2 = new javax.swing.JPanel();
+    this.setLocationRelativeTo(null);
+    slide = new sSlide();
+    // FrmGenerarInforme frm = new FrmGenerarInforme(); // Esto lo comentamos
+    // panel2.add(frm, java.awt.BorderLayout.CENTER); // Esto lo comentamos
+
+    // Puedes mostrar el formulario directamente
+    FrmGenerarInforme frm = new FrmGenerarInforme();
+    frm.setVisible(true);
+    panel2.add(frm.getContentPane(), java.awt.BorderLayout.CENTER);
+
+    mostrarPanel(panel2);  // Mostrar el panel2 por defecto
+}
+
+    // Método para mostrar un panel específico
+    private void mostrarPanel(JPanel panel) {
+        panel1.setVisible(false);
+        panel2.setVisible(false);
+        panel.setVisible(true);
     }
 
     /**
@@ -37,164 +80,275 @@ public class Menu_Administrador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
         jPanel2 = new javax.swing.JPanel();
-        btnAdminEstudiantes = new javax.swing.JToggleButton();
-        btnAdministarDoc = new javax.swing.JButton();
-        adminMatricula = new javax.swing.JButton();
-        AdminPeriodo = new javax.swing.JButton();
-        AdminAsignatura = new javax.swing.JToggleButton();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        JPanelAcceso = new javax.swing.JPanel();
+        circleComponent1 = new com.jgoodies.animation.components.CircleComponent();
+        Panel2 = new javax.swing.JPanel();
+        Panel1 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        btnDocentes = new org.edisoncor.gui.button.ButtonTransluceIcon();
+        btnEstudiantes = new org.edisoncor.gui.button.ButtonTransluceIcon();
+        BtnMatricula = new org.edisoncor.gui.button.ButtonTransluceIcon();
+        btnPeriodoAcademicos = new org.edisoncor.gui.button.ButtonTransluceIcon();
+        btnAdministrarAsignaturas = new org.edisoncor.gui.button.ButtonTransluceIcon();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(0, 51, 51));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnAdminEstudiantes.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        btnAdminEstudiantes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistaImagenes/images(1).png"))); // NOI18N
-        btnAdminEstudiantes.setText("Administar Estudiantes");
-        btnAdminEstudiantes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnAdminEstudiantes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel2.add(btnAdminEstudiantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 229, 96));
-
-        btnAdministarDoc.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        btnAdministarDoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistaImagenes/6012601(1).png"))); // NOI18N
-        btnAdministarDoc.setText("Administrar Docentes");
-        btnAdministarDoc.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnAdministarDoc.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel2.add(btnAdministarDoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 229, 96));
-
-        adminMatricula.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        adminMatricula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistaImagenes/6391572(1).png"))); // NOI18N
-        adminMatricula.setText("Administrar Matriculas");
-        adminMatricula.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        adminMatricula.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        adminMatricula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adminMatriculaActionPerformed(evt);
-            }
-        });
-        jPanel2.add(adminMatricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 229, 96));
-
-        AdminPeriodo.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        AdminPeriodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistaImagenes/10289875-calendario-escolar-icono-con-el-lápiz-azul.jpg"))); // NOI18N
-        AdminPeriodo.setText("Administrar Periodos Academicos");
-        AdminPeriodo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        AdminPeriodo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        AdminPeriodo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AdminPeriodoActionPerformed(evt);
-            }
-        });
-        jPanel2.add(AdminPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, -1, 95));
-
-        AdminAsignatura.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        AdminAsignatura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistaImagenes/Sin título(1).png"))); // NOI18N
-        AdminAsignatura.setText("Administrar Asignaturas");
-        AdminAsignatura.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        AdminAsignatura.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        AdminAsignatura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AdminAsignaturaActionPerformed(evt);
-            }
-        });
-        jPanel2.add(AdminAsignatura, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 630, 229, 96));
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setDoubleBuffered(false);
-        jPanel1.setMinimumSize(new java.awt.Dimension(1, 1));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistaImagenes/3135768(1).png"))); // NOI18N
-
-        jLabel2.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        jLabel2.setText("ADMINISTRADOR");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                        .addGap(21, 21, 21))))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 220, -1));
-
         jButton1.setText("Exit");
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 730, -1, -1));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 550, -1, -1));
 
-        JPanelAcceso.setBackground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 62, 0, 0));
+        jPanel2.getAccessibleContext().setAccessibleName("");
+        jPanel2.getAccessibleContext().setAccessibleDescription("");
 
-        javax.swing.GroupLayout JPanelAccesoLayout = new javax.swing.GroupLayout(JPanelAcceso);
-        JPanelAcceso.setLayout(JPanelAccesoLayout);
-        JPanelAccesoLayout.setHorizontalGroup(
-            JPanelAccesoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 821, Short.MAX_VALUE)
+        getContentPane().add(circleComponent1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, -1, -1));
+
+        Panel2.setBackground(new java.awt.Color(255, 255, 255));
+        Panel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(Panel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 1110, 670));
+
+        Panel1.setBackground(new java.awt.Color(151, 133, 95));
+        Panel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Panel1.setForeground(new java.awt.Color(23, 61, 40));
+
+        jLabel8.setBackground(new java.awt.Color(23, 61, 40));
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(23, 61, 40));
+        jLabel8.setText("ADMINISTRAR DOCENTES");
+
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(23, 61, 40));
+        jLabel4.setText("ADMINISTRAR ESTUDIANTES");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(23, 61, 40));
+        jLabel3.setText("ADMINISTRAR MATRICULAS");
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(23, 61, 40));
+        jLabel1.setText("ADMINISTRAR PERIODOS");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(23, 61, 40));
+        jLabel2.setText("ACADEMICOS");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(23, 61, 40));
+        jLabel5.setText("ADMINISTRAR ASIGNATURAS");
+
+        btnDocentes.setBackground(new java.awt.Color(203, 222, 188));
+        btnDocentes.setForeground(new java.awt.Color(255, 255, 204));
+        btnDocentes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/45109776-suscriptores-seguidores-usuarios-icono-vector-también-image-can-utilizarse-para-admin-salpicadero_3_-removebg-preview.png"))); // NOI18N
+        btnDocentes.setText("buttonTransluceIcon1");
+        btnDocentes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDocentesActionPerformed(evt);
+            }
+        });
+
+        btnEstudiantes.setBackground(new java.awt.Color(203, 222, 188));
+        btnEstudiantes.setForeground(new java.awt.Color(255, 255, 204));
+        btnEstudiantes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/communities-line-green-and-black-icon-vector-removebg-preview.png"))); // NOI18N
+        btnEstudiantes.setText("buttonTransluceIcon1");
+        btnEstudiantes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEstudiantesActionPerformed(evt);
+            }
+        });
+
+        BtnMatricula.setBackground(new java.awt.Color(203, 222, 188));
+        BtnMatricula.setForeground(new java.awt.Color(255, 255, 204));
+        BtnMatricula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/circulo-con-una-persona-y-una-marca-de-verificacion-verde-2k2fm87-removebg-preview.png"))); // NOI18N
+        BtnMatricula.setText("buttonTransluceIcon1");
+        BtnMatricula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnMatriculaActionPerformed(evt);
+            }
+        });
+
+        btnPeriodoAcademicos.setBackground(new java.awt.Color(203, 222, 188));
+        btnPeriodoAcademicos.setForeground(new java.awt.Color(255, 255, 204));
+        btnPeriodoAcademicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/images_1_-removebg-preview.png"))); // NOI18N
+        btnPeriodoAcademicos.setText("buttonTransluceIcon1");
+        btnPeriodoAcademicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPeriodoAcademicosActionPerformed(evt);
+            }
+        });
+
+        btnAdministrarAsignaturas.setBackground(new java.awt.Color(203, 222, 188));
+        btnAdministrarAsignaturas.setForeground(new java.awt.Color(255, 255, 204));
+        btnAdministrarAsignaturas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pngtree-flat-green-laptop-icon-with-computer-screen-answer-fill-form-vector-png-image_12719274.png"))); // NOI18N
+        btnAdministrarAsignaturas.setText("buttonTransluceIcon1");
+        btnAdministrarAsignaturas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdministrarAsignaturasActionPerformed(evt);
+            }
+        });
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Screenshot_2024-02-04_153540-removebg-preview.png"))); // NOI18N
+        jLabel6.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel7.setText("Usuario");
+
+        jLabel9.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42))
         );
-        JPanelAccesoLayout.setVerticalGroup(
-            JPanelAccesoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JPanelAcceso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+        javax.swing.GroupLayout Panel1Layout = new javax.swing.GroupLayout(Panel1);
+        Panel1.setLayout(Panel1Layout);
+        Panel1Layout.setHorizontalGroup(
+            Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Panel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Panel1Layout.createSequentialGroup()
+                        .addGroup(Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnDocentes, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEstudiantes, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BtnMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPeriodoAcademicos, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAdministrarAsignaturas, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(Panel1Layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addGroup(Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(Panel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addContainerGap(13, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(18, 18, 18))))
+                            .addGroup(Panel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(Panel1Layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JPanelAcceso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 765, Short.MAX_VALUE)))
+        Panel1Layout.setVerticalGroup(
+            Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Panel1Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addGroup(Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDocentes, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEstudiantes, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Panel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnPeriodoAcademicos, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addGroup(Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAdministrarAsignaturas, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(167, 167, 167))
         );
+
+        getContentPane().add(Panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 280, 690));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void AdminPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminPeriodoActionPerformed
+    private void btnDocentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDocentesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_AdminPeriodoActionPerformed
+    }//GEN-LAST:event_btnDocentesActionPerformed
 
-    private void AdminAsignaturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminAsignaturaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AdminAsignaturaActionPerformed
+    private void btnPeriodoAcademicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeriodoAcademicosActionPerformed
+    if (frmGenerarInforme == null) {
+        frmGenerarInforme = new FrmGenerarInforme();
+    }
 
-    private void adminMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminMatriculaActionPerformed
+    Panel2.setLayout(new BorderLayout());
+    Panel2.removeAll();  // Elimina cualquier componente existente en Panel2
+    Panel2.add(frmGenerarInforme.getContentPane(), BorderLayout.CENTER);
+    Panel2.revalidate();
+    Panel2.repaint();
+    }//GEN-LAST:event_btnPeriodoAcademicosActionPerformed
+
+    private void BtnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMatriculaActionPerformed
+       if (frmTutoriasPrincipal == null) {
+        frmTutoriasPrincipal = new FrmTutoriasPrincipal();
+    }
+
+    Panel2.setLayout(new BorderLayout());
+    Panel2.removeAll();
+    Panel2.add(frmTutoriasPrincipal.getContentPane(), BorderLayout.CENTER);
+    Panel2.revalidate();
+    Panel2.repaint();
+
+    }//GEN-LAST:event_BtnMatriculaActionPerformed
+
+    private void btnEstudiantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstudiantesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_adminMatriculaActionPerformed
+    }//GEN-LAST:event_btnEstudiantesActionPerformed
+
+    private void btnAdministrarAsignaturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministrarAsignaturasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAdministrarAsignaturasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -227,22 +381,35 @@ public class Menu_Administrador extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Menu_Administrador().setVisible(true);
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton AdminAsignatura;
-    private javax.swing.JButton AdminPeriodo;
-    private javax.swing.JPanel JPanelAcceso;
-    private javax.swing.JButton adminMatricula;
-    private javax.swing.JToggleButton btnAdminEstudiantes;
-    private javax.swing.JButton btnAdministarDoc;
+    private org.edisoncor.gui.button.ButtonTransluceIcon BtnMatricula;
+    private javax.swing.JPanel Panel1;
+    private javax.swing.JPanel Panel2;
+    private org.edisoncor.gui.button.ButtonTransluceIcon btnAdministrarAsignaturas;
+    private org.edisoncor.gui.button.ButtonTransluceIcon btnDocentes;
+    private org.edisoncor.gui.button.ButtonTransluceIcon btnEstudiantes;
+    private org.edisoncor.gui.button.ButtonTransluceIcon btnPeriodoAcademicos;
+    private com.jgoodies.animation.components.CircleComponent circleComponent1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
     // End of variables declaration//GEN-END:variables
+
+    private void mostrarGif() {
+    }
 }

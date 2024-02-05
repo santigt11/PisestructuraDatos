@@ -41,9 +41,6 @@ public class Menu_Docente extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         btnGenerarInforme = new javax.swing.JButton();
         btnTutoriaAgenda = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         btnNuevaTutoria = new javax.swing.JToggleButton();
         jPanel3 = new javax.swing.JPanel();
@@ -76,39 +73,6 @@ public class Menu_Docente extends javax.swing.JFrame {
             }
         });
         jPanel2.add(btnTutoriaAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 229, 96));
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setDoubleBuffered(false);
-        jPanel1.setMinimumSize(new java.awt.Dimension(1, 1));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistaImagenes/3135768(1).png"))); // NOI18N
-
-        jLabel4.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        jLabel4.setText("DOCENTE");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 220, -1));
 
         jButton1.setText("Exit");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -223,9 +187,6 @@ public class Menu_Docente extends javax.swing.JFrame {
     private javax.swing.JToggleButton btnNuevaTutoria;
     private javax.swing.JButton btnTutoriaAgenda;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
