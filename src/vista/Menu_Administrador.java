@@ -330,16 +330,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPeriodoAcademicosActionPerformed
 
     private void BtnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMatriculaActionPerformed
-       if (frmTutoriasPrincipal == null) {
-        frmTutoriasPrincipal = new FrmTutoriasPrincipal();
-    }
-
-    Panel2.setLayout(new BorderLayout());
-    Panel2.removeAll();
-    Panel2.add(frmTutoriasPrincipal.getContentPane(), BorderLayout.CENTER);
-    Panel2.revalidate();
-    Panel2.repaint();
-
+   
     }//GEN-LAST:event_BtnMatriculaActionPerformed
 
     private void btnEstudiantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstudiantesActionPerformed
