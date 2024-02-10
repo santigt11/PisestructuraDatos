@@ -12,6 +12,9 @@ import controlador.TDA.listas.Exception.EmptyException;
 import controlador.Tutorias.TutoriaArchivos;
 import controlador.Tutorias.TutoriaMatriculaArchivos;
 import java.time.format.DateTimeFormatter;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.synth.SynthLookAndFeel;
 import modelo.Asignatura;
 import modelo.Contrato;
 import modelo.MatriculaAsignatura;
@@ -21,7 +24,7 @@ import modelo.TutoriaMatricula;
 import vista.listas.util.Utilvista;
 
 public class FrmTutoriasPrincipal extends javax.swing.JFrame {
-    
+
     private TutoriaMatriculaArchivos fileTutoriaM = new TutoriaMatriculaArchivos();
     private TutoriaArchivos fileTutoria = new TutoriaArchivos();
     private MatriculaAsignaturaArchivos fileMatriculaAsg = new MatriculaAsignaturaArchivos();
@@ -33,15 +36,14 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     private ContratoArchivos contratoControl = new ContratoArchivos();
     private AsignaturaArchivos asignaturaControl = new AsignaturaArchivos();
     private MatriculaAsignaturaArchivos matriculaAsignaturaControl = new MatriculaAsignaturaArchivos();
-    
+
     public FrmTutoriasPrincipal() {
         initComponents();
     }
-    
+
     public static void cargarDocente(Persona persona) {
         personaControl.setPersona(persona);
     }
-    
 
     private void limpiar() {
         txtAsignatura.setText("");
@@ -50,17 +52,17 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         chkSi.setSelected(false);
         chkNo.setSelected(false);
     }
-    
-    private void cargarTutoriasLista(DynamicList<TutoriaMatricula> tutoriasM) throws EmptyException{
+
+    private void cargarTutoriasLista(DynamicList<TutoriaMatricula> tutoriasM) throws EmptyException {
         Utilvista.cargarListaTutoriaMatricula(tutoriasM, lstTutorias);
     }
-    
+
     private void cargarTutorias() throws EmptyException {
         personaControl.setPersona(personaControl.buscarBinaria("dni", "1101201301"));
         contratoControl.setContratos(contratoControl.buscarLineal(contratoControl.all(), "DNIDocente", String.valueOf(personaControl.getPersona().getDni())));
         Contrato contratos[] = contratoControl.getContratos().toArray();
         Contrato contrato;
-        DynamicList<Asignatura> asignaturas= new DynamicList<>();
+        DynamicList<Asignatura> asignaturas = new DynamicList<>();
         for (int i = 0; i < contratoControl.getContratos().getLength(); i++) {
             contrato = contratoControl.get(contratos[i].getId());
             asignaturas.add(asignaturaControl.buscarBinaria("codigo", contrato.getAsignatura_CODIGO()));
@@ -80,7 +82,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
             tutoriasMatricula.add(tMatricula);
         }
     }
-    
+
     private void cargarVista(TutoriaMatricula tutoriaAsg) throws EmptyException {
         fileTutoriaM.setTutoria(tutoriaAsg);
         MatriculaAsignatura matriculaAsg = fileMatriculaAsg.buscarBinaria("id", fileTutoriaM.getTutoriaMatricula().getMatriculaAsignatura_ID().toString());
@@ -98,7 +100,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
             chkNo.setSelected(true);
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -107,7 +109,6 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btNuevaTutoria = new javax.swing.JButton();
         btGenerarInforme = new javax.swing.JButton();
-
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstTutorias = new javax.swing.JList<>();
@@ -140,11 +141,6 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         btNuevaTutoria.setForeground(new java.awt.Color(0, 0, 0));
         btNuevaTutoria.setText("Nueva Tutoria");
         btNuevaTutoria.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btNuevaTutoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btNuevaTutoriaActionPerformed(evt);
-            }
-        });
 
         btGenerarInforme.setBackground(new java.awt.Color(242, 242, 242));
         btGenerarInforme.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
@@ -364,13 +360,15 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 746, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 746, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 35, Short.MAX_VALUE))
         );
 
         pack();
@@ -402,13 +400,13 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
 
 
     private void lstTutoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTutoriasMouseClicked
-         if (lstTutorias.getSelectedValue() != null) {
+        if (lstTutorias.getSelectedValue() != null) {
             Object t = lstTutorias.getSelectedValue();
-             TutoriaMatricula tutoria = (TutoriaMatricula) t;
+            TutoriaMatricula tutoria = (TutoriaMatricula) t;
             try {
                 cargarVista(tutoria);
             } catch (EmptyException ex) {
-                
+
             }
         }
     }//GEN-LAST:event_lstTutoriasMouseClicked
@@ -417,7 +415,15 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btNuevaTutoriaActionPerformed
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws UnsupportedLookAndFeelException {
+
+        try {
+            UIManager.setLookAndFeel("com.jgoodies.looks.windows.WindowsLookAndFeel");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FrmTutoriasPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            // Aquí puedes agregar código adicional para manejar la excepción de manera adecuada, si es necesario.
+        }
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FrmTutoriasPrincipal().setVisible(true);
