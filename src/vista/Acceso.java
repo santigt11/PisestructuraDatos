@@ -148,7 +148,7 @@ public class Acceso extends javax.swing.JFrame {
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, -1, -1));
 
         jCheckBox1.setBackground(new java.awt.Color(255, 250, 205));
-        jCheckBox1.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
+        jCheckBox1.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
         jCheckBox1.setForeground(new java.awt.Color(23, 61, 40));
         jCheckBox1.setText("Recuérdame");
         jPanel2.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 344, -1, -1));
@@ -173,7 +173,7 @@ public class Acceso extends javax.swing.JFrame {
 
         jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator2.setForeground(new java.awt.Color(51, 51, 0));
-        jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 326, 310, 12));
+        jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 326, 320, 12));
 
         jLabel6.setFont(new java.awt.Font("Franklin Gothic Book", 0, 18)); // NOI18N
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/candado-removebg-preview(1)(1).png"))); // NOI18N
@@ -191,7 +191,7 @@ public class Acceso extends javax.swing.JFrame {
                 btnInicioActionPerformed(evt);
             }
         });
-        jPanel2.add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 370, 210, 40));
+        jPanel2.add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, 190, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
