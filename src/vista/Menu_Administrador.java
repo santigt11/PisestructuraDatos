@@ -478,22 +478,14 @@ public class Menu_Administrador extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_AdminPeriodoActionPerformed
 
-<<<<<<< HEAD
-    Panel2.setLayout(new BorderLayout());
-    Panel2.removeAll();  // Elimina cualquier componente existente en Panel2
-    Panel2.add(frmGenerarInforme.getContentPane(), BorderLayout.CENTER);
-    Panel2.revalidate();
-    Panel2.repaint();
-    }//GEN-LAST:event_btnPeriodoAcademicosActionPerformed
-
     private void BtnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMatriculaActionPerformed
    
     }//GEN-LAST:event_BtnMatriculaActionPerformed
-=======
+
     private void AdminMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminMatriculaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_AdminMatriculaActionPerformed
->>>>>>> Estefania-Torres
+
 
     private void AdminEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminEstudianteActionPerformed
         // TODO add your handling code here:
