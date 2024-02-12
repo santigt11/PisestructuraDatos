@@ -4,9 +4,10 @@
  */
 package vista;
 
-import controlador.Academico.UsuarioArchivos;
 import controlador.Admin.PersonaArchivos;
 import controlador.TDA.listas.Exception.EmptyException;
+import controlador.login.UsuarioArchivos;
+import javax.swing.JOptionPane;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -24,8 +25,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
+
 import modelo.Persona;
-import modelo.Rol;
 import static modelo.Rol.ADMINISTRADOR;
 import modelo.Usuario;
 

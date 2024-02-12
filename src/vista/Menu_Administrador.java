@@ -478,9 +478,14 @@ public class Menu_Administrador extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_AdminPeriodoActionPerformed
 
+    private void BtnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMatriculaActionPerformed
+   
+    }//GEN-LAST:event_BtnMatriculaActionPerformed
+
     private void AdminMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminMatriculaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_AdminMatriculaActionPerformed
+
 
     private void AdminEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminEstudianteActionPerformed
         // TODO add your handling code here:

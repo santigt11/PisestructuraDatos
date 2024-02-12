@@ -4,8 +4,14 @@ import controlador.DAO.Conexion;
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.dao.AdaptadorDao;
+import java.beans.Statement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import modelo.Persona;
 import modelo.Rol;
@@ -51,12 +57,36 @@ public class PersonaArchivos extends AdaptadorDao<Persona> {
     }
 
     @Override
-    public Integer persist(Persona obj) throws Exception {
+    public Boolean persist(Persona obj){
         obj.setId(all().getLength() + 1);
-        DynamicList<Persona> personas = all();
-        obj.setId(personas.getLength() + 1);
         return super.persist(obj);
     }
+    
+//    @Override
+//    public Integer persist(Persona obj) throws Exception {
+//        PreparedStatement consulta = null;
+//        try {
+//            consulta = conexion.getConnection().prepareStatement("INSERT INTO persona (ID, DNI, NOMBRE, APELLIDO, FECHANACIMIENTO, TELEFONO, ROL) VALUES (?, ?, ?, ?, TO_DATE(?, 'yyyy-MM-dd'), ?, ?)");
+//            consulta.setInt(1, all().getLength() + 1);
+//            consulta.setString(2, obj.getDni());
+//            consulta.setString(3, obj.getNombre());
+//            consulta.setString(4, obj.getApellido());
+//            consulta.setString(5, obj.getFechaNacimiento().toString());
+//            consulta.setString(6, obj.getTelefono());
+//            if (obj.getRol().equals(Rol.ESTUDIANTE)) {
+//                    consulta.setString(7, Rol.ESTUDIANTE.toString());
+//                }else if (obj.getRol().equals(Rol.DOCENTE)){
+//                    consulta.setString(7, Rol.DOCENTE.toString());
+//                }else{
+//                    consulta.setString(7, Rol.ADMINISTRADOR.toString());
+//                }
+//            consulta.executeUpdate();
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+//        
+//        return 1;
+//    }
 
     public DynamicList<Persona> buscarLineal(DynamicList<Persona> lista, String campo, String valorBuscado) throws EmptyException {
         Persona personas[] = lista.toArray();
@@ -69,7 +99,40 @@ public class PersonaArchivos extends AdaptadorDao<Persona> {
         }
         return listaBusqueda;
     }
-
+    
+    
+//    @Override
+//    public DynamicList<Persona> all() {
+//        DynamicList<Persona> lista = new DynamicList<>();
+//        try {
+//            java.sql.Statement stmt = conexion.getConnection().createStatement();
+//            String query = "SELECT * FROM PERSONA";
+//            ResultSet rs = stmt.executeQuery(query);
+//            while (rs.next()) {
+//                Persona persona = new Persona();
+//                persona.setId(rs.getInt(1));
+//                persona.setDni(rs.getString(2));
+//                persona.setNombre(rs.getString(3));
+//                persona.setApellido(rs.getString(4));
+//                LocalDate localDate = rs.getDate(5).toLocalDate();
+//                persona.setFechaNacimiento(localDate);
+//                persona.setTelefono(rs.getString(6));
+//                if (rs.getString(7).equalsIgnoreCase("estudiante")) {
+//                    persona.setRol(Rol.ESTUDIANTE);
+//                }else if (rs.getString(7).equalsIgnoreCase("docente")){
+//                    persona.setRol(Rol.DOCENTE);
+//                }else{
+//                    persona.setRol(Rol.ADMINISTRADOR);
+//                }
+//                lista.add(persona); 
+//            }
+//            
+//        } catch (Exception e) {
+//        }
+//        
+//        return lista;
+//    }
+    
     public Persona buscarBinaria(String campo, String valorBuscado) throws EmptyException {
         int inicio = 0;
         DynamicList<Persona> lista = all();

@@ -10,81 +10,39 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
     private void initComponents() {
 
         bg = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        btGenerar = new javax.swing.JButton();
-        cbxAsignatura = new javax.swing.JComboBox<>();
-        cbxHorario = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstTutorias = new javax.swing.JList<>();
         jLabel6 = new javax.swing.JLabel();
         txtTotalHoras = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
+        btGenerar = new javax.swing.JButton();
+        cbxHorario = new javax.swing.JComboBox<>();
+        cbxAsignatura = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
         setResizable(false);
 
-        bg.setBackground(new java.awt.Color(255, 255, 255));
+        bg.setBackground(new java.awt.Color(255, 250, 205));
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(88, 156, 20));
-
-        btGenerar.setBackground(new java.awt.Color(242, 242, 242));
-        btGenerar.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
-        btGenerar.setText("Generar");
-        btGenerar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btGenerar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btGenerarActionPerformed(evt);
-            }
-        });
-
-        cbxAsignatura.setBackground(new java.awt.Color(242, 242, 242));
-        cbxAsignatura.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        cbxAsignatura.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estructura de Datos" }));
-        cbxAsignatura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        cbxHorario.setBackground(new java.awt.Color(242, 242, 242));
-        cbxHorario.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        cbxHorario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3 AM - 5 PM" }));
-        cbxHorario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(cbxAsignatura, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(110, 110, 110)
-                .addComponent(cbxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addComponent(btGenerar)
-                .addGap(14, 14, 14))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btGenerar)
-                    .addComponent(cbxAsignatura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-
-        bg.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 50));
-
-        jLabel1.setFont(new java.awt.Font("Roboto Medium", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Franklin Gothic Book", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(58, 39, 34));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("INFORME");
-        bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 520, -1));
+        jLabel1.setText("INFORME ESTUDIANTE ");
+        bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 260, -1));
 
         jScrollPane1.setBorder(null);
 
-        lstTutorias.setBackground(new java.awt.Color(242, 242, 242));
-        lstTutorias.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        lstTutorias.setBackground(new java.awt.Color(102, 51, 0));
+        lstTutorias.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lstTutorias.setFont(new java.awt.Font("Franklin Gothic Book", 1, 15)); // NOI18N
+        lstTutorias.setForeground(new java.awt.Color(255, 255, 255));
         lstTutorias.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Avance Pis", "Revision de la Proporcion Poblacional", "Distribucion de la Media Muestral" };
             public int getSize() { return strings.length; }
@@ -92,14 +50,16 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(lstTutorias);
 
-        bg.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 300, 280));
+        bg.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 440, 330));
 
-        jLabel6.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Franklin Gothic Book", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel6.setText("Total de Horas:");
-        bg.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 380, -1, 20));
+        jLabel6.setText("Hora Tutoria");
+        bg.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, -1, 20));
 
-        txtTotalHoras.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        txtTotalHoras.setBackground(new java.awt.Color(212, 173, 107));
+        txtTotalHoras.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
+        txtTotalHoras.setForeground(new java.awt.Color(0, 0, 0));
         txtTotalHoras.setText("1180");
         txtTotalHoras.setBorder(null);
         txtTotalHoras.addActionListener(new java.awt.event.ActionListener() {
@@ -107,25 +67,68 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
                 txtTotalHorasActionPerformed(evt);
             }
         });
-        bg.add(txtTotalHoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 380, 30, 20));
+        bg.add(txtTotalHoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 470, 50, 20));
 
-        jSeparator1.setBackground(new java.awt.Color(102, 102, 102));
-        jSeparator1.setForeground(new java.awt.Color(102, 102, 102));
-        bg.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, 40, 10));
+        jSeparator1.setBackground(new java.awt.Color(58, 39, 34));
+        jSeparator1.setForeground(new java.awt.Color(58, 39, 34));
+        bg.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 490, 80, 10));
+
+        btGenerar.setBackground(new java.awt.Color(212, 173, 107));
+        btGenerar.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
+        btGenerar.setForeground(new java.awt.Color(102, 51, 0));
+        btGenerar.setText("Generar");
+        btGenerar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btGenerar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGenerarActionPerformed(evt);
+            }
+        });
+        bg.add(btGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(645, 460, 90, 30));
+
+        cbxHorario.setBackground(new java.awt.Color(212, 173, 107));
+        cbxHorario.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
+        cbxHorario.setForeground(new java.awt.Color(58, 39, 34));
+        cbxHorario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3 AM - 5 PM" }));
+        cbxHorario.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(255, 255, 204), null, null));
+        cbxHorario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bg.add(cbxHorario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 180, 30));
+
+        cbxAsignatura.setBackground(new java.awt.Color(212, 173, 107));
+        cbxAsignatura.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
+        cbxAsignatura.setForeground(new java.awt.Color(58, 39, 34));
+        cbxAsignatura.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estructura de Datos" }));
+        cbxAsignatura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bg.add(cbxAsignatura, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 180, 30));
+
+        jLabel7.setFont(new java.awt.Font("Franklin Gothic Book", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel7.setText("Total de Horas:");
+        bg.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, -1, 20));
+
+        jLabel8.setFont(new java.awt.Font("Franklin Gothic Book", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel8.setText("Total de Horas:");
+        bg.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, -1, 20));
+
+        jLabel9.setFont(new java.awt.Font("Franklin Gothic Book", 1, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel9.setText("Total de Horas:");
+        bg.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, -1, 20));
+
+        jLabel10.setFont(new java.awt.Font("Franklin Gothic Book", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel10.setText("Asignatura");
+        bg.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -151,8 +154,11 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbxAsignatura;
     private javax.swing.JComboBox<String> cbxHorario;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JList<String> lstTutorias;

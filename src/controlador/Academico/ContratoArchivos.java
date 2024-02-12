@@ -39,7 +39,7 @@ public class ContratoArchivos extends AdaptadorDao<Contrato> {
     }
 
     @Override
-    public Integer persist(Contrato obj) throws Exception {
+    public Boolean persist(Contrato obj){
         obj.setId(all().getLength() + 1);
         return super.persist(obj);
     }

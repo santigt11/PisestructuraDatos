@@ -40,7 +40,7 @@ public class MatriculaAsignaturaArchivos extends AdaptadorDao<MatriculaAsignatur
     }
 
     @Override
-    public Integer persist(MatriculaAsignatura obj) throws Exception {
+    public Boolean persist(MatriculaAsignatura obj){
         obj.setId(all().getLength() + 1);
         return super.persist(obj);
     }

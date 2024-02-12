@@ -45,7 +45,7 @@ public class HorarioArchivos extends AdaptadorDao<Horario> {
     }
 
     @Override
-    public Integer persist(Horario obj) throws Exception {
+    public Boolean persist(Horario obj){
         obj.setId(all().getLength() + 1);
         return super.persist(obj);
     }
