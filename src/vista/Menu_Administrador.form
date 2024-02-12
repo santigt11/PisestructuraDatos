@@ -25,7 +25,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-78,0,0,4,-4"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-86,0,0,5,39"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
@@ -83,185 +83,62 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="270" y="50" width="1010" height="640"/>
+          <AbsoluteConstraints x="280" y="80" width="1020" height="570"/>
         </Constraint>
       </Constraints>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnAdministrarAsignaturas" min="-2" pref="70" max="-2" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Component id="BtnMatricula" min="-2" pref="70" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                          <Component id="buttonIcon1" min="-2" pref="72" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="btnEstudiantes" min="-2" pref="70" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
-                          <Component id="btnPeriodoAcademicos" min="-2" pref="70" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnDocentes" min="-2" pref="70" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace pref="666" max="32767" attributes="0"/>
-              </Group>
+              <EmptySpace min="0" pref="1020" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="buttonIcon1" alignment="3" min="-2" pref="64" max="-2" attributes="0"/>
-                      <Component id="BtnMatricula" alignment="3" min="-2" pref="60" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="btnDocentes" min="-2" pref="60" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
-                          <Component id="btnPeriodoAcademicos" min="-2" pref="60" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-                          <Component id="btnEstudiantes" min="-2" pref="60" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                  <Component id="btnAdministrarAsignaturas" min="-2" pref="60" max="-2" attributes="0"/>
-                  <EmptySpace pref="241" max="32767" attributes="0"/>
-              </Group>
+              <EmptySpace min="0" pref="570" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
-      <SubComponents>
-        <Component class="org.edisoncor.gui.button.ButtonIcon" name="buttonIcon1">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="23" green="66" red="73" type="rgb"/>
-            </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/icons8-configuraci&#xf3;n-del-administrador.gif"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="buttonIcon1"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonIcon1ActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="org.edisoncor.gui.button.ButtonTransluceIcon" name="btnDocentes">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="cd" green="fa" red="ff" type="rgb"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="cc" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/45109776-suscriptores-seguidores-usuarios-icono-vector-tambi&#xe9;n-image-can-utilizarse-para-admin-salpicadero_3_-removebg-preview.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="buttonTransluceIcon1"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDocentesActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="org.edisoncor.gui.button.ButtonTransluceIcon" name="btnPeriodoAcademicos">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="bc" green="de" red="cb" type="rgb"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="cc" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/images_1_-removebg-preview.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="buttonTransluceIcon1"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPeriodoAcademicosActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="org.edisoncor.gui.button.ButtonTransluceIcon" name="BtnMatricula">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="bc" green="de" red="cb" type="rgb"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="cc" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/circulo-con-una-persona-y-una-marca-de-verificacion-verde-2k2fm87-removebg-preview.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="buttonTransluceIcon1"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnMatriculaActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="org.edisoncor.gui.button.ButtonTransluceIcon" name="btnEstudiantes">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="bc" green="de" red="cb" type="rgb"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="cc" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/icons8-invitado-masculino.gif"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="buttonTransluceIcon1"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEstudiantesActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="org.edisoncor.gui.button.ButtonTransluceIcon" name="btnAdministrarAsignaturas">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="bc" green="de" red="cb" type="rgb"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="cc" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/pngtree-flat-green-laptop-icon-with-computer-screen-answer-fill-form-vector-png-image_12719274.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="buttonTransluceIcon1"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdministrarAsignaturasActionPerformed"/>
-          </Events>
-        </Component>
-      </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel3">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="33" red="33" type="rgb"/>
+          <Color blue="0" green="33" red="66" type="rgb"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="0" y="0" width="280" height="690"/>
+          <AbsoluteConstraints x="10" y="20" width="260" height="630"/>
         </Constraint>
       </Constraints>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
+              </Group>
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                          <Component id="jLabel21" min="-2" pref="157" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                                      <Component id="jSeparator3" min="-2" pref="209" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                               <Group type="102" attributes="0">
                                   <Component id="buttonIcon2" min="-2" pref="72" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -279,124 +156,112 @@
                                   </Group>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="buttonIcon4" min="-2" pref="72" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
                                   <Component id="buttonIcon6" min="-2" pref="72" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel7" min="-2" pref="147" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                              <Component id="jSeparator1" alignment="0" min="-2" pref="218" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="buttonIcon3" min="-2" pref="72" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                  <Component id="jLabel11" min="-2" pref="53" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabel12" min="-2" pref="110" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="buttonIcon3" min="-2" pref="72" max="-2" attributes="0"/>
+                                      <Component id="buttonIcon4" min="-2" pref="72" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jSeparator1" min="-2" pref="260" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jSeparator2" min="-2" pref="260" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                          <Component id="panelRound1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jLabel11" min="-2" pref="88" max="-2" attributes="0"/>
-                      </Group>
                   </Group>
-                  <EmptySpace pref="14" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                  <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="panelRound1" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                          <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="82" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="jLabel12" min="-2" pref="54" max="-2" attributes="0"/>
+                      <Component id="jLabel11" alignment="1" min="-2" pref="54" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <Component id="jLabel21" min="-2" pref="24" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jSeparator3" min="-2" pref="1" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                  <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="buttonIcon3" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonIcon3" alignment="1" min="-2" pref="68" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                          <Component id="buttonIcon4" min="-2" pref="61" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="buttonIcon5" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonIcon4" min="-2" pref="62" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="buttonIcon5" min="-2" pref="65" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="buttonIcon6" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          <Component id="buttonIcon6" min="-2" pref="62" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="buttonIcon2" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="buttonIcon2" min="-2" pref="61" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -408,7 +273,7 @@
               <Color blue="cd" green="fa" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/Image1-removebg-preview.png"/>
+              <Image iconType="3" name="/imagenes/5526535.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="buttonIcon2"/>
           </Properties>
@@ -422,7 +287,7 @@
               <Color blue="cd" green="fa" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/Image1-removebg-preview.png"/>
+              <Image iconType="3" name="/imagenes/docente.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="buttonIcon2"/>
           </Properties>
@@ -433,7 +298,7 @@
               <Color blue="cd" green="fa" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/communities-line-green-and-black-icon-vector-removebg-preview.png"/>
+              <Image iconType="3" name="/imagenes/estudiantes.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="buttonIcon2"/>
           </Properties>
@@ -447,7 +312,7 @@
               <Color blue="cd" green="fa" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/circulo-con-una-persona-y-una-marca-de-verificacion-verde-2k2fm87-removebg-preview.png"/>
+              <Image iconType="3" name="/imagenes/matricula.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="buttonIcon2"/>
           </Properties>
@@ -461,7 +326,7 @@
               <Color blue="cd" green="fa" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/Image1-removebg-preview.png"/>
+              <Image iconType="3" name="/imagenes/periodo.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="buttonIcon2"/>
           </Properties>
@@ -474,6 +339,9 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Franklin Gothic Book" size="14" style="1"/>
             </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cd" green="fa" red="ff" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="ADMINISTRAR "/>
           </Properties>
         </Component>
@@ -481,6 +349,9 @@
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Franklin Gothic Book" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cd" green="fa" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="DOCENTES"/>
           </Properties>
@@ -490,6 +361,9 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Franklin Gothic Book" size="14" style="1"/>
             </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cd" green="fa" red="ff" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="ADMINISTRAR "/>
           </Properties>
         </Component>
@@ -497,6 +371,9 @@
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Franklin Gothic Book" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cd" green="fa" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="MATRICULAS"/>
           </Properties>
@@ -506,6 +383,9 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Franklin Gothic Book" size="14" style="1"/>
             </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cd" green="fa" red="ff" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="ADMINISTRAR "/>
           </Properties>
         </Component>
@@ -513,6 +393,9 @@
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Franklin Gothic Book" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cd" green="fa" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="ESTUDIANTES"/>
           </Properties>
@@ -522,6 +405,9 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Franklin Gothic Book" size="14" style="1"/>
             </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cd" green="fa" red="ff" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="PERIODO ACADEMICO"/>
           </Properties>
         </Component>
@@ -529,6 +415,9 @@
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Franklin Gothic Book" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cd" green="fa" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="ADMINISTRAR "/>
           </Properties>
@@ -538,6 +427,9 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Franklin Gothic Book" size="14" style="1"/>
             </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cd" green="fa" red="ff" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="ADMINISTRAR "/>
           </Properties>
         </Component>
@@ -546,7 +438,10 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Franklin Gothic Book" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="ADMINISTRAR "/>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cd" green="fa" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="ASIGNATURAS "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator1">
@@ -554,6 +449,64 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel12">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cd" green="fa" red="ff" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI Historic" size="24" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cd" green="fa" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="SEAES"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel11">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagenes/image(4)(1).png"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel21">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="1e" green="1e" red="2f" type="rgb"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                <BevelBorder/>
+              </Border>
+            </Property>
+          </Properties>
+        </Component>
+        <Container class="javax.swing.JPanel" name="jPanel5">
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace min="0" pref="72" max="32767" attributes="0"/>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace min="0" pref="69" max="32767" attributes="0"/>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+        </Container>
+        <Component class="javax.swing.JSeparator" name="jSeparator3">
+          <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
@@ -569,63 +522,117 @@
             </Property>
           </Properties>
         </Component>
-        <Container class="org.edisoncor.gui.panel.PanelRound" name="panelRound1">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="cd" green="fa" red="ff" type="rgb"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="cd" green="fa" red="ff" type="rgb"/>
-            </Property>
-            <Property name="colorPrimario" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="cd" green="fa" red="ff" type="rgb"/>
-            </Property>
-          </Properties>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="99" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-        </Container>
-        <Component class="javax.swing.JLabel" name="jLabel11">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel11"/>
-          </Properties>
-        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel4">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="33" red="33" type="rgb"/>
+          <Color blue="22" green="27" red="3a" type="rgb"/>
         </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="270" y="0" width="1010" height="50"/>
+          <AbsoluteConstraints x="280" y="20" width="1020" height="60"/>
         </Constraint>
       </Constraints>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="1010" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel20" min="-2" pref="92" max="-2" attributes="0"/>
+                  <EmptySpace pref="547" max="32767" attributes="0"/>
+                  <Component id="jComboBox1" min="-2" pref="113" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                  <Component id="jLabel19" min="-2" pref="89" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="50" max="32767" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel19" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel18" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="7" max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="jLabel19">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Franklin Gothic Book" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagenes/USU-removebg-preview(1).png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="USUARIO"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
+            <Property name="verticalAlignment" type="int" value="3"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel20">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Franklin Gothic Book" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagenes/casa.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="HOME"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel18">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Franklin Gothic Book" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="NOTIFICACION"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jComboBox1">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="66" red="99" type="rgb"/>
+            </Property>
+            <Property name="editable" type="boolean" value="true"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Franklin Gothic Book" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="2">
+                <StringItem index="0" value="Espa&#xf1;ol"/>
+                <StringItem index="1" value="English"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+      </SubComponents>
     </Container>
   </SubComponents>
 </Form>

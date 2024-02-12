@@ -46,7 +46,7 @@ public class Acceso extends javax.swing.JFrame {
         //this.getContentPane().setBackground(new Color(255,255,255));
        mostarGif();
     }
-    private void mostarGif() {
+    void mostarGif() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1122, 670);
 
@@ -183,7 +183,7 @@ public class Acceso extends javax.swing.JFrame {
         jLabel7.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 60, 60));
 
-        btnInicio.setBackground(new java.awt.Color(115, 102, 35));
+        btnInicio.setBackground(new java.awt.Color(102, 51, 0));
         btnInicio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnInicio.setText("Iniciar Sesion");
         btnInicio.addActionListener(new java.awt.event.ActionListener() {
