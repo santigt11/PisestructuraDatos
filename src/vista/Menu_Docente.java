@@ -39,10 +39,10 @@ public class Menu_Docente extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel3 = new javax.swing.JPanel();
-        buttonIcon3 = new org.edisoncor.gui.button.ButtonIcon();
-        buttonIcon4 = new org.edisoncor.gui.button.ButtonIcon();
-        buttonIcon5 = new org.edisoncor.gui.button.ButtonIcon();
-        buttonIcon6 = new org.edisoncor.gui.button.ButtonIcon();
+        TutoriasAgendadas = new org.edisoncor.gui.button.ButtonIcon();
+        HorarioDocente = new org.edisoncor.gui.button.ButtonIcon();
+        GenerarNuevaTuto = new org.edisoncor.gui.button.ButtonIcon();
+        GenerarInformes = new org.edisoncor.gui.button.ButtonIcon();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -67,34 +67,34 @@ public class Menu_Docente extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(102, 51, 0));
 
-        buttonIcon3.setBackground(new java.awt.Color(255, 250, 205));
-        buttonIcon3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/docente.png"))); // NOI18N
-        buttonIcon3.setText("buttonIcon2");
+        TutoriasAgendadas.setBackground(new java.awt.Color(255, 250, 205));
+        TutoriasAgendadas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/docente.png"))); // NOI18N
+        TutoriasAgendadas.setText("buttonIcon2");
 
-        buttonIcon4.setBackground(new java.awt.Color(255, 250, 205));
-        buttonIcon4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/estudiantes.png"))); // NOI18N
-        buttonIcon4.setText("buttonIcon2");
-        buttonIcon4.addActionListener(new java.awt.event.ActionListener() {
+        HorarioDocente.setBackground(new java.awt.Color(255, 250, 205));
+        HorarioDocente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/estudiantes.png"))); // NOI18N
+        HorarioDocente.setText("buttonIcon2");
+        HorarioDocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonIcon4ActionPerformed(evt);
+                HorarioDocenteActionPerformed(evt);
             }
         });
 
-        buttonIcon5.setBackground(new java.awt.Color(255, 250, 205));
-        buttonIcon5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/matricula.png"))); // NOI18N
-        buttonIcon5.setText("buttonIcon2");
-        buttonIcon5.addActionListener(new java.awt.event.ActionListener() {
+        GenerarNuevaTuto.setBackground(new java.awt.Color(255, 250, 205));
+        GenerarNuevaTuto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/matricula.png"))); // NOI18N
+        GenerarNuevaTuto.setText("buttonIcon2");
+        GenerarNuevaTuto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonIcon5ActionPerformed(evt);
+                GenerarNuevaTutoActionPerformed(evt);
             }
         });
 
-        buttonIcon6.setBackground(new java.awt.Color(255, 250, 205));
-        buttonIcon6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/periodo.png"))); // NOI18N
-        buttonIcon6.setText("buttonIcon2");
-        buttonIcon6.addActionListener(new java.awt.event.ActionListener() {
+        GenerarInformes.setBackground(new java.awt.Color(255, 250, 205));
+        GenerarInformes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/periodo.png"))); // NOI18N
+        GenerarInformes.setText("buttonIcon2");
+        GenerarInformes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonIcon6ActionPerformed(evt);
+                GenerarInformesActionPerformed(evt);
             }
         });
 
@@ -162,7 +162,7 @@ public class Menu_Docente extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(buttonIcon5, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(GenerarNuevaTuto, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -171,8 +171,8 @@ public class Menu_Docente extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(buttonIcon3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonIcon4, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TutoriasAgendadas, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(HorarioDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -183,7 +183,7 @@ public class Menu_Docente extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel6))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(buttonIcon6, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(GenerarInformes, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
@@ -224,7 +224,7 @@ public class Menu_Docente extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addGap(12, 12, 12))
-                    .addComponent(buttonIcon3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TutoriasAgendadas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -235,9 +235,9 @@ public class Menu_Docente extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addGap(19, 19, 19))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(buttonIcon4, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(HorarioDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(46, 46, 46)
-                        .addComponent(buttonIcon5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(GenerarNuevaTuto, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -247,7 +247,7 @@ public class Menu_Docente extends javax.swing.JFrame {
                         .addComponent(jLabel7))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(44, 44, 44)
-                        .addComponent(buttonIcon6, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(GenerarInformes, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(49, 49, 49))
         );
 
@@ -344,17 +344,17 @@ public class Menu_Docente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonIcon4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIcon4ActionPerformed
+    private void HorarioDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HorarioDocenteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_buttonIcon4ActionPerformed
+    }//GEN-LAST:event_HorarioDocenteActionPerformed
 
-    private void buttonIcon5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIcon5ActionPerformed
+    private void GenerarNuevaTutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarNuevaTutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_buttonIcon5ActionPerformed
+    }//GEN-LAST:event_GenerarNuevaTutoActionPerformed
 
-    private void buttonIcon6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIcon6ActionPerformed
+    private void GenerarInformesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarInformesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_buttonIcon6ActionPerformed
+    }//GEN-LAST:event_GenerarInformesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -392,10 +392,10 @@ public class Menu_Docente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private org.edisoncor.gui.button.ButtonIcon buttonIcon3;
-    private org.edisoncor.gui.button.ButtonIcon buttonIcon4;
-    private org.edisoncor.gui.button.ButtonIcon buttonIcon5;
-    private org.edisoncor.gui.button.ButtonIcon buttonIcon6;
+    private org.edisoncor.gui.button.ButtonIcon GenerarInformes;
+    private org.edisoncor.gui.button.ButtonIcon GenerarNuevaTuto;
+    private org.edisoncor.gui.button.ButtonIcon HorarioDocente;
+    private org.edisoncor.gui.button.ButtonIcon TutoriasAgendadas;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;

@@ -158,6 +158,11 @@ public class Acceso extends javax.swing.JFrame {
         btnRecuperarClave.setForeground(new java.awt.Color(51, 51, 51));
         btnRecuperarClave.setText("Recuperar Contraseña");
         btnRecuperarClave.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnRecuperarClave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecuperarClaveActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnRecuperarClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 420, 160, 20));
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 51, -1, 133));
 
@@ -287,6 +292,11 @@ public class Acceso extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Rellene todos los campos");
         }
     }//GEN-LAST:event_btnInicioActionPerformed
+
+    private void btnRecuperarClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecuperarClaveActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnRecuperarClaveActionPerformed
 
     /**
      * @param args the command line arguments
