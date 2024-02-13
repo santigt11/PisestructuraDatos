@@ -67,8 +67,8 @@
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="GenerarNuevaTuto" min="-2" pref="72" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="GenerarNuevaTuto" min="-2" pref="78" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel3" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
@@ -79,26 +79,26 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="TutoriasAgendadas" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
-                              <Component id="HorarioDocente" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
+                              <Component id="HorarioDocente" pref="0" max="32767" attributes="0"/>
+                              <Component id="TutoriasAgendadas" pref="80" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
+                              <Group type="102" attributes="0">
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel6" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="GenerarInformes" min="-2" pref="72" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="GenerarInformes" min="-2" pref="78" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel7" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
@@ -150,9 +150,9 @@
                       </Group>
                       <Component id="TutoriasAgendadas" alignment="1" min="-2" pref="68" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
@@ -161,8 +161,9 @@
                           <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="HorarioDocente" min="-2" pref="62" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="HorarioDocente" min="-2" pref="61" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="GenerarNuevaTuto" min="-2" pref="65" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       </Group>
@@ -191,7 +192,7 @@
               <Color blue="cd" green="fa" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/docente.png"/>
+              <Image iconType="3" name="/imagenes/5116083.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="buttonIcon2"/>
           </Properties>
@@ -202,7 +203,7 @@
               <Color blue="cd" green="fa" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/estudiantes.png"/>
+              <Image iconType="3" name="/imagenes/images-removebg-preview(1).png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="buttonIcon2"/>
           </Properties>
@@ -216,7 +217,7 @@
               <Color blue="cd" green="fa" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/matricula.png"/>
+              <Image iconType="3" name="/imagenes/Screenshot_2024-02-13_171755-removebg-preview(1).png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="buttonIcon2"/>
           </Properties>
@@ -230,7 +231,7 @@
               <Color blue="cd" green="fa" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/periodo.png"/>
+              <Image iconType="3" name="/imagenes/Screenshot_2024-02-13_172007-removebg-preview(1).png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="buttonIcon2"/>
           </Properties>
