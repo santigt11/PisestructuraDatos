@@ -301,9 +301,9 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 250, 205));
 
-        btnGuardar.setBackground(new java.awt.Color(58, 39, 34));
+        btnGuardar.setBackground(new java.awt.Color(212, 173, 107));
         btnGuardar.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardar.setForeground(new java.awt.Color(58, 39, 34));
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -311,9 +311,9 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(58, 39, 34));
+        jButton2.setBackground(new java.awt.Color(212, 173, 107));
         jButton2.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setForeground(new java.awt.Color(58, 39, 34));
         jButton2.setText("Limpiar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -321,9 +321,9 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
             }
         });
 
-        btnSeleccionar.setBackground(new java.awt.Color(58, 39, 34));
+        btnSeleccionar.setBackground(new java.awt.Color(212, 173, 107));
         btnSeleccionar.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        btnSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
+        btnSeleccionar.setForeground(new java.awt.Color(58, 39, 34));
         btnSeleccionar.setText("Selecionar");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -331,9 +331,9 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
             }
         });
 
-        btnModificar.setBackground(new java.awt.Color(58, 39, 34));
+        btnModificar.setBackground(new java.awt.Color(212, 173, 107));
         btnModificar.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        btnModificar.setForeground(new java.awt.Color(255, 255, 255));
+        btnModificar.setForeground(new java.awt.Color(58, 39, 34));
         btnModificar.setText("Modificar");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -341,9 +341,9 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
             }
         });
 
-        btnSalir.setBackground(new java.awt.Color(58, 39, 34));
+        btnSalir.setBackground(new java.awt.Color(212, 173, 107));
         btnSalir.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalir.setForeground(new java.awt.Color(58, 39, 34));
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -351,9 +351,9 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
             }
         });
 
-        btnCancelar.setBackground(new java.awt.Color(58, 39, 34));
+        btnCancelar.setBackground(new java.awt.Color(212, 173, 107));
         btnCancelar.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setForeground(new java.awt.Color(58, 39, 34));
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -372,13 +372,13 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
                 .addComponent(jButton2)
                 .addGap(44, 44, 44)
                 .addComponent(btnCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
                 .addComponent(btnSeleccionar)
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(btnModificar)
-                .addGap(27, 27, 27)
+                .addGap(42, 42, 42)
                 .addComponent(btnSalir)
-                .addGap(32, 32, 32))
+                .addGap(17, 17, 17))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
