@@ -4,6 +4,7 @@
  */
 package vista;
 
+import modelo.Persona;
 import modelo.Usuario;
 
 /**
@@ -18,9 +19,10 @@ public class Menu_Estudiante extends javax.swing.JFrame {
     //declaracion de una variable global
     Usuario user;
     // Constructor 
-    public Menu_Estudiante(Usuario usuario) {
+    public Menu_Estudiante(Usuario usuario, Persona persona) {
         initComponents();
         this.user=usuario;
+        txtUsuario.setText(persona.getNombre());
     }
     //Constructor
       public Menu_Estudiante() {
@@ -45,7 +47,7 @@ public class Menu_Estudiante extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        tctUsuario = new javax.swing.JLabel();
+        txtUsuario = new javax.swing.JLabel();
         ImageEstudiante = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         btnPerfil = new javax.swing.JLabel();
@@ -92,9 +94,9 @@ public class Menu_Estudiante extends javax.swing.JFrame {
         jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
 
-        tctUsuario.setBackground(new java.awt.Color(47, 30, 30));
-        tctUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        tctUsuario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        txtUsuario.setBackground(new java.awt.Color(47, 30, 30));
+        txtUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        txtUsuario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout ImageEstudianteLayout = new javax.swing.GroupLayout(ImageEstudiante);
         ImageEstudiante.setLayout(ImageEstudianteLayout);
@@ -140,7 +142,7 @@ public class Menu_Estudiante extends javax.swing.JFrame {
                             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(49, 49, 49)
-                        .addComponent(tctUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -155,7 +157,7 @@ public class Menu_Estudiante extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ImageEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addComponent(tctUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
@@ -319,6 +321,6 @@ public class Menu_Estudiante extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel tctUsuario;
+    private javax.swing.JLabel txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

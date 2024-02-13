@@ -11,12 +11,15 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.RenderingHints;
+import java.io.File;
+import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
+import modelo.Persona;
 import modelo.Usuario;
 import prepis.sSlide;
 
@@ -40,21 +43,23 @@ public class Menu_Administrador extends javax.swing.JFrame {
     private ImageIcon imagen;
 
     // constructor con parámetros
-    public Menu_Administrador(Usuario usuario) {
+    public Menu_Administrador(Usuario usuario,Persona persona) {
         initComponents();
         
         this.user = usuario;
         inicializarPaneles();
-        
-        
+        txtUsuario.setText(persona.getNombre());
+     
+ 
+    }
+    public Menu_Administrador() {
+         initComponents();
+        mostrarGif();
+        ImageIcon icono = new ImageIcon(getClass().getResource("/imagenes/matricula.png"));
+        FotoAdmin.setIcon(icono);
+       
   }
-    
-     public Menu_Administrador() {
-        initComponents();
-        mostarGif();
-        
-  }
-        private void mostarGif() {
+        private void mostrarGif() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1122, 670);
 
@@ -142,10 +147,10 @@ public class Menu_Administrador extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel12 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
+        txtUsuario = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        FotoAdmin = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -277,39 +282,30 @@ public class Menu_Administrador extends javax.swing.JFrame {
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/image(4)(1).png"))); // NOI18N
 
-        jLabel21.setBackground(new java.awt.Color(47, 30, 30));
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 72, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 69, Short.MAX_VALUE)
-        );
+        txtUsuario.setBackground(new java.awt.Color(47, 30, 30));
+        txtUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        txtUsuario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        txtUsuario.setEnabled(false);
 
         jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
 
         jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
 
+        FotoAdmin.setBackground(new java.awt.Color(255, 255, 255));
+        FotoAdmin.setForeground(new java.awt.Color(255, 255, 255));
+        FotoAdmin.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        FotoAdmin.setEnabled(false);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(95, 95, 95))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(49, 49, 49)
-                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -351,7 +347,10 @@ public class Menu_Administrador extends javax.swing.JFrame {
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel5)
-                                    .addComponent(jLabel6))))))
+                                    .addComponent(jLabel6)))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(FotoAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -364,9 +363,9 @@ public class Menu_Administrador extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(FotoAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
@@ -515,7 +514,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
 
             }
         });
-        SwingUtilities.invokeLater(() -> new Menu_Administrador().mostarGif());
+        SwingUtilities.invokeLater(() -> new Menu_Administrador().mostrarGif());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -523,6 +522,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
     private org.edisoncor.gui.button.ButtonIcon AdminEstudiante;
     private org.edisoncor.gui.button.ButtonIcon AdminMatricula;
     private org.edisoncor.gui.button.ButtonIcon AdminPeriodo;
+    private javax.swing.JLabel FotoAdmin;
     private org.edisoncor.gui.button.ButtonIcon buttonIcon2;
     private com.jgoodies.animation.components.CircleComponent circleComponent1;
     private javax.swing.JButton jButton1;
@@ -535,7 +535,6 @@ public class Menu_Administrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -548,10 +547,10 @@ public class Menu_Administrador extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JLabel txtUsuario;
     // End of variables declaration//GEN-END:variables
 
    

@@ -102,7 +102,7 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                          <Component id="tctUsuario" min="-2" pref="157" max="-2" attributes="0"/>
+                          <Component id="txtUsuario" min="-2" pref="157" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="21" max="32767" attributes="0"/>
@@ -122,7 +122,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="ImageEstudiante" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                  <Component id="tctUsuario" min="-2" pref="26" max="-2" attributes="0"/>
+                  <Component id="txtUsuario" min="-2" pref="26" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jSeparator2" min="-2" pref="3" max="-2" attributes="0"/>
                   <EmptySpace pref="70" max="32767" attributes="0"/>
@@ -229,7 +229,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="tctUsuario">
+        <Component class="javax.swing.JLabel" name="txtUsuario">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="1e" green="1e" red="2f" type="rgb"/>
