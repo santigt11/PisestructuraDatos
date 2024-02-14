@@ -61,11 +61,11 @@ public class Menu_Estudiante extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(102, 51, 0));
 
         TutoriasE.setBackground(new java.awt.Color(255, 250, 205));
-        TutoriasE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/docente.png"))); // NOI18N
+        TutoriasE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/1118177-removebg-preview(1).png"))); // NOI18N
         TutoriasE.setText("buttonIcon2");
 
         HorarioE.setBackground(new java.awt.Color(255, 250, 205));
-        HorarioE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/estudiantes.png"))); // NOI18N
+        HorarioE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/images-removebg-preview(1).png"))); // NOI18N
         HorarioE.setText("buttonIcon2");
         HorarioE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

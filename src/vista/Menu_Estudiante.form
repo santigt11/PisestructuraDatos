@@ -147,7 +147,7 @@
               <Color blue="cd" green="fa" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/docente.png"/>
+              <Image iconType="3" name="/imagenes/1118177-removebg-preview(1).png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="buttonIcon2"/>
           </Properties>
@@ -158,7 +158,7 @@
               <Color blue="cd" green="fa" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/estudiantes.png"/>
+              <Image iconType="3" name="/imagenes/images-removebg-preview(1).png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="buttonIcon2"/>
           </Properties>
