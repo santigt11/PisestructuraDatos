@@ -71,29 +71,29 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="dcFecha" min="-2" pref="162" max="-2" attributes="0"/>
-                                  <Component id="cbxHorario" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtTema" max="32767" attributes="0"/>
                                   <Component id="cbxAsignatura" pref="162" max="32767" attributes="0"/>
                                   <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txtTema" min="-2" pref="162" max="-2" attributes="0"/>
+                                  <Component id="dcFecha" min="-2" pref="162" max="-2" attributes="0"/>
+                                  <Component id="cbxHorario" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
-                      <EmptySpace pref="94" max="32767" attributes="0"/>
+                      <EmptySpace pref="88" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -116,9 +116,9 @@
                           <Component id="cbxHorario" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jLabel9" max="32767" attributes="0"/>
-                          <Component id="txtTema" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtTema" alignment="3" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
@@ -317,7 +317,7 @@
                       <EmptySpace pref="48" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="btAsignarEstudiante1" max="32767" attributes="0"/>
-                          <Component id="btRemoverEstudiante" pref="159" max="32767" attributes="0"/>
+                          <Component id="btRemoverEstudiante" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                       <Component id="jScrollPane7" min="-2" pref="229" max="-2" attributes="0"/>
