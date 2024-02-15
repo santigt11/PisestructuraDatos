@@ -23,7 +23,6 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
 
     public FrmNuevaTutoria() throws EmptyException {
         initComponents();
-        txtTema.setEnabled(true);
         limpiar();
     }
 
@@ -42,6 +41,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
 
     private void cargarContratos() throws EmptyException {
         personaControl.setPersona(personaControl.buscarBinaria("dni", "1101201301"));
+        System.out.println(personaControl.buscarBinaria("dni", "1101201301"));
         contratoControl.setContratos(contratoControl.buscarLineal(contratoControl.all(), "DNIDocente",personaControl.getPersona().getDni()));
         Utilvista.cargarComboAsignaturaContrato(contratoControl.getContratos(), cbxHorario);
     }
@@ -70,7 +70,6 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         matriculaAsignControl.setAsgMatriculas(matriculaAsignControl.buscarLineal(matriculaAsignControl.getAsgMatriculasTodas(), "asignatura_codigo", asignaturaControl.get(cbxAsignatura.getSelectedIndex()+1).getCodigo()));
         System.out.println(matriculaControl.all());
         MatriculaAsignatura matriculasA[] = matriculaAsignControl.getAsgMatriculas().toArray();
-        System.out.println(matriculasA[0]);
         Matricula matricula;
         for (int i = 0; i < matriculaAsignControl.getAsgMatriculas().getLength(); i++) {
             matricula = matriculaControl.get(matriculasA[i].getMatricula_ID());
@@ -97,7 +96,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
 //        }
 //    }
     private void guardar() throws EmptyException, Exception {
-//        if (verificar()) {
+        if (verificar()) {
             tutoriaControl.getTutoria().setFecha(dcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             tutoriaControl.getTutoria().setIdHorario(horarioControl.get(cbxHorario.getSelectedIndex()+1).getId());
             tutoriaControl.getTutoria().setModalidad(Modalidad.PRESENCIAL);
@@ -106,24 +105,26 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
             tutoriaControl.persist(tutoriaControl.getTutoria());
             JOptionPane.showMessageDialog(null, "Datos guardados");
             limpiar();
-//        } else {
+        } else {
             JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
-//        }
+        }
     }
 
     private void limpiar() throws EmptyException {
         cargarContratos();
         cargarListaMatriculaAsignatura();
+        lstEstudiantesAsignados.removeAll();
         try {
             Utilvista.cargarComboAsignaturaContrato(contratoControl.getContratos(), cbxAsignatura);
             Utilvista.cargarcomboRolesHorario(cbxHorario);
         } catch (EmptyException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-//        lstEstudiantesAsignados.clearSelection();
-//        txtTema.setText("");
-//        cbxAsignatura.setSelectedIndex(0);
-//        cbxHorario.setSelectedIndex(0);
+        lstEstudiantesAsignados.clearSelection();
+        txtTema.setText("");
+        txtTema.setEnabled(true);
+        cbxAsignatura.setSelectedIndex(0);
+        cbxHorario.setSelectedIndex(0);
     }
 
     private void cargarEstudiante() {
@@ -149,7 +150,6 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         cbxHorario = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         txtTema = new javax.swing.JTextField();
-        jSeparator2 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         btAsignarEstudiante1 = new javax.swing.JButton();
         btRemoverEstudiante = new javax.swing.JButton();
@@ -216,22 +216,10 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel9.setText("Tema:");
 
-        txtTema.setEditable(false);
         txtTema.setBackground(new java.awt.Color(212, 173, 107));
-        txtTema.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
+        txtTema.setFont(new java.awt.Font("Franklin Gothic Medium", 1, 14)); // NOI18N
         txtTema.setForeground(new java.awt.Color(0, 0, 0));
         txtTema.setText("Avance PIS");
-        txtTema.setBorder(null);
-        txtTema.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txtTema.setEnabled(false);
-        txtTema.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTemaActionPerformed(evt);
-            }
-        });
-
-        jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
-        jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -243,19 +231,17 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(106, 106, 106)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbxAsignatura, 0, 162, Short.MAX_VALUE)
-                            .addComponent(jSeparator2)))
+                        .addComponent(cbxAsignatura, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addComponent(jLabel8)
                             .addComponent(jLabel9))
                         .addGap(50, 50, 50)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTema, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(dcFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                            .addComponent(cbxHorario, 0, 162, Short.MAX_VALUE)
+                            .addComponent(txtTema))))
                 .addContainerGap(88, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -273,16 +259,14 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(cbxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(txtTema))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        bg.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 410, 220));
+        bg.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 410, 230));
 
         jPanel2.setBackground(new java.awt.Color(102, 51, 0));
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
@@ -356,8 +340,8 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(71, 71, 71)
@@ -367,14 +351,14 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        bg.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, 750, 250));
+        bg.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 750, 260));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 51));
         jLabel1.setFont(new java.awt.Font("Franklin Gothic Book", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(58, 39, 34));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("NUEVA TUTORIA");
-        bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 220, -1));
+        bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 220, -1));
 
         btCrearTutoria1.setBackground(new java.awt.Color(212, 173, 107));
         btCrearTutoria1.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
@@ -386,24 +370,24 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
                 btCrearTutoria1ActionPerformed(evt);
             }
         });
-        bg.add(btCrearTutoria1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 130, -1, 30));
+        bg.add(btCrearTutoria1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 130, -1, 30));
 
         btDescartar.setBackground(new java.awt.Color(212, 173, 107));
         btDescartar.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
         btDescartar.setForeground(new java.awt.Color(102, 51, 0));
         btDescartar.setText("Descartar");
         btDescartar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bg.add(btDescartar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 190, 110, 30));
+        bg.add(btDescartar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 190, 110, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 949, Short.MAX_VALUE)
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 783, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
         );
 
         pack();
@@ -412,10 +396,6 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private void btAsignarEstudiante1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAsignarEstudiante1ActionPerformed
         cargarEstudiante();
     }//GEN-LAST:event_btAsignarEstudiante1ActionPerformed
-
-    private void txtTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTemaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTemaActionPerformed
 
     private void btRemoverEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverEstudianteActionPerformed
         // TODO add your handling code here:
@@ -461,7 +441,6 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JList<String> lstEstudiantesAsignados;
     private javax.swing.JList<String> lstMatriculaAsignatura;
     private javax.swing.JTextField txtTema;

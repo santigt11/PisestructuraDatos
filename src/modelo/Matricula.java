@@ -37,14 +37,6 @@ public class Matricula {
         this.fecha = fecha;
     }
 
-    public boolean isExpActivo() {
-        return expActivo;
-    }
-
-    public void setExpActivo(boolean expActivo) {
-        this.expActivo = expActivo;
-    }
-
     public String getPersona_DNI() {
         return persona_DNI;
     }
@@ -59,6 +51,14 @@ public class Matricula {
 
     public void setPeriodoAcademico_ID(Integer idPAcademico) {
         this.periodoAcademico_ID = idPAcademico;
+    }
+
+    public Boolean getExpActivo() {
+        return expActivo;
+    }
+
+    public void setExpActivo(Boolean expActivo) {
+        this.expActivo = expActivo;
     }
 
     @Override

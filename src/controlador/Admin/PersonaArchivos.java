@@ -1,20 +1,9 @@
 package controlador.Admin;
 
-import controlador.DAO.Conexion;
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.dao.AdaptadorDao;
-import java.beans.Statement;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import modelo.Persona;
-import modelo.Rol;
 
 public class PersonaArchivos extends AdaptadorDao<Persona> {
 
@@ -35,7 +24,7 @@ public class PersonaArchivos extends AdaptadorDao<Persona> {
     public DynamicList<Persona> getPersonas() {
         return personas;
     }
-    
+
     public DynamicList<Persona> getPersonasTodos() {
         personas = all();
         return personas;
@@ -57,11 +46,11 @@ public class PersonaArchivos extends AdaptadorDao<Persona> {
     }
 
     @Override
-    public Boolean persist(Persona obj){
+    public Boolean persist(Persona obj) {
         obj.setId(all().getLength() + 1);
         return super.persist(obj);
     }
-    
+
 //    @Override
 //    public Integer persist(Persona obj) throws Exception {
 //        PreparedStatement consulta = null;
@@ -87,9 +76,8 @@ public class PersonaArchivos extends AdaptadorDao<Persona> {
 //        
 //        return 1;
 //    }
-
     public DynamicList<Persona> buscarLineal(DynamicList<Persona> lista, String campo, String valorBuscado) throws EmptyException {
-        Persona personas[] = lista.toArray();
+        Persona personas[] = ordenarMerge(lista, campo, 1).toArray();
         DynamicList<Persona> listaBusqueda = new DynamicList<>();
         for (int i = 0; i < lista.getLength(); i++) {
             Persona persona = personas[i];
@@ -99,8 +87,7 @@ public class PersonaArchivos extends AdaptadorDao<Persona> {
         }
         return listaBusqueda;
     }
-    
-    
+
 //    @Override
 //    public DynamicList<Persona> all() {
 //        DynamicList<Persona> lista = new DynamicList<>();
@@ -135,7 +122,7 @@ public class PersonaArchivos extends AdaptadorDao<Persona> {
     
     public Persona buscarBinaria(String campo, String valorBuscado) throws EmptyException {
         int inicio = 0;
-        DynamicList<Persona> lista = all();
+        DynamicList<Persona> lista = ordenarMerge(all(), "id", 0);
         int fin = lista.getLength() - 1;
         Persona personas[] = lista.toArray();
         while (inicio <= fin) {
@@ -151,6 +138,53 @@ public class PersonaArchivos extends AdaptadorDao<Persona> {
             }
         }
         return null;
+    }
+
+    //MergeSort
+    public DynamicList<Persona> ordenarMerge(DynamicList<Persona> lista, String field, Integer tipo) throws EmptyException {
+        if (lista.getLength() > 1) {
+            DynamicList<Persona> izquierda = new DynamicList<>();
+            DynamicList<Persona> derecha = new DynamicList<>();
+            int mitad = lista.getLength() / 2;
+            for (int i = 0; i < mitad; i++) {
+                izquierda.add(lista.getInfo(i));
+            }
+            for (int i = mitad; i < lista.getLength(); i++) {
+                derecha.add(lista.getInfo(i));
+            }
+            izquierda = ordenarMerge(izquierda, field, tipo);
+            derecha = ordenarMerge(derecha, field, tipo);
+            mezclar(lista, izquierda, derecha, field, tipo);
+        }
+        return lista;
+    }
+
+    private void mezclar(DynamicList<Persona> lista, DynamicList<Persona> list1, DynamicList<Persona> list2, String field, Integer tipo) throws EmptyException {
+        int indiceIzq = 0, indiceDer = 0, indiceLista = 0;
+        Persona[] izquierda = list1.toArray();
+        Persona[] derecha = list2.toArray();
+        while (indiceIzq < izquierda.length && indiceDer < derecha.length) {
+            if (izquierda[indiceIzq].compare(derecha[indiceDer], field, tipo)) {
+                lista.merge(izquierda[indiceIzq], indiceLista);
+                indiceIzq += 1;
+            } else {
+                lista.merge(derecha[indiceDer], indiceLista);
+                indiceDer += 1;
+            }
+            indiceLista += 1;
+        }
+
+        while (indiceIzq < izquierda.length) {
+            lista.merge(izquierda[indiceIzq], indiceLista);
+            indiceIzq += 1;
+            indiceLista += 1;
+        }
+
+        while (indiceDer < derecha.length) {
+            lista.merge(derecha[indiceDer], indiceLista);
+            indiceDer += 1;
+            indiceLista += 1;
+        }
     }
 
 //    public static void main(String[] args) throws Exception {
