@@ -14,16 +14,21 @@ public class Usuario {
     private String correo;
     private String clave;
     private String persona_DNI;
+      private Rol rol;
 
     public Usuario() {
     }
 
-
-    public Usuario(Integer id, String correo, String clave) {
+    public Usuario(Integer id, String correo, String clave, String persona_DNI, Rol rol) {
         this.id = id;
         this.correo = correo;
         this.clave = clave;
+        this.persona_DNI = persona_DNI;
+        this.rol = rol;
     }
+
+
+
 
 
 
@@ -60,6 +65,7 @@ public class Usuario {
     public void setClave(String clave) {
         this.clave = clave;
     }
+    
 
 public Boolean compare(Usuario u, String field, Integer type) {
         switch (type) {
@@ -102,5 +108,19 @@ public Boolean compare(Usuario u, String field, Integer type) {
             default:
                 throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
         }
+    }
+
+    /**
+     * @return the rol
+     */
+    public Rol getRol() {
+        return rol;
+    }
+
+    /**
+     * @param rol the rol to set
+     */
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 }

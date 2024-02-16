@@ -11,7 +11,7 @@ public class Persona {
     private String apellido;
     private LocalDate fechaNacimiento;
     private String telefono;
-    private Rol rol;
+  
 
     //constructor vacio
     public Persona() {
