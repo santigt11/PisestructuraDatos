@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.Matricula;
-import modelo.MatriculaAsignatura;
+import modelo.AsignacionMatricula;
 import modelo.Modalidad;
 import modelo.Persona;
 import vista.listas.util.Utilvista;
@@ -69,7 +69,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private void cargarListaMatriculaAsignatura() throws EmptyException {
         matriculaAsignControl.setAsgMatriculas(matriculaAsignControl.buscarLineal(matriculaAsignControl.getAsgMatriculasTodas(), "asignatura_codigo", asignaturaControl.get(cbxAsignatura.getSelectedIndex()+1).getCodigo()));
         System.out.println(matriculaControl.all());
-        MatriculaAsignatura matriculasA[] = matriculaAsignControl.getAsgMatriculas().toArray();
+        AsignacionMatricula matriculasA[] = matriculaAsignControl.getAsgMatriculas().toArray();
         Matricula matricula;
         for (int i = 0; i < matriculaAsignControl.getAsgMatriculas().getLength(); i++) {
             matricula = matriculaControl.get(matriculasA[i].getMatricula_ID());
@@ -129,7 +129,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
 
     private void cargarEstudiante() {
         Object p = lstMatriculaAsignatura.getSelectedValue();
-        MatriculaAsignatura estudiante = (MatriculaAsignatura) p;
+        AsignacionMatricula estudiante = (AsignacionMatricula) p;
         tutoriaMatrControl.getTutoriaMatricula().setImpartida(true);
         tutoriaMatrControl.getTutoriaMatricula().setMatriculaAsignatura_ID(estudiante.getId());
         tutoriaMatrControl.getTutoriaMatricula().setTutoria_ID(tutoriaControl.getTutoria().getId());

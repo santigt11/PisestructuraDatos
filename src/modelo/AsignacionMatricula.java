@@ -1,18 +1,17 @@
 package modelo;
 
-import controlador.Matriculas.MatriculaArchivos;
 
-public class MatriculaAsignatura {
+public class AsignacionMatricula {
 
     private Integer id;
     private String curso;
     private Integer matricula_ID;
     private String asignatura_Codigo;
 
-    public MatriculaAsignatura() {
+    public AsignacionMatricula() {
     }
 
-    public MatriculaAsignatura(Integer id, String curso, Integer idMatricula, String idAsignatura) {
+    public AsignacionMatricula(Integer id, String curso, Integer idMatricula, String idAsignatura) {
         this.id = id;
         this.curso = curso;
         this.matricula_ID = idMatricula;

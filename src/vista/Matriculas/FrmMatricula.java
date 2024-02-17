@@ -118,9 +118,9 @@ public class FrmMatricula extends javax.swing.JFrame {
             case 3:
                 if (tbMatricula.getSelectedRow() > -1) {
                     limpiarSoft();
-                    if (fileMatricula.getMatricula().isExpActivo()) {
+                    if (fileMatricula.getMatricula().getExpActivo()) {
                         cbxExpediente.setSelectedIndex(0);
-                    } else if (fileMatricula.getMatricula().isExpActivo() == false) {
+                    } else if (fileMatricula.getMatricula().getExpActivo() == false) {
                         cbxExpediente.setSelectedIndex(1);
                     }
                 }

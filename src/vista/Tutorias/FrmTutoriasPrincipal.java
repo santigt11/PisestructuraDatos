@@ -17,7 +17,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.synth.SynthLookAndFeel;
 import modelo.Asignatura;
 import modelo.Contrato;
-import modelo.MatriculaAsignatura;
+import modelo.AsignacionMatricula;
 import modelo.Persona;
 import modelo.Tutoria;
 import modelo.TutoriaMatricula;
@@ -69,12 +69,12 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         }
         Asignatura asignaturasArray[] = asignaturaControl.getAsignaturas().toArray();
         Asignatura asignatura;
-        DynamicList<MatriculaAsignatura> matriculasAsignaturas = new DynamicList<>();
+        DynamicList<AsignacionMatricula> matriculasAsignaturas = new DynamicList<>();
         for (int i = 0; i < asignaturaControl.getAsignaturas().getLength(); i++) {
             asignatura = asignaturaControl.get(asignaturasArray[i].getId());
             matriculasAsignaturas.add(matriculaAsignaturaControl.buscarBinaria("codigo", asignatura.getCodigo()));
         }
-        MatriculaAsignatura tMatriculas[] = matriculaAsignaturaControl.getAsgMatriculas().toArray();
+        AsignacionMatricula tMatriculas[] = matriculaAsignaturaControl.getAsgMatriculas().toArray();
         TutoriaMatricula tMatricula;
         DynamicList<TutoriaMatricula> tutoriasMatricula = new DynamicList<>();
         for (int i = 0; i < matriculaAsignaturaControl.getAsgMatriculas().getLength(); i++) {
@@ -85,7 +85,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
 
     private void cargarVista(TutoriaMatricula tutoriaAsg) throws EmptyException {
         fileTutoriaM.setTutoria(tutoriaAsg);
-        MatriculaAsignatura matriculaAsg = fileMatriculaAsg.buscarBinaria("id", fileTutoriaM.getTutoriaMatricula().getMatriculaAsignatura_ID().toString());
+        AsignacionMatricula matriculaAsg = fileMatriculaAsg.buscarBinaria("id", fileTutoriaM.getTutoriaMatricula().getMatriculaAsignatura_ID().toString());
         Asignatura asignatura = fileAsignatura.buscarBinaria("id", matriculaAsg.getAsignatura_Codigo().toString());
         Tutoria tutoria = fileTutoria.buscarBinaria("id", fileTutoriaM.getTutoriaMatricula().getTutoria_ID().toString());
 

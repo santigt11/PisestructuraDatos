@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
 import modelo.Asignatura;
 import modelo.Contrato;
 import modelo.Matricula;
-import modelo.MatriculaAsignatura;
+import modelo.AsignacionMatricula;
 import modelo.Persona;
 import modelo.TutoriaMatricula;
 
@@ -116,8 +116,8 @@ public class Utilvista {
         }
     }
 
-    public static MatriculaAsignatura obtenerMatriculaAsignaturaControl(JComboBox cbx) {
-        return (MatriculaAsignatura) cbx.getSelectedItem();
+    public static AsignacionMatricula obtenerMatriculaAsignaturaControl(JComboBox cbx) {
+        return (AsignacionMatricula) cbx.getSelectedItem();
     }
 
     public static void cargarListaFacultades(JList lst) throws EmptyException {

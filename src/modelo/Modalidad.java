@@ -9,5 +9,5 @@ package modelo;
  * @author Santiago
  */
 public enum Modalidad {
-    PRESENCIAL, VIRTUAL, HIBRIDA;
+    PRESENCIAL, VIRTUAL;
 }
