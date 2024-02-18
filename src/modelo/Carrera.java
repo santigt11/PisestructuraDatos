@@ -5,16 +5,18 @@ public class Carrera {
     private Integer id;
     private String nombre;
     private Integer numCiclos;
+    private String codigo;
     private Integer facultad_ID;
 
     public Carrera() {
     }
 
-    public Carrera(Integer id, String nombre, Integer numCiclos, Integer idFacultad) {
+    public Carrera(Integer id, String nombre, Integer numCiclos, String codigo, Integer facultad_ID) {
         this.id = id;
         this.nombre = nombre;
         this.numCiclos = numCiclos;
-        this.facultad_ID = idFacultad;
+        this.codigo = codigo;
+        this.facultad_ID = facultad_ID;
     }
 
     public Integer getId() {
@@ -23,6 +25,14 @@ public class Carrera {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public String getNombre() {

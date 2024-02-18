@@ -5,11 +5,11 @@ import controlador.Admin.PersonaArchivos;
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import javax.swing.table.AbstractTableModel;
-import modelo.Contrato;
+import modelo.Asignacion;
 
 public class TablaContrato extends AbstractTableModel {
 
-    private DynamicList<Contrato> contratos;
+    private DynamicList<Asignacion> contratos;
     private PersonaArchivos filePersona = new PersonaArchivos();
     private AsignaturaArchivos fileAsignatura = new AsignaturaArchivos();
 
@@ -26,7 +26,7 @@ public class TablaContrato extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         try {
-            Contrato ct = contratos.getInfo(rowIndex);
+            Asignacion ct = contratos.getInfo(rowIndex);
             switch (columnIndex) {
                 case 0:
                     return (ct != null) ? filePersona.buscarBinaria("dni", ct.getDniPersona()).getApellido() + " " + filePersona.buscarBinaria("dni", ct.getDniPersona()).getNombre(): " ";
@@ -60,11 +60,11 @@ public class TablaContrato extends AbstractTableModel {
         }
     }
 
-    public DynamicList<Contrato> getContratos() {
+    public DynamicList<Asignacion> getContratos() {
         return contratos;
     }
 
-    public void setContratos(DynamicList<Contrato> contrato) {
+    public void setContratos(DynamicList<Asignacion> contrato) {
         this.contratos = contrato;
     }
 

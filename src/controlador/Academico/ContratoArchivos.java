@@ -3,52 +3,52 @@ package controlador.Academico;
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.dao.AdaptadorDao;
-import modelo.Contrato;
+import modelo.Asignacion;
 
-public class ContratoArchivos extends AdaptadorDao<Contrato> {
+public class ContratoArchivos extends AdaptadorDao<Asignacion> {
 
-    private DynamicList<Contrato> contratos;
-    private Contrato contrato;
+    private DynamicList<Asignacion> contratos;
+    private Asignacion contrato;
 
     public ContratoArchivos() {
-        super(Contrato.class);
+        super(Asignacion.class);
     }
 
-    public DynamicList<Contrato> getContratosTodos() {
+    public DynamicList<Asignacion> getContratosTodos() {
         contratos = all();
         return contratos;
     }
     
-    public DynamicList<Contrato> getContratos() {
+    public DynamicList<Asignacion> getContratos() {
         return contratos;
     }
     
-    public void setContratos(DynamicList<Contrato> contratos) {
+    public void setContratos(DynamicList<Asignacion> contratos) {
         this.contratos = contratos;
     }
 
-    public Contrato getContrato() {
+    public Asignacion getContrato() {
         if (contrato == null) {
-            contrato = new Contrato();
+            contrato = new Asignacion();
         }
         return contrato;
     }
 
-    public void setContrato(Contrato contrato) {
+    public void setContrato(Asignacion contrato) {
         this.contrato = contrato;
     }
 
     @Override
-    public Integer persist(Contrato obj) throws Exception {
+    public Boolean persist(Asignacion obj){
         obj.setId(all().getLength() + 1);
         return super.persist(obj);
     }
 
-    public DynamicList<Contrato> buscarLineal(DynamicList<Contrato> lista, String campo, String valorBuscado) throws EmptyException {
-        Contrato contratos[] = lista.toArray();
-        DynamicList<Contrato> listaBusqueda = new DynamicList<>();
+    public DynamicList<Asignacion> buscarLineal(DynamicList<Asignacion> lista, String campo, String valorBuscado) throws EmptyException {
+        Asignacion contratos[] = lista.toArray();
+        DynamicList<Asignacion> listaBusqueda = new DynamicList<>();
         for (int i = 0; i < lista.getLength(); i++) {
-            Contrato contrato = contratos[i];
+            Asignacion contrato = contratos[i];
             if (contrato.compareCampo(campo, valorBuscado) == 0) {
                 listaBusqueda.add(contrato);
             }
@@ -56,14 +56,14 @@ public class ContratoArchivos extends AdaptadorDao<Contrato> {
         return listaBusqueda;
     }
 
-    public Contrato buscarBinaria(String campo, String valorBuscado) throws EmptyException {
+    public Asignacion buscarBinaria(String campo, String valorBuscado) throws EmptyException {
         int inicio = 0;
-        DynamicList<Contrato> lista = all();
+        DynamicList<Asignacion> lista = all();
         int fin = lista.getLength() - 1;
-        Contrato contratos[] = lista.toArray();
+        Asignacion contratos[] = lista.toArray();
         while (inicio <= fin) {
             int medio = (inicio + fin) / 2;
-            Contrato contrato = contratos[medio];
+            Asignacion contrato = contratos[medio];
             int comparacion = contrato.compareCampo(campo, valorBuscado);
             if (comparacion == 0) {
                 return contrato;

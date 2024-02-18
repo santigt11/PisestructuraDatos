@@ -3,53 +3,53 @@ package controlador.Matriculas;
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.dao.AdaptadorDao;
-import modelo.MatriculaAsignatura;
+import modelo.AsignacionMatricula;
 
-public class MatriculaAsignaturaArchivos extends AdaptadorDao<MatriculaAsignatura> {
+public class MatriculaAsignaturaArchivos extends AdaptadorDao<AsignacionMatricula> {
 
-    private DynamicList<MatriculaAsignatura> asgMatriculas;
-    private MatriculaAsignatura asgMatricula;
+    private DynamicList<AsignacionMatricula> asgMatriculas;
+    private AsignacionMatricula asgMatricula;
 
     public MatriculaAsignaturaArchivos() {
-        super(MatriculaAsignatura.class);
+        super(AsignacionMatricula.class);
         asgMatriculas = new DynamicList<>();
     }
 
-    public DynamicList<MatriculaAsignatura> getAsgMatriculasTodas() {
+    public DynamicList<AsignacionMatricula> getAsgMatriculasTodas() {
         asgMatriculas = all();
         return asgMatriculas;
     }
     
-    public DynamicList<MatriculaAsignatura> getAsgMatriculas() {
+    public DynamicList<AsignacionMatricula> getAsgMatriculas() {
         return asgMatriculas;
     }
 
-    public void setAsgMatriculas(DynamicList<MatriculaAsignatura> asgMatriculas) {
+    public void setAsgMatriculas(DynamicList<AsignacionMatricula> asgMatriculas) {
         this.asgMatriculas = asgMatriculas;
     }
 
-    public MatriculaAsignatura getAsgMatricula() {
+    public AsignacionMatricula getAsgMatricula() {
         if (asgMatricula == null) {
-            asgMatricula = new MatriculaAsignatura();
+            asgMatricula = new AsignacionMatricula();
         }
         return asgMatricula;
     }
 
-    public void setAsgMatricula(MatriculaAsignatura asgMatricula) {
+    public void setAsgMatricula(AsignacionMatricula asgMatricula) {
         this.asgMatricula = asgMatricula;
     }
 
     @Override
-    public Integer persist(MatriculaAsignatura obj) throws Exception {
+    public Boolean persist(AsignacionMatricula obj){
         obj.setId(all().getLength() + 1);
         return super.persist(obj);
     }
 
-    public DynamicList<MatriculaAsignatura> buscarLineal(DynamicList<MatriculaAsignatura> lista, String campo, String valorBuscado) throws EmptyException {
-        MatriculaAsignatura matriculasAsignaturas[] = lista.toArray();
-        DynamicList<MatriculaAsignatura> listaBusqueda = new DynamicList<>();
+    public DynamicList<AsignacionMatricula> buscarLineal(DynamicList<AsignacionMatricula> lista, String campo, String valorBuscado) throws EmptyException {
+        AsignacionMatricula matriculasAsignaturas[] = lista.toArray();
+        DynamicList<AsignacionMatricula> listaBusqueda = new DynamicList<>();
         for (int i = 0; i < lista.getLength(); i++) {
-            MatriculaAsignatura matriculaAsignatura = matriculasAsignaturas[i];
+            AsignacionMatricula matriculaAsignatura = matriculasAsignaturas[i];
             if (matriculaAsignatura.compareCampo(campo, valorBuscado) == 0) {
                 listaBusqueda.add(matriculaAsignatura);
             }
@@ -57,14 +57,14 @@ public class MatriculaAsignaturaArchivos extends AdaptadorDao<MatriculaAsignatur
         return listaBusqueda;
     }
 
-    public MatriculaAsignatura buscarBinaria(String campo, String valorBuscado) throws EmptyException {
+    public AsignacionMatricula buscarBinaria(String campo, String valorBuscado) throws EmptyException {
         int inicio = 0;
-        DynamicList<MatriculaAsignatura> lista = all();
+        DynamicList<AsignacionMatricula> lista = all();
         int fin = lista.getLength() - 1;
-        MatriculaAsignatura matriculasAsignaturas[] = lista.toArray();
+        AsignacionMatricula matriculasAsignaturas[] = lista.toArray();
         while (inicio <= fin) {
             int medio = (inicio + fin) / 2;
-            MatriculaAsignatura matriculaAsignatura = matriculasAsignaturas[medio];
+            AsignacionMatricula matriculaAsignatura = matriculasAsignaturas[medio];
             int comparacion = matriculaAsignatura.compareCampo(campo, valorBuscado);
             if (comparacion == 0) {
                 return matriculaAsignatura;

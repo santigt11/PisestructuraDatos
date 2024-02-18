@@ -11,21 +11,20 @@ public class Persona {
     private String apellido;
     private LocalDate fechaNacimiento;
     private String telefono;
-    private Rol rol;
 
     //constructor vacio
     public Persona() {
     }
 
     //constructor que iniciliza los atributos
-    public Persona(Integer id, String dni, String nombre, String apellido, LocalDate fechaNacimientoi, String telefono, Rol rol) {
+
+    public Persona(Integer id, String dni, String nombre, String apellido, LocalDate fechaNacimiento, String telefono) {
         this.id = id;
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.fechaNacimiento = fechaNacimientoi;
+        this.fechaNacimiento = fechaNacimiento;
         this.telefono = telefono;
-        this.rol = rol;
     }
 
     //getters and setters
@@ -77,14 +76,6 @@ public class Persona {
         this.telefono = telefono;
     }
 
-    public Rol getRol() {
-        return rol;
-    }
-
-    public void setRol(Rol rol) {
-        this.rol = rol;
-    }
-
     //toString
     @Override
     public String toString() {
@@ -96,9 +87,9 @@ public class Persona {
         //0 menor 1 mayor
         switch (type) {
             case 0:// Si el tipo es 0 es menor
-                if (field.equalsIgnoreCase("apellidos")) {
+                if (field.equalsIgnoreCase("apellido")) {
                     return apellido.compareTo(p.getApellido()) < 0;//compara
-                } else if (field.equalsIgnoreCase("nombres")) {
+                } else if (field.equalsIgnoreCase("nombre")) {
                     return nombre.compareTo(p.getNombre()) < 0;
                 } else if (field.equalsIgnoreCase("dni")) {
                     return dni.compareTo(p.getDni()) < 0;
@@ -106,9 +97,9 @@ public class Persona {
                     return id.compareTo(p.getId()) < 0;
                 }
             case 1: //si el tipo es 1 es mayor
-                if (field.equalsIgnoreCase("apellidos")) {
+                if (field.equalsIgnoreCase("apellido")) {
                     return apellido.compareTo(p.getApellido()) > 0;//compara
-                } else if (field.equalsIgnoreCase("nombres")) {
+                } else if (field.equalsIgnoreCase("nombre")) {
                     return nombre.compareTo(p.getNombre()) > 0;
                 } else if (field.equalsIgnoreCase("dni")) {
                     return dni.compareTo(p.getDni()) > 0;

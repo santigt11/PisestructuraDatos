@@ -15,16 +15,16 @@ public class Tutoria {
     private Integer id;
     private LocalDate fecha;
     private String tema;
-    private Modalidad modalidad;
     private Integer horario_ID;
+    private Integer modalidad_ID;
 
-    public Tutoria(Integer id, LocalDate fecha, String tema, Modalidad modalidad, Integer idHorario) {
+    public Tutoria(Integer id, LocalDate fecha, String tema, Integer horario_ID, Integer modalidad_ID) {
         this.id = id;
         this.fecha = fecha;
         this.tema = tema;
-        this.modalidad = modalidad;
-        this.horario_ID = idHorario;
-    }
+        this.horario_ID = horario_ID;
+        this.modalidad_ID = modalidad_ID;
+    }    
 
     public Tutoria() {
     }
@@ -53,20 +53,20 @@ public class Tutoria {
         this.tema = tema;
     }
 
-    public Modalidad getModalidad() {
-        return modalidad;
-    }
-
-    public void setModalidad(Modalidad modalidad) {
-        this.modalidad = modalidad;
-    }
-
-    public Integer getIdHorario() {
+    public Integer getHorario_ID() {
         return horario_ID;
     }
 
-    public void setIdHorario(Integer idHorario) {
-        this.horario_ID = idHorario;
+    public void setHorario_ID(Integer horario_ID) {
+        this.horario_ID = horario_ID;
+    }
+
+    public Integer getModalidad_ID() {
+        return modalidad_ID;
+    }
+
+    public void setModalidad_ID(Integer modalidad_ID) {
+        this.modalidad_ID = modalidad_ID;
     }
 
     public int compareCampo(String campo, String valorBuscado) {
@@ -77,8 +77,6 @@ public class Tutoria {
                 return this.fecha.compareTo(LocalDate.parse(valorBuscado));
             case "tema":
                 return this.tema.compareToIgnoreCase(valorBuscado);
-            case "modalidad":
-                return this.modalidad.compareTo(Modalidad.valueOf(valorBuscado));
             case "idhorario":
                 return this.horario_ID.compareTo(Integer.parseInt(valorBuscado));
             default:

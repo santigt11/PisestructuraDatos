@@ -3,59 +3,59 @@ package controlador.Tutorias;
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.dao.AdaptadorDao;
-import modelo.TutoriaMatricula;
+import modelo.AsignacionMatricula;
 
-public class TutoriaMatriculaArchivos extends AdaptadorDao<TutoriaMatricula> {
+public class TutoriaMatriculaArchivos extends AdaptadorDao<AsignacionMatricula> {
 
-    private DynamicList<TutoriaMatricula> tutorias;
-    private TutoriaMatricula tutoria;
+    private DynamicList<AsignacionMatricula> tutorias;
+    private AsignacionMatricula tutoria;
 
     public TutoriaMatriculaArchivos() {
         super(null);
         tutorias = new DynamicList<>();
     }
 
-    public TutoriaMatriculaArchivos(DynamicList<TutoriaMatricula> tutorias, TutoriaMatricula tutoria) {
-        super(TutoriaMatricula.class);
+    public TutoriaMatriculaArchivos(DynamicList<AsignacionMatricula> tutorias, AsignacionMatricula tutoria) {
+        super(AsignacionMatricula.class);
         this.tutorias = tutorias;
         this.tutoria = tutoria;
     }
 
-    public DynamicList<TutoriaMatricula> getTutoriaMatriculasTodos() {
+    public DynamicList<AsignacionMatricula> getTutoriaMatriculasTodos() {
         tutorias = all();
         return tutorias;
     }
     
-    public DynamicList<TutoriaMatricula> getTutoriaMatriculas() {
+    public DynamicList<AsignacionMatricula> getTutoriaMatriculas() {
         return tutorias;
     }
     
-    public void setTutorias(DynamicList<TutoriaMatricula> tutorias) {
+    public void setTutorias(DynamicList<AsignacionMatricula> tutorias) {
         this.tutorias = tutorias;
     }
 
-    public TutoriaMatricula getTutoriaMatricula() {
+    public AsignacionMatricula getTutoriaMatricula() {
         if (tutoria == null) {
-            tutoria = new TutoriaMatricula();
+            tutoria = new AsignacionMatricula();
         }
         return tutoria;
     }
 
-    public void setTutoria(TutoriaMatricula tutoria) {
+    public void setTutoria(AsignacionMatricula tutoria) {
         this.tutoria = tutoria;
     }
 
     @Override
-    public Integer persist(TutoriaMatricula obj) throws Exception {
+    public Boolean persist(AsignacionMatricula obj){
         obj.setId(all().getLength() + 1);
         return super.persist(obj);
     }
 
-    public DynamicList<TutoriaMatricula> buscarLineal(DynamicList<TutoriaMatricula> lista, String campo, String valorBuscado) throws EmptyException {
-        TutoriaMatricula tutoriasMatriculas[] = lista.toArray();
-        DynamicList<TutoriaMatricula> listaBusqueda = new DynamicList<>();
+    public DynamicList<AsignacionMatricula> buscarLineal(DynamicList<AsignacionMatricula> lista, String campo, String valorBuscado) throws EmptyException {
+        AsignacionMatricula tutoriasMatriculas[] = lista.toArray();
+        DynamicList<AsignacionMatricula> listaBusqueda = new DynamicList<>();
         for (int i = 0; i < lista.getLength(); i++) {
-            TutoriaMatricula tutoriaMatricula = tutoriasMatriculas[i];
+            AsignacionMatricula tutoriaMatricula = tutoriasMatriculas[i];
             if (tutoriaMatricula.compareCampo(campo, valorBuscado) == 0) {
                 listaBusqueda.add(tutoriaMatricula);
             }
@@ -63,14 +63,14 @@ public class TutoriaMatriculaArchivos extends AdaptadorDao<TutoriaMatricula> {
         return listaBusqueda;
     }
 
-    public TutoriaMatricula buscarBinaria(String campo, String valorBuscado) throws EmptyException {
+    public AsignacionMatricula buscarBinaria(String campo, String valorBuscado) throws EmptyException {
         int inicio = 0;
-        DynamicList<TutoriaMatricula> lista = all();
+        DynamicList<AsignacionMatricula> lista = all();
         int fin = lista.getLength() - 1;
-        TutoriaMatricula tutoriasMatriculas[] = lista.toArray();
+        AsignacionMatricula tutoriasMatriculas[] = lista.toArray();
         while (inicio <= fin) {
             int medio = (inicio + fin) / 2;
-            TutoriaMatricula tutoriaMatricula = tutoriasMatriculas[medio];
+            AsignacionMatricula tutoriaMatricula = tutoriasMatriculas[medio];
             int comparacion = tutoriaMatricula.compareCampo(campo, valorBuscado);
             if (comparacion == 0) {
                 return tutoriaMatricula;

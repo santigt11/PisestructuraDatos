@@ -7,7 +7,6 @@ import controlador.TDA.listas.Exception.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
 import controlador.Academico.FacultadArchivos;
 import controlador.Academico.MallaArchivos;
 import controlador.Admin.PersonaArchivos;
@@ -119,9 +118,9 @@ public class FrmMatricula extends javax.swing.JFrame {
             case 3:
                 if (tbMatricula.getSelectedRow() > -1) {
                     limpiarSoft();
-                    if (fileMatricula.getMatricula().isExpActivo()) {
+                    if (fileMatricula.getMatricula().getExpActivo()) {
                         cbxExpediente.setSelectedIndex(0);
-                    } else if (fileMatricula.getMatricula().isExpActivo() == false) {
+                    } else if (fileMatricula.getMatricula().getExpActivo() == false) {
                         cbxExpediente.setSelectedIndex(1);
                     }
                 }

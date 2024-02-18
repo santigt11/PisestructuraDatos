@@ -2,6 +2,7 @@ package controlador.Login;
 
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
+import controlador.Utiles.Utiles;
 import controlador.dao.AdaptadorDao;
 import modelo.Usuario;
 
@@ -29,6 +30,10 @@ public class UsuarioArchivos extends AdaptadorDao<Usuario> {
         this.usuarios = tutorias;
     }
 
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     public Usuario getUsuario() {
         if (usuario == null) {
             usuario = new Usuario();
@@ -41,9 +46,29 @@ public class UsuarioArchivos extends AdaptadorDao<Usuario> {
     }
 
     @Override
-    public Integer persist(Usuario obj) throws Exception {
+    public Boolean persist(Usuario obj) {
         obj.setId(all().getLength() + 1);
         return super.persist(obj);
+    }
+
+    public Usuario autenticarse(String correo, String clave) throws EmptyException {
+        if (!Utiles.validadorDeCorreo(correo)) {
+            return null; // Si el correo no cumple con el formato esperado
+        } else {
+
+            DynamicList<Usuario> usuarios = getUsuarios(); // Método para obtener la lista de usuarios
+            for (int i = 0; i < usuarios.getLength(); i++) {
+                Usuario usuario = usuarios.getInfo(i);
+                if (usuario.getCorreo().equals(correo) && verificarClave(usuario.getClave(), clave)) {
+                    return usuario; // Devuelve el rol del usuario autenticado
+                }
+            }
+            return null;
+        }
+    }
+
+    private boolean verificarClave(String claveAlmacenada, String claveIngresada) {
+        return claveAlmacenada.equalsIgnoreCase(claveIngresada);
     }
 
     public DynamicList<Usuario> buscarLineal(DynamicList<Usuario> lista, String campo, String valorBuscado) throws EmptyException {

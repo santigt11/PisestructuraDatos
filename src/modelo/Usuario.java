@@ -13,20 +13,38 @@ public class Usuario {
     private Integer id;
     private String correo;
     private String clave;
+    private Boolean activo;
     private String persona_DNI;
+    private Integer rol_id;
 
     public Usuario() {
     }
 
-
-    public Usuario(Integer id, String correo, String clave) {
+    public Usuario(Integer id, String correo, String clave, String persona_DNI, Boolean activo, Integer rol_id) {
         this.id = id;
         this.correo = correo;
         this.clave = clave;
+        this.persona_DNI = persona_DNI;
+        this.activo = activo;
+        this.rol_id = rol_id;
     }
 
+    public Boolean getActivo() {
+        return activo;
+    }
 
+    public void setActivo(Boolean Activo) {
+        this.activo = Activo;
+    }
 
+    public Integer getRol_id() {
+        return rol_id;
+    }
+
+    public void setRol_id(Integer rol_id) {
+        this.rol_id = rol_id;
+    }
+    
     public Integer getId() {
         return id;
     }

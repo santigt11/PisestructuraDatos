@@ -35,7 +35,7 @@ public class FacultadArchivos extends AdaptadorDao<Facultad> {
     }
 
     @Override
-    public Integer persist(Facultad obj) throws Exception {
+    public Boolean persist(Facultad obj){
         obj.setId(all().getLength() + 1);
         return super.persist(obj);
     }
