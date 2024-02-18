@@ -25,9 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
-
 import modelo.Persona;
-import static modelo.Rol.ADMINISTRADOR;
 import modelo.Usuario;
 
 /**
