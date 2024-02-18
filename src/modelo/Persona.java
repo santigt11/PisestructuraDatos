@@ -11,21 +11,20 @@ public class Persona {
     private String apellido;
     private LocalDate fechaNacimiento;
     private String telefono;
-    private Rol rol;
+
 
     //constructor vacio
     public Persona() {
     }
 
     //constructor que iniciliza los atributos
-    public Persona(Integer id, String dni, String nombre, String apellido, LocalDate fechaNacimiento, String telefono, Rol rol) {
+    public Persona(Integer id, String dni, String nombre, String apellido, LocalDate fechaNacimiento, String telefono) {
         this.id = id;
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaNacimiento = fechaNacimiento;
-        this.telefono = telefono;
-        this.rol = rol;
+        this.telefono = telefono;   
     }
 
     //getters and setters
@@ -77,13 +76,6 @@ public class Persona {
         this.telefono = telefono;
     }
 
-    public Rol getRol() {
-        return rol;
-    }
-
-    public void setRol(Rol rol) {
-        this.rol = rol;
-    }
 
     //toString
     @Override

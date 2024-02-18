@@ -41,13 +41,15 @@ public class Menu_Administrador extends javax.swing.JFrame {
     private FrmGenerarInforme frmGenerarInforme;
     private FrmTutoriasPrincipal frmTutoriasPrincipal;
     private ImageIcon imagen;
+    
 
     // constructor con parámetros
     public Menu_Administrador(Usuario usuario,Persona persona) {
         initComponents();
         
         this.user = usuario;
-        txtUsuario.setText(persona.getNombre());
+        txtUsuario.setText(persona.getNombre()+ " " + persona.getApellido());
+        NombreUsuariot.setText(persona.getNombre()+ " " + persona.getApellido());
      
  
     }
@@ -112,10 +114,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
         PanelPerfil = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        btnCerrarSesion = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         buttonIcon2 = new org.edisoncor.gui.button.ButtonIcon();
         AdminDocentes = new org.edisoncor.gui.button.ButtonIcon();
@@ -140,9 +139,8 @@ public class Menu_Administrador extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         FotoAdmin = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel19 = new javax.swing.JLabel();
+        NombreUsuariot = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -173,9 +171,14 @@ public class Menu_Administrador extends javax.swing.JFrame {
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Cambiar Clave");
 
-        jLabel15.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("Cerrar Sesion");
+        btnCerrarSesion.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
+        btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        btnCerrarSesion.setText("Cerrar Sesion");
+        btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCerrarSesionMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout PanelPerfilLayout = new javax.swing.GroupLayout(PanelPerfil);
         PanelPerfil.setLayout(PanelPerfilLayout);
@@ -184,7 +187,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
             .addGroup(PanelPerfilLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(PanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel15)
+                    .addComponent(btnCerrarSesion)
                     .addComponent(jLabel14)
                     .addComponent(jLabel13))
                 .addContainerGap(33, Short.MAX_VALUE))
@@ -194,46 +197,19 @@ public class Menu_Administrador extends javax.swing.JFrame {
             .addGroup(PanelPerfilLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jLabel14)
-                .addGap(35, 35, 35)
-                .addComponent(jLabel15)
-                .addGap(49, 49, 49))
+                .addGap(28, 28, 28)
+                .addComponent(btnCerrarSesion)
+                .addGap(56, 56, 56))
         );
-
-        jPanel6.setBackground(new java.awt.Color(102, 51, 0));
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 167, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        jLabel16.setFont(new java.awt.Font("Wide Latin", 1, 36)); // NOI18N
-        jLabel16.setText("SEAES");
-
-        jLabel17.setFont(new java.awt.Font("Wide Latin", 1, 36)); // NOI18N
-        jLabel17.setText("BIENVENIDO A ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap(854, Short.MAX_VALUE)
                 .addComponent(PanelPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12))
         );
@@ -241,16 +217,8 @@ public class Menu_Administrador extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(PanelPerfil, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(340, Short.MAX_VALUE))
+                .addComponent(PanelPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(365, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 1030, 570));
@@ -304,7 +272,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 250, 205));
-        jLabel2.setText("DOCENTES");
+        jLabel2.setText("USUARIOS");
 
         jLabel3.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 250, 205));
@@ -487,15 +455,15 @@ public class Menu_Administrador extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(58, 39, 34));
 
-        jLabel19.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/USU-removebg-preview(1).png"))); // NOI18N
-        jLabel19.setText("USUARIO");
-        jLabel19.setToolTipText("");
-        jLabel19.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jLabel19.addMouseListener(new java.awt.event.MouseAdapter() {
+        NombreUsuariot.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
+        NombreUsuariot.setForeground(new java.awt.Color(255, 255, 255));
+        NombreUsuariot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/USU-removebg-preview(1).png"))); // NOI18N
+        NombreUsuariot.setToolTipText("");
+        NombreUsuariot.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        NombreUsuariot.setEnabled(false);
+        NombreUsuariot.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel19MouseClicked(evt);
+                NombreUsuariotMouseClicked(evt);
             }
         });
 
@@ -504,10 +472,6 @@ public class Menu_Administrador extends javax.swing.JFrame {
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/casa.png"))); // NOI18N
         jLabel20.setText("HOME");
 
-        jLabel18.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("NOTIFICACION");
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -515,10 +479,8 @@ public class Menu_Administrador extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 578, Short.MAX_VALUE)
-                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 758, Short.MAX_VALUE)
+                .addComponent(NombreUsuariot, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
         );
         jPanel4Layout.setVerticalGroup(
@@ -526,10 +488,9 @@ public class Menu_Administrador extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(7, Short.MAX_VALUE))
+                    .addComponent(NombreUsuariot, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 1030, 60));
@@ -558,12 +519,19 @@ public class Menu_Administrador extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonIcon2ActionPerformed
 
-    private void jLabel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseClicked
+    private void NombreUsuariotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NombreUsuariotMouseClicked
         // TODO add your handling code here:
             JPanelXDerecha(PanelPerfil.getX(), PanelPerfil.getX() + 100, 10, 1, PanelPerfil);
         
         
-    }//GEN-LAST:event_jLabel19MouseClicked
+    }//GEN-LAST:event_NombreUsuariotMouseClicked
+
+    private void btnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseClicked
+        // TODO add your handling code here:
+       Acceso login=new Acceso();
+        login.setVisible(true); // Mostrar la ventana de inicio de sesión
+        dispose();       
+    }//GEN-LAST:event_btnCerrarSesionMouseClicked
 
     /**
      * @param args the command line arguments
@@ -594,7 +562,9 @@ public class Menu_Administrador extends javax.swing.JFrame {
     private org.edisoncor.gui.button.ButtonIcon AdminMatricula;
     private org.edisoncor.gui.button.ButtonIcon AdminPeriodo;
     private javax.swing.JLabel FotoAdmin;
+    private javax.swing.JLabel NombreUsuariot;
     private javax.swing.JPanel PanelPerfil;
+    private javax.swing.JLabel btnCerrarSesion;
     private org.edisoncor.gui.button.ButtonIcon buttonIcon2;
     private com.jgoodies.animation.components.CircleComponent circleComponent1;
     private javax.swing.JButton jButton1;
@@ -604,11 +574,6 @@ public class Menu_Administrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
@@ -623,7 +588,6 @@ public class Menu_Administrador extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
