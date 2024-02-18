@@ -20,8 +20,29 @@ public class Perfiles extends javax.swing.JFrame {
         initComponents();
         txtUsuario.setText(persona.getNombre() + " " + persona.getApellido());
         txtCorreo.setText(usuario.getCorreo());
+                
+        // Mostrar información específica del rol del usuario
+        switch (usuario.getRol()) {
+            case ADMINISTRADOR:
+                // Mostrar campos específicos para administradores
+                txtRol.setText("Administrador");
+                break;
+            case DOCENTE:
+                // Mostrar campos específicos para docentes
+                txtRol.setText("Docente");
+                // Otras acciones específicas para docentes...
+                break;
+            case ESTUDIANTE:
+                // Mostrar campos específicos para estudiantes
+                txtRol.setText("Estudiante");
+                // Otras acciones específicas para estudiantes...
+                break;
+            default:
+                // Otras acciones por defecto...
+                break;
+        }
     }
-
+    
     public Perfiles() {
         initComponents();
     }
@@ -57,7 +78,7 @@ public class Perfiles extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txtRol = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
         jToggleButton1 = new javax.swing.JToggleButton();
 
@@ -73,15 +94,19 @@ public class Perfiles extends javax.swing.JFrame {
 
         jLabel8.setEnabled(false);
 
-        jLabel9.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Franklin Gothic Book", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Actualizar Imagen");
         jLabel9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
 
         txtEstado.setText("jLabel11");
         txtEstado.setEnabled(false);
 
-        txtUsuario.setText("jLabel11");
         txtUsuario.setEnabled(false);
 
         txtCorreo.setText("jLabel11");
@@ -122,7 +147,7 @@ public class Perfiles extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtCorreo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtUsuario)
+                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -172,7 +197,7 @@ public class Perfiles extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Privilegio");
+        jLabel5.setText("Rol");
 
         jLabel7.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -183,11 +208,11 @@ public class Perfiles extends javax.swing.JFrame {
         jTextField1.setForeground(new java.awt.Color(0, 0, 0));
         jTextField1.setEnabled(false);
 
-        jTextField2.setBackground(new java.awt.Color(212, 173, 107));
-        jTextField2.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField2.setCaretColor(new java.awt.Color(255, 255, 255));
-        jTextField2.setEnabled(false);
+        txtRol.setBackground(new java.awt.Color(212, 173, 107));
+        txtRol.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
+        txtRol.setForeground(new java.awt.Color(0, 0, 0));
+        txtRol.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtRol.setEnabled(false);
 
         jTextField7.setBackground(new java.awt.Color(212, 173, 107));
         jTextField7.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
@@ -225,7 +250,7 @@ public class Perfiles extends javax.swing.JFrame {
                         .addGap(48, 48, 48)))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                    .addComponent(jTextField2)
+                    .addComponent(txtRol)
                     .addComponent(jTextField1))
                 .addContainerGap())
         );
@@ -243,7 +268,7 @@ public class Perfiles extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -257,25 +282,29 @@ public class Perfiles extends javax.swing.JFrame {
         jToggleButton1.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
         jToggleButton1.setForeground(new java.awt.Color(255, 255, 255));
         jToggleButton1.setText("Regresar");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(581, 581, 581)
-                        .addComponent(jToggleButton1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(150, 150, 150)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(175, 175, 175)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jToggleButton1)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(150, 150, 150)
+                            .addComponent(jLabel1))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(175, 175, 175)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(35, 35, 35)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(63, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -305,6 +334,17 @@ public class Perfiles extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_jLabel9MouseClicked
 
     /**
      * @param args the command line arguments
@@ -357,7 +397,6 @@ public class Perfiles extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
@@ -366,6 +405,7 @@ public class Perfiles extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel txtCorreo;
     private javax.swing.JLabel txtEstado;
+    private javax.swing.JTextField txtRol;
     private javax.swing.JLabel txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

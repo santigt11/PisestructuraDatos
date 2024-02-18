@@ -110,10 +110,10 @@ public class Menu_Administrador extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         circleComponent1 = new com.jgoodies.animation.components.CircleComponent();
-        jPanel1 = new javax.swing.JPanel();
-        PanelPerfil = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        PanelPrincipalAdministrador = new javax.swing.JPanel();
+        PanelUsuarioO = new javax.swing.JPanel();
+        btnPerfilUser = new javax.swing.JLabel();
+        cambiarClave = new javax.swing.JLabel();
         btnCerrarSesion = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         buttonIcon2 = new org.edisoncor.gui.button.ButtonIcon();
@@ -159,17 +159,27 @@ public class Menu_Administrador extends javax.swing.JFrame {
 
         getContentPane().add(circleComponent1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, -1, -1));
 
-        jPanel1.setBackground(new java.awt.Color(255, 250, 205));
+        PanelPrincipalAdministrador.setBackground(new java.awt.Color(255, 250, 205));
 
-        PanelPerfil.setBackground(new java.awt.Color(102, 51, 0));
+        PanelUsuarioO.setBackground(new java.awt.Color(102, 51, 0));
 
-        jLabel13.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Perfil");
+        btnPerfilUser.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
+        btnPerfilUser.setForeground(new java.awt.Color(255, 255, 255));
+        btnPerfilUser.setText("Perfil");
+        btnPerfilUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPerfilUserMouseClicked(evt);
+            }
+        });
 
-        jLabel14.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Cambiar Clave");
+        cambiarClave.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
+        cambiarClave.setForeground(new java.awt.Color(255, 255, 255));
+        cambiarClave.setText("Cambiar Clave");
+        cambiarClave.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cambiarClaveMouseClicked(evt);
+            }
+        });
 
         btnCerrarSesion.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
         btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
@@ -180,48 +190,48 @@ public class Menu_Administrador extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout PanelPerfilLayout = new javax.swing.GroupLayout(PanelPerfil);
-        PanelPerfil.setLayout(PanelPerfilLayout);
-        PanelPerfilLayout.setHorizontalGroup(
-            PanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelPerfilLayout.createSequentialGroup()
+        javax.swing.GroupLayout PanelUsuarioOLayout = new javax.swing.GroupLayout(PanelUsuarioO);
+        PanelUsuarioO.setLayout(PanelUsuarioOLayout);
+        PanelUsuarioOLayout.setHorizontalGroup(
+            PanelUsuarioOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelUsuarioOLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(PanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelUsuarioOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCerrarSesion)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel13))
+                    .addComponent(cambiarClave)
+                    .addComponent(btnPerfilUser))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
-        PanelPerfilLayout.setVerticalGroup(
-            PanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelPerfilLayout.createSequentialGroup()
+        PanelUsuarioOLayout.setVerticalGroup(
+            PanelUsuarioOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelUsuarioOLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(jLabel13)
+                .addComponent(btnPerfilUser)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(jLabel14)
+                .addComponent(cambiarClave)
                 .addGap(28, 28, 28)
                 .addComponent(btnCerrarSesion)
                 .addGap(56, 56, 56))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(854, Short.MAX_VALUE)
-                .addComponent(PanelPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        javax.swing.GroupLayout PanelPrincipalAdministradorLayout = new javax.swing.GroupLayout(PanelPrincipalAdministrador);
+        PanelPrincipalAdministrador.setLayout(PanelPrincipalAdministradorLayout);
+        PanelPrincipalAdministradorLayout.setHorizontalGroup(
+            PanelPrincipalAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPrincipalAdministradorLayout.createSequentialGroup()
+                .addContainerGap(881, Short.MAX_VALUE)
+                .addComponent(PanelUsuarioO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        PanelPrincipalAdministradorLayout.setVerticalGroup(
+            PanelPrincipalAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelPrincipalAdministradorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(PanelPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(365, Short.MAX_VALUE))
+                .addComponent(PanelUsuarioO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(382, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 1030, 570));
+        getContentPane().add(PanelPrincipalAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 1057, 587));
 
         jPanel3.setBackground(new java.awt.Color(102, 51, 0));
         jPanel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -451,7 +461,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
                 .addGap(55, 55, 55))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 260, 630));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 260, 650));
 
         jPanel4.setBackground(new java.awt.Color(58, 39, 34));
 
@@ -479,7 +489,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 758, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 788, Short.MAX_VALUE)
                 .addComponent(NombreUsuariot, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
         );
@@ -493,7 +503,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 1030, 60));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 1060, 60));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -521,9 +531,13 @@ public class Menu_Administrador extends javax.swing.JFrame {
 
     private void NombreUsuariotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NombreUsuariotMouseClicked
         // TODO add your handling code here:
-            JPanelXDerecha(PanelPerfil.getX(), PanelPerfil.getX() + 100, 10, 1, PanelPerfil);
-        
-        
+            //JPanelXDerecha(PanelPerfil.getX(), PanelPerfil.getX() + 100, 10, 1, PanelPerfil);
+              // Cambiar la visibilidad del panel al hacer clic en el nombre de usuario
+    if (PanelUsuarioO.isVisible()) {
+        PanelUsuarioO.setVisible(false); // Si el panel está visible, ocultarlo
+    } else {
+        PanelUsuarioO.setVisible(true); // Si el panel está oculto, mostrarlo
+    }   
     }//GEN-LAST:event_NombreUsuariotMouseClicked
 
     private void btnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseClicked
@@ -532,6 +546,21 @@ public class Menu_Administrador extends javax.swing.JFrame {
         login.setVisible(true); // Mostrar la ventana de inicio de sesión
         dispose();       
     }//GEN-LAST:event_btnCerrarSesionMouseClicked
+
+    private void cambiarClaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cambiarClaveMouseClicked
+        // TODO add your handling code here:
+        CambiarClave VcambioClave = new CambiarClave();
+        VcambioClave.setVisible(true);
+        
+    }//GEN-LAST:event_cambiarClaveMouseClicked
+
+    private void btnPerfilUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPerfilUserMouseClicked
+        // TODO add your handling code here:
+        Perfiles ventanaPerfil = new Perfiles();
+    
+    // Hacer visible la ventana de perfil
+    ventanaPerfil.setVisible(true);
+    }//GEN-LAST:event_btnPerfilUserMouseClicked
 
     /**
      * @param args the command line arguments
@@ -563,17 +592,18 @@ public class Menu_Administrador extends javax.swing.JFrame {
     private org.edisoncor.gui.button.ButtonIcon AdminPeriodo;
     private javax.swing.JLabel FotoAdmin;
     private javax.swing.JLabel NombreUsuariot;
-    private javax.swing.JPanel PanelPerfil;
+    private javax.swing.JPanel PanelPrincipalAdministrador;
+    private javax.swing.JPanel PanelUsuarioO;
     private javax.swing.JLabel btnCerrarSesion;
+    private javax.swing.JLabel btnPerfilUser;
     private org.edisoncor.gui.button.ButtonIcon buttonIcon2;
+    private javax.swing.JLabel cambiarClave;
     private com.jgoodies.animation.components.CircleComponent circleComponent1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
@@ -584,7 +614,6 @@ public class Menu_Administrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
