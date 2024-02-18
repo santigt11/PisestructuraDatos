@@ -1,17 +1,17 @@
 package vista.Matriculas;
 
 import vista.Academico.FrmAcademico;
-import controlador.Academico.AsignaturaArchivos;
-import controlador.Academico.CarreraArchivos;
+import controlador.Academico.AsignaturaBD;
+import controlador.Academico.CarreraBD;
 import controlador.TDA.listas.Exception.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import controlador.Academico.FacultadArchivos;
-import controlador.Academico.MallaArchivos;
-import controlador.Admin.PersonaArchivos;
-import controlador.Matriculas.MatriculaArchivos;
-import controlador.Matriculas.MatriculaAsignaturaArchivos;
+import controlador.Academico.FacultadBD;
+import controlador.Academico.MallaBD;
+import controlador.Admin.PersonaBD;
+import controlador.Matriculas.MatriculaBD;
+import controlador.Matriculas.AsignacionMatriculaBD;
 import java.time.ZoneId;
 import modelo.*;
 
@@ -20,15 +20,15 @@ import vista.listas.util.Utilvista;
 
 public class FrmMatricula extends javax.swing.JFrame {
 
-    private MatriculaArchivos fileMatricula = new MatriculaArchivos();
-    private MatriculaAsignaturaArchivos fileMatriculaAsg = new MatriculaAsignaturaArchivos();
+    private MatriculaBD fileMatricula = new MatriculaBD();
+    private AsignacionMatriculaBD fileMatriculaAsg = new AsignacionMatriculaBD();
 
-    private PersonaArchivos filePersona = new PersonaArchivos();
+    private PersonaBD filePersona = new PersonaBD();
 
-    private FacultadArchivos fileFacultad = new FacultadArchivos();
-    private CarreraArchivos fileCarrera = new CarreraArchivos();
-    private MallaArchivos fileMalla = new MallaArchivos();
-    private AsignaturaArchivos fileAsignatura = new AsignaturaArchivos();
+    private FacultadBD fileFacultad = new FacultadBD();
+    private CarreraBD fileCarrera = new CarreraBD();
+    private MallaBD fileMalla = new MallaBD();
+    private AsignaturaBD fileAsignatura = new AsignaturaBD();
 
     private TablaMatricula tm = new TablaMatricula();
 

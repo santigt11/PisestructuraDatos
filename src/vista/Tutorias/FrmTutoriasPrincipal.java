@@ -1,48 +1,46 @@
 package vista.Tutorias;
 
-import controlador.Academico.AsignaturaArchivos;
-import controlador.Academico.CarreraArchivos;
-import controlador.Academico.ContratoArchivos;
-import controlador.Academico.FacultadArchivos;
-import controlador.Academico.MallaArchivos;
-import controlador.Admin.PersonaArchivos;
-import controlador.Matriculas.MatriculaAsignaturaArchivos;
+import controlador.Academico.AsignaturaBD;
+import controlador.Academico.CarreraBD;
+import controlador.Academico.ContratoBD;
+import controlador.Academico.FacultadBD;
+import controlador.Academico.MallaBD;
+import controlador.Admin.PersonaBD;
+import controlador.Matriculas.AsignacionMatriculaBD;
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
-import controlador.Tutorias.TutoriaArchivos;
-import controlador.Tutorias.TutoriaMatriculaArchivos;
+import controlador.Tutorias.TutoriaBD;
 import java.time.format.DateTimeFormatter;
-import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.plaf.synth.SynthLookAndFeel;
+import modelo.Asignacion;
 import modelo.Asignatura;
-import modelo.Contrato;
 import modelo.AsignacionMatricula;
-import modelo.Persona;
 import modelo.Tutoria;
-import modelo.TutoriaMatricula;
+import modelo.Usuario;
 import vista.listas.util.Utilvista;
 
 public class FrmTutoriasPrincipal extends javax.swing.JFrame {
 
-    private TutoriaMatriculaArchivos fileTutoriaM = new TutoriaMatriculaArchivos();
-    private TutoriaArchivos fileTutoria = new TutoriaArchivos();
-    private MatriculaAsignaturaArchivos fileMatriculaAsg = new MatriculaAsignaturaArchivos();
-    private static PersonaArchivos personaControl = new PersonaArchivos();
-    private FacultadArchivos fileFacultad = new FacultadArchivos();
-    private CarreraArchivos fileCarrera = new CarreraArchivos();
-    private MallaArchivos fileMalla = new MallaArchivos();
-    private AsignaturaArchivos fileAsignatura = new AsignaturaArchivos();
-    private ContratoArchivos contratoControl = new ContratoArchivos();
-    private AsignaturaArchivos asignaturaControl = new AsignaturaArchivos();
-    private MatriculaAsignaturaArchivos matriculaAsignaturaControl = new MatriculaAsignaturaArchivos();
+    private AsignacionMatriculaBD fileTutoriaM = new AsignacionMatriculaBD();
+    private TutoriaBD fileTutoria = new TutoriaBD();
+    private AsignacionMatriculaBD fileMatriculaAsg = new AsignacionMatriculaBD();
+    private static PersonaBD personaControl = new PersonaBD();
+    private FacultadBD fileFacultad = new FacultadBD();
+    private CarreraBD fileCarrera = new CarreraBD();
+    private MallaBD fileMalla = new MallaBD();
+    private AsignaturaBD fileAsignatura = new AsignaturaBD();
+    private ContratoBD contratoControl = new ContratoBD();
+    private AsignaturaBD asignaturaControl = new AsignaturaBD();
+    private AsignacionMatriculaBD matriculaAsignaturaControl = new AsignacionMatriculaBD();
 
     public FrmTutoriasPrincipal() {
         initComponents();
     }
 
-    public static void cargarDocente(Persona persona) {
-        personaControl.setPersona(persona);
+    public  void cargarUsuario(Usuario usuario) {
+        if (usuario.getRol_id() == 1) {
+            btGenerarInforme.setVisible(false);
+        }
     }
 
     private void limpiar() {
@@ -53,19 +51,19 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         chkNo.setSelected(false);
     }
 
-    private void cargarTutoriasLista(DynamicList<TutoriaMatricula> tutoriasM) throws EmptyException {
+    private void cargarTutoriasLista(DynamicList<AsignacionMatricula> tutoriasM) throws EmptyException {
         Utilvista.cargarListaTutoriaMatricula(tutoriasM, lstTutorias);
     }
 
     private void cargarTutorias() throws EmptyException {
         personaControl.setPersona(personaControl.buscarBinaria("dni", "1101201301"));
         contratoControl.setContratos(contratoControl.buscarLineal(contratoControl.all(), "DNIDocente", String.valueOf(personaControl.getPersona().getDni())));
-        Contrato contratos[] = contratoControl.getContratos().toArray();
-        Contrato contrato;
+        Asignacion asignaciones[] = contratoControl.getContratos().toArray();
+        Asignacion asignacion;
         DynamicList<Asignatura> asignaturas = new DynamicList<>();
         for (int i = 0; i < contratoControl.getContratos().getLength(); i++) {
-            contrato = contratoControl.get(contratos[i].getId());
-            asignaturas.add(asignaturaControl.buscarBinaria("codigo", contrato.getAsignatura_CODIGO()));
+            asignacion = contratoControl.get(asignaciones[i].getId());
+            asignaturas.add(asignaturaControl.buscarBinaria("codigo", asignacion.getAsignatura_CODIGO()));
         }
         Asignatura asignaturasArray[] = asignaturaControl.getAsignaturas().toArray();
         Asignatura asignatura;
@@ -75,24 +73,23 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
             matriculasAsignaturas.add(matriculaAsignaturaControl.buscarBinaria("codigo", asignatura.getCodigo()));
         }
         AsignacionMatricula tMatriculas[] = matriculaAsignaturaControl.getAsgMatriculas().toArray();
-        TutoriaMatricula tMatricula;
-        DynamicList<TutoriaMatricula> tutoriasMatricula = new DynamicList<>();
+        AsignacionMatricula tMatricula;
+        DynamicList<AsignacionMatricula> tutoriasMatricula = new DynamicList<>();
         for (int i = 0; i < matriculaAsignaturaControl.getAsgMatriculas().getLength(); i++) {
             tMatricula = fileTutoriaM.get(tMatriculas[i].getId());
             tutoriasMatricula.add(tMatricula);
         }
     }
 
-    private void cargarVista(TutoriaMatricula tutoriaAsg) throws EmptyException {
-        fileTutoriaM.setTutoria(tutoriaAsg);
-        AsignacionMatricula matriculaAsg = fileMatriculaAsg.buscarBinaria("id", fileTutoriaM.getTutoriaMatricula().getMatriculaAsignatura_ID().toString());
-        Asignatura asignatura = fileAsignatura.buscarBinaria("id", matriculaAsg.getAsignatura_Codigo().toString());
-        Tutoria tutoria = fileTutoria.buscarBinaria("id", fileTutoriaM.getTutoriaMatricula().getTutoria_ID().toString());
-
+    private void cargarVista(AsignacionMatricula asgMatricula) throws EmptyException {
+        fileTutoriaM.setAsgMatricula(asgMatricula);
+        AsignacionMatricula matriculaAsg = fileMatriculaAsg.buscarBinaria("id", fileTutoriaM.getAsgMatricula().getMatriculaAsignatura_ID().toString());
+        Asignatura asignatura = fileAsignatura.buscarBinaria("id", matriculaAsg.getId().toString());
+        Tutoria tutoria = fileTutoria.buscarBinaria("id", fileTutoriaM.getAsgMatricula().getTutoria_ID().toString());
         txtAsignatura.setText(asignatura.getNombre());
         txtTema.setText(tutoria.getTema());
         txtFecha.setText(tutoria.getFecha().format((DateTimeFormatter) Utilvista.FORMATO_FECHA));
-        if (fileTutoriaM.getTutoriaMatricula().isImpartida()) {
+        if (fileTutoriaM.getAsgMatricula().getImpartida()) {
             chkSi.setSelected(true);
             chkNo.setSelected(false);
         } else {
@@ -123,8 +120,8 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jButton1 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btNuevaTutoria = new javax.swing.JButton();
+        btGenerarInforme = new javax.swing.JButton();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -299,7 +296,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -327,13 +324,13 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         bg.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 220, -1));
 
-        jButton2.setBackground(new java.awt.Color(102, 51, 0));
-        jButton2.setText("Nueva Tutoria");
-        bg.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 20, -1, -1));
+        btNuevaTutoria.setBackground(new java.awt.Color(102, 51, 0));
+        btNuevaTutoria.setText("Nueva Tutoria");
+        bg.add(btNuevaTutoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 20, -1, -1));
 
-        jButton3.setBackground(new java.awt.Color(102, 51, 0));
-        jButton3.setText("Generar Informe");
-        bg.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 20, 130, -1));
+        btGenerarInforme.setBackground(new java.awt.Color(102, 51, 0));
+        btGenerarInforme.setText("Generar Informe");
+        bg.add(btGenerarInforme, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 20, 130, -1));
 
         jDateChooser1.setBackground(new java.awt.Color(212, 173, 107));
         bg.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 170, -1));
@@ -346,7 +343,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -356,7 +353,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     private void lstTutoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTutoriasMouseClicked
         if (lstTutorias.getSelectedValue() != null) {
             Object t = lstTutorias.getSelectedValue();
-            TutoriaMatricula tutoria = (TutoriaMatricula) t;
+            AsignacionMatricula tutoria = (AsignacionMatricula) t;
             try {
                 cargarVista(tutoria);
             } catch (EmptyException ex) {
@@ -401,11 +398,11 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
+    private javax.swing.JButton btGenerarInforme;
+    private javax.swing.JButton btNuevaTutoria;
     private javax.swing.JCheckBox chkNo;
     private javax.swing.JCheckBox chkSi;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;

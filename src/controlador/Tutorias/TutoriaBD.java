@@ -6,18 +6,18 @@ import controlador.TDA.listas.Exception.EmptyException;
 import controlador.dao.AdaptadorDao;
 import modelo.Tutoria;
 
-public class TutoriaArchivos extends AdaptadorDao<Tutoria> {
+public class TutoriaBD extends AdaptadorDao<Tutoria> {
 
     private DynamicList<Tutoria> tutorias;
     private Tutoria tutoria;
 
-    public TutoriaArchivos(DynamicList<Tutoria> tutorias, Tutoria tutoria) {
+    public TutoriaBD(DynamicList<Tutoria> tutorias, Tutoria tutoria) {
         super(Tutoria.class);
         this.tutorias = tutorias;
         this.tutoria = tutoria;
     }
 
-    public TutoriaArchivos() {
+    public TutoriaBD() {
         super(Tutoria.class);
     }
 

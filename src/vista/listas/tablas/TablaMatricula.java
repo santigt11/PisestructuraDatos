@@ -1,8 +1,8 @@
 package vista.listas.tablas;
 
 
-import controlador.Matriculas.PeriodoArchivos;
-import controlador.Admin.PersonaArchivos;
+import controlador.Matriculas.PeriodoBD;
+import controlador.Admin.PersonaBD;
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import javax.swing.table.AbstractTableModel;
@@ -11,8 +11,8 @@ import modelo.Matricula;
 public class TablaMatricula extends AbstractTableModel {
 
     private DynamicList<Matricula> matriculas;
-    private PersonaArchivos filePersona = new PersonaArchivos();
-    private PeriodoArchivos filePeriodo = new PeriodoArchivos();
+    private PersonaBD filePersona = new PersonaBD();
+    private PeriodoBD filePeriodo = new PeriodoBD();
     
 
     @Override

@@ -4,7 +4,7 @@
  */
 package vista;
 
-import controlador.Academico.HorarioArchivos;
+import controlador.Academico.HorarioBD;
 import controlador.TDA.listas.Exception.EmptyException;
 import javax.swing.JOptionPane;
 import vista.listas.tablas.ModeloTablaHorario;
@@ -18,7 +18,7 @@ import vista.Admin.FrmGuardarPersona;
  * @author marian
  */
 public class FrmHorario extends javax.swing.JFrame {
-    private HorarioArchivos horarioControl = new HorarioArchivos();
+    private HorarioBD horarioControl = new HorarioBD();
     private ModeloTablaHorario mtp = new ModeloTablaHorario();
     
      public FrmHorario() {

@@ -5,10 +5,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-import controlador.Academico.AsignaturaArchivos;
-import controlador.Academico.CarreraArchivos;
-import controlador.Academico.FacultadArchivos;
-import controlador.Academico.MallaArchivos;
+import controlador.Academico.AsignaturaBD;
+import controlador.Academico.CarreraBD;
+import controlador.Academico.FacultadBD;
+import controlador.Academico.MallaBD;
 
 import modelo.Facultad;
 import modelo.Carrera;
@@ -19,10 +19,10 @@ import vista.listas.util.Utilvista;
 
 public class FrmAcademico extends javax.swing.JFrame {
 
-    private FacultadArchivos fileFacultad = new FacultadArchivos();
-    private CarreraArchivos fileCarrera = new CarreraArchivos();
-    private MallaArchivos fileMalla = new MallaArchivos();
-    private AsignaturaArchivos fileAsignatura = new AsignaturaArchivos();
+    private FacultadBD fileFacultad = new FacultadBD();
+    private CarreraBD fileCarrera = new CarreraBD();
+    private MallaBD fileMalla = new MallaBD();
+    private AsignaturaBD fileAsignatura = new AsignaturaBD();
 
     public Boolean verificar(Integer var) {
         switch (var) {

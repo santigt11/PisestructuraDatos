@@ -6,17 +6,17 @@ import controlador.TDA.listas.Exception.EmptyException;
 import controlador.dao.AdaptadorDao;
 import modelo.Asignatura;
 
-public class AsignaturaArchivos extends AdaptadorDao<Asignatura> {
+public class AsignaturaBD extends AdaptadorDao<Asignatura> {
 
     private DynamicList<Asignatura> asignaturas;
     private Asignatura asignatura;
 
-    public AsignaturaArchivos() {
+    public AsignaturaBD() {
         super(Asignatura.class);
         asignaturas = new DynamicList<>();
     }
 
-    public AsignaturaArchivos(DynamicList<Asignatura> asignaturas, Asignatura asignatura, Class clazz) {
+    public AsignaturaBD(DynamicList<Asignatura> asignaturas, Asignatura asignatura, Class clazz) {
         super(clazz);
         this.asignaturas = asignaturas;
         this.asignatura = asignatura;

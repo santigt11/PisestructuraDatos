@@ -1,12 +1,12 @@
 package vista.Academico;
 
-import controlador.Academico.AsignaturaArchivos;
+import controlador.Academico.AsignaturaBD;
 import controlador.TDA.listas.Exception.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import controlador.Academico.ContratoArchivos;
-import controlador.Admin.PersonaArchivos;
+import controlador.Academico.ContratoBD;
+import controlador.Admin.PersonaBD;
 import java.time.ZoneId;
 import modelo.*;
 
@@ -15,9 +15,9 @@ import vista.listas.util.Utilvista;
 
 public class FrmContrato extends javax.swing.JFrame {
 
-    private ContratoArchivos fileContrato = new ContratoArchivos();
-    private PersonaArchivos filePersona = new PersonaArchivos();
-    private AsignaturaArchivos fileAsignatura = new AsignaturaArchivos();
+    private ContratoBD fileContrato = new ContratoBD();
+    private PersonaBD filePersona = new PersonaBD();
+    private AsignaturaBD fileAsignatura = new AsignaturaBD();
 
     private TablaContrato tc = new TablaContrato();
 

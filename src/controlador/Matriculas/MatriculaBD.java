@@ -5,12 +5,12 @@ import controlador.TDA.listas.Exception.EmptyException;
 import controlador.dao.AdaptadorDao;
 import modelo.Matricula;
 
-public class MatriculaArchivos extends AdaptadorDao<Matricula> {
+public class MatriculaBD extends AdaptadorDao<Matricula> {
 
     private DynamicList<Matricula> matriculas;
     private Matricula matricula;
 
-    public MatriculaArchivos() {
+    public MatriculaBD() {
         super(Matricula.class);
         matriculas = new DynamicList<>();
     }

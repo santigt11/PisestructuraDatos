@@ -1,20 +1,20 @@
 package vista.Tutorias;
 
-import controlador.Academico.AsignaturaArchivos;
-import controlador.Academico.ContratoArchivos;
-import controlador.Admin.PersonaArchivos;
-import controlador.Matriculas.MatriculaArchivos;
-import controlador.Matriculas.MatriculaAsignaturaArchivos;
-import controlador.Tutorias.TutoriaArchivos;
+import controlador.Academico.AsignaturaBD;
+import controlador.Academico.ContratoBD;
+import controlador.Admin.PersonaBD;
+import controlador.Matriculas.MatriculaBD;
+import controlador.Matriculas.AsignacionMatriculaBD;
+import controlador.Matriculas.CursaBD;
+import controlador.Tutorias.TutoriaBD;
 import controlador.TDA.listas.Exception.EmptyException;
-import controlador.Tutorias.HorarioArchivos;
-import controlador.Tutorias.TutoriaMatriculaArchivos;
+import controlador.Tutorias.HorarioBD;
 import java.time.ZoneId;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.Matricula;
-import modelo.AsignacionMatricula;
+import modelo.Cursa;
 import modelo.Persona;
 import vista.listas.util.Utilvista;
 
@@ -25,14 +25,15 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         limpiar();
     }
 
-    private TutoriaArchivos tutoriaControl = new TutoriaArchivos();
-    private HorarioArchivos horarioControl = new HorarioArchivos();
-    private AsignaturaArchivos asignaturaControl = new AsignaturaArchivos();
-    private MatriculaAsignaturaArchivos matriculaAsignControl = new MatriculaAsignaturaArchivos();
-    private static PersonaArchivos personaControl = new PersonaArchivos();
-    private ContratoArchivos contratoControl = new ContratoArchivos();
-    private MatriculaArchivos matriculaControl = new MatriculaArchivos();
-    private TutoriaMatriculaArchivos tutoriaMatrControl = new TutoriaMatriculaArchivos();
+    private TutoriaBD tutoriaControl = new TutoriaBD();
+    private HorarioBD horarioControl = new HorarioBD();
+    private AsignaturaBD asignaturaControl = new AsignaturaBD();
+    private AsignacionMatriculaBD matriculaAsignControl = new AsignacionMatriculaBD();
+    private CursaBD cursaControl = new CursaBD();
+    private static PersonaBD personaControl = new PersonaBD();
+    private ContratoBD contratoControl = new ContratoBD();
+    private MatriculaBD matriculaControl = new MatriculaBD();
+    private AsignacionMatriculaBD tutoriaMatrControl = new AsignacionMatriculaBD();
     
     public static void cargarDocente(Persona persona) {
         personaControl.setPersona(persona);
@@ -64,14 +65,17 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
                 && !(cbxHorario.getSelectedIndex() > 0)
                 && !dcFecha.getDate().equals(null));
     }
-
-    private void cargarListaMatriculaAsignatura() throws EmptyException {
-        matriculaAsignControl.setAsgMatriculas(matriculaAsignControl.buscarLineal(matriculaAsignControl.getAsgMatriculasTodas(), "asignatura_codigo", asignaturaControl.get(cbxAsignatura.getSelectedIndex()+1).getCodigo()));
-        System.out.println(matriculaControl.all());
-        AsignacionMatricula matriculasA[] = matriculaAsignControl.getAsgMatriculas().toArray();
+    
+    //MatriculaAsignatura = Cursa
+    //matriculaAsignControl = cursaControl
+    private void cargarListaCursas() throws EmptyException {
+        cursaControl.setCursas(cursaControl.buscarLineal(cursaControl.getCursasTodas(), "asignatura_codigo", asignaturaControl.get(cbxAsignatura.getSelectedIndex()+1).getCodigo()));
+        System.out.println(cursaControl.all());
+        Cursa cursas[] = cursaControl.getCursas().toArray();
+        System.out.println(cursas[0]);
         Matricula matricula;
-        for (int i = 0; i < matriculaAsignControl.getAsgMatriculas().getLength(); i++) {
-            matricula = matriculaControl.get(matriculasA[i].getId());
+        for (int i = 0; i < cursaControl.getCursas().getLength(); i++) {
+            matricula = matriculaControl.get(cursas[i].getMatricula_ID());
             matriculaControl.getMatriculas().add(matricula);
         }
         System.out.println(matriculaControl.getMatriculas());
@@ -82,7 +86,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
             persona = personaControl.buscarBinaria("dni", matriculas[i].getPersona_DNI());
             personaControl.getPersonas().add(persona);
         }
-        Utilvista.cargarListaPersonas(personaControl.getPersonas(), lstMatriculaAsignatura);
+        Utilvista.cargarListaPersonas(personaControl.getPersonas(), lstCursa);
     }
 
 //    private void buscar() {
@@ -110,7 +114,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
 
     private void limpiar() throws EmptyException {
         cargarContratos();
-        cargarListaMatriculaAsignatura();
+        cargarListaCursas();
         lstEstudiantesAsignados.removeAll();
         try {
             Utilvista.cargarComboAsignaturaContrato(contratoControl.getContratos(), cbxAsignatura);
@@ -126,11 +130,11 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     }
 
     private void cargarEstudiante() {
-        Object p = lstMatriculaAsignatura.getSelectedValue();
-        AsignacionMatricula estudiante = (AsignacionMatricula) p;
-        tutoriaMatrControl.getTutoriaMatricula().setMatriculaAsignatura_ID(estudiante.getId());
-        tutoriaMatrControl.getTutoriaMatricula().setTutoria_ID(tutoriaControl.getTutoria().getId());
-        tutoriaMatrControl.getTutoriaMatriculas().add(tutoriaMatrControl.getTutoriaMatricula());
+        Object p = lstCursa.getSelectedValue();
+        Cursa estudiante = (Cursa) p;
+        tutoriaMatrControl.getAsgMatricula().setMatriculaAsignatura_ID(estudiante.getId());
+        tutoriaMatrControl.getAsgMatricula().setTutoria_ID(tutoriaControl.getTutoria().getId());
+        tutoriaMatrControl.getAsgMatriculas().add(tutoriaMatrControl.getAsgMatricula());
     }
 
     @SuppressWarnings("unchecked")
@@ -153,7 +157,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         btAsignarEstudiante1 = new javax.swing.JButton();
         btRemoverEstudiante = new javax.swing.JButton();
         jScrollPane8 = new javax.swing.JScrollPane();
-        lstMatriculaAsignatura = new javax.swing.JList<>();
+        lstCursa = new javax.swing.JList<>();
         jScrollPane7 = new javax.swing.JScrollPane();
         lstEstudiantesAsignados = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
@@ -318,16 +322,16 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
 
         jScrollPane8.setBorder(null);
 
-        lstMatriculaAsignatura.setBackground(new java.awt.Color(212, 173, 107));
-        lstMatriculaAsignatura.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lstMatriculaAsignatura.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        lstMatriculaAsignatura.setForeground(new java.awt.Color(0, 0, 0));
-        lstMatriculaAsignatura.setModel(new javax.swing.AbstractListModel<String>() {
+        lstCursa.setBackground(new java.awt.Color(212, 173, 107));
+        lstCursa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lstCursa.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        lstCursa.setForeground(new java.awt.Color(0, 0, 0));
+        lstCursa.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Jose Roberto Alcachofa Tercero", "Pepe Roberto Alcachofa Segundo" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane8.setViewportView(lstMatriculaAsignatura);
+        jScrollPane8.setViewportView(lstCursa);
 
         jScrollPane7.setBorder(null);
 
@@ -470,8 +474,8 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JList<String> lstCursa;
     private javax.swing.JList<String> lstEstudiantesAsignados;
-    private javax.swing.JList<String> lstMatriculaAsignatura;
     private javax.swing.JTextField txtTema;
     // End of variables declaration//GEN-END:variables
 }

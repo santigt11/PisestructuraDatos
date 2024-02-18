@@ -5,12 +5,12 @@ import controlador.TDA.listas.Exception.EmptyException;
 import controlador.dao.AdaptadorDao;
 import modelo.Facultad;
 
-public class FacultadArchivos extends AdaptadorDao<Facultad> {
+public class FacultadBD extends AdaptadorDao<Facultad> {
 
     private DynamicList<Facultad> facultades;
     private Facultad facultad;
 
-    public FacultadArchivos() {
+    public FacultadBD() {
         super(Facultad.class);
     }
 

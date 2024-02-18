@@ -5,12 +5,12 @@ import controlador.TDA.listas.Exception.EmptyException;
 import controlador.dao.AdaptadorDao;
 import modelo.MallaCurricular;
 
-public class MallaArchivos extends AdaptadorDao<MallaCurricular> {
+public class MallaBD extends AdaptadorDao<MallaCurricular> {
 
     private DynamicList<MallaCurricular> mallas;
     private MallaCurricular malla;
 
-    public MallaArchivos() {
+    public MallaBD() {
         super(MallaCurricular.class);
     }
 
