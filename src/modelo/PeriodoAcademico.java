@@ -7,11 +7,29 @@ public class PeriodoAcademico {
     private Integer id;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
+    private Boolean estadoActivo;
 
-    public PeriodoAcademico(Integer id, LocalDate fechaIncio, LocalDate fechaFin) {
+    public PeriodoAcademico(Integer id, LocalDate fechaInicio, LocalDate fechaFin, Boolean estadoActivo) {
         this.id = id;
-        this.fechaInicio = fechaIncio;
+        this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
+        this.estadoActivo = estadoActivo;
+    }
+
+    public LocalDate getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(LocalDate fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public Boolean getEstadoActivo() {
+        return estadoActivo;
+    }
+
+    public void setEstadoActivo(Boolean estadoActivo) {
+        this.estadoActivo = estadoActivo;
     }
 
     public PeriodoAcademico() {

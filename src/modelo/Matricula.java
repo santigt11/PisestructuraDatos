@@ -5,14 +5,14 @@ import java.time.LocalDate;
 public class Matricula {
 
     private Integer id;
-    private LocalDate fecha;
+    private LocalDate fechaRegistro;
     private Boolean expActivo;
     private String persona_DNI;
     private Integer periodoAcademico_ID;
 
-    public Matricula(Integer id, LocalDate fecha, Boolean expActivo, String idPersona, Integer idPAcademico) {
+    public Matricula(Integer id, LocalDate fechaRegistro, Boolean expActivo, String idPersona, Integer idPAcademico) {
         this.id = id;
-        this.fecha = fecha;
+        this.fechaRegistro = fechaRegistro;
         this.expActivo = expActivo;
         this.persona_DNI = idPersona;
         this.periodoAcademico_ID = idPAcademico;
@@ -29,12 +29,12 @@ public class Matricula {
         this.id = id;
     }
 
-    public LocalDate getFecha() {
-        return fecha;
+    public LocalDate getFechaRegistro() {
+        return fechaRegistro;
     }
 
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
+    public void setFechaRegistro(LocalDate fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
     public String getPersona_DNI() {
@@ -63,15 +63,15 @@ public class Matricula {
 
     @Override
     public String toString() {
-        return id + " - " + fecha;
+        return id + " - " + fechaRegistro;
     }
 
     public int compareCampo(String campo, String valorBuscado) {
         switch (campo.toLowerCase()) {
             case "id":
                 return this.id.compareTo(Integer.parseInt(valorBuscado));
-            case "fecha":
-                return this.fecha.compareTo(LocalDate.parse(valorBuscado));
+            case "fechaRegistro":
+                return this.fechaRegistro.compareTo(LocalDate.parse(valorBuscado));
             case "persona_dni":
                 return this.persona_DNI.compareTo(valorBuscado);
             case "periodoacademico_id":

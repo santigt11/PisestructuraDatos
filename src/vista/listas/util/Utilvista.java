@@ -22,7 +22,7 @@ import javax.swing.JList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import modelo.Asignatura;
-import modelo.Contrato;
+import modelo.Asignacion;
 import modelo.Matricula;
 import modelo.AsignacionMatricula;
 import modelo.Persona;
@@ -138,9 +138,9 @@ public class Utilvista {
         return (Facultad) facultad;
     }
 
-    public static void cargarComboAsignaturaContrato(DynamicList<Contrato> contratos, JComboBox cbx) throws EmptyException {
+    public static void cargarComboAsignaturaContrato(DynamicList<Asignacion> contratos, JComboBox cbx) throws EmptyException {
         AsignaturaArchivos aa = new AsignaturaArchivos();
-        Contrato contratosArray[] = contratos.toArray();
+        Asignacion contratosArray[] = contratos.toArray();
         cbx.removeAllItems();
         if (contratos.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Lista vacia");

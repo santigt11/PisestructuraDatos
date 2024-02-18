@@ -11,7 +11,6 @@ public class Persona {
     private String apellido;
     private LocalDate fechaNacimiento;
     private String telefono;
-    private Integer rol_id;
 
     //constructor vacio
     public Persona() {
@@ -19,14 +18,13 @@ public class Persona {
 
     //constructor que iniciliza los atributos
 
-    public Persona(Integer id, String dni, String nombre, String apellido, LocalDate fechaNacimiento, String telefono, Integer rol_id) {
+    public Persona(Integer id, String dni, String nombre, String apellido, LocalDate fechaNacimiento, String telefono) {
         this.id = id;
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaNacimiento = fechaNacimiento;
         this.telefono = telefono;
-        this.rol_id = rol_id;
     }
 
     //getters and setters
@@ -76,14 +74,6 @@ public class Persona {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
-    }
-
-    public Integer getRol_id() {
-        return rol_id;
-    }
-
-    public void setRol_id(Integer rol_id) {
-        this.rol_id = rol_id;
     }
 
     //toString

@@ -1,24 +1,18 @@
 package modelo;
 
-import java.time.LocalDate;
-
-public class Contrato {
+public class Asignacion {
 
     private Integer id;
-    private LocalDate fechaRegistro;
-    private LocalDate fechaCulminacion;
-    private String persona_DNI;
     private String asignatura_CODIGO;
+    private String persona_DNI;
 
-    public Contrato() {
+    public Asignacion() {
     }
 
-    public Contrato(Integer id, LocalDate fechaRegistro, LocalDate fechaCulminacion, String persona_DNI, String asignatura_CODIGO) {
+    public Asignacion(Integer id, String asignatura_CODIGO, String persona_DNI) {
         this.id = id;
-        this.fechaRegistro = fechaRegistro;
-        this.fechaCulminacion = fechaCulminacion;
-        this.persona_DNI = persona_DNI;
         this.asignatura_CODIGO = asignatura_CODIGO;
+        this.persona_DNI = persona_DNI;
     }
 
     public Integer getId() {
@@ -28,23 +22,7 @@ public class Contrato {
     public void setId(Integer id) {
         this.id = id;
     }
-
-    public LocalDate getFechaRegistro() {
-        return fechaRegistro;
-    }
-
-    public void setFechaRegistro(LocalDate fechaRegistro) {
-        this.fechaRegistro = fechaRegistro;
-    }
-
-    public LocalDate getFechaCulminacion() {
-        return fechaCulminacion;
-    }
-
-    public void setFechaCulminacion(LocalDate fechaCulminacion) {
-        this.fechaCulminacion = fechaCulminacion;
-    }
-
+    
     public String getDniPersona() {
         return persona_DNI;
     }
@@ -73,8 +51,6 @@ public class Contrato {
         switch (campo.toLowerCase()) {
             case "id":
                 return this.id.compareTo(Integer.parseInt(valorBuscado));
-            case "fecharegistro":
-                return this.fechaRegistro.compareTo(LocalDate.parse(valorBuscado));
             case "dnidocente":
                 return this.persona_DNI.compareToIgnoreCase(valorBuscado);
             case "codasignatura":

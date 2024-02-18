@@ -4,18 +4,18 @@ package modelo;
 public class AsignacionMatricula {
 
     private Integer id;
-    private String curso;
-    private Integer matricula_ID;
-    private String asignatura_Codigo;
+    private Boolean impartida;
+    private Integer tutoria_ID;
+    private Integer matriculaAsignatura_ID;
 
     public AsignacionMatricula() {
     }
 
-    public AsignacionMatricula(Integer id, String curso, Integer idMatricula, String idAsignatura) {
+    public AsignacionMatricula(Integer id, Boolean impartida, Integer tutoria_ID, Integer matriculaAsignatura_ID) {
         this.id = id;
-        this.curso = curso;
-        this.matricula_ID = idMatricula;
-        this.asignatura_Codigo = idAsignatura;
+        this.impartida = impartida;
+        this.tutoria_ID = tutoria_ID;
+        this.matriculaAsignatura_ID = matriculaAsignatura_ID;
     }
 
     public Integer getId() {
@@ -26,46 +26,44 @@ public class AsignacionMatricula {
         this.id = id;
     }
 
-    public String getCurso() {
-        return curso;
+    public Boolean getImpartida() {
+        return impartida;
     }
 
-    public void setCurso(String curso) {
-        this.curso = curso;
+    public void setImpartida(Boolean impartida) {
+        this.impartida = impartida;
     }
 
-    public Integer getMatricula_ID() {
-        return matricula_ID;
+    public Integer getTutoria_ID() {
+        return tutoria_ID;
     }
 
-    public void setMatricula_ID(Integer idMatricula) {
-        this.matricula_ID = idMatricula;
+    public void setTutoria_ID(Integer tutoria_ID) {
+        this.tutoria_ID = tutoria_ID;
     }
 
-    public String getAsignatura_Codigo() {
-        return asignatura_Codigo;
+    public Integer getMatriculaAsignatura_ID() {
+        return matriculaAsignatura_ID;
     }
 
-    public void setAsignatura_Codigo(String idAsignatura) {
-        this.asignatura_Codigo = idAsignatura;
+    public void setMatriculaAsignatura_ID(Integer matriculaAsignatura_ID) {
+        this.matriculaAsignatura_ID = matriculaAsignatura_ID;
     }
+
+    
 
     @Override
     public String toString() {
-        return curso + "  -  " + asignatura_Codigo;
+        return tutoria_ID + "  -  " + matriculaAsignatura_ID;
     }
 
     public int compareCampo(String campo, String valorBuscado) {
         switch (campo.toLowerCase()) {
             case "id":
                 return this.id.compareTo(Integer.parseInt(valorBuscado));
-            case "curso":
-                return this.curso.compareToIgnoreCase(valorBuscado);
             case "matricula_id":
 //                System.out.println(this.matricula_ID.compareTo(Integer.parseInt(valorBuscado)));
-                return this.matricula_ID.compareTo(Integer.parseInt(valorBuscado));
-            case "asignatura_codigo":
-                return this.asignatura_Codigo.compareTo(valorBuscado);
+                return this.tutoria_ID.compareTo(Integer.parseInt(valorBuscado));
             default:
                 throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
         }
