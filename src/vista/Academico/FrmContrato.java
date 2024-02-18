@@ -190,7 +190,7 @@ public class FrmContrato extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel3.setBackground(new java.awt.Color(88, 156, 20));
+        jPanel3.setBackground(new java.awt.Color(102, 51, 0));
 
         jLabel6.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -212,9 +212,10 @@ public class FrmContrato extends javax.swing.JFrame {
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, -1));
 
-        jpFCA.setBackground(new java.awt.Color(242, 242, 242));
+        jpFCA.setBackground(new java.awt.Color(212, 173, 107));
 
         jLabel18.setFont(new java.awt.Font("Roboto Medium", 1, 13)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
         jLabel18.setText("Facultades");
 
         jScrollPane8.setPreferredSize(new java.awt.Dimension(262, 130));
@@ -228,6 +229,7 @@ public class FrmContrato extends javax.swing.JFrame {
         jScrollPane8.setViewportView(lstFacultad);
 
         jLabel2.setFont(new java.awt.Font("Roboto Medium", 1, 13)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Carreras");
 
         jScrollPane5.setPreferredSize(new java.awt.Dimension(262, 130));
@@ -244,6 +246,7 @@ public class FrmContrato extends javax.swing.JFrame {
         jScrollPane5.setViewportView(lstCarrera);
 
         jLabel3.setFont(new java.awt.Font("Roboto Medium", 1, 13)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Mallas Curriculares");
 
         jScrollPane7.setPreferredSize(new java.awt.Dimension(262, 130));
@@ -257,6 +260,7 @@ public class FrmContrato extends javax.swing.JFrame {
         jScrollPane7.setViewportView(lstMalla);
 
         jLabel15.setFont(new java.awt.Font("Roboto Medium", 1, 13)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("Asignaturas");
 
         jScrollPane6.setPreferredSize(new java.awt.Dimension(262, 130));
@@ -317,13 +321,14 @@ public class FrmContrato extends javax.swing.JFrame {
 
         getContentPane().add(jpFCA, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 341, 560, 240));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 250, 205));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jpDocentes.setBackground(new java.awt.Color(242, 242, 242));
+        jpDocentes.setBackground(new java.awt.Color(212, 173, 107));
 
         jLabel4.setFont(new java.awt.Font("Roboto Medium", 1, 13)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Docentes");
 
         lstDocente.setFont(new java.awt.Font("Roboto Thin", 0, 13)); // NOI18N
@@ -359,25 +364,29 @@ public class FrmContrato extends javax.swing.JFrame {
 
         jPanel1.add(jpDocentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 560, 290));
 
-        jpContrato.setBackground(new java.awt.Color(242, 242, 242));
+        jpContrato.setBackground(new java.awt.Color(212, 173, 107));
         jpContrato.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jpContrato.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Nuevo Contrato");
         jpContrato.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 8, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("Nombres:");
         jpContrato.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 92, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("Apellidos:");
         jpContrato.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 65, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel9.setText("DNI:");
         jpContrato.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 37, -1, 17));
@@ -405,6 +414,7 @@ public class FrmContrato extends javax.swing.JFrame {
         jpContrato.add(txtNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 91, 196, -1));
 
         jLabel10.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel10.setText("Telefono:");
         jpContrato.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 119, -1, -1));
@@ -416,15 +426,17 @@ public class FrmContrato extends javax.swing.JFrame {
         jpContrato.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 118, 155, -1));
 
         jLabel12.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel12.setText("Fecha de Registro del Contrato:");
-        jpContrato.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 172, -1, 26));
+        jpContrato.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, 26));
 
         dtRegistro.setBackground(new java.awt.Color(242, 242, 242));
         dtRegistro.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
         jpContrato.add(dtRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 172, 131, -1));
 
         jLabel13.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel13.setText("Fecha de Culminacion del Contrato:");
         jpContrato.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 208, -1, 26));
@@ -441,7 +453,7 @@ public class FrmContrato extends javax.swing.JFrame {
         });
         jpContrato.add(dtCulminacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 208, 131, -1));
 
-        btCrearContrato.setBackground(new java.awt.Color(88, 156, 20));
+        btCrearContrato.setBackground(new java.awt.Color(102, 51, 0));
         btCrearContrato.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         btCrearContrato.setForeground(new java.awt.Color(255, 255, 255));
         btCrearContrato.setText("Crear Nuevo Contrato");
@@ -454,6 +466,7 @@ public class FrmContrato extends javax.swing.JFrame {
         jpContrato.add(btCrearContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 252, -1, 32));
 
         jLabel11.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Contratos:");
         jpContrato.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 296, -1, -1));
 
@@ -481,6 +494,7 @@ public class FrmContrato extends javax.swing.JFrame {
         jpContrato.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 319, 430, 203));
 
         jLabel14.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setText("Asignatura:");
         jpContrato.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 146, -1, -1));
