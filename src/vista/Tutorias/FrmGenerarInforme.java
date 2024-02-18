@@ -1,4 +1,4 @@
-package vista;
+package vista.Tutorias;
 
 public class FrmGenerarInforme extends javax.swing.JFrame {
 

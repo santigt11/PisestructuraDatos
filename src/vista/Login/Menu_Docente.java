@@ -2,9 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package vista;
+package vista.Login;
 
+<<<<<<< HEAD:src/vista/Menu_Docente.java
 import modelo.Persona;
+=======
+import vista.Tutorias.FrmGenerarInforme;
+>>>>>>> Steven-Luna:src/vista/Login/Menu_Docente.java
 import modelo.Usuario;
 
 /**

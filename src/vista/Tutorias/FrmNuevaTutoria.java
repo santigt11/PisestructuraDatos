@@ -1,4 +1,4 @@
-package vista;
+package vista.Tutorias;
 
 import controlador.Academico.AsignaturaArchivos;
 import controlador.Academico.ContratoArchivos;

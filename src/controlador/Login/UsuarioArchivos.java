@@ -1,4 +1,4 @@
-package controlador.login;
+package controlador.Login;
 
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
