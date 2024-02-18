@@ -370,8 +370,8 @@ public class FrmAcademico extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel15 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
         jpAll = new javax.swing.JPanel();
         jpFacultad = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -459,25 +459,30 @@ public class FrmAcademico extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel3.setBackground(new java.awt.Color(88, 156, 20));
+
         jLabel15.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Academico General");
-        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(569, 6, -1, 20));
-
-        jPanel3.setBackground(new java.awt.Color(88, 156, 20));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1310, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(444, 444, 444)
+                .addComponent(jLabel15)
+                .addContainerGap(446, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 30));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 30));
 
         jpAll.setBackground(new java.awt.Color(242, 242, 242));
         jpAll.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -487,29 +492,30 @@ public class FrmAcademico extends javax.swing.JFrame {
         jpFacultad.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jpFacultad.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Roboto Medium", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
         jLabel1.setText("Nueva Facultad");
         jpFacultad.add(jLabel1);
-        jLabel1.setBounds(30, 30, 133, 22);
+        jLabel1.setBounds(10, 10, 110, 17);
 
-        jLabel4.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Nombre:");
         jpFacultad.add(jLabel4);
-        jLabel4.setBounds(132, 92, 70, 33);
+        jLabel4.setBounds(60, 60, 70, 33);
 
         txtNombreF.setBackground(new java.awt.Color(242, 242, 242));
-        txtNombreF.setFont(new java.awt.Font("Roboto Light", 0, 16)); // NOI18N
+        txtNombreF.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
         txtNombreF.setBorder(null);
         jpFacultad.add(txtNombreF);
-        txtNombreF.setBounds(249, 97, 457, 23);
+        txtNombreF.setBounds(150, 60, 380, 30);
 
         jSeparator1.setBackground(new java.awt.Color(51, 51, 51));
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
         jpFacultad.add(jSeparator1);
-        jSeparator1.setBounds(249, 131, 457, 22);
+        jSeparator1.setBounds(150, 90, 380, 22);
 
         btCrearF.setBackground(new java.awt.Color(88, 156, 20));
-        btCrearF.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btCrearF.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         btCrearF.setForeground(new java.awt.Color(255, 255, 255));
         btCrearF.setText("Crear Facultad");
         btCrearF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -519,10 +525,10 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
         jpFacultad.add(btCrearF);
-        btCrearF.setBounds(465, 196, 139, 39);
+        btCrearF.setBounds(230, 120, 130, 30);
 
         btGCFacultad.setBackground(new java.awt.Color(88, 156, 20));
-        btGCFacultad.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btGCFacultad.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         btGCFacultad.setForeground(new java.awt.Color(255, 255, 255));
         btGCFacultad.setText("Guardar Cambios");
         btGCFacultad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -532,20 +538,20 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
         jpFacultad.add(btGCFacultad);
-        btGCFacultad.setBounds(673, 196, 139, 39);
+        btGCFacultad.setBounds(390, 120, 130, 30);
 
-        jpAll.add(jpFacultad, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 820, 240));
+        jpAll.add(jpFacultad, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 550, 160));
 
         jpCarrera.setBackground(new java.awt.Color(242, 242, 242));
         jpCarrera.setLayout(null);
 
-        jLabel2.setFont(new java.awt.Font("Roboto Medium", 1, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
         jLabel2.setText("Nueva Carrera");
         jpCarrera.add(jLabel2);
-        jLabel2.setBounds(30, 30, 123, 22);
+        jLabel2.setBounds(10, 10, 123, 22);
 
         cbxFacultad.setBackground(new java.awt.Color(242, 242, 242));
-        cbxFacultad.setFont(new java.awt.Font("Roboto Light", 0, 16)); // NOI18N
+        cbxFacultad.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
         cbxFacultad.setForeground(new java.awt.Color(242, 242, 242));
         cbxFacultad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxFacultad.addActionListener(new java.awt.event.ActionListener() {
@@ -554,40 +560,43 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
         jpCarrera.add(cbxFacultad);
-        cbxFacultad.setBounds(210, 100, 250, 29);
+        cbxFacultad.setBounds(190, 60, 250, 29);
 
-        jLabel5.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Facultad:");
         jpCarrera.add(jLabel5);
-        jLabel5.setBounds(120, 100, 80, 30);
+        jLabel5.setBounds(100, 60, 80, 30);
 
         txtNombreC.setBackground(new java.awt.Color(242, 242, 242));
-        txtNombreC.setFont(new java.awt.Font("Roboto Light", 0, 16)); // NOI18N
+        txtNombreC.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
         txtNombreC.setBorder(null);
         jpCarrera.add(txtNombreC);
-        txtNombreC.setBounds(210, 160, 300, 30);
+        txtNombreC.setBounds(200, 100, 300, 30);
 
         jSeparator2.setBackground(new java.awt.Color(102, 102, 102));
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
         jpCarrera.add(jSeparator2);
-        jSeparator2.setBounds(210, 190, 300, 22);
+        jSeparator2.setBounds(200, 130, 300, 22);
 
-        jLabel6.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Numero de Ciclos:");
         jpCarrera.add(jLabel6);
-        jLabel6.setBounds(520, 100, 140, 30);
+        jLabel6.setBounds(500, 60, 140, 30);
 
-        jLabel7.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("Nombre:");
         jpCarrera.add(jLabel7);
-        jLabel7.setBounds(120, 160, 70, 30);
+        jLabel7.setBounds(110, 100, 70, 30);
 
-        spnCiclo.setFont(new java.awt.Font("Roboto Light", 0, 16)); // NOI18N
+        spnCiclo.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
         jpCarrera.add(spnCiclo);
-        spnCiclo.setBounds(670, 100, 85, 29);
+        spnCiclo.setBounds(650, 60, 85, 29);
 
         btCrearC.setBackground(new java.awt.Color(88, 156, 20));
-        btCrearC.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btCrearC.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         btCrearC.setForeground(new java.awt.Color(255, 255, 255));
         btCrearC.setText("Crear Carrera");
         btCrearC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -597,10 +606,10 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
         jpCarrera.add(btCrearC);
-        btCrearC.setBounds(460, 210, 140, 40);
+        btCrearC.setBounds(270, 150, 130, 30);
 
         btGCCarrera.setBackground(new java.awt.Color(88, 156, 20));
-        btGCCarrera.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btGCCarrera.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         btGCCarrera.setForeground(new java.awt.Color(255, 255, 255));
         btGCCarrera.setText("Guardar Cambios");
         btGCCarrera.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -610,9 +619,9 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
         jpCarrera.add(btGCCarrera);
-        btGCCarrera.setBounds(680, 210, 140, 40);
+        btGCCarrera.setBounds(430, 150, 130, 30);
 
-        jpAll.add(jpCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 830, 250));
+        jpAll.add(jpCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 730, 190));
 
         jpMalla.setBackground(new java.awt.Color(242, 242, 242));
         jpMalla.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -622,60 +631,60 @@ public class FrmAcademico extends javax.swing.JFrame {
         });
         jpMalla.setLayout(null);
 
-        jLabel3.setFont(new java.awt.Font("Roboto Medium", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
         jLabel3.setText("Nueva Malla");
         jpMalla.add(jLabel3);
-        jLabel3.setBounds(30, 30, 110, 22);
+        jLabel3.setBounds(10, 10, 110, 22);
 
-        jLabel9.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel9.setText("Descripcion:");
         jpMalla.add(jLabel9);
-        jLabel9.setBounds(90, 160, 100, 30);
+        jLabel9.setBounds(60, 100, 100, 30);
 
         txtDescripcion.setBackground(new java.awt.Color(242, 242, 242));
-        txtDescripcion.setFont(new java.awt.Font("Roboto Light", 0, 16)); // NOI18N
+        txtDescripcion.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
         txtDescripcion.setBorder(null);
         jpMalla.add(txtDescripcion);
-        txtDescripcion.setBounds(210, 160, 240, 30);
+        txtDescripcion.setBounds(180, 100, 240, 30);
 
         jSeparator3.setBackground(new java.awt.Color(102, 102, 102));
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
         jpMalla.add(jSeparator3);
-        jSeparator3.setBounds(210, 190, 240, 22);
+        jSeparator3.setBounds(180, 130, 240, 22);
 
-        jLabel10.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel10.setText("Pensum:");
         jpMalla.add(jLabel10);
-        jLabel10.setBounds(520, 100, 70, 30);
+        jLabel10.setBounds(490, 60, 70, 30);
 
-        jLabel8.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("Carrera:");
         jpMalla.add(jLabel8);
-        jLabel8.setBounds(120, 100, 70, 30);
+        jLabel8.setBounds(90, 60, 70, 30);
 
         cbxCarrera.setBackground(new java.awt.Color(242, 242, 242));
-        cbxCarrera.setFont(new java.awt.Font("Roboto Light", 0, 16)); // NOI18N
+        cbxCarrera.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
         cbxCarrera.setForeground(new java.awt.Color(242, 242, 242));
         cbxCarrera.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jpMalla.add(cbxCarrera);
-        cbxCarrera.setBounds(210, 100, 210, 29);
+        cbxCarrera.setBounds(180, 60, 210, 29);
 
         txtPensum.setBackground(new java.awt.Color(242, 242, 242));
-        txtPensum.setFont(new java.awt.Font("Roboto Light", 0, 16)); // NOI18N
+        txtPensum.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
         txtPensum.setBorder(null);
         jpMalla.add(txtPensum);
-        txtPensum.setBounds(620, 100, 160, 30);
+        txtPensum.setBounds(590, 60, 160, 30);
 
         jSeparator4.setBackground(new java.awt.Color(102, 102, 102));
         jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
         jpMalla.add(jSeparator4);
-        jSeparator4.setBounds(620, 130, 160, 22);
+        jSeparator4.setBounds(590, 90, 160, 22);
 
         btCrearM.setBackground(new java.awt.Color(88, 156, 20));
-        btCrearM.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btCrearM.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         btCrearM.setForeground(new java.awt.Color(255, 255, 255));
         btCrearM.setText("Crear Malla");
         btCrearM.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -685,10 +694,10 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
         jpMalla.add(btCrearM);
-        btCrearM.setBounds(460, 210, 150, 40);
+        btCrearM.setBounds(340, 160, 140, 30);
 
         btGCMalla.setBackground(new java.awt.Color(88, 156, 20));
-        btGCMalla.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btGCMalla.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         btGCMalla.setForeground(new java.awt.Color(255, 255, 255));
         btGCMalla.setText("Guardar Cambios");
         btGCMalla.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -698,72 +707,72 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
         jpMalla.add(btGCMalla);
-        btGCMalla.setBounds(670, 210, 144, 40);
+        btGCMalla.setBounds(520, 160, 130, 30);
 
-        jLabel16.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel16.setText("Vigencia:");
         jpMalla.add(jLabel16);
-        jLabel16.setBounds(520, 160, 70, 30);
+        jLabel16.setBounds(490, 100, 70, 30);
 
         cbxVigencia.setBackground(new java.awt.Color(242, 242, 242));
-        cbxVigencia.setFont(new java.awt.Font("Roboto Light", 0, 16)); // NOI18N
+        cbxVigencia.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
         cbxVigencia.setForeground(new java.awt.Color(242, 242, 242));
         cbxVigencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vigente", "No Vigente" }));
         cbxVigencia.setEnabled(false);
         jpMalla.add(cbxVigencia);
-        cbxVigencia.setBounds(620, 160, 97, 29);
+        cbxVigencia.setBounds(590, 100, 97, 29);
 
-        jpAll.add(jpMalla, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 840, 260));
+        jpAll.add(jpMalla, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 760, 210));
 
         jpAsignatura.setBackground(new java.awt.Color(242, 242, 242));
         jpAsignatura.setLayout(null);
 
-        jLabel25.setFont(new java.awt.Font("Roboto Medium", 1, 18)); // NOI18N
+        jLabel25.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
         jLabel25.setText("Nueva Asignatura");
         jpAsignatura.add(jLabel25);
-        jLabel25.setBounds(30, 30, 152, 22);
+        jLabel25.setBounds(10, 10, 152, 22);
 
         cbxMalla.setBackground(new java.awt.Color(242, 242, 242));
-        cbxMalla.setFont(new java.awt.Font("Roboto Light", 0, 16)); // NOI18N
+        cbxMalla.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
         cbxMalla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxMallaActionPerformed(evt);
             }
         });
         jpAsignatura.add(cbxMalla);
-        cbxMalla.setBounds(200, 130, 250, 29);
+        cbxMalla.setBounds(190, 90, 220, 29);
 
-        jLabel26.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel26.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel26.setText("Malla Curricular:");
         jpAsignatura.add(jLabel26);
-        jLabel26.setBounds(40, 130, 130, 30);
+        jLabel26.setBounds(70, 90, 90, 30);
 
         txtNombreA.setBackground(new java.awt.Color(242, 242, 242));
-        txtNombreA.setFont(new java.awt.Font("Roboto Light", 0, 16)); // NOI18N
+        txtNombreA.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
         txtNombreA.setBorder(null);
         jpAsignatura.add(txtNombreA);
-        txtNombreA.setBounds(200, 180, 250, 30);
+        txtNombreA.setBounds(190, 130, 220, 30);
 
-        jLabel27.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel27.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel27.setText("Total de Horas:");
         jpAsignatura.add(jLabel27);
-        jLabel27.setBounds(780, 180, 120, 30);
+        jLabel27.setBounds(660, 130, 120, 30);
 
-        jLabel28.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel28.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel28.setText("Nombre:");
         jpAsignatura.add(jLabel28);
-        jLabel28.setBounds(100, 180, 70, 30);
+        jLabel28.setBounds(90, 130, 70, 30);
 
-        spnTotalHorasA.setFont(new java.awt.Font("Roboto Light", 0, 16)); // NOI18N
+        spnTotalHorasA.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
         jpAsignatura.add(spnTotalHorasA);
-        spnTotalHorasA.setBounds(920, 180, 77, 29);
+        spnTotalHorasA.setBounds(800, 130, 77, 29);
 
         btCrearA.setBackground(new java.awt.Color(88, 156, 20));
-        btCrearA.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btCrearA.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         btCrearA.setForeground(new java.awt.Color(255, 255, 255));
         btCrearA.setText("Crear Asignatura");
         btCrearA.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -773,10 +782,10 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
         jpAsignatura.add(btCrearA);
-        btCrearA.setBounds(470, 240, 150, 40);
+        btCrearA.setBounds(370, 180, 130, 30);
 
         btGCAsignatura.setBackground(new java.awt.Color(88, 156, 20));
-        btGCAsignatura.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btGCAsignatura.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         btGCAsignatura.setForeground(new java.awt.Color(255, 255, 255));
         btGCAsignatura.setText("Guardar Cambios");
         btGCAsignatura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -786,28 +795,28 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
         jpAsignatura.add(btGCAsignatura);
-        btGCAsignatura.setBounds(680, 240, 150, 40);
+        btGCAsignatura.setBounds(580, 180, 130, 30);
 
-        jLabel29.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel29.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel29.setText("Codigo:");
         jpAsignatura.add(jLabel29);
-        jLabel29.setBounds(500, 180, 60, 30);
+        jLabel29.setBounds(430, 130, 60, 30);
 
         txtCodigoA.setBackground(new java.awt.Color(242, 242, 242));
-        txtCodigoA.setFont(new java.awt.Font("Roboto Light", 0, 16)); // NOI18N
+        txtCodigoA.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
         txtCodigoA.setBorder(null);
         jpAsignatura.add(txtCodigoA);
-        txtCodigoA.setBounds(580, 180, 170, 30);
+        txtCodigoA.setBounds(510, 130, 140, 30);
 
-        jLabel14.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setText("Carrera:");
         jpAsignatura.add(jLabel14);
-        jLabel14.setBounds(100, 80, 70, 30);
+        jLabel14.setBounds(90, 60, 70, 30);
 
         cbxCarreraMalla.setBackground(new java.awt.Color(242, 242, 242));
-        cbxCarreraMalla.setFont(new java.awt.Font("Roboto Light", 0, 16)); // NOI18N
+        cbxCarreraMalla.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
         cbxCarreraMalla.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxCarreraMalla.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -820,39 +829,39 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
         jpAsignatura.add(cbxCarreraMalla);
-        cbxCarreraMalla.setBounds(200, 80, 250, 29);
+        cbxCarreraMalla.setBounds(190, 60, 220, 29);
 
-        jLabel31.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel31.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel31.setText("Malla Registrada:");
         jpAsignatura.add(jLabel31);
-        jLabel31.setBounds(540, 110, 130, 30);
+        jLabel31.setBounds(470, 70, 130, 30);
 
         txtMallaRegistrada.setBackground(new java.awt.Color(242, 242, 242));
-        txtMallaRegistrada.setFont(new java.awt.Font("Roboto Light", 0, 16)); // NOI18N
+        txtMallaRegistrada.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
         txtMallaRegistrada.setBorder(null);
         txtMallaRegistrada.setEnabled(false);
         jpAsignatura.add(txtMallaRegistrada);
-        txtMallaRegistrada.setBounds(690, 110, 280, 30);
+        txtMallaRegistrada.setBounds(620, 70, 250, 30);
 
         jSeparator5.setBackground(new java.awt.Color(102, 102, 102));
         jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
         jpAsignatura.add(jSeparator5);
-        jSeparator5.setBounds(200, 210, 250, 22);
+        jSeparator5.setBounds(190, 160, 220, 22);
 
         jSeparator6.setBackground(new java.awt.Color(102, 102, 102));
         jSeparator6.setForeground(new java.awt.Color(0, 0, 0));
         jpAsignatura.add(jSeparator6);
-        jSeparator6.setBounds(690, 140, 280, 22);
+        jSeparator6.setBounds(620, 100, 250, 22);
 
         jSeparator7.setBackground(new java.awt.Color(102, 102, 102));
         jSeparator7.setForeground(new java.awt.Color(0, 0, 0));
         jpAsignatura.add(jSeparator7);
-        jSeparator7.setBounds(580, 210, 170, 22);
+        jSeparator7.setBounds(510, 160, 140, 22);
 
-        jpAll.add(jpAsignatura, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 20, 1010, 290));
+        jpAll.add(jpAsignatura, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 880, 230));
 
-        getContentPane().add(jpAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 1280, 330));
+        getContentPane().add(jpAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 1010, 240));
 
         btFacultad.setBackground(new java.awt.Color(88, 156, 20));
         btFacultad.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
@@ -914,7 +923,7 @@ public class FrmAcademico extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel13.setText("Mallas Curriculares:");
 
-        lstMalla.setFont(new java.awt.Font("Roboto Thin", 1, 12)); // NOI18N
+        lstMalla.setFont(new java.awt.Font("Roboto Thin", 1, 11)); // NOI18N
         lstMalla.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lstMallaMouseClicked(evt);
@@ -958,7 +967,7 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
 
-        lstAsignatura.setFont(new java.awt.Font("Roboto Thin", 1, 12)); // NOI18N
+        lstAsignatura.setFont(new java.awt.Font("Roboto Thin", 1, 11)); // NOI18N
         lstAsignatura.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lstAsignaturaMouseClicked(evt);
@@ -969,7 +978,7 @@ public class FrmAcademico extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel11.setText("Facultades:");
 
-        lstFacultad.setFont(new java.awt.Font("Roboto Thin", 1, 12)); // NOI18N
+        lstFacultad.setFont(new java.awt.Font("Roboto Thin", 1, 11)); // NOI18N
         lstFacultad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lstFacultadMouseClicked(evt);
@@ -1002,7 +1011,7 @@ public class FrmAcademico extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
         jLabel12.setText("Carreras:");
 
-        lstCarrera.setFont(new java.awt.Font("Roboto Thin", 1, 12)); // NOI18N
+        lstCarrera.setFont(new java.awt.Font("Roboto Thin", 1, 11)); // NOI18N
         lstCarrera.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lstCarreraMouseClicked(evt);
@@ -1017,83 +1026,86 @@ public class FrmAcademico extends javax.swing.JFrame {
             .addGroup(jpRegistroLayout.createSequentialGroup()
                 .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpRegistroLayout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addComponent(btModificarFacultad))
-                    .addGroup(jpRegistroLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jpRegistroLayout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(btModificarFacultad)))
                 .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpRegistroLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
                         .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpRegistroLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btModificarCarrera)
-                        .addGap(124, 124, 124)))
-                .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel13)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jpRegistroLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel12))
+                            .addGroup(jpRegistroLayout.createSequentialGroup()
+                                .addGap(89, 89, 89)
+                                .addComponent(btModificarCarrera)))
+                        .addGap(164, 164, 164)
+                        .addComponent(btModificarMalla))
                     .addGroup(jpRegistroLayout.createSequentialGroup()
-                        .addGap(107, 107, 107)
-                        .addComponent(btModificarMalla)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addGap(14, 14, 14)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel30)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpRegistroLayout.createSequentialGroup()
+                            .addComponent(jLabel30)
+                            .addGap(232, 232, 232))
+                        .addGroup(jpRegistroLayout.createSequentialGroup()
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap()))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpRegistroLayout.createSequentialGroup()
                         .addComponent(btModificarAsignatura)
-                        .addGap(106, 106, 106))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpRegistroLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(143, 143, 143))))
+            .addGroup(jpRegistroLayout.createSequentialGroup()
+                .addGap(454, 454, 454)
                 .addComponent(btLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(570, 570, 570))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpRegistroLayout.setVerticalGroup(
             jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpRegistroLayout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
-                .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel30))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpRegistroLayout.createSequentialGroup()
+                        .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jpRegistroLayout.createSequentialGroup()
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btModificarCarrera))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                                .addGap(6, 6, 6))
                             .addGroup(jpRegistroLayout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btModificarFacultad)))
-                        .addGroup(jpRegistroLayout.createSequentialGroup()
-                            .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jpRegistroLayout.createSequentialGroup()
-                                    .addComponent(jLabel30)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jpRegistroLayout.createSequentialGroup()
-                                    .addComponent(jLabel13)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btModificarMalla)))
-                    .addComponent(btModificarAsignatura))
-                .addGap(13, 13, 13)
+                                .addComponent(jScrollPane4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btModificarMalla)
+                            .addComponent(btModificarAsignatura)))
+                    .addGroup(jpRegistroLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btModificarCarrera))
+                    .addGroup(jpRegistroLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btModificarFacultad)))
+                .addGap(3, 3, 3)
                 .addComponent(btLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
+                .addGap(27, 27, 27))
         );
 
-        bg.add(jpRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, -1, -1));
+        bg.add(jpRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 1010, 260));
 
-        getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 680));
+        getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 590));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
