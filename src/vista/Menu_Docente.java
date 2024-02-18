@@ -23,7 +23,8 @@ public class Menu_Docente extends javax.swing.JFrame {
     public Menu_Docente(Usuario usuario,Persona persona) {
         initComponents();
         this.user = usuario;
-        txtUsuario.setText(persona.getNombre());
+        txtUsuario.setText(persona.getNombre()+""+persona.getApellido());
+        jnombreUser.setText(persona.getNombre()+""+persona.getApellido());
     }
 
     //constructor
@@ -59,10 +60,13 @@ public class Menu_Docente extends javax.swing.JFrame {
         txtUsuario = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel19 = new javax.swing.JLabel();
+        jnombreUser = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        PanelPrincipalDocente = new javax.swing.JPanel();
+        PanelUsuarioO = new javax.swing.JPanel();
+        bntPerfilUser = new javax.swing.JLabel();
+        btnCambiarClave = new javax.swing.JLabel();
+        btnCerrarSesion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -255,21 +259,22 @@ public class Menu_Docente extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(58, 39, 34));
 
-        jLabel19.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/USU-removebg-preview(1).png"))); // NOI18N
-        jLabel19.setText("USUARIO");
-        jLabel19.setToolTipText("");
-        jLabel19.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jnombreUser.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
+        jnombreUser.setForeground(new java.awt.Color(255, 255, 255));
+        jnombreUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/USU-removebg-preview(1).png"))); // NOI18N
+        jnombreUser.setToolTipText("");
+        jnombreUser.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jnombreUser.setEnabled(false);
+        jnombreUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jnombreUserMouseClicked(evt);
+            }
+        });
 
         jLabel20.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/casa.png"))); // NOI18N
         jLabel20.setText("HOME");
-
-        jLabel18.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("NOTIFICACION");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -278,34 +283,90 @@ public class Menu_Docente extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 689, Short.MAX_VALUE)
-                .addComponent(jLabel18)
-                .addGap(32, 32, 32)
-                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 773, Short.MAX_VALUE)
+                .addComponent(jnombreUser, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jnombreUser, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        jPanel1.setBackground(new java.awt.Color(255, 250, 205));
+        PanelPrincipalDocente.setBackground(new java.awt.Color(255, 250, 205));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        PanelUsuarioO.setBackground(new java.awt.Color(102, 51, 0));
+
+        bntPerfilUser.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
+        bntPerfilUser.setForeground(new java.awt.Color(255, 255, 255));
+        bntPerfilUser.setText("Perfil");
+        bntPerfilUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bntPerfilUserMouseClicked(evt);
+            }
+        });
+
+        btnCambiarClave.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
+        btnCambiarClave.setForeground(new java.awt.Color(255, 255, 255));
+        btnCambiarClave.setText("Cambiar Clave");
+        btnCambiarClave.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCambiarClaveMouseClicked(evt);
+            }
+        });
+
+        btnCerrarSesion.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
+        btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        btnCerrarSesion.setText("Cerrar Sesion");
+        btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCerrarSesionMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelUsuarioOLayout = new javax.swing.GroupLayout(PanelUsuarioO);
+        PanelUsuarioO.setLayout(PanelUsuarioOLayout);
+        PanelUsuarioOLayout.setHorizontalGroup(
+            PanelUsuarioOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelUsuarioOLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(PanelUsuarioOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCerrarSesion)
+                    .addComponent(btnCambiarClave)
+                    .addComponent(bntPerfilUser))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        PanelUsuarioOLayout.setVerticalGroup(
+            PanelUsuarioOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelUsuarioOLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(bntPerfilUser)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(btnCambiarClave)
+                .addGap(28, 28, 28)
+                .addComponent(btnCerrarSesion)
+                .addGap(56, 56, 56))
+        );
+
+        javax.swing.GroupLayout PanelPrincipalDocenteLayout = new javax.swing.GroupLayout(PanelPrincipalDocente);
+        PanelPrincipalDocente.setLayout(PanelPrincipalDocenteLayout);
+        PanelPrincipalDocenteLayout.setHorizontalGroup(
+            PanelPrincipalDocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPrincipalDocenteLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PanelUsuarioO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
+        );
+        PanelPrincipalDocenteLayout.setVerticalGroup(
+            PanelPrincipalDocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelPrincipalDocenteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(PanelUsuarioO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -318,18 +379,18 @@ public class Menu_Docente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(PanelPrincipalDocente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 21, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(PanelPrincipalDocente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
         );
@@ -348,6 +409,35 @@ public class Menu_Docente extends javax.swing.JFrame {
     private void GenerarInformesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarInformesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_GenerarInformesActionPerformed
+
+    private void btnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseClicked
+        // TODO add your handling code here:
+        Acceso login=new Acceso();
+        login.setVisible(true); // Mostrar la ventana de inicio de sesión
+        dispose();
+    }//GEN-LAST:event_btnCerrarSesionMouseClicked
+
+    private void btnCambiarClaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCambiarClaveMouseClicked
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCambiarClaveMouseClicked
+
+    private void jnombreUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jnombreUserMouseClicked
+        // TODO add your handling code here:
+         if (PanelUsuarioO.isVisible()) {
+        PanelUsuarioO.setVisible(false); // Si el panel está visible, ocultarlo
+    } else {
+        PanelUsuarioO.setVisible(true); // Si el panel está oculto, mostrarlo
+    } 
+    }//GEN-LAST:event_jnombreUserMouseClicked
+
+    private void bntPerfilUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntPerfilUserMouseClicked
+        // TODO add your handling code here:
+        Perfiles ventanaPerfil = new Perfiles();
+    
+    // Hacer visible la ventana de perfil
+    ventanaPerfil.setVisible(true);
+    }//GEN-LAST:event_bntPerfilUserMouseClicked
 
     /**
      * @param args the command line arguments
@@ -388,12 +478,15 @@ public class Menu_Docente extends javax.swing.JFrame {
     private org.edisoncor.gui.button.ButtonIcon GenerarInformes;
     private org.edisoncor.gui.button.ButtonIcon GenerarNuevaTuto;
     private org.edisoncor.gui.button.ButtonIcon HorarioDocente;
+    private javax.swing.JPanel PanelPrincipalDocente;
+    private javax.swing.JPanel PanelUsuarioO;
     private org.edisoncor.gui.button.ButtonIcon TutoriasAgendadas;
+    private javax.swing.JLabel bntPerfilUser;
+    private javax.swing.JLabel btnCambiarClave;
+    private javax.swing.JLabel btnCerrarSesion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
@@ -401,12 +494,12 @@ public class Menu_Docente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel jnombreUser;
     private javax.swing.JLabel txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

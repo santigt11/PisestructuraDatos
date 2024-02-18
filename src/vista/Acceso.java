@@ -258,8 +258,8 @@ public class Acceso extends javax.swing.JFrame {
             if (persona != null) {
                 //System.out.println(persona.getRol().getName());
                 // Si se encontró la persona, verifica su rol
-                if (null != persona.getRol()) {
-                    switch ( persona.getRol()) {
+                if (null != user.getRol()) {
+                    switch ( user.getRol()) {
                         case ADMINISTRADOR -> {
                             //Inicia sesión como administrador y muestra un mensaje
                             Menu_Administrador menuAdmi = new Menu_Administrador(user,persona);

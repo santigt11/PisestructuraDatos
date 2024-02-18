@@ -23,6 +23,8 @@ public class Menu_Estudiante extends javax.swing.JFrame {
         initComponents();
         this.user=usuario;
         txtUsuario.setText(persona.getNombre());
+        btnPerfil.setText(persona.getNombre()+ " " + persona.getApellido());
+
     }
     //Constructor
       public Menu_Estudiante() {
@@ -52,9 +54,11 @@ public class Menu_Estudiante extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         btnPerfil = new javax.swing.JLabel();
         btnHome = new javax.swing.JLabel();
-        btnNotificacion = new javax.swing.JLabel();
-        Idioma = new javax.swing.JComboBox<>();
-        jPanel1 = new javax.swing.JPanel();
+        PanelPrincipalEstudiate = new javax.swing.JPanel();
+        PanelPerfil = new javax.swing.JPanel();
+        PerfilUser = new javax.swing.JLabel();
+        cambiarClave = new javax.swing.JLabel();
+        btnCerrarSesion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -176,24 +180,14 @@ public class Menu_Estudiante extends javax.swing.JFrame {
         btnPerfil.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
         btnPerfil.setForeground(new java.awt.Color(255, 255, 255));
         btnPerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/USU-removebg-preview(1).png"))); // NOI18N
-        btnPerfil.setText("USUARIO");
         btnPerfil.setToolTipText("");
         btnPerfil.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnPerfil.setEnabled(false);
 
         btnHome.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
         btnHome.setForeground(new java.awt.Color(255, 255, 255));
         btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/casa.png"))); // NOI18N
         btnHome.setText("HOME");
-
-        btnNotificacion.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        btnNotificacion.setForeground(new java.awt.Color(255, 255, 255));
-        btnNotificacion.setText("NOTIFICACION");
-
-        Idioma.setBackground(new java.awt.Color(153, 102, 0));
-        Idioma.setEditable(true);
-        Idioma.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        Idioma.setForeground(new java.awt.Color(255, 255, 255));
-        Idioma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Español", "English" }));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -202,12 +196,8 @@ public class Menu_Estudiante extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 538, Short.MAX_VALUE)
-                .addComponent(Idioma, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnNotificacion)
-                .addGap(32, 32, 32)
-                .addComponent(btnPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 765, Short.MAX_VALUE)
+                .addComponent(btnPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
         );
         jPanel4Layout.setVerticalGroup(
@@ -216,23 +206,80 @@ public class Menu_Estudiante extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnHome)
-                    .addComponent(btnNotificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Idioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnHome))
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
+
+        PanelPrincipalEstudiate.setBackground(new java.awt.Color(255, 250, 205));
+
+        PanelPerfil.setBackground(new java.awt.Color(102, 51, 0));
+
+        PerfilUser.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
+        PerfilUser.setForeground(new java.awt.Color(255, 255, 255));
+        PerfilUser.setText("Perfil");
+        PerfilUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PerfilUserMouseClicked(evt);
+            }
+        });
+
+        cambiarClave.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
+        cambiarClave.setForeground(new java.awt.Color(255, 255, 255));
+        cambiarClave.setText("Cambiar Clave");
+        cambiarClave.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cambiarClaveMouseClicked(evt);
+            }
+        });
+
+        btnCerrarSesion.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
+        btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        btnCerrarSesion.setText("Cerrar Sesion");
+        btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCerrarSesionMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelPerfilLayout = new javax.swing.GroupLayout(PanelPerfil);
+        PanelPerfil.setLayout(PanelPerfilLayout);
+        PanelPerfilLayout.setHorizontalGroup(
+            PanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelPerfilLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(PanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCerrarSesion)
+                    .addComponent(cambiarClave)
+                    .addComponent(PerfilUser))
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+        PanelPerfilLayout.setVerticalGroup(
+            PanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelPerfilLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(PerfilUser)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(cambiarClave)
+                .addGap(28, 28, 28)
+                .addComponent(btnCerrarSesion)
+                .addGap(56, 56, 56))
+        );
+
+        javax.swing.GroupLayout PanelPrincipalEstudiateLayout = new javax.swing.GroupLayout(PanelPrincipalEstudiate);
+        PanelPrincipalEstudiate.setLayout(PanelPrincipalEstudiateLayout);
+        PanelPrincipalEstudiateLayout.setHorizontalGroup(
+            PanelPrincipalEstudiateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPrincipalEstudiateLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PanelPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
+        );
+        PanelPrincipalEstudiateLayout.setVerticalGroup(
+            PanelPrincipalEstudiateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelPrincipalEstudiateLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(PanelPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel1.setBackground(new java.awt.Color(255, 250, 205));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -244,9 +291,9 @@ public class Menu_Estudiante extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PanelPrincipalEstudiate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,8 +305,8 @@ public class Menu_Estudiante extends javax.swing.JFrame {
                         .addGap(1, 1, 1)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                        .addComponent(PanelPrincipalEstudiate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -268,6 +315,25 @@ public class Menu_Estudiante extends javax.swing.JFrame {
     private void HorarioEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HorarioEActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_HorarioEActionPerformed
+
+    private void btnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseClicked
+        // TODO add your handling code here:
+        Acceso login=new Acceso();
+        login.setVisible(true); // Mostrar la ventana de inicio de sesión
+        dispose();
+    }//GEN-LAST:event_btnCerrarSesionMouseClicked
+
+    private void cambiarClaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cambiarClaveMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cambiarClaveMouseClicked
+
+    private void PerfilUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PerfilUserMouseClicked
+        // TODO add your handling code here:
+        Perfiles ventanaPerfil = new Perfiles();
+    
+    // Hacer visible la ventana de perfil
+    ventanaPerfil.setVisible(true);
+    }//GEN-LAST:event_PerfilUserMouseClicked
 
     /**
      * @param args the command line arguments
@@ -306,17 +372,19 @@ public class Menu_Estudiante extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.edisoncor.gui.button.ButtonIcon HorarioE;
-    private javax.swing.JComboBox<String> Idioma;
     private javax.swing.JPanel ImageEstudiante;
+    private javax.swing.JPanel PanelPerfil;
+    private javax.swing.JPanel PanelPrincipalEstudiate;
+    private javax.swing.JLabel PerfilUser;
     private org.edisoncor.gui.button.ButtonIcon TutoriasE;
+    private javax.swing.JLabel btnCerrarSesion;
     private javax.swing.JLabel btnHome;
-    private javax.swing.JLabel btnNotificacion;
     private javax.swing.JLabel btnPerfil;
+    private javax.swing.JLabel cambiarClave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
