@@ -50,7 +50,7 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(lstTutorias);
 
-        bg.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 440, 330));
+        bg.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 420, 330));
 
         jLabel6.setFont(new java.awt.Font("Franklin Gothic Book", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(51, 51, 51));
@@ -83,7 +83,7 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
                 btGenerarActionPerformed(evt);
             }
         });
-        bg.add(btGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(645, 460, 90, 30));
+        bg.add(btGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 460, 90, 30));
 
         cbxHorario.setBackground(new java.awt.Color(212, 173, 107));
         cbxHorario.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
@@ -124,11 +124,11 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 909, Short.MAX_VALUE)
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();

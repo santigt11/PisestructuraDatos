@@ -18,13 +18,10 @@ public class Conexion {
     //Detalles de la base de datos
     public static final String DRIVER = "oracle.jdbc.OracleDriver";
     public static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-<<<<<<< HEAD
     public static final String USERNAME = "SANTIAGO";
     public static final String PASSWORD = "santi1809";
-=======
-    public static final String USERNAME = "BDD3A";
-    public static final String PASSWORD = "Mariobros1";
->>>>>>> Steven-Luna
+
+ 
     public static Connection instancia;
     
     // Constructor por defecto

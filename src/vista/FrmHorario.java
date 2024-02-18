@@ -4,7 +4,6 @@
  */
 package vista;
 
-import Vista.FrmGuardarPersona;
 import controlador.Academico.HorarioArchivos;
 import controlador.TDA.listas.Exception.EmptyException;
 import javax.swing.JOptionPane;
@@ -12,6 +11,7 @@ import vista.listas.tablas.ModeloTablaHorario;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Horario;
+import vista.Admin.FrmGuardarPersona;
 
 /**
  *

@@ -23,6 +23,10 @@ import javax.swing.SwingWorker;
 import modelo.Persona;
 import modelo.Usuario;
 import prepis.sSlide;
+import vista.CambiarClave;
+import vista.Perfiles;
+import vista.Tutorias.FrmGenerarInforme;
+import vista.Tutorias.FrmTutoriasPrincipal;
 
 /**
  *

@@ -4,7 +4,7 @@
  */
 package vista;
 
-import controlador.login.UsuarioArchivos;
+import controlador.Login.UsuarioArchivos;
 import javax.swing.JOptionPane;
 import modelo.Usuario;
 

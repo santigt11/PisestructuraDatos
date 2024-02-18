@@ -6,6 +6,7 @@ package vista.Login;
 
 import modelo.Persona;
 import modelo.Usuario;
+import vista.Perfiles;
 
 /**
  *

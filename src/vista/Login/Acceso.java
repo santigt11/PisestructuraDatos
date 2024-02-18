@@ -5,8 +5,8 @@
 package vista.Login;
 
 import controlador.Admin.PersonaArchivos;
+import controlador.Login.UsuarioArchivos;
 import controlador.TDA.listas.Exception.EmptyException;
-import controlador.login.UsuarioArchivos;
 import javax.swing.JOptionPane;
 import java.awt.BorderLayout;
 import java.awt.Color;

@@ -4,12 +4,11 @@
  */
 package vista.Login;
 
-<<<<<<< HEAD:src/vista/Menu_Docente.java
 import modelo.Persona;
-=======
+
 import vista.Tutorias.FrmGenerarInforme;
->>>>>>> Steven-Luna:src/vista/Login/Menu_Docente.java
 import modelo.Usuario;
+import vista.Perfiles;
 
 /**
  *
