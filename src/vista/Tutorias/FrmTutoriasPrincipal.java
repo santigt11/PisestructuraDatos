@@ -106,12 +106,6 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         bg = new javax.swing.JPanel();
-<<<<<<< HEAD:src/vista/FrmTutoriasPrincipal.java
-=======
-        jPanel1 = new javax.swing.JPanel();
-        btNuevaTutoria = new javax.swing.JButton();
-        btGenerarInforme = new javax.swing.JButton();
->>>>>>> Steven-Luna:src/vista/Tutorias/FrmTutoriasPrincipal.java
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstTutorias = new javax.swing.JList<>();
@@ -128,6 +122,10 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         jToggleButton1 = new javax.swing.JToggleButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jButton1 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -136,57 +134,11 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         bg.setBackground(new java.awt.Color(255, 250, 205));
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-<<<<<<< HEAD:src/vista/FrmTutoriasPrincipal.java
         jLabel1.setFont(new java.awt.Font("Franklin Gothic Book", 1, 24)); // NOI18N
-=======
-        jPanel1.setBackground(new java.awt.Color(88, 156, 20));
-
-        btNuevaTutoria.setBackground(new java.awt.Color(242, 242, 242));
-        btNuevaTutoria.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
-        btNuevaTutoria.setForeground(new java.awt.Color(0, 0, 0));
-        btNuevaTutoria.setText("Nueva Tutoria");
-        btNuevaTutoria.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        btGenerarInforme.setBackground(new java.awt.Color(242, 242, 242));
-        btGenerarInforme.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
-        btGenerarInforme.setForeground(new java.awt.Color(0, 0, 0));
-        btGenerarInforme.setText("Generar Informe");
-        btGenerarInforme.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btGenerarInforme.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btGenerarInformeActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(505, Short.MAX_VALUE)
-                .addComponent(btNuevaTutoria)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btGenerarInforme)
-                .addGap(14, 14, 14))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btNuevaTutoria)
-                    .addComponent(btGenerarInforme))
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
-
-        bg.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 50));
-
-        jLabel1.setFont(new java.awt.Font("Roboto Medium", 1, 18)); // NOI18N
->>>>>>> Steven-Luna:src/vista/Tutorias/FrmTutoriasPrincipal.java
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("PROXIMAS TUTORIAS");
-        bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 240, -1));
+        bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 240, -1));
 
         jScrollPane1.setBorder(null);
 
@@ -370,6 +322,22 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         jButton1.setText("Salir");
         bg.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 500, -1, -1));
 
+        jComboBox1.setBackground(new java.awt.Color(212, 173, 107));
+        jComboBox1.setForeground(new java.awt.Color(0, 0, 0));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        bg.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 220, -1));
+
+        jButton2.setBackground(new java.awt.Color(102, 51, 0));
+        jButton2.setText("Nueva Tutoria");
+        bg.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 20, -1, -1));
+
+        jButton3.setBackground(new java.awt.Color(102, 51, 0));
+        jButton3.setText("Generar Informe");
+        bg.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 20, 130, -1));
+
+        jDateChooser1.setBackground(new java.awt.Color(212, 173, 107));
+        bg.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 170, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -436,6 +404,10 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkNo;
     private javax.swing.JCheckBox chkSi;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
