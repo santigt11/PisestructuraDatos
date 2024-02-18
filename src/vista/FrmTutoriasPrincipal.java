@@ -371,12 +371,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
 
     public static void main(String args[]) throws UnsupportedLookAndFeelException {
 
-        try {
-            UIManager.setLookAndFeel("com.jgoodies.looks.windows.WindowsLookAndFeel");
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmTutoriasPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            // Aquí puedes agregar código adicional para manejar la excepción de manera adecuada, si es necesario.
-        }
+      
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

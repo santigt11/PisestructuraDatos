@@ -1,10 +1,8 @@
 /build/
 /nbproject/private/
-<<<<<<< HEAD
 *.class
 *.class
 *.class
 *.class
 *.class
-=======
->>>>>>> Anghely-Criollo
+build/classes/controlador/Academico/AsignaturaArchivos.class

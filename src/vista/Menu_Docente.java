@@ -4,6 +4,7 @@
  */
 package vista;
 
+import modelo.Persona;
 import modelo.Usuario;
 
 /**
@@ -19,9 +20,10 @@ public class Menu_Docente extends javax.swing.JFrame {
     Usuario user;
 
     // constructor con parametros 
-    public Menu_Docente(Usuario usuario) {
+    public Menu_Docente(Usuario usuario,Persona persona) {
         initComponents();
         this.user = usuario;
+        txtUsuario.setText(persona.getNombre());
     }
 
     //constructor
@@ -54,13 +56,12 @@ public class Menu_Docente extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        jLabel21 = new javax.swing.JLabel();
+        txtUsuario = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,11 +69,11 @@ public class Menu_Docente extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(102, 51, 0));
 
         TutoriasAgendadas.setBackground(new java.awt.Color(255, 250, 205));
-        TutoriasAgendadas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/docente.png"))); // NOI18N
+        TutoriasAgendadas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/5116083.png"))); // NOI18N
         TutoriasAgendadas.setText("buttonIcon2");
 
         HorarioDocente.setBackground(new java.awt.Color(255, 250, 205));
-        HorarioDocente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/estudiantes.png"))); // NOI18N
+        HorarioDocente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/images-removebg-preview(1).png"))); // NOI18N
         HorarioDocente.setText("buttonIcon2");
         HorarioDocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,7 +82,7 @@ public class Menu_Docente extends javax.swing.JFrame {
         });
 
         GenerarNuevaTuto.setBackground(new java.awt.Color(255, 250, 205));
-        GenerarNuevaTuto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/matricula.png"))); // NOI18N
+        GenerarNuevaTuto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Screenshot_2024-02-13_171755-removebg-preview(1).png"))); // NOI18N
         GenerarNuevaTuto.setText("buttonIcon2");
         GenerarNuevaTuto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,7 +91,7 @@ public class Menu_Docente extends javax.swing.JFrame {
         });
 
         GenerarInformes.setBackground(new java.awt.Color(255, 250, 205));
-        GenerarInformes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/periodo.png"))); // NOI18N
+        GenerarInformes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Screenshot_2024-02-13_172007-removebg-preview(1).png"))); // NOI18N
         GenerarInformes.setText("buttonIcon2");
         GenerarInformes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,9 +140,9 @@ public class Menu_Docente extends javax.swing.JFrame {
         jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel21.setBackground(new java.awt.Color(47, 30, 30));
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        txtUsuario.setBackground(new java.awt.Color(47, 30, 30));
+        txtUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        txtUsuario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -162,8 +163,8 @@ public class Menu_Docente extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(GenerarNuevaTuto, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(GenerarNuevaTuto, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -171,20 +172,20 @@ public class Menu_Docente extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(TutoriasAgendadas, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(HorarioDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(HorarioDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(TutoriasAgendadas, javax.swing.GroupLayout.PREFERRED_SIZE, 80, Short.MAX_VALUE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
+                                .addGap(10, 10, 10)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel1)))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel6))))
+                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(GenerarInformes, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(GenerarInformes, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -200,7 +201,7 @@ public class Menu_Docente extends javax.swing.JFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(49, 49, 49)
-                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,7 +215,7 @@ public class Menu_Docente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -225,9 +226,9 @@ public class Menu_Docente extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addGap(12, 12, 12))
                     .addComponent(TutoriasAgendadas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(71, 71, 71)
                         .addComponent(jLabel6)
                         .addGap(79, 79, 79)
                         .addComponent(jLabel3)
@@ -235,8 +236,9 @@ public class Menu_Docente extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addGap(19, 19, 19))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(HorarioDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
+                        .addGap(40, 40, 40)
+                        .addComponent(HorarioDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(GenerarNuevaTuto, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,12 +271,6 @@ public class Menu_Docente extends javax.swing.JFrame {
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("NOTIFICACION");
 
-        jComboBox1.setBackground(new java.awt.Color(153, 102, 0));
-        jComboBox1.setEditable(true);
-        jComboBox1.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Español", "English" }));
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -282,9 +278,7 @@ public class Menu_Docente extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 558, Short.MAX_VALUE)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 689, Short.MAX_VALUE)
                 .addComponent(jLabel18)
                 .addGap(32, 32, 32)
                 .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -297,8 +291,7 @@ public class Menu_Docente extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel20)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(7, Short.MAX_VALUE))
         );
 
@@ -396,7 +389,6 @@ public class Menu_Docente extends javax.swing.JFrame {
     private org.edisoncor.gui.button.ButtonIcon GenerarNuevaTuto;
     private org.edisoncor.gui.button.ButtonIcon HorarioDocente;
     private org.edisoncor.gui.button.ButtonIcon TutoriasAgendadas;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -404,7 +396,6 @@ public class Menu_Docente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
@@ -416,5 +407,6 @@ public class Menu_Docente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
