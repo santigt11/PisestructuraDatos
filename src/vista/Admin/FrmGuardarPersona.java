@@ -8,7 +8,11 @@ import controlador.Admin.PersonaArchivos;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.Utiles.Utiles;
 import java.text.ParseException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -64,7 +68,6 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
             if (Utiles.validadorDeCedula(txtDni.getText())) {
                 personaControl.getPersona().setApellido(txtApellido.getText());
                 try {
-                    // Convertir el DNI a entero
                     String dni = txtDni.getText();
                     personaControl.getPersona().setDni(dni);
                 } catch (NumberFormatException e) {
@@ -74,30 +77,20 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
                 }
                 personaControl.getPersona().setDni(txtDni.getText());
                 personaControl.getPersona().setNombre(txtNombre.getText());
+                // Obtiene la fecha seleccionada del JDateChooser y la convierte a LocalDate
+                Date fechaSeleccionada = txtFechaNacimiento.getDate();
+                Instant instant = Instant.ofEpochMilli(fechaSeleccionada.getTime());
+                LocalDate fechaNacimiento = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
 
-//               personaControl.getPersona().setFechaNacimiento(Integer.parseInt(txtFechaNacimiento.getText()));
-//               SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); // Define el formato de fecha
-//               Date fechaNacimiento = dateFormat.parse(txtFechaNacimiento.getText()); // Convierte el texto a un objeto Date
-//
-//personaControl.getPersona().setFechaNacimiento(fechaNacimiento); // Establece la fecha de nacimiento en el objeto Persona
+// Establece la fecha de nacimiento en el objeto Persona
+                personaControl.getPersona().setFechaNacimiento(fechaNacimiento);
+
                 personaControl.getPersona().setTelefono(txtTelefono.getText());
 
                 if (cbxRol.getSelectedItem() != null) {
-                    switch (cbxRol.getSelectedIndex()) {
-                        case 0:
-                            personaControl.getPersona().setRol(Rol.ESTUDIANTE);
-                            break;
-                        case 1:
-                            personaControl.getPersona().setRol(Rol.DOCENTE);
-                            break;
-                        case 2:
-                            personaControl.getPersona().setRol(Rol.ADMINISTRADOR);
-                            break;
-                        default:
-                            throw new AssertionError();
-                    }
+                    personaControl.getPersona().setRol_id(cbxRol.getSelectedIndex() + 1);
                 }
-                personaControl.getPersona().setFechaNacimiento(txtFechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+//                personaControl.getPersona().setFechaNacimiento((ZoneId.systemDefault()));
                 System.out.println(personaControl.getPersona().getFechaNacimiento().toString());
                 if (personaControl.persist(personaControl.getPersona())) {
                     JOptionPane.showMessageDialog(null, "Datos guardados");
@@ -156,6 +149,7 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
         cbxRol = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
+        txtFechaNacimiento = new com.toedter.calendar.JDateChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbPersona = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
@@ -225,6 +219,8 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
         txtTelefono.setBackground(new java.awt.Color(212, 173, 107));
         txtTelefono.setForeground(new java.awt.Color(0, 0, 0));
 
+        txtFechaNacimiento.setBackground(new java.awt.Color(212, 173, 107));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -234,9 +230,12 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel8))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(245, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -279,8 +278,10 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addComponent(jLabel5)
+                .addGap(25, 25, 25)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5)
+                    .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(93, Short.MAX_VALUE))
         );
 
@@ -561,6 +562,7 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
     private javax.swing.JTable tbPersona;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtDni;
+    private com.toedter.calendar.JDateChooser txtFechaNacimiento;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
