@@ -6,3 +6,5 @@
 *.class
 *.class
 build/classes/controlador/Academico/AsignaturaArchivos.class
+build/classes/modelo/Usuario.class
+*.class
