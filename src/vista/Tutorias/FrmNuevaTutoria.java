@@ -1,14 +1,14 @@
 package vista.Tutorias;
 
-import controlador.Academico.AsignaturaArchivos;
-import controlador.Academico.ContratoArchivos;
-import controlador.Admin.PersonaArchivos;
-import controlador.Matriculas.MatriculaArchivos;
-import controlador.Matriculas.MatriculaAsignaturaArchivos;
-import controlador.Tutorias.TutoriaArchivos;
+import controlador.Academico.AsignaturaBD;
+import controlador.Academico.ContratoBD;
+import controlador.Admin.PersonaBD;
+import controlador.Matriculas.MatriculaBD;
+import controlador.Matriculas.CursaBD;
+import controlador.Tutorias.TutoriaBD;
 import controlador.TDA.listas.Exception.EmptyException;
-import controlador.Tutorias.HorarioArchivos;
-import controlador.Tutorias.TutoriaMatriculaArchivos;
+import controlador.Tutorias.HorarioBD;
+import controlador.Tutorias.AsignacionMatriculabd;
 import java.time.ZoneId;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,14 +25,14 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         limpiar();
     }
 
-    private TutoriaArchivos tutoriaControl = new TutoriaArchivos();
-    private HorarioArchivos horarioControl = new HorarioArchivos();
-    private AsignaturaArchivos asignaturaControl = new AsignaturaArchivos();
-    private MatriculaAsignaturaArchivos matriculaAsignControl = new MatriculaAsignaturaArchivos();
-    private static PersonaArchivos personaControl = new PersonaArchivos();
-    private ContratoArchivos contratoControl = new ContratoArchivos();
-    private MatriculaArchivos matriculaControl = new MatriculaArchivos();
-    private TutoriaMatriculaArchivos tutoriaMatrControl = new TutoriaMatriculaArchivos();
+    private TutoriaBD tutoriaControl = new TutoriaBD();
+    private HorarioBD horarioControl = new HorarioBD();
+    private AsignaturaBD asignaturaControl = new AsignaturaBD();
+    private CursaBD matriculaAsignControl = new CursaBD();
+    private static PersonaBD personaControl = new PersonaBD();
+    private ContratoBD contratoControl = new ContratoBD();
+    private MatriculaBD matriculaControl = new MatriculaBD();
+    private AsignacionMatriculabd tutoriaMatrControl = new AsignacionMatriculabd();
     
     public static void cargarDocente(Persona persona) {
         personaControl.setPersona(persona);

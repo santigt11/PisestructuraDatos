@@ -5,17 +5,17 @@ import controlador.TDA.listas.Exception.EmptyException;
 import controlador.dao.AdaptadorDao;
 import modelo.Persona;
 
-public class PersonaArchivos extends AdaptadorDao<Persona> {
+public class PersonaBD extends AdaptadorDao<Persona> {
 
     private DynamicList<Persona> personas;
     private Persona persona;
 
-    public PersonaArchivos() {
+    public PersonaBD() {
         super(Persona.class);
         personas = new DynamicList<>();
     }
 
-    public PersonaArchivos(DynamicList<Persona> personas, Persona persona, Class clazz) {
+    public PersonaBD(DynamicList<Persona> personas, Persona persona, Class clazz) {
         super(clazz);
         this.personas = personas;
         this.persona = persona;

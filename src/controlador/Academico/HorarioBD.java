@@ -6,12 +6,12 @@ import controlador.dao.AdaptadorDao;
 import modelo.Facultad;
 import modelo.Horario;
 
-public class HorarioArchivos extends AdaptadorDao<Horario> {
+public class HorarioBD extends AdaptadorDao<Horario> {
 
     private DynamicList<Horario> horarios;
     private Horario horario;
 
-    public HorarioArchivos() {
+    public HorarioBD() {
         super(Horario.class);
     }
 

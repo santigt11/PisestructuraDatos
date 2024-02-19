@@ -5,12 +5,12 @@ import controlador.TDA.listas.Exception.EmptyException;
 import controlador.dao.AdaptadorDao;
 import modelo.Carrera;
 
-public class CarreraArchivos extends AdaptadorDao<Carrera> {
+public class CarreraBD extends AdaptadorDao<Carrera> {
 
     private DynamicList<Carrera> carreras;
     private Carrera carrera;
 
-    public CarreraArchivos() {
+    public CarreraBD() {
         super(Carrera.class);
     }
 
@@ -35,7 +35,7 @@ public class CarreraArchivos extends AdaptadorDao<Carrera> {
     }
 
     @Override
-    public Boolean persist(Carrera obj){
+    public Boolean persist(Carrera obj) {
         obj.setId(all().getLength() + 1);
         return super.persist(obj);
     }
@@ -70,6 +70,16 @@ public class CarreraArchivos extends AdaptadorDao<Carrera> {
             }
         }
         return null;
+    }
+
+    public boolean buscarCodigo(String text) throws EmptyException {
+        carreras = all();
+        for (int i = 0; i < carreras.getLength(); i++) {
+            if (carreras.getInfo(i).getCodigo().equals(text)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

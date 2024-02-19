@@ -4,8 +4,8 @@
  */
 package vista.Login;
 
-import controlador.Admin.PersonaArchivos;
-import controlador.Login.UsuarioArchivos;
+import controlador.Admin.PersonaBD;
+import controlador.Login.UsuarioBD;
 import controlador.TDA.listas.Exception.EmptyException;
 import javax.swing.JOptionPane;
 import java.awt.BorderLayout;
@@ -64,8 +64,8 @@ public class Acceso extends javax.swing.JFrame {
     }
 
     //creacion de instancia de los controladores
-    private PersonaArchivos controlPersona = new PersonaArchivos();
-    private UsuarioArchivos controlUsuario = new UsuarioArchivos();
+    private PersonaBD controlPersona = new PersonaBD();
+    private UsuarioBD controlUsuario = new UsuarioBD();
     
     // limpiar
     private void limpiar() {

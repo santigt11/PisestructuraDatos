@@ -1,17 +1,17 @@
 package vista.Matriculas;
 
 import vista.Academico.FrmAcademico;
-import controlador.Academico.AsignaturaArchivos;
-import controlador.Academico.CarreraArchivos;
+import controlador.Academico.AsignaturaBD;
+import controlador.Academico.CarreraBD;
 import controlador.TDA.listas.Exception.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import controlador.Academico.FacultadArchivos;
-import controlador.Academico.MallaArchivos;
-import controlador.Admin.PersonaArchivos;
-import controlador.Matriculas.MatriculaArchivos;
-import controlador.Matriculas.MatriculaAsignaturaArchivos;
+import controlador.Academico.FacultadBD;
+import controlador.Academico.MallaBD;
+import controlador.Admin.PersonaBD;
+import controlador.Matriculas.MatriculaBD;
+import controlador.Matriculas.CursaBD;
 import java.time.ZoneId;
 import modelo.*;
 
@@ -20,15 +20,15 @@ import vista.listas.util.Utilvista;
 
 public class FrmMatricula extends javax.swing.JFrame {
 
-    private MatriculaArchivos fileMatricula = new MatriculaArchivos();
-    private MatriculaAsignaturaArchivos fileMatriculaAsg = new MatriculaAsignaturaArchivos();
+    private MatriculaBD fileMatricula = new MatriculaBD();
+    private CursaBD fileMatriculaAsg = new CursaBD();
 
-    private PersonaArchivos filePersona = new PersonaArchivos();
+    private PersonaBD filePersona = new PersonaBD();
 
-    private FacultadArchivos fileFacultad = new FacultadArchivos();
-    private CarreraArchivos fileCarrera = new CarreraArchivos();
-    private MallaArchivos fileMalla = new MallaArchivos();
-    private AsignaturaArchivos fileAsignatura = new AsignaturaArchivos();
+    private FacultadBD fileFacultad = new FacultadBD();
+    private CarreraBD fileCarrera = new CarreraBD();
+    private MallaBD fileMalla = new MallaBD();
+    private AsignaturaBD fileAsignatura = new AsignaturaBD();
 
     private TablaMatricula tm = new TablaMatricula();
 
@@ -699,7 +699,7 @@ public class FrmMatricula extends javax.swing.JFrame {
         txtCurso.setBorder(null);
 
         jLabel13.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        jLabel13.setText("Curso:");
+        jLabel13.setText("Paralelo:");
         jLabel13.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         jLabel23.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
@@ -757,9 +757,9 @@ public class FrmMatricula extends javax.swing.JFrame {
                         .addGap(9, 9, 9)
                         .addComponent(txtAsignatura, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpMatriculaAsgLayout.createSequentialGroup()
-                        .addGap(120, 120, 120)
+                        .addGap(107, 107, 107)
                         .addComponent(jLabel13)
-                        .addGap(5, 5, 5)
+                        .addGap(18, 18, 18)
                         .addComponent(txtCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpMatriculaAsgLayout.createSequentialGroup()
                         .addGap(160, 160, 160)
@@ -793,10 +793,10 @@ public class FrmMatricula extends javax.swing.JFrame {
                 .addGroup(jpMatriculaAsgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtAsignatura, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(jpMatriculaAsgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(jpMatriculaAsgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14)
                 .addComponent(btAgregarAsignaturaMatricula)

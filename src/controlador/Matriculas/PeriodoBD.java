@@ -5,12 +5,12 @@ import controlador.TDA.listas.Exception.EmptyException;
 import controlador.dao.AdaptadorDao;
 import modelo.PeriodoAcademico;
 
-public class PeriodoArchivos extends AdaptadorDao<PeriodoAcademico> {
+public class PeriodoBD extends AdaptadorDao<PeriodoAcademico> {
 
     private DynamicList<PeriodoAcademico> periodos;
     private PeriodoAcademico periodo;
 
-    public PeriodoArchivos() {
+    public PeriodoBD() {
         super(PeriodoAcademico.class);
     }
 

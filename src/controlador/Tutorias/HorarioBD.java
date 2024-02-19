@@ -5,16 +5,16 @@ import controlador.TDA.listas.Exception.EmptyException;
 import controlador.dao.AdaptadorDao;
 import modelo.Horario;
 
-public class HorarioArchivos extends AdaptadorDao<Horario> {
+public class HorarioBD extends AdaptadorDao<Horario> {
 
     private DynamicList<Horario> horarios;
     private Horario horario;
 
-    public HorarioArchivos() {
+    public HorarioBD() {
         super(Horario.class);
     }
 
-    public HorarioArchivos(DynamicList<Horario> horarios, Horario horario, Class clazz) {
+    public HorarioBD(DynamicList<Horario> horarios, Horario horario, Class clazz) {
         super(clazz);
         this.horarios = horarios;
         this.horario = horario;

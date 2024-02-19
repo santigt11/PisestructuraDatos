@@ -1,7 +1,7 @@
 package vista.listas.tablas;
 
-import controlador.Academico.AsignaturaArchivos;
-import controlador.Admin.PersonaArchivos;
+import controlador.Academico.AsignaturaBD;
+import controlador.Admin.PersonaBD;
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import javax.swing.table.AbstractTableModel;
@@ -10,8 +10,8 @@ import modelo.Asignacion;
 public class TablaContrato extends AbstractTableModel {
 
     private DynamicList<Asignacion> contratos;
-    private PersonaArchivos filePersona = new PersonaArchivos();
-    private AsignaturaArchivos fileAsignatura = new AsignaturaArchivos();
+    private PersonaBD filePersona = new PersonaBD();
+    private AsignaturaBD fileAsignatura = new AsignaturaBD();
 
     @Override
     public int getRowCount() {

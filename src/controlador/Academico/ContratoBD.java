@@ -5,12 +5,12 @@ import controlador.TDA.listas.Exception.EmptyException;
 import controlador.dao.AdaptadorDao;
 import modelo.Asignacion;
 
-public class ContratoArchivos extends AdaptadorDao<Asignacion> {
+public class ContratoBD extends AdaptadorDao<Asignacion> {
 
     private DynamicList<Asignacion> contratos;
     private Asignacion contrato;
 
-    public ContratoArchivos() {
+    public ContratoBD() {
         super(Asignacion.class);
     }
 

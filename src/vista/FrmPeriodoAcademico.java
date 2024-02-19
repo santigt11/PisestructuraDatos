@@ -1,6 +1,6 @@
 package vista;
 
-import controlador.Matriculas.PeriodoArchivos;
+import controlador.Matriculas.PeriodoBD;
 import controlador.TDA.listas.Exception.EmptyException;
 import java.awt.Color;
 import java.time.ZoneId;
@@ -12,7 +12,7 @@ public class FrmPeriodoAcademico extends javax.swing.JFrame {
     
     int xMouse, yMouse;
 
-    private PeriodoArchivos filePeriodo = new PeriodoArchivos();
+    private PeriodoBD filePeriodo = new PeriodoBD();
     
     public Boolean verificar() {
         return (!dtInicio.getDate().toString().isEmpty()

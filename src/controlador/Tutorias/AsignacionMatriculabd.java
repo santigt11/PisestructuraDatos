@@ -5,17 +5,17 @@ import controlador.TDA.listas.Exception.EmptyException;
 import controlador.dao.AdaptadorDao;
 import modelo.AsignacionMatricula;
 
-public class TutoriaMatriculaArchivos extends AdaptadorDao<AsignacionMatricula> {
+public class AsignacionMatriculabd extends AdaptadorDao<AsignacionMatricula> {
 
     private DynamicList<AsignacionMatricula> tutorias;
     private AsignacionMatricula tutoria;
 
-    public TutoriaMatriculaArchivos() {
+    public AsignacionMatriculabd() {
         super(null);
         tutorias = new DynamicList<>();
     }
 
-    public TutoriaMatriculaArchivos(DynamicList<AsignacionMatricula> tutorias, AsignacionMatricula tutoria) {
+    public AsignacionMatriculabd(DynamicList<AsignacionMatricula> tutorias, AsignacionMatricula tutoria) {
         super(AsignacionMatricula.class);
         this.tutorias = tutorias;
         this.tutoria = tutoria;

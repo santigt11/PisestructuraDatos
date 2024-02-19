@@ -4,7 +4,7 @@
  */
 package vista.Admin;
 
-import controlador.Admin.PersonaArchivos;
+import controlador.Admin.PersonaBD;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.Utiles.Utiles;
 import java.text.ParseException;
@@ -24,7 +24,7 @@ import vista.listas.tablas.TablaPersona;
  */
 public class FrmGuardarPersona extends javax.swing.JFrame {
 
-    private PersonaArchivos personaControl = new PersonaArchivos();
+    private PersonaBD personaControl = new PersonaBD();
     private TablaPersona mtp = new TablaPersona();
 
     private void cargarVista() {

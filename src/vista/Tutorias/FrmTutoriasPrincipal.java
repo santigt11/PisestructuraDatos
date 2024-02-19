@@ -1,16 +1,16 @@
 package vista.Tutorias;
 
-import controlador.Academico.AsignaturaArchivos;
-import controlador.Academico.CarreraArchivos;
-import controlador.Academico.ContratoArchivos;
-import controlador.Academico.FacultadArchivos;
-import controlador.Academico.MallaArchivos;
-import controlador.Admin.PersonaArchivos;
-import controlador.Matriculas.MatriculaAsignaturaArchivos;
+import controlador.Academico.AsignaturaBD;
+import controlador.Academico.CarreraBD;
+import controlador.Academico.ContratoBD;
+import controlador.Academico.FacultadBD;
+import controlador.Academico.MallaBD;
+import controlador.Admin.PersonaBD;
+import controlador.Matriculas.CursaBD;
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
-import controlador.Tutorias.TutoriaArchivos;
-import controlador.Tutorias.TutoriaMatriculaArchivos;
+import controlador.Tutorias.TutoriaBD;
+import controlador.Tutorias.AsignacionMatriculabd;
 import java.time.format.DateTimeFormatter;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -25,17 +25,17 @@ import vista.listas.util.Utilvista;
 
 public class FrmTutoriasPrincipal extends javax.swing.JFrame {
 
-    private TutoriaMatriculaArchivos fileTutoriaM = new TutoriaMatriculaArchivos();
-    private TutoriaArchivos fileTutoria = new TutoriaArchivos();
-    private MatriculaAsignaturaArchivos fileMatriculaAsg = new MatriculaAsignaturaArchivos();
-    private static PersonaArchivos personaControl = new PersonaArchivos();
-    private FacultadArchivos fileFacultad = new FacultadArchivos();
-    private CarreraArchivos fileCarrera = new CarreraArchivos();
-    private MallaArchivos fileMalla = new MallaArchivos();
-    private AsignaturaArchivos fileAsignatura = new AsignaturaArchivos();
-    private ContratoArchivos contratoControl = new ContratoArchivos();
-    private AsignaturaArchivos asignaturaControl = new AsignaturaArchivos();
-    private MatriculaAsignaturaArchivos matriculaAsignaturaControl = new MatriculaAsignaturaArchivos();
+    private AsignacionMatriculabd fileTutoriaM = new AsignacionMatriculabd();
+    private TutoriaBD fileTutoria = new TutoriaBD();
+    private CursaBD fileMatriculaAsg = new CursaBD();
+    private static PersonaBD personaControl = new PersonaBD();
+    private FacultadBD fileFacultad = new FacultadBD();
+    private CarreraBD fileCarrera = new CarreraBD();
+    private MallaBD fileMalla = new MallaBD();
+    private AsignaturaBD fileAsignatura = new AsignaturaBD();
+    private ContratoBD contratoControl = new ContratoBD();
+    private AsignaturaBD asignaturaControl = new AsignaturaBD();
+    private CursaBD matriculaAsignaturaControl = new CursaBD();
 
     public FrmTutoriasPrincipal() {
         initComponents();
