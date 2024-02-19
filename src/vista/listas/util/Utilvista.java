@@ -2,8 +2,6 @@ package vista.listas.util;
 
 import controlador.Academico.AsignaturaBD;
 import controlador.Academico.CarreraBD;
-import modelo.Carrera;
-import controlador.Academico.AsignacionBD;
 import controlador.Academico.CicloBD;
 import controlador.Academico.FacultadBD;
 import controlador.Tutorias.HorarioBD;
@@ -203,10 +201,7 @@ public class Utilvista {
         }
         lst.setModel(modeloLista);
     }
-
-<<<<<<< HEAD
-    public static void cargarListaAsignaturas(JList lst, MallaCurricular malla) throws EmptyException {
-=======
+    
     public static void cargarListaCiclos(JList lst, MallaCurricular mallaCurricular) throws EmptyException {
         CicloBD cla = new CicloBD();
         cla.setCiclos(cla.all());
@@ -220,7 +215,6 @@ public class Utilvista {
     }
 
     public static void cargarListaAsignaturas(JList lst, Ciclo ciclo) throws EmptyException {
->>>>>>> Steven-Luna
         AsignaturaBD aa = new AsignaturaBD();
         aa.setAsignaturas(aa.all());
         DefaultListModel modeloLista = new DefaultListModel();
@@ -231,7 +225,6 @@ public class Utilvista {
         }
         lst.setModel(modeloLista);
     }
-<<<<<<< HEAD
 
     public static void cargarListaDocentes(JList lst) throws EmptyException {
         PersonaBD pa = new PersonaBD();
@@ -277,10 +270,9 @@ public class Utilvista {
         }
         lst.setModel(modeloLista);
     }
-    
+
     //
     public static void cargarListaUsuarios(DynamicList<Usuario> lista, JList lst) throws EmptyException {
-=======
 //
 //    public static void cargarListaDocentes(JList lst) throws EmptyException {
 //        PersonaArchivos pa = new PersonaArchivos();
@@ -326,9 +318,9 @@ public class Utilvista {
 //        }
 //        lst.setModel(modeloLista);
 //    }
+    }
 
     public static void cargarListaPersonas(DynamicList<Persona> lista, JList lst) throws EmptyException {
->>>>>>> Steven-Luna
         DefaultListModel modeloLista = new DefaultListModel();
         for (Integer i = 0; i < lista.getLength(); i++) {
             modeloLista.addElement(lista.getInfo(i));
@@ -352,7 +344,7 @@ public class Utilvista {
         DefaultListModel modeloLista = new DefaultListModel();
         lst.setModel(modeloLista);
     }
-    
+
     public static void cargarListaTutorias(DynamicList<Tutoria> lista, JList lst) throws EmptyException {
         DefaultListModel modeloLista = new DefaultListModel();
         for (Integer i = 0; i < lista.getLength(); i++) {
