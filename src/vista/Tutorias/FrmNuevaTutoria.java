@@ -5,7 +5,7 @@ import controlador.Academico.AsignacionBD;
 import controlador.Admin.PersonaBD;
 import controlador.Login.UsuarioDB;
 import controlador.Matriculas.MatriculaBD;
-import controlador.Matriculas.CursaTutoriaBD;
+import controlador.Matriculas.AsignacionMatriculaBD;
 import controlador.Matriculas.CursaBD;
 import controlador.Tutorias.TutoriaBD;
 import controlador.TDA.listas.Exception.EmptyException;
@@ -30,13 +30,13 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private TutoriaBD tutoriaControl = new TutoriaBD();
     private HorarioBD horarioControl = new HorarioBD();
     private AsignaturaBD asignaturaControl = new AsignaturaBD();
-    private CursaTutoriaBD matriculaAsignControl = new CursaTutoriaBD();
+    private AsignacionMatriculaBD matriculaAsignControl = new AsignacionMatriculaBD();
     private CursaBD cursaControl = new CursaBD();
     private PersonaBD personaControl = new PersonaBD();
     private AsignacionBD contratoControl = new AsignacionBD();
     private MatriculaBD matriculaControl = new MatriculaBD();
     private static UsuarioDB usuarioControl = new UsuarioDB();
-    private CursaTutoriaBD tutoriaMatrControl = new CursaTutoriaBD();
+    private AsignacionMatriculaBD tutoriaMatrControl = new AsignacionMatriculaBD();
     
     public static void cargarDocente(Usuario usuario) {
         if (usuario.getRol_id() == 2) {
@@ -48,7 +48,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
 //        personaControl.setPersona(personaControl.buscarBinaria("dni", "1101201301"));
 //        System.out.println(personaControl.buscarBinaria("dni", "1101201301"));
         contratoControl.setAsignaciones(contratoControl.buscarLineal(contratoControl.all(), "usuario_ID",String.valueOf(usuarioControl.getUsuario().getId())));
-        Utilvista.cargarComboAsignaturaContrato(contratoControl.getAsignaciones(), cbxHorario);
+        Utilvista.cargarComboAsignaturaContrato(contratoControl.getAsignaciones(), cbxHoraInicio);
     }
 
 //    private void ordenar(){1101201301"
@@ -67,7 +67,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
 //    }
     public Boolean verificar() {
         return (!txtTema.getText().trim().isEmpty()
-                && !(cbxHorario.getSelectedIndex() > 0)
+                && !(cbxHoraInicio.getSelectedIndex() > 0)
                 && !dcFecha.getDate().equals(null));
     }
     
@@ -85,14 +85,24 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         }
         System.out.println(matriculaControl.getMatriculas());
         //No obtener en matricula Personas si no Uusarios
+        
         Matricula matriculas[] = matriculaControl.getMatriculas().toArray();
-        Persona persona;
+        
+//        Persona persona;
+//        for (int i = 0; i < matriculaControl.getMatriculas().getLength(); i++) {
+////            matriculaControl.buscarLineal(matriculaControl.getMatriculas(), "persona_dni", valorBuscado)
+//            persona = personaControl.buscarBinaria("dni", matriculas[i].getPersona_DNI());
+//            personaControl.getPersonas().add(persona);
+//        }
+//        Utilvista.cargarListaUsuarios(personaControl.getPersonas(), lstCursa);
+
+        Usuario usuario;
         for (int i = 0; i < matriculaControl.getMatriculas().getLength(); i++) {
-//            matriculaControl.buscarLineal(matriculaControl.getMatriculas(), "persona_dni", valorBuscado)
-            persona = personaControl.buscarBinaria("dni", matriculas[i].getPersona_DNI());
-            personaControl.getPersonas().add(persona);
+            matriculaControl.buscarLineal(matriculaControl.getMatriculas(), "usuario_ID", Integer.toString(matriculas[i].getId()));
+            usuario = usuarioControl.buscarBinaria("ID", Integer.toString(matriculas[i].getId()));
+            usuarioControl.getUsuarios().add(usuario);
         }
-        Utilvista.cargarListaUsuarios(personaControl.getPersonas(), lstCursa);
+            
     }
 
 //    private void buscar() {
@@ -123,7 +133,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         lstEstudiantesAsignados.removeAll();
         try {
             Utilvista.cargarComboAsignaturaContrato(contratoControl.getAsignaciones(), cbxAsignatura);
-            Utilvista.cargarcomboRolesHorario(cbxHorario);
+            Utilvista.cargarcomboRolesHorario(cbxHoraInicio);
         } catch (EmptyException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
@@ -131,15 +141,15 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         txtTema.setText("");
         txtTema.setEnabled(true);
         cbxAsignatura.setSelectedIndex(0);
-        cbxHorario.setSelectedIndex(0);
+        cbxHoraInicio.setSelectedIndex(0);
     }
 
     private void cargarEstudiante() {
         Object p = lstCursa.getSelectedValue();
         Cursa estudiante = (Cursa) p;
-        tutoriaMatrControl.getCursaTutoria().setMatriculaAsignatura_ID(estudiante.getId());
-        tutoriaMatrControl.getCursaTutoria().setTutoria_ID(tutoriaControl.getTutoria().getId());
-        tutoriaMatrControl.getCursaTutorias().add(tutoriaMatrControl.getCursaTutoria());
+        //tutoriaMatrControl.getAsgMatricula().setMatriculaAsignatura_ID(estudiante.getId());
+        tutoriaMatrControl.getAsgMatricula().setTutoria_ID(tutoriaControl.getTutoria().getId());
+        tutoriaMatrControl.getAsgMatriculas().add(tutoriaMatrControl.getAsgMatricula());
     }
 
     @SuppressWarnings("unchecked")
@@ -153,11 +163,13 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         dcFecha = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
-        cbxHorario = new javax.swing.JComboBox<>();
+        cbxHoraInicio = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         txtTema = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         cbxModalidad = new javax.swing.JComboBox<>();
+        jLabel11 = new javax.swing.JLabel();
+        cbxHoraFin = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         btAsignarEstudiante1 = new javax.swing.JButton();
         btRemoverEstudiante = new javax.swing.JButton();
@@ -210,13 +222,18 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel8.setText("Horario:");
+        jLabel8.setText("Hora Inicio:");
 
-        cbxHorario.setBackground(new java.awt.Color(212, 173, 107));
-        cbxHorario.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        cbxHorario.setForeground(new java.awt.Color(0, 0, 0));
-        cbxHorario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3 AM - 5 PM" }));
-        cbxHorario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cbxHoraInicio.setBackground(new java.awt.Color(212, 173, 107));
+        cbxHoraInicio.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
+        cbxHoraInicio.setForeground(new java.awt.Color(0, 0, 0));
+        cbxHoraInicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30" }));
+        cbxHoraInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cbxHoraInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxHoraInicioActionPerformed(evt);
+            }
+        });
 
         jLabel9.setBackground(new java.awt.Color(51, 51, 51));
         jLabel9.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
@@ -246,15 +263,26 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
             }
         });
 
+        jLabel11.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel11.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel11.setText("Hora Final:");
+
+        cbxHoraFin.setBackground(new java.awt.Color(212, 173, 107));
+        cbxHoraFin.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
+        cbxHoraFin.setForeground(new java.awt.Color(0, 0, 0));
+        cbxHoraFin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30" }));
+        cbxHoraFin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
+                        .addGap(47, 47, 47)
                         .addComponent(jLabel10)
                         .addGap(18, 18, 18)
                         .addComponent(cbxAsignatura, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -264,15 +292,26 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
                         .addComponent(cbxModalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9))
-                        .addGap(44, 44, 44)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel11))
+                                .addGap(13, 13, 13))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(dcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTema, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtTema, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbxHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbxHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,11 +326,15 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(cbxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                    .addComponent(cbxHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(cbxHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(txtTema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -439,7 +482,19 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
 
     private void btCrearTutoria1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCrearTutoria1ActionPerformed
         try {
-            guardar();
+            
+            if(cbxHoraInicio.getSelectedIndex() < cbxHoraFin.getSelectedIndex()){
+                
+                guardar();
+                
+            }else{
+                JOptionPane.showMessageDialog(null, "La fecha de inicio y fin de tutoría se encuentran incorrectas");
+            }
+            
+            
+            
+            
+            
         } catch (Exception ex) {
             System.out.println(ex.toString());
         }
@@ -448,6 +503,10 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private void cbxModalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxModalidadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxModalidadActionPerformed
+
+    private void cbxHoraInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxHoraInicioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxHoraInicioActionPerformed
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -462,11 +521,13 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private javax.swing.JButton btDescartar;
     private javax.swing.JButton btRemoverEstudiante;
     private javax.swing.JComboBox<String> cbxAsignatura;
-    private javax.swing.JComboBox<String> cbxHorario;
+    private javax.swing.JComboBox<String> cbxHoraFin;
+    private javax.swing.JComboBox<String> cbxHoraInicio;
     private javax.swing.JComboBox<String> cbxModalidad;
     private com.toedter.calendar.JDateChooser dcFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
