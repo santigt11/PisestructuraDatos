@@ -11,7 +11,7 @@ import controlador.Academico.FacultadBD;
 import controlador.Academico.MallaBD;
 import controlador.Admin.PersonaBD;
 import controlador.Matriculas.MatriculaBD;
-import controlador.Matriculas.AsignacionMatriculaBD;
+import controlador.Matriculas.CursaTutoriaBD;
 import java.time.ZoneId;
 import modelo.*;
 
@@ -21,7 +21,7 @@ import vista.listas.util.Utilvista;
 public class FrmMatricula extends javax.swing.JFrame {
 
     private MatriculaBD fileMatricula = new MatriculaBD();
-    private AsignacionMatriculaBD fileMatriculaAsg = new AsignacionMatriculaBD();
+    private CursaTutoriaBD fileMatriculaAsg = new CursaTutoriaBD();
 
     private PersonaBD filePersona = new PersonaBD();
 
@@ -67,14 +67,14 @@ public class FrmMatricula extends javax.swing.JFrame {
                 if (verificar(2)) {
                     Object a = lstAsignatura.getSelectedValue();
                     Asignatura asignatura = (Asignatura) a;
-                    fileMatriculaAsg.getAsgMatricula().setMatricula_ID(cbxMatricula.getSelectedIndex());
-                    fileMatriculaAsg.getAsgMatricula().setAsignatura_Codigo(asignatura.getCodigo());
-                    fileMatriculaAsg.getAsgMatricula().setCurso(txtCurso.getText());
+                    fileMatriculaAsg.getCursaTutoria().setMatricula_ID(cbxMatricula.getSelectedIndex());
+                    fileMatriculaAsg.getCursaTutoria().setAsignatura_Codigo(asignatura.getCodigo());
+                    fileMatriculaAsg.getCursaTutoria().setCurso(txtCurso.getText());
 
-                    fileMatriculaAsg.persist(fileMatriculaAsg.getAsgMatricula());
+                    fileMatriculaAsg.persist(fileMatriculaAsg.getCursaTutoria());
                     JOptionPane.showMessageDialog(null, "Datos guardados");
                     limpiar();
-                    fileMatriculaAsg.setAsgMatricula(null);
+                    fileMatriculaAsg.setCursaTutoria(null);
                 }
                 break;
 

@@ -1,17 +1,17 @@
 package modelo;
 
 
-public class AsignacionMatricula {
+public class CursaTutoria {
 
     private Integer id;
     private Boolean impartida;
     private Integer tutoria_ID;
     private Integer cursa_ID;
 
-    public AsignacionMatricula() {
+    public CursaTutoria() {
     }
 
-    public AsignacionMatricula(Integer id, Boolean impartida, Integer tutoria_ID, Integer cursa_ID) {
+    public CursaTutoria(Integer id, Boolean impartida, Integer tutoria_ID, Integer cursa_ID) {
         this.id = id;
         this.impartida = impartida;
         this.tutoria_ID = tutoria_ID;
