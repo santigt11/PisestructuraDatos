@@ -19,12 +19,21 @@ public class Tutoria {
     private String horaFin;
     private String comentario;
     private Integer modalidad_ID;
-
+    private Integer asignacion_ID;
+    
     public Tutoria() {
     }
 
     public Integer getId() {
         return id;
+    }
+
+    public Integer getAsignacion_ID() {
+        return asignacion_ID;
+    }
+
+    public void setAsignacion_ID(Integer asignacion_ID) {
+        this.asignacion_ID = asignacion_ID;
     }
 
     public void setId(Integer id) {
@@ -87,6 +96,8 @@ public class Tutoria {
                 return this.fecha.compareTo(LocalDate.parse(valorBuscado));
             case "tema":
                 return this.tema.compareToIgnoreCase(valorBuscado);
+            case "asignacion_id":
+                return this.asignacion_ID.compareTo(Integer.parseInt(valorBuscado));
             default:
                 throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
         }
