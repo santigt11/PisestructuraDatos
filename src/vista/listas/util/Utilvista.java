@@ -236,8 +236,9 @@ public class Utilvista {
         }
         lst.setModel(modeloLista);
     }
-
-    public static void cargarListaPersonas(DynamicList<Persona> lista, JList lst) throws EmptyException {
+    
+    //
+    public static void cargarListaUsuarios(DynamicList<Usuario> lista, JList lst) throws EmptyException {
         DefaultListModel modeloLista = new DefaultListModel();
         for (Integer i = 0; i < lista.getLength(); i++) {
             modeloLista.addElement(lista.getInfo(i));

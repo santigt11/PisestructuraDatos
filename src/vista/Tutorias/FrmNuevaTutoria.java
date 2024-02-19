@@ -45,9 +45,9 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     }
 
     private void cargarAsignaciones() throws EmptyException {
-        personaControl.setPersona(personaControl.buscarBinaria("dni", "1101201301"));
-        System.out.println(personaControl.buscarBinaria("dni", "1101201301"));
-        contratoControl.setAsignaciones(contratoControl.buscarLineal(contratoControl.all(), "DNIDocente",personaControl.getPersona().getDni()));
+//        personaControl.setPersona(personaControl.buscarBinaria("dni", "1101201301"));
+//        System.out.println(personaControl.buscarBinaria("dni", "1101201301"));
+        contratoControl.setAsignaciones(contratoControl.buscarLineal(contratoControl.all(), "usuario_ID",String.valueOf(usuarioControl.getUsuario().getId())));
         Utilvista.cargarComboAsignaturaContrato(contratoControl.getAsignaciones(), cbxHorario);
     }
 
@@ -84,6 +84,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
             matriculaControl.getMatriculas().add(matricula);
         }
         System.out.println(matriculaControl.getMatriculas());
+        //No obtener en matricula Personas si no Uusarios
         Matricula matriculas[] = matriculaControl.getMatriculas().toArray();
         Persona persona;
         for (int i = 0; i < matriculaControl.getMatriculas().getLength(); i++) {
@@ -91,7 +92,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
             persona = personaControl.buscarBinaria("dni", matriculas[i].getPersona_DNI());
             personaControl.getPersonas().add(persona);
         }
-        Utilvista.cargarListaPersonas(personaControl.getPersonas(), lstCursa);
+        Utilvista.cargarListaUsuarios(personaControl.getPersonas(), lstCursa);
     }
 
 //    private void buscar() {
@@ -106,7 +107,6 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private void guardar() throws EmptyException, Exception {
         if (verificar()) {
             tutoriaControl.getTutoria().setFecha(dcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-            tutoriaControl.getTutoria().setHorario_ID(horarioControl.get(cbxHorario.getSelectedIndex()+1).getId());
             tutoriaControl.getTutoria().setModalidad_ID(cbxModalidad.getSelectedIndex() + 1);
             tutoriaControl.getTutoria().setTema(txtTema.getText());
             tutoriaControl.persist(tutoriaControl.getTutoria());
