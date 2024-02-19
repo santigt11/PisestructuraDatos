@@ -4,7 +4,7 @@ import controlador.Academico.AsignaturaBD;
 import controlador.Academico.AsignacionBD;
 import controlador.Admin.PersonaBD;
 import controlador.Login.UsuarioDB;
-import controlador.Matriculas.AsignacionMatriculaBD;
+import controlador.Matriculas.CursaTutoriaBD;
 import controlador.Matriculas.CursaBD;
 import controlador.Matriculas.MatriculaBD;
 import controlador.TDA.listas.DynamicList;
@@ -15,20 +15,20 @@ import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
 import modelo.Asignacion;
 import modelo.Asignatura;
-import modelo.AsignacionMatricula;
+import modelo.CursaTutoria;
 import modelo.Tutoria;
 import modelo.Usuario;
 import vista.listas.util.Utilvista;
 
 public class FrmTutoriasPrincipal extends javax.swing.JFrame {
 
-    private AsignacionMatriculaBD fileTutoriaM = new AsignacionMatriculaBD();
+    private CursaTutoriaBD fileTutoriaM = new CursaTutoriaBD();
     private TutoriaBD fileTutoria = new TutoriaBD();
-    private AsignacionMatriculaBD fileMatriculaAsg = new AsignacionMatriculaBD();
+    private CursaTutoriaBD fileMatriculaAsg = new CursaTutoriaBD();
     private static PersonaBD personaControl = new PersonaBD();
     private AsignacionBD asignacionControl = new AsignacionBD();
     private AsignaturaBD asignaturaControl = new AsignaturaBD();
-    private AsignacionMatriculaBD asignacionMatriculaControl = new AsignacionMatriculaBD();
+    private CursaTutoriaBD asignacionMatriculaControl = new CursaTutoriaBD();
     private MatriculaBD matriculaControl = new MatriculaBD();
     private UsuarioDB usuarioControl = new UsuarioDB();
     private CursaBD cursaControl = new CursaBD();
@@ -52,8 +52,8 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
 
     private void guardarImpartida() throws Exception {
         if (chkSi.isSelected()) {
-            asignacionMatriculaControl.getAsgMatricula().setImpartida(true);
-            asignacionMatriculaControl.merge(asignacionMatriculaControl.getAsgMatricula());
+            asignacionMatriculaControl.getCursaTutoria().setImpartida(true);
+            asignacionMatriculaControl.merge(asignacionMatriculaControl.getCursaTutoria());
         }
     }
 
@@ -65,7 +65,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         chkNo.setSelected(false);
     }
 
-    private void cargarTutoriasLista(DynamicList<AsignacionMatricula> tutoriasM) throws EmptyException {
+    private void cargarTutoriasLista(DynamicList<CursaTutoria> tutoriasM) throws EmptyException {
         Utilvista.cargarListaAsignacionMatricula(tutoriasM, lstTutorias);
     }
 
@@ -73,7 +73,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         personaControl.setPersona(personaControl.buscarBinaria("dni", usuarioControl.getUsuario().getPersona_DNI()));
         if (usuarioControl.getUsuario().getRol_id() == 1) {
             matriculaControl.setMatricula(matriculaControl.buscarBinaria("usuario_id", String.valueOf(usuarioControl.getUsuario().getId())));
-            cursaControl.
+            cursaControl.setCursas(cursaControl.buscarLineal(cursaControl.all(),"matricula_id", String.valueOf(matriculaControl.getMatricula().getId())));
             asignacionMatriculaControl.
         }
         asignacionControl.setAsignaciones(asignacionControl.buscarLineal(asignacionControl.all(), "DNIDocente", String.valueOf(personaControl.getPersona().getDni())));
@@ -86,29 +86,29 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         }
         Asignatura asignaturasArray[] = asignaturaControl.getAsignaturas().toArray();
         Asignatura asignatura;
-        DynamicList<AsignacionMatricula> matriculasAsignaturas = new DynamicList<>();
+        DynamicList<CursaTutoria> matriculasAsignaturas = new DynamicList<>();
         for (int i = 0; i < asignaturaControl.getAsignaturas().getLength(); i++) {
             asignatura = asignaturaControl.get(asignaturasArray[i].getId());
             matriculasAsignaturas.add(asignacionMatriculaControl.buscarBinaria("codigo", asignatura.getCodigo()));
         }
-        AsignacionMatricula tMatriculas[] = asignacionMatriculaControl.getAsgMatriculas().toArray();
-        AsignacionMatricula tMatricula;
-        DynamicList<AsignacionMatricula> tutoriasMatricula = new DynamicList<>();
-        for (int i = 0; i < asignacionMatriculaControl.getAsgMatriculas().getLength(); i++) {
+        CursaTutoria tMatriculas[] = asignacionMatriculaControl.getCursaTutorias().toArray();
+        CursaTutoria tMatricula;
+        DynamicList<CursaTutoria> tutoriasMatricula = new DynamicList<>();
+        for (int i = 0; i < asignacionMatriculaControl.getCursaTutorias().getLength(); i++) {
             tMatricula = fileTutoriaM.get(tMatriculas[i].getId());
             tutoriasMatricula.add(tMatricula);
         }
     }
 
-    private void cargarVista(AsignacionMatricula asgMatricula) throws EmptyException {
-        fileTutoriaM.setAsgMatricula(asgMatricula);
-        AsignacionMatricula matriculaAsg = fileMatriculaAsg.buscarBinaria("id", fileTutoriaM.getAsgMatricula().getMatriculaAsignatura_ID().toString());
+    private void cargarVista(CursaTutoria asgMatricula) throws EmptyException {
+        fileTutoriaM.setCursaTutoria(asgMatricula);
+        CursaTutoria matriculaAsg = fileMatriculaAsg.buscarBinaria("id", fileTutoriaM.getCursaTutoria().getMatriculaAsignatura_ID().toString());
         Asignatura asignatura = asignaturaControl.buscarBinaria("id", matriculaAsg.getId().toString());
-        Tutoria tutoria = fileTutoria.buscarBinaria("id", fileTutoriaM.getAsgMatricula().getTutoria_ID().toString());
+        Tutoria tutoria = fileTutoria.buscarBinaria("id", fileTutoriaM.getCursaTutoria().getTutoria_ID().toString());
         txtAsignatura.setText(asignatura.getNombre());
         txtTema.setText(tutoria.getTema());
         txtFecha.setText(tutoria.getFecha().format((DateTimeFormatter) Utilvista.FORMATO_FECHA));
-        if (fileTutoriaM.getAsgMatricula().getImpartida()) {
+        if (fileTutoriaM.getCursaTutoria().getImpartida()) {
             chkSi.setSelected(true);
             chkNo.setSelected(false);
         } else {
@@ -385,7 +385,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     private void lstTutoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTutoriasMouseClicked
         if (lstTutorias.getSelectedValue() != null) {
             Object t = lstTutorias.getSelectedValue();
-            AsignacionMatricula tutoria = (AsignacionMatricula) t;
+            CursaTutoria tutoria = (CursaTutoria) t;
             try {
                 cargarVista(tutoria);
             } catch (EmptyException ex) {

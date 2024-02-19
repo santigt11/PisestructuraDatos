@@ -7,7 +7,7 @@ import controlador.Academico.FacultadBD;
 import controlador.Tutorias.HorarioBD;
 import controlador.Academico.MallaBD;
 import controlador.Matriculas.MatriculaBD;
-import controlador.Matriculas.AsignacionMatriculaBD;
+import controlador.Matriculas.CursaTutoriaBD;
 import controlador.Matriculas.PeriodoBD;
 import controlador.Admin.PersonaBD;
 import controlador.TDA.listas.DynamicList;
@@ -24,9 +24,10 @@ import javax.swing.JOptionPane;
 import modelo.Asignatura;
 import modelo.Asignacion;
 import modelo.Matricula;
-import modelo.AsignacionMatricula;
+import modelo.CursaTutoria;
 import modelo.Persona;
 import modelo.TutoriaMatricula;
+import modelo.Usuario;
 
 public class Utilvista {
 
@@ -116,8 +117,8 @@ public class Utilvista {
         }
     }
 
-    public static AsignacionMatricula obtenerMatriculaAsignaturaControl(JComboBox cbx) {
-        return (AsignacionMatricula) cbx.getSelectedItem();
+    public static CursaTutoria obtenerMatriculaAsignaturaControl(JComboBox cbx) {
+        return (CursaTutoria) cbx.getSelectedItem();
     }
 
     public static void cargarListaFacultades(JList lst) throws EmptyException {
@@ -217,7 +218,7 @@ public class Utilvista {
         lst.setModel(modeloLista);
     }
 
-    public static void cargarListaAsignacionMatricula(DynamicList<AsignacionMatricula> tutoriasM, JList lst) throws EmptyException {
+    public static void cargarListaAsignacionMatricula(DynamicList<CursaTutoria> tutoriasM, JList lst) throws EmptyException {
         DefaultListModel modeloLista = new DefaultListModel();
         for (Integer i = 0; i < tutoriasM.getLength(); i++) {
             modeloLista.addElement(tutoriasM);
