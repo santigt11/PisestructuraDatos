@@ -4,7 +4,11 @@
  */
 package vista;
 
+<<<<<<< HEAD
 import controlador.Login.UsuarioDB;
+=======
+import controlador.Login.UsuarioBD;
+>>>>>>> Steven-Luna
 import javax.swing.JOptionPane;
 import modelo.Usuario;
 
@@ -18,7 +22,11 @@ public class CambiarClave extends javax.swing.JFrame {
      * Creates new form CambiarClave
      */
     private Usuario usuario;
+<<<<<<< HEAD
     private UsuarioDB cc = new UsuarioDB();
+=======
+    private UsuarioBD cc = new UsuarioBD();
+>>>>>>> Steven-Luna
     public CambiarClave() {
         initComponents();
         validarClave();

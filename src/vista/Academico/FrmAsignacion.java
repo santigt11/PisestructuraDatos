@@ -5,7 +5,11 @@ import controlador.TDA.listas.Exception.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+<<<<<<< HEAD:src/vista/Academico/FrmContrato.java
 import controlador.Academico.AsignacionBD;
+=======
+import controlador.Academico.ContratoBD;
+>>>>>>> Steven-Luna:src/vista/Academico/FrmAsignacion.java
 import controlador.Admin.PersonaBD;
 import java.time.ZoneId;
 import modelo.*;
@@ -13,9 +17,13 @@ import modelo.*;
 import vista.listas.tablas.TablaContrato;
 import vista.listas.util.Utilvista;
 
-public class FrmContrato extends javax.swing.JFrame {
+public class FrmAsignacion extends javax.swing.JFrame {
 
+<<<<<<< HEAD:src/vista/Academico/FrmContrato.java
     private AsignacionBD fileContrato = new AsignacionBD();
+=======
+    private ContratoBD fileContrato = new ContratoBD();
+>>>>>>> Steven-Luna:src/vista/Academico/FrmAsignacion.java
     private PersonaBD filePersona = new PersonaBD();
     private AsignaturaBD fileAsignatura = new AsignaturaBD();
 
@@ -101,7 +109,7 @@ public class FrmContrato extends javax.swing.JFrame {
             Utilvista.cargarListaFacultades(lstFacultad);
             Utilvista.cargarListaDocentes(lstDocente);
         } catch (EmptyException ex) {
-            Logger.getLogger(FrmContrato.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrmAsignacion.class.getName()).log(Level.SEVERE, null, ex);
         }
         cargarTablaContratos();
 
@@ -131,7 +139,7 @@ public class FrmContrato extends javax.swing.JFrame {
     /**
      * Creates new form FrmContrato
      */
-    public FrmContrato() {
+    public FrmAsignacion() {
         initComponents();
         this.setLocationRelativeTo(null);
         limpiar();
@@ -370,7 +378,7 @@ public class FrmContrato extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("Nuevo Contrato");
+        jLabel5.setText("Nueva Asignacion:");
         jpContrato.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 8, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
@@ -429,7 +437,7 @@ public class FrmContrato extends javax.swing.JFrame {
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel12.setText("Fecha de Registro del Contrato:");
-        jpContrato.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, 26));
+        jpContrato.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 166, -1, 40));
 
         dtRegistro.setBackground(new java.awt.Color(242, 242, 242));
         dtRegistro.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
@@ -491,7 +499,7 @@ public class FrmContrato extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(tbContrato);
 
-        jpContrato.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 319, 430, 203));
+        jpContrato.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 319, 430, 210));
 
         jLabel14.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(0, 0, 0));
@@ -510,7 +518,7 @@ public class FrmContrato extends javax.swing.JFrame {
         });
         jpContrato.add(txtAsignatura, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 145, 195, -1));
 
-        jPanel1.add(jpContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 40, 460, 530));
+        jPanel1.add(jpContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 40, 460, 540));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 590));
 
@@ -586,7 +594,7 @@ public class FrmContrato extends javax.swing.JFrame {
             try {
                 cargarVista(2);
             } catch (EmptyException ex) {
-                Logger.getLogger(FrmContrato.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FrmAsignacion.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             JOptionPane.showMessageDialog(null, "No existe ninguna asignatura disponible", "Error", JOptionPane.ERROR_MESSAGE);
@@ -597,7 +605,7 @@ public class FrmContrato extends javax.swing.JFrame {
         try {
             guardar();
         } catch (Exception ex) {
-            Logger.getLogger(FrmContrato.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrmAsignacion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btCrearContratoActionPerformed
 
@@ -614,7 +622,7 @@ public class FrmContrato extends javax.swing.JFrame {
         try {
             cargarVista(1);
         } catch (EmptyException ex) {
-            Logger.getLogger(FrmContrato.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrmAsignacion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_lstDocenteMouseClicked
 
@@ -622,7 +630,7 @@ public class FrmContrato extends javax.swing.JFrame {
         try {
             cargarVista(3);
         } catch (EmptyException ex) {
-            Logger.getLogger(FrmContrato.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrmAsignacion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_tbContratoMouseClicked
 
@@ -643,14 +651,22 @@ public class FrmContrato extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmContrato.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAsignacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmContrato.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAsignacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmContrato.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAsignacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmContrato.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAsignacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -663,7 +679,7 @@ public class FrmContrato extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmContrato().setVisible(true);
+                new FrmAsignacion().setVisible(true);
             }
         });
     }
