@@ -2,7 +2,7 @@ package vista.listas.util;
 
 import controlador.Academico.AsignaturaBD;
 import controlador.Academico.CarreraBD;
-import controlador.Academico.ContratoBD;
+import controlador.Academico.AsignacionBD;
 import controlador.Academico.FacultadBD;
 import controlador.Tutorias.HorarioBD;
 import controlador.Academico.MallaBD;
@@ -217,7 +217,7 @@ public class Utilvista {
         lst.setModel(modeloLista);
     }
 
-    public static void cargarListaTutoriaMatricula(DynamicList<AsignacionMatricula> tutoriasM, JList lst) throws EmptyException {
+    public static void cargarListaAsignacionMatricula(DynamicList<AsignacionMatricula> tutoriasM, JList lst) throws EmptyException {
         DefaultListModel modeloLista = new DefaultListModel();
         for (Integer i = 0; i < tutoriasM.getLength(); i++) {
             modeloLista.addElement(tutoriasM);

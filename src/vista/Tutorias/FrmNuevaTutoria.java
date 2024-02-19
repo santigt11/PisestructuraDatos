@@ -1,8 +1,9 @@
 package vista.Tutorias;
 
 import controlador.Academico.AsignaturaBD;
-import controlador.Academico.ContratoBD;
+import controlador.Academico.AsignacionBD;
 import controlador.Admin.PersonaBD;
+import controlador.Login.UsuarioDB;
 import controlador.Matriculas.MatriculaBD;
 import controlador.Matriculas.AsignacionMatriculaBD;
 import controlador.Matriculas.CursaBD;
@@ -16,13 +17,14 @@ import javax.swing.JOptionPane;
 import modelo.Matricula;
 import modelo.Cursa;
 import modelo.Persona;
+import modelo.Usuario;
 import vista.listas.util.Utilvista;
 
 public class FrmNuevaTutoria extends javax.swing.JFrame {
 
-    public FrmNuevaTutoria() throws EmptyException {
+    public FrmNuevaTutoria() {
         initComponents();
-        limpiar();
+//        limpiar();
     }
 
     private TutoriaBD tutoriaControl = new TutoriaBD();
@@ -30,20 +32,23 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private AsignaturaBD asignaturaControl = new AsignaturaBD();
     private AsignacionMatriculaBD matriculaAsignControl = new AsignacionMatriculaBD();
     private CursaBD cursaControl = new CursaBD();
-    private static PersonaBD personaControl = new PersonaBD();
-    private ContratoBD contratoControl = new ContratoBD();
+    private PersonaBD personaControl = new PersonaBD();
+    private AsignacionBD contratoControl = new AsignacionBD();
     private MatriculaBD matriculaControl = new MatriculaBD();
+    private static UsuarioDB usuarioControl = new UsuarioDB();
     private AsignacionMatriculaBD tutoriaMatrControl = new AsignacionMatriculaBD();
     
-    public static void cargarDocente(Persona persona) {
-        personaControl.setPersona(persona);
+    public static void cargarDocente(Usuario usuario) {
+        if (usuario.getRol_id() == 2) {
+            usuarioControl.setUsuario(usuario);
+        }
     }
 
-    private void cargarContratos() throws EmptyException {
+    private void cargarAsignaciones() throws EmptyException {
         personaControl.setPersona(personaControl.buscarBinaria("dni", "1101201301"));
         System.out.println(personaControl.buscarBinaria("dni", "1101201301"));
-        contratoControl.setContratos(contratoControl.buscarLineal(contratoControl.all(), "DNIDocente",personaControl.getPersona().getDni()));
-        Utilvista.cargarComboAsignaturaContrato(contratoControl.getContratos(), cbxHorario);
+        contratoControl.setAsignaciones(contratoControl.buscarLineal(contratoControl.all(), "DNIDocente",personaControl.getPersona().getDni()));
+        Utilvista.cargarComboAsignaturaContrato(contratoControl.getAsignaciones(), cbxHorario);
     }
 
 //    private void ordenar(){1101201301"
@@ -113,11 +118,11 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     }
 
     private void limpiar() throws EmptyException {
-        cargarContratos();
+        cargarAsignaciones();
         cargarListaCursas();
         lstEstudiantesAsignados.removeAll();
         try {
-            Utilvista.cargarComboAsignaturaContrato(contratoControl.getContratos(), cbxAsignatura);
+            Utilvista.cargarComboAsignaturaContrato(contratoControl.getAsignaciones(), cbxAsignatura);
             Utilvista.cargarcomboRolesHorario(cbxHorario);
         } catch (EmptyException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -436,7 +441,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         try {
             guardar();
         } catch (Exception ex) {
-            Logger.getLogger(FrmNuevaTutoria.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.toString());
         }
     }//GEN-LAST:event_btCrearTutoria1ActionPerformed
 
@@ -446,11 +451,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    new FrmNuevaTutoria().setVisible(true);
-                } catch (EmptyException ex) {
-                    Logger.getLogger(FrmNuevaTutoria.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                new FrmNuevaTutoria().setVisible(true);
             }
         });
     }

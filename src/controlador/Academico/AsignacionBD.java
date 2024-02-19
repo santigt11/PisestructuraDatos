@@ -5,37 +5,37 @@ import controlador.TDA.listas.Exception.EmptyException;
 import controlador.dao.AdaptadorDao;
 import modelo.Asignacion;
 
-public class ContratoBD extends AdaptadorDao<Asignacion> {
+public class AsignacionBD extends AdaptadorDao<Asignacion> {
 
-    private DynamicList<Asignacion> contratos;
-    private Asignacion contrato;
+    private DynamicList<Asignacion> asignaciones;
+    private Asignacion asignacion;
 
-    public ContratoBD() {
+    public AsignacionBD() {
         super(Asignacion.class);
     }
 
-    public DynamicList<Asignacion> getContratosTodos() {
-        contratos = all();
-        return contratos;
+    public DynamicList<Asignacion> getAsignacionesTodos() {
+        asignaciones = all();
+        return asignaciones;
     }
     
-    public DynamicList<Asignacion> getContratos() {
-        return contratos;
+    public DynamicList<Asignacion> getAsignaciones() {
+        return asignaciones;
     }
     
-    public void setContratos(DynamicList<Asignacion> contratos) {
-        this.contratos = contratos;
+    public void setAsignaciones(DynamicList<Asignacion> asignaciones) {
+        this.asignaciones = asignaciones;
     }
 
-    public Asignacion getContrato() {
-        if (contrato == null) {
-            contrato = new Asignacion();
+    public Asignacion getAsignacion() {
+        if (asignacion == null) {
+            asignacion = new Asignacion();
         }
-        return contrato;
+        return asignacion;
     }
 
-    public void setContrato(Asignacion contrato) {
-        this.contrato = contrato;
+    public void setAsignacion(Asignacion asignacion) {
+        this.asignacion = asignacion;
     }
 
     @Override

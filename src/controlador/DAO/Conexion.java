@@ -4,7 +4,6 @@
  */
 package controlador.DAO;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +18,7 @@ public class Conexion {
     public static final String DRIVER = "oracle.jdbc.OracleDriver";
     public static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
     public static final String USERNAME = "SANTIAGO";
-    public static final String PASSWORD = "santi1809";
+    public static final String PASSWORD = "SANTIAGO1809";
 
  
     public static Connection instancia;

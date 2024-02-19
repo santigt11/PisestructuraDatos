@@ -15,16 +15,10 @@ public class Tutoria {
     private Integer id;
     private LocalDate fecha;
     private String tema;
-    private Integer horario_ID;
+    private String horaInicio;
+    private String horaFin;
+    private String comentario;
     private Integer modalidad_ID;
-
-    public Tutoria(Integer id, LocalDate fecha, String tema, Integer horario_ID, Integer modalidad_ID) {
-        this.id = id;
-        this.fecha = fecha;
-        this.tema = tema;
-        this.horario_ID = horario_ID;
-        this.modalidad_ID = modalidad_ID;
-    }    
 
     public Tutoria() {
     }
@@ -53,12 +47,28 @@ public class Tutoria {
         this.tema = tema;
     }
 
-    public Integer getHorario_ID() {
-        return horario_ID;
+    public String getHoraInicio() {
+        return horaInicio;
     }
 
-    public void setHorario_ID(Integer horario_ID) {
-        this.horario_ID = horario_ID;
+    public void setHoraInicio(String horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public String getHoraFin() {
+        return horaFin;
+    }
+
+    public void setHoraFin(String horaFin) {
+        this.horaFin = horaFin;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
     }
 
     public Integer getModalidad_ID() {
@@ -77,8 +87,6 @@ public class Tutoria {
                 return this.fecha.compareTo(LocalDate.parse(valorBuscado));
             case "tema":
                 return this.tema.compareToIgnoreCase(valorBuscado);
-            case "idhorario":
-                return this.horario_ID.compareTo(Integer.parseInt(valorBuscado));
             default:
                 throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
         }

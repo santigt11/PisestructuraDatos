@@ -6,18 +6,18 @@ import controlador.Utiles.Utiles;
 import controlador.dao.AdaptadorDao;
 import modelo.Usuario;
 
-public class UsuarioArchivos extends AdaptadorDao<Usuario> {
+public class UsuarioDB extends AdaptadorDao<Usuario> {
 
     private DynamicList<Usuario> usuarios;
     private Usuario usuario;
 
-    public UsuarioArchivos(DynamicList<Usuario> usuarios, Usuario usuario) {
+    public UsuarioDB(DynamicList<Usuario> usuarios, Usuario usuario) {
         super(Usuario.class);
         this.usuarios = usuarios;
         this.usuario = usuario;
     }
 
-    public UsuarioArchivos() {
+    public UsuarioDB() {
         super(Usuario.class);
     }
 
