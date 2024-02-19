@@ -1,0 +1,1 @@
+{"controlador.TDA.listas.DynamicList":{"header":{"info":{"@class":"modelo.Asignatura","id":0,"nombre":"MATEMATICA","codigo":"COMP101A","totalHoras":120,"idMalla":0},"next":{"info":{"@class":"modelo.Asignatura","id":1,"nombre":"LENGUAJE","codigo":"COMP2010A","totalHoras":200,"idMalla":1}}},"last":{"@reference":"..\/header\/next"},"length":2}}
