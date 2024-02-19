@@ -13,6 +13,7 @@ import controlador.Admin.PersonaBD;
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.Tutorias.AsignacionMatriculaBD;
+import controlador.Tutorias.TutoriaBD;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JComboBox;
 import modelo.Facultad;
@@ -26,7 +27,7 @@ import modelo.Asignacion;
 import modelo.Matricula;
 import modelo.CursaTutoria;
 import modelo.Persona;
-import modelo.TutoriaMatricula;
+import modelo.Tutoria;
 import modelo.Usuario;
 
 public class Utilvista {
@@ -261,6 +262,14 @@ public class Utilvista {
 
     public static void limpiarLista(JList lst) {
         DefaultListModel modeloLista = new DefaultListModel();
+        lst.setModel(modeloLista);
+    }
+    
+    public static void cargarListaTutorias(DynamicList<Tutoria> lista, JList lst) throws EmptyException {
+        DefaultListModel modeloLista = new DefaultListModel();
+        for (Integer i = 0; i < lista.getLength(); i++) {
+            modeloLista.addElement(lista.getInfo(i));
+        }
         lst.setModel(modeloLista);
     }
 }
