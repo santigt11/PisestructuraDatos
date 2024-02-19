@@ -2,31 +2,20 @@ package vista.listas.util;
 
 import controlador.Academico.AsignaturaBD;
 import controlador.Academico.CarreraBD;
-<<<<<<< HEAD
+import modelo.Carrera;
 import controlador.Academico.AsignacionBD;
-=======
 import controlador.Academico.CicloBD;
-import controlador.Academico.ContratoBD;
->>>>>>> Steven-Luna
 import controlador.Academico.FacultadBD;
 import controlador.Tutorias.HorarioBD;
 import controlador.Academico.MallaBD;
 import controlador.Matriculas.MatriculaBD;
-<<<<<<< HEAD
 import controlador.Matriculas.CursaTutoriaBD;
-=======
 import controlador.Matriculas.CursaBD;
->>>>>>> Steven-Luna
 import controlador.Matriculas.PeriodoBD;
 import controlador.Admin.PersonaBD;
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
-<<<<<<< HEAD
-import controlador.Tutorias.AsignacionMatriculaBD;
 import controlador.Tutorias.TutoriaBD;
-=======
-import controlador.Tutorias.AsignacionMatriculabd;
->>>>>>> Steven-Luna
 import java.time.format.DateTimeFormatter;
 import javax.swing.JComboBox;
 import modelo.Facultad;
@@ -38,16 +27,12 @@ import javax.swing.JOptionPane;
 import modelo.Asignatura;
 import modelo.Asignacion;
 import modelo.Matricula;
-<<<<<<< HEAD
 import modelo.CursaTutoria;
 import modelo.Persona;
 import modelo.Tutoria;
 import modelo.Usuario;
-=======
-import modelo.AsignacionMatricula;
 import modelo.Ciclo;
 import modelo.Persona;
->>>>>>> Steven-Luna
 
 public class Utilvista {
 
@@ -76,11 +61,7 @@ public class Utilvista {
         return (Facultad) cbx.getSelectedItem();
     }
 
-<<<<<<< HEAD
-    public static void cargarComboCarreras(JComboBox cbx) throws EmptyException {
-=======
     public static void cargarComboCarreras(JComboBox cbx, Facultad facultad) throws EmptyException {
->>>>>>> Steven-Luna
         CarreraBD ca = new CarreraBD();
         ca.setCarreras(ca.all());
         cbx.removeAllItems();
@@ -150,11 +131,8 @@ public class Utilvista {
 
     //Matricula-Asignatura
     public static void cargarComboMatriculasAsignaturas(JComboBox cbx) throws EmptyException {
-<<<<<<< HEAD
-        AsignacionMatriculaBD maa = new AsignacionMatriculaBD();
-=======
+        AsignacionMatriculabd maa = new AsignacionMatriculaBD();
         CursaBD maa = new CursaBD();
->>>>>>> Steven-Luna
         maa.setAsgMatriculas(maa.all());
         cbx.removeAllItems();
         for (Integer i = 0; i < maa.getAsgMatriculas().getLength(); i++) {

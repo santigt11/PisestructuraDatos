@@ -1,41 +1,31 @@
 package vista.Academico;
 
+import controlador.Academico.AsignaturaBD;
 import controlador.TDA.listas.Exception.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-import controlador.Academico.AsignaturaBD;
 import controlador.Academico.CarreraBD;
-<<<<<<< HEAD
-import controlador.Academico.FacultadBD;
-import controlador.Academico.MallaBD;
-=======
 import controlador.Academico.CicloBD;
 import controlador.Academico.FacultadBD;
 import controlador.Academico.MallaBD;
 import java.awt.Color;
-import java.sql.SQLException;
->>>>>>> Steven-Luna
-
 import modelo.Facultad;
 import modelo.Carrera;
 import modelo.MallaCurricular;
 import modelo.Asignatura;
 import modelo.Ciclo;
-
 import vista.listas.util.Utilvista;
+
 
 public class FrmAcademico extends javax.swing.JFrame {
 
     private FacultadBD fileFacultad = new FacultadBD();
     private CarreraBD fileCarrera = new CarreraBD();
     private MallaBD fileMalla = new MallaBD();
-<<<<<<< HEAD
     private AsignaturaBD fileAsignatura = new AsignaturaBD();
-=======
     private CicloBD fileCiclo = new CicloBD();
-    private AsignaturaBD fileAsignatura = new AsignaturaBD();
 
     public FrmAcademico() throws EmptyException {
         initComponents();
@@ -47,7 +37,6 @@ public class FrmAcademico extends javax.swing.JFrame {
 
         limpiar();
     }
->>>>>>> Steven-Luna
 
     public Boolean verificar(Integer var) {
         switch (var) {
