@@ -5,11 +5,7 @@ import controlador.TDA.listas.Exception.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-<<<<<<< HEAD:src/vista/Academico/FrmContrato.java
-import controlador.Academico.AsignacionBD;
-=======
 import controlador.Academico.ContratoBD;
->>>>>>> Steven-Luna:src/vista/Academico/FrmAsignacion.java
 import controlador.Admin.PersonaBD;
 import java.time.ZoneId;
 import modelo.*;
@@ -19,11 +15,7 @@ import vista.listas.util.Utilvista;
 
 public class FrmAsignacion extends javax.swing.JFrame {
 
-<<<<<<< HEAD:src/vista/Academico/FrmContrato.java
-    private AsignacionBD fileContrato = new AsignacionBD();
-=======
     private ContratoBD fileContrato = new ContratoBD();
->>>>>>> Steven-Luna:src/vista/Academico/FrmAsignacion.java
     private PersonaBD filePersona = new PersonaBD();
     private AsignaturaBD fileAsignatura = new AsignaturaBD();
 
@@ -42,15 +34,15 @@ public class FrmAsignacion extends javax.swing.JFrame {
             Persona docente = (Persona) p;
             Object a = lstAsignatura.getSelectedValue();
             Asignatura asignatura = (Asignatura) a;
-            fileContrato.getAsignacion().setDniPersona(docente.getDni());
-            fileContrato.getAsignacion().setAsignatura_CODIGO(asignatura.getCodigo());
-            fileContrato.getAsignacion().setFechaRegistro(dtRegistro.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-            fileContrato.getAsignacion().setFechaCulminacion(dtCulminacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            fileContrato.getContrato().setDniPersona(docente.getDni());
+            fileContrato.getContrato().setAsignatura_CODIGO(asignatura.getCodigo());
+            fileContrato.getContrato().setFechaRegistro(dtRegistro.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            fileContrato.getContrato().setFechaCulminacion(dtCulminacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 
-            fileContrato.persist(fileContrato.getAsignacion());
+            fileContrato.persist(fileContrato.getContrato());
             JOptionPane.showMessageDialog(null, "Datos guardados");
             limpiar();
-            fileContrato.setAsignacion(null);
+            fileContrato.setContrato(null);
         } else {
             JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -81,16 +73,16 @@ public class FrmAsignacion extends javax.swing.JFrame {
             case 3:
                 if (tbContrato.getSelectedRow() > -1) {
                     limpiarSoft();
-                    Persona docente = filePersona.buscarBinaria("dni", fileContrato.getAsignacion().getDniPersona());
+                    Persona docente = filePersona.buscarBinaria("dni", fileContrato.getContrato().getDniPersona());
 
-                    fileContrato.setAsignacion(tc.getContratos().getInfo(tbContrato.getSelectedRow()));
+                    fileContrato.setContrato(tc.getContratos().getInfo(tbContrato.getSelectedRow()));
                     txtDni.setText(docente.getDni());
                     txtApellidos.setText(docente.getApellido());
                     txtNombres.setText(docente.getNombre());
                     txtTelefono.setText(docente.getTelefono());
-                    txtAsignatura.setText(fileAsignatura.buscarBinaria("codigo", fileContrato.getAsignacion().getAsignatura_CODIGO()).getNombre());
-                    dtRegistro.setDate(java.sql.Date.valueOf(fileContrato.getAsignacion().getFechaRegistro()));
-                    dtCulminacion.setDate(java.sql.Date.valueOf(fileContrato.getAsignacion().getFechaCulminacion()));
+                    txtAsignatura.setText(fileAsignatura.buscarBinaria("codigo", fileContrato.getContrato().getAsignatura_CODIGO()).getNombre());
+                    dtRegistro.setDate(java.sql.Date.valueOf(fileContrato.getContrato().getFechaRegistro()));
+                    dtCulminacion.setDate(java.sql.Date.valueOf(fileContrato.getContrato().getFechaCulminacion()));
                 }
                 break;
             default:
