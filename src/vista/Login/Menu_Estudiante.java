@@ -4,8 +4,13 @@
  */
 package vista.Login;
 
+import java.awt.BorderLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import modelo.Persona;
 import modelo.Usuario;
+import vista.CambiarClave;
 import vista.Perfiles;
 
 /**
@@ -19,18 +24,57 @@ public class Menu_Estudiante extends javax.swing.JFrame {
      */
     //declaracion de una variable global
     Usuario user;
+    private Persona persona;
+
     // Constructor 
     public Menu_Estudiante(Usuario usuario, Persona persona) {
         initComponents();
-        this.user=usuario;
+        this.user = usuario;
+        this.persona = persona;
         txtUsuario.setText(persona.getNombre());
-        btnPerfil.setText(persona.getNombre()+ " " + persona.getApellido());
+        btnPerfil.setText(persona.getNombre() + " " + persona.getApellido());
+        ImageIcon icono = new ImageIcon(getClass().getResource("/imagenes/FT.png"));
+        FotoAdmin.setIcon(icono);
+        mostrarGif();
 
     }
+
     //Constructor
-      public Menu_Estudiante() {
+    public Menu_Estudiante() {
         initComponents();
     }
+
+    private void mostrarPerfiles(Usuario usuario, Persona persona) {
+        Perfiles ventanaPerfil = new Perfiles(usuario, persona);
+
+        // Hacer visible la ventana de perfil
+        ventanaPerfil.setVisible(true);
+
+    }
+
+    private void mostrarClave(Usuario usuario, Persona persona) {
+        CambiarClave VcambioClave = new CambiarClave(usuario, persona);
+        VcambioClave.setVisible(true);
+    }
+     private void mostrarGif() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(1122, 670);
+
+        // Crea un JLabel y carga el GIF
+        ImageIcon gifIcon = new ImageIcon("src/imagenes/GIFMENU.gif"); // Reemplaza con la ruta de tu archivo GIF
+        JLabel backgroundLabel = new JLabel(gifIcon);
+
+        // Establece el layout del JFrame como BorderLayout
+        setLayout(new BorderLayout());
+
+        // Agrega el JLabel al fondo del JFrame
+        getContentPane().add(backgroundLabel, BorderLayout.CENTER);
+
+        // Hacer visible el JFrame
+        setVisible(true);
+    }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,13 +95,13 @@ public class Menu_Estudiante extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         txtUsuario = new javax.swing.JLabel();
-        ImageEstudiante = new javax.swing.JPanel();
+        FotoAdmin = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         btnPerfil = new javax.swing.JLabel();
         btnHome = new javax.swing.JLabel();
         PanelPrincipalEstudiate = new javax.swing.JPanel();
-        PanelPerfil = new javax.swing.JPanel();
-        PerfilUser = new javax.swing.JLabel();
+        PanelUsuarioO = new javax.swing.JPanel();
+        btnPerfilUser = new javax.swing.JLabel();
         cambiarClave = new javax.swing.JLabel();
         btnCerrarSesion = new javax.swing.JLabel();
 
@@ -103,51 +147,38 @@ public class Menu_Estudiante extends javax.swing.JFrame {
         txtUsuario.setForeground(new java.awt.Color(255, 255, 255));
         txtUsuario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        javax.swing.GroupLayout ImageEstudianteLayout = new javax.swing.GroupLayout(ImageEstudiante);
-        ImageEstudiante.setLayout(ImageEstudianteLayout);
-        ImageEstudianteLayout.setHorizontalGroup(
-            ImageEstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 107, Short.MAX_VALUE)
-        );
-        ImageEstudianteLayout.setVerticalGroup(
-            ImageEstudianteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ImageEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(TutoriasE, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(HorarioE, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel1))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel6))))
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(TutoriasE, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(HorarioE, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jLabel1))
+                                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jLabel6))))
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addGap(6, 6, 6)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(68, 68, 68)
+                        .addComponent(FotoAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -160,12 +191,12 @@ public class Menu_Estudiante extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ImageEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addComponent(FotoAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TutoriasE, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -197,9 +228,9 @@ public class Menu_Estudiante extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 765, Short.MAX_VALUE)
-                .addComponent(btnPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 729, Short.MAX_VALUE)
+                .addComponent(btnPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,19 +244,21 @@ public class Menu_Estudiante extends javax.swing.JFrame {
 
         PanelPrincipalEstudiate.setBackground(new java.awt.Color(255, 250, 205));
 
-        PanelPerfil.setBackground(new java.awt.Color(102, 51, 0));
+        PanelUsuarioO.setBackground(new java.awt.Color(102, 51, 0));
 
-        PerfilUser.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
-        PerfilUser.setForeground(new java.awt.Color(255, 255, 255));
-        PerfilUser.setText("Perfil");
-        PerfilUser.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnPerfilUser.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
+        btnPerfilUser.setForeground(new java.awt.Color(255, 255, 255));
+        btnPerfilUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-usuario-37.png"))); // NOI18N
+        btnPerfilUser.setText("Perfil");
+        btnPerfilUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PerfilUserMouseClicked(evt);
+                btnPerfilUserMouseClicked(evt);
             }
         });
 
         cambiarClave.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
         cambiarClave.setForeground(new java.awt.Color(255, 255, 255));
+        cambiarClave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-contraseña-39.png"))); // NOI18N
         cambiarClave.setText("Cambiar Clave");
         cambiarClave.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -235,6 +268,7 @@ public class Menu_Estudiante extends javax.swing.JFrame {
 
         btnCerrarSesion.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
         btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        btnCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-cerrar-sesión-39.png"))); // NOI18N
         btnCerrarSesion.setText("Cerrar Sesion");
         btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -242,23 +276,23 @@ public class Menu_Estudiante extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout PanelPerfilLayout = new javax.swing.GroupLayout(PanelPerfil);
-        PanelPerfil.setLayout(PanelPerfilLayout);
-        PanelPerfilLayout.setHorizontalGroup(
-            PanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelPerfilLayout.createSequentialGroup()
+        javax.swing.GroupLayout PanelUsuarioOLayout = new javax.swing.GroupLayout(PanelUsuarioO);
+        PanelUsuarioO.setLayout(PanelUsuarioOLayout);
+        PanelUsuarioOLayout.setHorizontalGroup(
+            PanelUsuarioOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelUsuarioOLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(PanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelUsuarioOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCerrarSesion)
                     .addComponent(cambiarClave)
-                    .addComponent(PerfilUser))
-                .addContainerGap(33, Short.MAX_VALUE))
+                    .addComponent(btnPerfilUser))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
-        PanelPerfilLayout.setVerticalGroup(
-            PanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelPerfilLayout.createSequentialGroup()
+        PanelUsuarioOLayout.setVerticalGroup(
+            PanelUsuarioOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelUsuarioOLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(PerfilUser)
+                .addComponent(btnPerfilUser)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(cambiarClave)
                 .addGap(28, 28, 28)
@@ -272,14 +306,14 @@ public class Menu_Estudiante extends javax.swing.JFrame {
             PanelPrincipalEstudiateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPrincipalEstudiateLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(PanelPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addComponent(PanelUsuarioO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
         );
         PanelPrincipalEstudiateLayout.setVerticalGroup(
             PanelPrincipalEstudiateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelPrincipalEstudiateLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(PanelPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(PanelUsuarioO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -317,24 +351,22 @@ public class Menu_Estudiante extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_HorarioEActionPerformed
 
-    private void btnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseClicked
+    private void btnPerfilUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPerfilUserMouseClicked
         // TODO add your handling code here:
-        Acceso login=new Acceso();
-        login.setVisible(true); // Mostrar la ventana de inicio de sesión
-        dispose();
-    }//GEN-LAST:event_btnCerrarSesionMouseClicked
+        mostrarPerfiles(user, persona);
+    }//GEN-LAST:event_btnPerfilUserMouseClicked
 
     private void cambiarClaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cambiarClaveMouseClicked
         // TODO add your handling code here:
+        mostrarClave(user, persona);
     }//GEN-LAST:event_cambiarClaveMouseClicked
 
-    private void PerfilUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PerfilUserMouseClicked
+    private void btnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseClicked
         // TODO add your handling code here:
-        Perfiles ventanaPerfil = new Perfiles();
-    
-    // Hacer visible la ventana de perfil
-    ventanaPerfil.setVisible(true);
-    }//GEN-LAST:event_PerfilUserMouseClicked
+        Acceso login = new Acceso();
+        login.setVisible(true); // Mostrar la ventana de inicio de sesión
+        dispose();
+    }//GEN-LAST:event_btnCerrarSesionMouseClicked
 
     /**
      * @param args the command line arguments
@@ -372,15 +404,15 @@ public class Menu_Estudiante extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel FotoAdmin;
     private org.edisoncor.gui.button.ButtonIcon HorarioE;
-    private javax.swing.JPanel ImageEstudiante;
-    private javax.swing.JPanel PanelPerfil;
     private javax.swing.JPanel PanelPrincipalEstudiate;
-    private javax.swing.JLabel PerfilUser;
+    private javax.swing.JPanel PanelUsuarioO;
     private org.edisoncor.gui.button.ButtonIcon TutoriasE;
     private javax.swing.JLabel btnCerrarSesion;
     private javax.swing.JLabel btnHome;
     private javax.swing.JLabel btnPerfil;
+    private javax.swing.JLabel btnPerfilUser;
     private javax.swing.JLabel cambiarClave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;

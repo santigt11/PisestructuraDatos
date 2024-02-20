@@ -6,6 +6,7 @@ package vista;
 
 import controlador.Login.UsuarioBD;
 import javax.swing.JOptionPane;
+import modelo.Persona;
 import modelo.Usuario;
 
 /**
@@ -18,30 +19,39 @@ public class CambiarClave extends javax.swing.JFrame {
      * Creates new form CambiarClave
      */
     private Usuario usuario;
+    private Persona persona;
     private UsuarioBD cc = new UsuarioBD();
 
-    public CambiarClave() {
+    public CambiarClave(Usuario usuario, Persona persona) {
+        this.usuario=usuario;
+        this.persona=persona;
         initComponents();
-        validarClave();
+        validarClave(usuario, persona);
+        validarNuevasClaves(usuario, persona);
+    }
+      public CambiarClave() {
+        
+        initComponents();
+      
     }
     
 
-    private Boolean validarClave() {
+    private Boolean validarClave(Usuario usuario, Persona persona) {
         String clave = txtClaveActual.getText();
         return usuario.getClave().equals(clave);
     }
 
-    private Boolean validarNuevasClaves() {
+    private Boolean validarNuevasClaves(Usuario usuario, Persona persona) {
         String clave1 = txtNuevaClave.getText();
         String clave2 = txtRepetirClave.getText();
         return clave1.equals(clave2);
     }
 
     private void updateClave() {
-        if (validarClave()) {
+        if (validarClave( usuario, persona)) {
             try {
                 cc.setUsuario(usuario);
-                if (validarNuevasClaves()) {
+                if (validarNuevasClaves(usuario, persona)) {
                     String claveNueva = txtNuevaClave.getText();
                     usuario.setClave(claveNueva);
                     cc.update(usuario);
@@ -70,13 +80,13 @@ public class CambiarClave extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        txtClaveActual = new javax.swing.JTextField();
-        txtNuevaClave = new javax.swing.JTextField();
-        txtRepetirClave = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         buttonPopup1 = new org.edisoncor.gui.button.ButtonPopup();
+        txtNuevaClave = new javax.swing.JPasswordField();
+        txtRepetirClave = new javax.swing.JPasswordField();
+        txtClaveActual = new javax.swing.JPasswordField();
         panelImage1 = new org.edisoncor.gui.panel.PanelImage();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -87,9 +97,9 @@ public class CambiarClave extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("CAMBIO CLAVE");
 
-        jButton1.setBackground(new java.awt.Color(58, 39, 34));
+        jButton1.setBackground(new java.awt.Color(212, 173, 107));
         jButton1.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setForeground(new java.awt.Color(102, 51, 0));
         jButton1.setText("Regresar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,23 +108,7 @@ public class CambiarClave extends javax.swing.JFrame {
         });
 
         jPanel2.setBackground(new java.awt.Color(102, 51, 0));
-
-        txtClaveActual.setBackground(new java.awt.Color(212, 173, 107));
-        txtClaveActual.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
-        txtClaveActual.setForeground(new java.awt.Color(0, 0, 0));
-        txtClaveActual.setText("jTextField1");
-        txtClaveActual.setActionCommand("<Not Set>");
-        txtClaveActual.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtClaveActualActionPerformed(evt);
-            }
-        });
-
-        txtNuevaClave.setBackground(new java.awt.Color(212, 173, 107));
-        txtNuevaClave.setText("jTextField1");
-
-        txtRepetirClave.setBackground(new java.awt.Color(212, 173, 107));
-        txtRepetirClave.setText("jTextField1");
+        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel2.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -128,7 +122,21 @@ public class CambiarClave extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Repetir Clave");
 
+        buttonPopup1.setBackground(new java.awt.Color(255, 255, 255));
+        buttonPopup1.setForeground(new java.awt.Color(102, 51, 0));
         buttonPopup1.setText("Guardar");
+        buttonPopup1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonPopup1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPopup1ActionPerformed(evt);
+            }
+        });
+
+        txtNuevaClave.setBackground(new java.awt.Color(212, 173, 107));
+
+        txtRepetirClave.setBackground(new java.awt.Color(212, 173, 107));
+
+        txtClaveActual.setBackground(new java.awt.Color(212, 173, 107));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -141,42 +149,43 @@ public class CambiarClave extends javax.swing.JFrame {
                         .addComponent(buttonPopup1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(38, 38, 38)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                                .addComponent(txtRepetirClave, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtNuevaClave, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtRepetirClave, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtClaveActual, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2))
+                                .addGap(38, 38, 38)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtClaveActual, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNuevaClave, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 14, Short.MAX_VALUE)))
                 .addGap(41, 41, 41))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(47, Short.MAX_VALUE)
+                .addContainerGap(49, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtClaveActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(38, 38, 38)
+                    .addComponent(jLabel2)
+                    .addComponent(txtClaveActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNuevaClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(txtNuevaClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtRepetirClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(txtRepetirClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addComponent(buttonPopup1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
         );
 
-        panelImage1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Sin título.jpeg"))); // NOI18N
+        panelImage1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Sin_título-removebg-preview.png"))); // NOI18N
 
         javax.swing.GroupLayout panelImage1Layout = new javax.swing.GroupLayout(panelImage1);
         panelImage1.setLayout(panelImage1Layout);
@@ -194,7 +203,7 @@ public class CambiarClave extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(46, Short.MAX_VALUE)
+                .addContainerGap(40, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -216,7 +225,7 @@ public class CambiarClave extends javax.swing.JFrame {
                     .addComponent(panelImage1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(31, 31, 31)
                 .addComponent(jButton1)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -238,9 +247,10 @@ public class CambiarClave extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void txtClaveActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveActualActionPerformed
+    private void buttonPopup1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPopup1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtClaveActualActionPerformed
+        updateClave();
+    }//GEN-LAST:event_buttonPopup1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,8 +297,8 @@ public class CambiarClave extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private org.edisoncor.gui.panel.PanelImage panelImage1;
-    private javax.swing.JTextField txtClaveActual;
-    private javax.swing.JTextField txtNuevaClave;
-    private javax.swing.JTextField txtRepetirClave;
+    private javax.swing.JPasswordField txtClaveActual;
+    private javax.swing.JPasswordField txtNuevaClave;
+    private javax.swing.JPasswordField txtRepetirClave;
     // End of variables declaration//GEN-END:variables
 }

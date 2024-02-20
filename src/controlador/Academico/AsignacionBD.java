@@ -45,12 +45,12 @@ public class AsignacionBD extends AdaptadorDao<Asignacion> {
     }
 
     public DynamicList<Asignacion> buscarLineal(DynamicList<Asignacion> lista, String campo, String valorBuscado) throws EmptyException {
-        Asignacion contratos[] = lista.toArray();
+        Asignacion asignaciones[] = lista.toArray();
         DynamicList<Asignacion> listaBusqueda = new DynamicList<>();
         for (int i = 0; i < lista.getLength(); i++) {
-            Asignacion contrato = contratos[i];
-            if (contrato.compareCampo(campo, valorBuscado) == 0) {
-                listaBusqueda.add(contrato);
+            Asignacion asignacion = asignaciones[i];
+            if (asignacion.compareCampo(campo, valorBuscado) == 0) {
+                listaBusqueda.add(asignacion);
             }
         }
         return listaBusqueda;
@@ -60,13 +60,13 @@ public class AsignacionBD extends AdaptadorDao<Asignacion> {
         int inicio = 0;
         DynamicList<Asignacion> lista = all();
         int fin = lista.getLength() - 1;
-        Asignacion contratos[] = lista.toArray();
+        Asignacion asignaciones[] = lista.toArray();
         while (inicio <= fin) {
             int medio = (inicio + fin) / 2;
-            Asignacion contrato = contratos[medio];
-            int comparacion = contrato.compareCampo(campo, valorBuscado);
+            Asignacion asignacion = asignaciones[medio];
+            int comparacion = asignacion.compareCampo(campo, valorBuscado);
             if (comparacion == 0) {
-                return contrato;
+                return asignacion;
             } else if (comparacion < 0) {
                 inicio = medio + 1;
             } else {
