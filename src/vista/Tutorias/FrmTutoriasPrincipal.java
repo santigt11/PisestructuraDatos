@@ -67,7 +67,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     }
 
     private void cargarTutoriasLista(DynamicList<CursaTutoria> tutoriasM) throws EmptyException {
-        Utilvista.cargarListaAsignacionMatricula(tutoriasM, lstTutorias);
+        Utilvista.cargarListaCursaTutorias(tutoriasM, lstTutorias);
     }
 
     private void cargarTutorias() throws EmptyException {

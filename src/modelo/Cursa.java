@@ -14,6 +14,16 @@ public class Cursa {
     private Integer matricula_ID;
     private String asignatura_CODIGO;
 
+    public Cursa() {
+    }
+
+    public Cursa(Integer id, String paralelo, Integer matricula_ID, String asignatura_CODIGO) {
+        this.id = id;
+        this.paralelo = paralelo;
+        this.matricula_ID = matricula_ID;
+        this.asignatura_CODIGO = asignatura_CODIGO;
+    }
+    
     public Integer getId() {
         return id;
     }
@@ -57,5 +67,38 @@ public class Cursa {
             default:
                 throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
         }
+    }
+    
+    public Boolean compare(Cursa p, String field, Integer type) {
+        //0 menor 1 mayor
+        switch (type) {
+            case 0:// Si el tipo es 0 es menor
+                if (field.equalsIgnoreCase("paralelo")) {
+                    return paralelo.compareTo(p.getParalelo()) < 0;//compara
+                } else if (field.equalsIgnoreCase("asignatura_codigo")) {
+                    return asignatura_CODIGO.compareTo(p.getAsignatura_CODIGO()) < 0;
+                } else if (field.equalsIgnoreCase("matricula_id")) {
+                    return matricula_ID.compareTo(p.getMatricula_ID()) < 0;
+                } else if (field.equalsIgnoreCase("id")) {
+                    return id.compareTo(p.getId()) < 0;
+                }
+            case 1: //si el tipo es 1 es mayor
+                if (field.equalsIgnoreCase("paralelo")) {
+                    return paralelo.compareTo(p.getParalelo()) > 0;//compara
+                } else if (field.equalsIgnoreCase("asignatura_codigo")) {
+                    return asignatura_CODIGO.compareTo(p.getAsignatura_CODIGO()) > 0;
+                } else if (field.equalsIgnoreCase("matricula_id")) {
+                    return matricula_ID.compareTo(p.getMatricula_ID()) > 0;
+                } else if (field.equalsIgnoreCase("id")) {
+                    return id.compareTo(p.getId()) > 0;
+                }
+            default:
+                throw new AssertionError();
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Codigo de Asignatura: " + asignatura_CODIGO + " id de Matricula: " + matricula_ID;
     }
 }

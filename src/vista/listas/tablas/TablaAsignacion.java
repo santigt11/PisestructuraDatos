@@ -33,7 +33,7 @@ public class TablaAsignacion extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         try {
             Asignacion asignacion = asignaciones.getInfo(rowIndex);
-            Usuario usuario = fileUsuario.getUsuarios().getInfo(asignacion.getUsuario_ID());
+            Usuario usuario = fileUsuario.getUsuariosTodos().getInfo(asignacion.getUsuario_ID());
             Persona docente = filePersona.buscarBinaria("dni", usuario.getPersona_DNI());
             switch (columnIndex) {
                 case 0:

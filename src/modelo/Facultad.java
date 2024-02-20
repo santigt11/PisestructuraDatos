@@ -6,15 +6,25 @@ public class Facultad {
     private String nombre;
     private String codigo;
     private String correo;
+    private Integer universidad_ID;
 
     public Facultad() {
     }
 
-    public Facultad(Integer id, String nombre, String codigo, String correo) {
+    public Facultad(Integer id, String nombre, String codigo, String correo, Integer universidad_ID) {
         this.id = id;
         this.nombre = nombre;
         this.codigo = codigo;
         this.correo = correo;
+        this.universidad_ID = universidad_ID;
+    }
+
+    public Integer getUniversidad_ID() {
+        return universidad_ID;
+    }
+
+    public void setUniversidad_ID(Integer universidad_ID) {
+        this.universidad_ID = universidad_ID;
     }
 
     public String getCodigo() {
