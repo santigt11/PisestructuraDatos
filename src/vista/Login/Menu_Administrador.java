@@ -45,34 +45,46 @@ public class Menu_Administrador extends javax.swing.JFrame {
     private FrmGenerarInforme frmGenerarInforme;
     private FrmTutoriasPrincipal frmTutoriasPrincipal;
     private ImageIcon imagen;
-    
+    private Persona persona;
 
     // constructor con parámetros
-    public Menu_Administrador(Usuario usuario,Persona persona) {
+    public Menu_Administrador(Usuario usuario, Persona persona) {
         initComponents();
-        
+
         this.user = usuario;
-        txtUsuario.setText(persona.getNombre()+ " " + persona.getApellido());
-        NombreUsuariot.setText(persona.getNombre()+ " " + persona.getApellido());
-     
- 
-    }
-    public Menu_Administrador() {
-         initComponents();
+        this.persona = persona;
+        txtUsuario.setText(persona.getNombre() + " " + persona.getApellido());
+        NombreUsuariot.setText(persona.getNombre() + " " + persona.getApellido());
         mostrarGif();
-        ImageIcon icono = new ImageIcon(getClass().getResource("/imagenes/matricula.png"));
+        ImageIcon icono = new ImageIcon(getClass().getResource("/imagenes/FT.png"));
         FotoAdmin.setIcon(icono);
-       
-  }
- 
-    
-    
-        private void mostrarGif() {
+
+    }
+
+    public Menu_Administrador() {
+        initComponents();
+    }
+
+    private void mostrarPerfiles(Usuario usuario, Persona persona) {
+        Perfiles ventanaPerfil = new Perfiles(usuario, persona);
+
+        // Hacer visible la ventana de perfil
+        ventanaPerfil.setVisible(true);
+
+    }
+
+    private void mostrarClave(Usuario usuario, Persona persona) {
+    CambiarClave VcambioClave = new CambiarClave(usuario, persona);
+    VcambioClave.setVisible(true);
+}
+
+
+    private void mostrarGif() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1122, 670);
 
         // Crea un JLabel y carga el GIF
-        ImageIcon gifIcon = new ImageIcon("src/imagenes/GIF.gif"); // Reemplaza con la ruta de tu archivo GIF
+        ImageIcon gifIcon = new ImageIcon("src/imagenes/GIFMENU.gif"); // Reemplaza con la ruta de tu archivo GIF
         JLabel backgroundLabel = new JLabel(gifIcon);
 
         // Establece el layout del JFrame como BorderLayout
@@ -85,7 +97,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
         setVisible(true);
     }
 
-       protected void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g.create();
         int width = getWidth();
         int height = getHeight();
@@ -98,8 +110,6 @@ public class Menu_Administrador extends javax.swing.JFrame {
         g2d.drawRoundRect(0, 0, width - 1, height - 1, arc, arc);
         g2d.dispose();
     }
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -517,7 +527,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_AdminPeriodoActionPerformed
 
     private void BtnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMatriculaActionPerformed
-   
+
     }//GEN-LAST:event_BtnMatriculaActionPerformed
 
     private void AdminMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminMatriculaActionPerformed
@@ -535,54 +545,47 @@ public class Menu_Administrador extends javax.swing.JFrame {
 
     private void NombreUsuariotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NombreUsuariotMouseClicked
         // TODO add your handling code here:
-            //JPanelXDerecha(PanelPerfil.getX(), PanelPerfil.getX() + 100, 10, 1, PanelPerfil);
-              // Cambiar la visibilidad del panel al hacer clic en el nombre de usuario
-    if (PanelUsuarioO.isVisible()) {
-        PanelUsuarioO.setVisible(false); // Si el panel está visible, ocultarlo
-    } else {
-        PanelUsuarioO.setVisible(true); // Si el panel está oculto, mostrarlo
-    }   
+        //JPanelXDerecha(PanelPerfil.getX(), PanelPerfil.getX() + 100, 10, 1, PanelPerfil);
+        // Cambiar la visibilidad del panel al hacer clic en el nombre de usuario
+        if (PanelUsuarioO.isVisible()) {
+            PanelUsuarioO.setVisible(false); // Si el panel está visible, ocultarlo
+        } else {
+            PanelUsuarioO.setVisible(true); // Si el panel está oculto, mostrarlo
+        }
     }//GEN-LAST:event_NombreUsuariotMouseClicked
 
     private void btnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseClicked
         // TODO add your handling code here:
-       Acceso login=new Acceso();
+        Acceso login = new Acceso();
         login.setVisible(true); // Mostrar la ventana de inicio de sesión
-        dispose();       
+        dispose();
     }//GEN-LAST:event_btnCerrarSesionMouseClicked
 
     private void cambiarClaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cambiarClaveMouseClicked
         // TODO add your handling code here:
-        CambiarClave VcambioClave = new CambiarClave();
-        VcambioClave.setVisible(true);
-        
+        mostrarClave(user, persona);
+
     }//GEN-LAST:event_cambiarClaveMouseClicked
 
     private void btnPerfilUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPerfilUserMouseClicked
         // TODO add your handling code here:
-        Perfiles ventanaPerfil = new Perfiles();
-    
-    // Hacer visible la ventana de perfil
-    ventanaPerfil.setVisible(true);
+        mostrarPerfiles(user, persona);
+
     }//GEN-LAST:event_btnPerfilUserMouseClicked
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
-        
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-                     
-
-        /* Create and display the form */
+ /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
 
             }
         });
@@ -627,5 +630,4 @@ public class Menu_Administrador extends javax.swing.JFrame {
     private javax.swing.JLabel txtUsuario;
     // End of variables declaration//GEN-END:variables
 
-   
 }

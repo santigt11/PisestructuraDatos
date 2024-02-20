@@ -5,11 +5,19 @@
 package vista.Login;
 
 import controlador.Admin.PersonaBD;
-<<<<<<< HEAD
-import controlador.Login.UsuarioDB;
-=======
 import controlador.Login.UsuarioBD;
->>>>>>> Steven-Luna
+import controlador.TDA.listas.Exception.EmptyException;
+import java.awt.BorderLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import modelo.Persona;
+import modelo.Usuario;
+
+import controlador.Login.UsuarioBD;
+
 import controlador.TDA.listas.Exception.EmptyException;
 import javax.swing.JOptionPane;
 import java.awt.BorderLayout;
@@ -69,11 +77,10 @@ public class Acceso extends javax.swing.JFrame {
 
     //creacion de instancia de los controladores
     private PersonaBD controlPersona = new PersonaBD();
-<<<<<<< HEAD
-    private UsuarioDB controlUsuario = new UsuarioDB();
-=======
+
     private UsuarioBD controlUsuario = new UsuarioBD();
->>>>>>> Steven-Luna
+
+
     
     // limpiar
     private void limpiar() {
@@ -100,7 +107,6 @@ public class Acceso extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
-        btnRecuperarClave = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         txtContraseña = new javax.swing.JPasswordField();
         jSeparator1 = new javax.swing.JSeparator();
@@ -159,18 +165,6 @@ public class Acceso extends javax.swing.JFrame {
         jCheckBox1.setForeground(new java.awt.Color(23, 61, 40));
         jCheckBox1.setText("Recuérdame");
         jPanel2.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 344, -1, -1));
-
-        btnRecuperarClave.setBackground(new java.awt.Color(255, 255, 255));
-        btnRecuperarClave.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        btnRecuperarClave.setForeground(new java.awt.Color(51, 51, 51));
-        btnRecuperarClave.setText("Recuperar Contraseña");
-        btnRecuperarClave.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnRecuperarClave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRecuperarClaveActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnRecuperarClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 420, 160, 20));
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 51, -1, 133));
 
         txtContraseña.setBackground(new java.awt.Color(255, 250, 205));
@@ -264,22 +258,22 @@ public class Acceso extends javax.swing.JFrame {
             if (persona != null) {
                 //System.out.println(persona.getRol().getName());
                 // Si se encontró la persona, verifica su rol
-                if (null != user.getRol()) {
-                    switch ( user.getRol()) {
-                        case ADMINISTRADOR -> {
+                if (null != user.getRol_id()) {
+                    switch ( user.getRol_id()) {
+                        case 1 -> {
                             //Inicia sesión como administrador y muestra un mensaje
                             Menu_Administrador menuAdmi = new Menu_Administrador(user,persona);
                             menuAdmi.setVisible(true);
                             this.dispose();
                             JOptionPane.showMessageDialog(this, "¡Inicio de sesión exitoso como ADMINISTRADOR!");
                         }
-                        case DOCENTE -> {// Abrir Frm_Main_Docente
+                        case 2-> {// Abrir Frm_Main_Docente
                             Menu_Docente menuDoc = new Menu_Docente(user,persona);
                             menuDoc.setVisible(true);
                             this.dispose();
                             JOptionPane.showMessageDialog(this, "¡Inicio de sesión exitoso como DOCENTE!");
                         }
-                        case ESTUDIANTE -> {// Abrir Frm_Main_Estudiante.
+                        case 3 -> {// Abrir Frm_Main_Estudiante.
                             Menu_Estudiante menuEstu = new Menu_Estudiante(user,persona);
                             menuEstu.setVisible(true);
                             this.dispose();
@@ -299,11 +293,6 @@ public class Acceso extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Rellene todos los campos");
         }
     }//GEN-LAST:event_btnInicioActionPerformed
-
-    private void btnRecuperarClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecuperarClaveActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_btnRecuperarClaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -345,7 +334,6 @@ public class Acceso extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.edisoncor.gui.button.ButtonRect btnInicio;
-    private javax.swing.JButton btnRecuperarClave;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
