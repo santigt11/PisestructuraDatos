@@ -33,7 +33,8 @@ public class AsignacionMatriculaBD extends AdaptadorDao<CursaTutoria> {
     public void setTutorias(DynamicList<CursaTutoria> tutorias) {
         this.tutorias = tutorias;
     }
-
+    
+    
     public CursaTutoria getTutoriaMatricula() {
         if (tutoria == null) {
             tutoria = new CursaTutoria();

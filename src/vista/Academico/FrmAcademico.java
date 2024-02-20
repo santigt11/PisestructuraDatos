@@ -4,14 +4,11 @@ import controlador.TDA.listas.Exception.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
 import controlador.Academico.AsignaturaBD;
 import controlador.Academico.CarreraBD;
 import controlador.Academico.FacultadBD;
 import controlador.Academico.MallaBD;
 import java.awt.Color;
-import java.sql.SQLException;
-
 import modelo.Facultad;
 import modelo.Carrera;
 import modelo.MallaCurricular;
@@ -190,12 +187,26 @@ public class FrmAcademico extends javax.swing.JFrame {
         cbxFacultad.setSelectedIndex(-1);
         txtNombreC.setText("");
         spnCiclo.setValue(0);
-        try {
-            limpiarMalla();
-            limpiarAsignatura();
-        } catch (EmptyException ex) {
-            Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        txtFacultadCR.setText("");
+        cbxFacultadC.setEnabled(true);
+        txtNombreC.setEditable(true);
+        spnCiclo.setEnabled(true);
+        txtFacultadCR.setEditable(true);
+        btCrearC.setEnabled(true);
+        btCrearC.setForeground(Color.WHITE);
+        btGCCarrera.setEnabled(false);
+        btGCCarrera.setForeground(Color.DARK_GRAY);
+        btModificarCarrera.setEnabled(false);
+        btModificarCarrera.setForeground(Color.DARK_GRAY);
+
+        cbxFacultadC.setVisible(true);
+        txtFacultadCR.setText("");
+        txtFacultadCR.setVisible(false);
+
+        Utilvista.limpiarLista(lstMalla);
+
+        fileCarrera.setCarrera(null);
+        fileCarrera.limpiarConexion();
     }
 
     private void limpiarMalla() throws EmptyException {

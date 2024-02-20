@@ -1,11 +1,11 @@
 package vista.Academico;
 
+import controlador.Academico.AsignacionBD;
 import controlador.Academico.AsignaturaBD;
 import controlador.TDA.listas.Exception.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import controlador.Academico.AsignacionBD;
 import controlador.Admin.PersonaBD;
 import java.time.ZoneId;
 import modelo.*;
