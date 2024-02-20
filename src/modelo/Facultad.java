@@ -60,10 +60,6 @@ public class Facultad {
                 return this.id.compareTo(Integer.parseInt(valorBuscado));
             case "nombre":
                 return this.nombre.compareToIgnoreCase(valorBuscado);
-            case "codigo":
-                return this.codigo.compareToIgnoreCase(valorBuscado);
-            case "correo":
-                return this.correo.compareToIgnoreCase(valorBuscado);
             default:
                 throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
         }
