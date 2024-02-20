@@ -64,7 +64,7 @@ public class Perfiles extends javax.swing.JFrame {
                 break;
         }
         
-            ImageIcon icono = new ImageIcon(getClass().getResource("/imagenes/matricula.png"));
+            ImageIcon icono = new ImageIcon(getClass().getResource("/imagenes/PERFIL.png"));
             FotoAdmin.setIcon(icono);
     }
     
@@ -84,13 +84,13 @@ public class Perfiles extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        FotoAdmin = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         txtEstado = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel10 = new javax.swing.JLabel();
+        FotoAdmin = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -114,13 +114,11 @@ public class Perfiles extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 250, 205));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
-        jPanel3.setBackground(new java.awt.Color(102, 51, 0));
+        jPanel3.setBackground(new java.awt.Color(212, 173, 107));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        FotoAdmin.setEnabled(false);
-
-        jLabel9.setFont(new java.awt.Font("Franklin Gothic Book", 0, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(102, 51, 0));
         jLabel9.setText("Actualizar Imagen");
         jLabel9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -129,46 +127,52 @@ public class Perfiles extends javax.swing.JFrame {
             }
         });
 
+        txtEstado.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
+        txtEstado.setForeground(new java.awt.Color(102, 51, 0));
         txtEstado.setEnabled(false);
+        txtEstado.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        txtUsuario.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
+        txtUsuario.setForeground(new java.awt.Color(102, 51, 0));
         txtUsuario.setEnabled(false);
 
+        jLabel10.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(102, 51, 0));
         jLabel10.setText("Estado");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                    .addComponent(jSeparator2)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(88, Short.MAX_VALUE)
+                .addGap(73, 73, 73)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(109, 109, 109))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(90, 90, 90))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(FotoAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(FotoAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(73, 73, 73))))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                    .addComponent(jSeparator2)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(FotoAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(28, 28, 28)
+                .addComponent(FotoAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addGap(18, 18, 18)
                 .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -197,7 +201,7 @@ public class Perfiles extends javax.swing.JFrame {
 
         txtNombre.setBackground(new java.awt.Color(212, 173, 107));
         txtNombre.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        txtNombre.setForeground(new java.awt.Color(0, 0, 0));
+        txtNombre.setForeground(new java.awt.Color(102, 51, 0));
         txtNombre.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Franklin Gothic Book", 1, 17)); // NOI18N
@@ -206,7 +210,7 @@ public class Perfiles extends javax.swing.JFrame {
 
         txtCedula.setBackground(new java.awt.Color(212, 173, 107));
         txtCedula.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        txtCedula.setForeground(new java.awt.Color(0, 0, 0));
+        txtCedula.setForeground(new java.awt.Color(102, 51, 0));
         txtCedula.setEnabled(false);
 
         jLabel6.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
@@ -215,7 +219,7 @@ public class Perfiles extends javax.swing.JFrame {
 
         txtCorreo.setBackground(new java.awt.Color(212, 173, 107));
         txtCorreo.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        txtCorreo.setForeground(new java.awt.Color(0, 0, 0));
+        txtCorreo.setForeground(new java.awt.Color(102, 51, 0));
         txtCorreo.setEnabled(false);
 
         jLabel3.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
@@ -232,18 +236,18 @@ public class Perfiles extends javax.swing.JFrame {
 
         txtApellido.setBackground(new java.awt.Color(212, 173, 107));
         txtApellido.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        txtApellido.setForeground(new java.awt.Color(0, 0, 0));
+        txtApellido.setForeground(new java.awt.Color(102, 51, 0));
         txtApellido.setEnabled(false);
 
         txtRol.setBackground(new java.awt.Color(212, 173, 107));
         txtRol.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        txtRol.setForeground(new java.awt.Color(0, 0, 0));
+        txtRol.setForeground(new java.awt.Color(102, 51, 0));
         txtRol.setCaretColor(new java.awt.Color(255, 255, 255));
         txtRol.setEnabled(false);
 
         txtTelefono.setBackground(new java.awt.Color(212, 173, 107));
         txtTelefono.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        txtTelefono.setForeground(new java.awt.Color(0, 0, 0));
+        txtTelefono.setForeground(new java.awt.Color(102, 51, 0));
         txtTelefono.setEnabled(false);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -305,9 +309,9 @@ public class Perfiles extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jToggleButton1.setBackground(new java.awt.Color(58, 39, 34));
+        jToggleButton1.setBackground(new java.awt.Color(212, 173, 107));
         jToggleButton1.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        jToggleButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jToggleButton1.setForeground(new java.awt.Color(102, 51, 0));
         jToggleButton1.setText("Regresar");
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -339,7 +343,7 @@ public class Perfiles extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
