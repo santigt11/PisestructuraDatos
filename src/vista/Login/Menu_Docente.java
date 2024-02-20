@@ -26,11 +26,13 @@ public class Menu_Docente extends javax.swing.JFrame {
      */
     //variable global
     Usuario user;
+    private Persona persona;
 
     // constructor con parametros 
     public Menu_Docente(Usuario usuario,Persona persona) {
         initComponents();
         this.user = usuario;
+        this.persona=persona;
         txtUsuario.setText(persona.getNombre()+""+persona.getApellido());
         jnombreUser.setText(persona.getNombre()+""+persona.getApellido());
            ImageIcon icono = new ImageIcon(getClass().getResource("/imagenes/FT.png"));
@@ -106,8 +108,8 @@ public class Menu_Docente extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         PanelPrincipalDocente = new javax.swing.JPanel();
         PanelUsuarioO = new javax.swing.JPanel();
-        bntPerfilUser = new javax.swing.JLabel();
-        btnCambiarClave = new javax.swing.JLabel();
+        btnPerfilUser = new javax.swing.JLabel();
+        cambiarClave = new javax.swing.JLabel();
         btnCerrarSesion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -249,10 +251,10 @@ public class Menu_Docente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(FotoAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(FotoAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -315,9 +317,9 @@ public class Menu_Docente extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 773, Short.MAX_VALUE)
-                .addComponent(jnombreUser, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 729, Short.MAX_VALUE)
+                .addComponent(jnombreUser, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -333,26 +335,29 @@ public class Menu_Docente extends javax.swing.JFrame {
 
         PanelUsuarioO.setBackground(new java.awt.Color(102, 51, 0));
 
-        bntPerfilUser.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
-        bntPerfilUser.setForeground(new java.awt.Color(255, 255, 255));
-        bntPerfilUser.setText("Perfil");
-        bntPerfilUser.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnPerfilUser.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
+        btnPerfilUser.setForeground(new java.awt.Color(255, 255, 255));
+        btnPerfilUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-usuario-37.png"))); // NOI18N
+        btnPerfilUser.setText("Perfil");
+        btnPerfilUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bntPerfilUserMouseClicked(evt);
+                btnPerfilUserMouseClicked(evt);
             }
         });
 
-        btnCambiarClave.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
-        btnCambiarClave.setForeground(new java.awt.Color(255, 255, 255));
-        btnCambiarClave.setText("Cambiar Clave");
-        btnCambiarClave.addMouseListener(new java.awt.event.MouseAdapter() {
+        cambiarClave.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
+        cambiarClave.setForeground(new java.awt.Color(255, 255, 255));
+        cambiarClave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-contraseña-39.png"))); // NOI18N
+        cambiarClave.setText("Cambiar Clave");
+        cambiarClave.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCambiarClaveMouseClicked(evt);
+                cambiarClaveMouseClicked(evt);
             }
         });
 
         btnCerrarSesion.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
         btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        btnCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-cerrar-sesión-39.png"))); // NOI18N
         btnCerrarSesion.setText("Cerrar Sesion");
         btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -368,17 +373,17 @@ public class Menu_Docente extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(PanelUsuarioOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCerrarSesion)
-                    .addComponent(btnCambiarClave)
-                    .addComponent(bntPerfilUser))
-                .addContainerGap(33, Short.MAX_VALUE))
+                    .addComponent(cambiarClave)
+                    .addComponent(btnPerfilUser))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         PanelUsuarioOLayout.setVerticalGroup(
             PanelUsuarioOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelUsuarioOLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(bntPerfilUser)
+                .addComponent(btnPerfilUser)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(btnCambiarClave)
+                .addComponent(cambiarClave)
                 .addGap(28, 28, 28)
                 .addComponent(btnCerrarSesion)
                 .addGap(56, 56, 56))
@@ -391,14 +396,14 @@ public class Menu_Docente extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPrincipalDocenteLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(PanelUsuarioO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addGap(17, 17, 17))
         );
         PanelPrincipalDocenteLayout.setVerticalGroup(
             PanelPrincipalDocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelPrincipalDocenteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(PanelUsuarioO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(406, Short.MAX_VALUE))
+                .addContainerGap(324, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -442,18 +447,6 @@ public class Menu_Docente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_GenerarInformesActionPerformed
 
-    private void btnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseClicked
-        // TODO add your handling code here:
-        Acceso login=new Acceso();
-        login.setVisible(true); // Mostrar la ventana de inicio de sesión
-        dispose();
-    }//GEN-LAST:event_btnCerrarSesionMouseClicked
-
-    private void btnCambiarClaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCambiarClaveMouseClicked
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCambiarClaveMouseClicked
-
     private void jnombreUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jnombreUserMouseClicked
         // TODO add your handling code here:
          if (PanelUsuarioO.isVisible()) {
@@ -463,13 +456,22 @@ public class Menu_Docente extends javax.swing.JFrame {
     } 
     }//GEN-LAST:event_jnombreUserMouseClicked
 
-    private void bntPerfilUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntPerfilUserMouseClicked
+    private void btnPerfilUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPerfilUserMouseClicked
         // TODO add your handling code here:
-        Perfiles ventanaPerfil = new Perfiles();
-    
-    // Hacer visible la ventana de perfil
-    ventanaPerfil.setVisible(true);
-    }//GEN-LAST:event_bntPerfilUserMouseClicked
+        mostrarPerfiles(user, persona);
+    }//GEN-LAST:event_btnPerfilUserMouseClicked
+
+    private void cambiarClaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cambiarClaveMouseClicked
+        // TODO add your handling code here:
+        mostrarClave(user, persona);
+    }//GEN-LAST:event_cambiarClaveMouseClicked
+
+    private void btnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseClicked
+        // TODO add your handling code here:
+        Acceso login = new Acceso();
+        login.setVisible(true); // Mostrar la ventana de inicio de sesión
+        dispose();
+    }//GEN-LAST:event_btnCerrarSesionMouseClicked
 
     /**
      * @param args the command line arguments
@@ -514,9 +516,9 @@ public class Menu_Docente extends javax.swing.JFrame {
     private javax.swing.JPanel PanelPrincipalDocente;
     private javax.swing.JPanel PanelUsuarioO;
     private org.edisoncor.gui.button.ButtonIcon TutoriasAgendadas;
-    private javax.swing.JLabel bntPerfilUser;
-    private javax.swing.JLabel btnCambiarClave;
     private javax.swing.JLabel btnCerrarSesion;
+    private javax.swing.JLabel btnPerfilUser;
+    private javax.swing.JLabel cambiarClave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

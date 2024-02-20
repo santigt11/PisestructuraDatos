@@ -189,6 +189,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
 
         cambiarClave.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
         cambiarClave.setForeground(new java.awt.Color(255, 255, 255));
+        cambiarClave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-contraseña-39.png"))); // NOI18N
         cambiarClave.setText("Cambiar Clave");
         cambiarClave.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -198,6 +199,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
 
         btnCerrarSesion.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
         btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        btnCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-cerrar-sesión-39.png"))); // NOI18N
         btnCerrarSesion.setText("Cerrar Sesion");
         btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -215,7 +217,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
                     .addComponent(btnCerrarSesion)
                     .addComponent(cambiarClave)
                     .addComponent(btnPerfilUser))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         PanelUsuarioOLayout.setVerticalGroup(
             PanelUsuarioOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,16 +236,16 @@ public class Menu_Administrador extends javax.swing.JFrame {
         PanelPrincipalAdministradorLayout.setHorizontalGroup(
             PanelPrincipalAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPrincipalAdministradorLayout.createSequentialGroup()
-                .addContainerGap(856, Short.MAX_VALUE)
+                .addContainerGap(837, Short.MAX_VALUE)
                 .addComponent(PanelUsuarioO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12))
+                .addContainerGap())
         );
         PanelPrincipalAdministradorLayout.setVerticalGroup(
             PanelPrincipalAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelPrincipalAdministradorLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(14, 14, 14)
                 .addComponent(PanelUsuarioO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(364, Short.MAX_VALUE))
+                .addContainerGap(316, Short.MAX_VALUE))
         );
 
         getContentPane().add(PanelPrincipalAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 1057, 587));
@@ -499,9 +501,9 @@ public class Menu_Administrador extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 750, Short.MAX_VALUE)
-                .addComponent(NombreUsuariot, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 738, Short.MAX_VALUE)
+                .addComponent(NombreUsuariot, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
