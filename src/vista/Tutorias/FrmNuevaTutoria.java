@@ -5,8 +5,8 @@ import controlador.Academico.AsignacionBD;
 import controlador.Admin.PersonaBD;
 import controlador.Login.UsuarioBD;
 import controlador.Matriculas.MatriculaBD;
-import controlador.Matriculas.AsignacionMatriculaBD;
 import controlador.Matriculas.CursaBD;
+import controlador.Matriculas.CursaTutoriaBD;
 import controlador.Tutorias.TutoriaBD;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.Tutorias.HorarioBD;
@@ -27,7 +27,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private TutoriaBD tutoriaControl = new TutoriaBD();
     private HorarioBD horarioControl = new HorarioBD();
     private AsignaturaBD asignaturaControl = new AsignaturaBD();
-    private AsignacionMatriculaBD matriculaAsignControl = new AsignacionMatriculaBD();
+    private CursaTutoriaBD matriculaAsignControl = new CursaTutoriaBD();
     private CursaBD cursaControl = new CursaBD();
     private PersonaBD personaControl = new PersonaBD();
     private AsignacionBD contratoControl = new AsignacionBD();
@@ -145,8 +145,8 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         Object p = lstCursa.getSelectedValue();
         Cursa estudiante = (Cursa) p;
         //tutoriaMatrControl.getAsgMatricula().setMatriculaAsignatura_ID(estudiante.getId());
-        tutoriaMatrControl.getAsgMatricula().setTutoria_ID(tutoriaControl.getTutoria().getId());
-        tutoriaMatrControl.getAsgMatriculas().add(tutoriaMatrControl.getAsgMatricula());
+        tutoriaMatrControl.getCursaTutoria().setTutoria_ID(tutoriaControl.getTutoria().getId());
+        tutoriaMatrControl.getCursaTutorias().add(tutoriaMatrControl.getCursaTutoria());
     }
 
     @SuppressWarnings("unchecked")
