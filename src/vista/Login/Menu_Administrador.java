@@ -151,7 +151,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
         txtUsuario = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        jLabel13 = new javax.swing.JLabel();
+        FotoAdmin = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         NombreUsuariot = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -179,6 +179,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
 
         btnPerfilUser.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
         btnPerfilUser.setForeground(new java.awt.Color(255, 255, 255));
+        btnPerfilUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-usuario-37.png"))); // NOI18N
         btnPerfilUser.setText("Perfil");
         btnPerfilUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -242,7 +243,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
             .addGroup(PanelPrincipalAdministradorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(PanelUsuarioO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(382, Short.MAX_VALUE))
+                .addContainerGap(364, Short.MAX_VALUE))
         );
 
         getContentPane().add(PanelPrincipalAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 1057, 587));
@@ -351,7 +352,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
         jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        FotoAdmin.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -405,7 +406,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
                                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(73, 73, 73)
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(FotoAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -418,7 +419,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(FotoAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -592,6 +593,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
     private org.edisoncor.gui.button.ButtonIcon AdminEstudiante;
     private org.edisoncor.gui.button.ButtonIcon AdminMatricula;
     private org.edisoncor.gui.button.ButtonIcon AdminPeriodo;
+    private javax.swing.JLabel FotoAdmin;
     private javax.swing.JLabel NombreUsuariot;
     private javax.swing.JPanel PanelPrincipalAdministrador;
     private javax.swing.JPanel PanelUsuarioO;
@@ -605,7 +607,6 @@ public class Menu_Administrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
