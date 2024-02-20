@@ -45,6 +45,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
     private FrmGenerarInforme frmGenerarInforme;
     private FrmTutoriasPrincipal frmTutoriasPrincipal;
     private ImageIcon imagen;
+    private Persona persona;
     
 
     // constructor con parámetros
@@ -52,6 +53,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
         initComponents();
         
         this.user = usuario;
+        this.persona=persona;
         txtUsuario.setText(persona.getNombre()+ " " + persona.getApellido());
         NombreUsuariot.setText(persona.getNombre()+ " " + persona.getApellido());
      
@@ -64,8 +66,6 @@ public class Menu_Administrador extends javax.swing.JFrame {
         FotoAdmin.setIcon(icono);
        
   }
- 
-    
     
         private void mostrarGif() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

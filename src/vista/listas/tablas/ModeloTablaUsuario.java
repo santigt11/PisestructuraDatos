@@ -45,10 +45,10 @@ public class ModeloTablaUsuario extends AbstractTableModel {
                 case 3 ->
                     p.getDni();
                 case 4 -> {
-                    yield switch (usuario.getRol()){
-                        case  -> "Administrador";
-                        case  -> "Docente";
-                        case  -> "Estudiante";
+                    yield switch (usuario.getRol_id()){
+                        case 1  -> "Administrador";
+                        case 2 -> "Docente";
+                        case 3 -> "Estudiante";
                         default -> "";                     
                           };
             }
