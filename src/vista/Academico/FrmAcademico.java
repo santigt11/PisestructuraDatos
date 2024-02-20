@@ -9,11 +9,14 @@ import controlador.Academico.AsignaturaBD;
 import controlador.Academico.CarreraBD;
 import controlador.Academico.FacultadBD;
 import controlador.Academico.MallaBD;
+import java.awt.Color;
+import java.sql.SQLException;
 
 import modelo.Facultad;
 import modelo.Carrera;
 import modelo.MallaCurricular;
 import modelo.Asignatura;
+import modelo.Ciclo;
 
 import vista.listas.util.Utilvista;
 
@@ -22,6 +25,7 @@ public class FrmAcademico extends javax.swing.JFrame {
     private FacultadBD fileFacultad = new FacultadBD();
     private CarreraBD fileCarrera = new CarreraBD();
     private MallaBD fileMalla = new MallaBD();
+    private CicloBD fileCiclo = new CicloBD();
     private AsignaturaBD fileAsignatura = new AsignaturaBD();
 
     public Boolean verificar(Integer var) {
