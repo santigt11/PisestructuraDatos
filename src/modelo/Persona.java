@@ -11,6 +11,8 @@ public class Persona {
     private String apellido;
     private LocalDate fechaNacimiento;
     private String telefono;
+    private String correo;
+    private String clave;
 
     //constructor vacio
     public Persona() {

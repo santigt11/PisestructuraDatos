@@ -24,8 +24,15 @@ public class UsuarioBD extends AdaptadorDao<Usuario> {
         super(Usuario.class);
     }
 
-    public DynamicList<Usuario> getUsuarios() {
+    public DynamicList<Usuario> getUsuariosTodos() {
         usuarios = all();
+        return usuarios;
+    }
+    
+    public DynamicList<Usuario> getUsuarios() {
+        if (usuarios == null) {
+            usuarios = new DynamicList<>();
+        }
         return usuarios;
     }
 
@@ -59,7 +66,7 @@ public class UsuarioBD extends AdaptadorDao<Usuario> {
             return null; // Si el correo no cumple con el formato esperado
         } else {
 
-            DynamicList<Usuario> usuarios = getUsuarios(); // Método para obtener la lista de usuarios
+            DynamicList<Usuario> usuarios = getUsuariosTodos(); // Método para obtener la lista de usuarios
             for (int i = 0; i < usuarios.getLength(); i++) {
                 Usuario usuario = usuarios.getInfo(i);
                 if (usuario.getCorreo().equals(correo) && verificarClave(usuario.getClave(), clave)) {

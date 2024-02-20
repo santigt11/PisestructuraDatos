@@ -6,16 +6,26 @@ public class Matricula {
 
     private Integer id;
     private LocalDate fechaRegistro;
-    private Boolean expActivo;
+    private Boolean expendienteActivo;
+    private Integer numero;
     private Integer usuario_ID;
     private Integer periodoAcademico_ID;
 
-    public Matricula(Integer id, LocalDate fechaRegistro, Boolean expActivo, Integer usuario_ID, Integer periodoAcademico_ID) {
+    public Matricula(Integer id, LocalDate fechaRegistro, Boolean expendienteActivo, Integer numero, Integer usuario_ID, Integer periodoAcademico_ID) {
         this.id = id;
         this.fechaRegistro = fechaRegistro;
-        this.expActivo = expActivo;
+        this.expendienteActivo = expendienteActivo;
+        this.numero = numero;
         this.usuario_ID = usuario_ID;
         this.periodoAcademico_ID = periodoAcademico_ID;
+    }
+
+    public Integer getNumero() {
+        return numero;
+    }
+
+    public void setNumero(Integer numero) {
+        this.numero = numero;
     }
 
     public Matricula() {
@@ -53,12 +63,12 @@ public class Matricula {
         this.periodoAcademico_ID = idPAcademico;
     }
 
-    public Boolean getExpActivo() {
-        return expActivo;
+    public Boolean getExpendienteActivo() {
+        return expendienteActivo;
     }
 
-    public void setExpActivo(Boolean expActivo) {
-        this.expActivo = expActivo;
+    public void setExpendienteActivo(Boolean expendienteActivo) {
+        this.expendienteActivo = expendienteActivo;
     }
 
     @Override
