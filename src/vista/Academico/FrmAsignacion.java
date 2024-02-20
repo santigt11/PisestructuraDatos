@@ -124,7 +124,7 @@ public class FrmAsignacion extends javax.swing.JFrame {
                 if (tbAsignacion.getSelectedRow() > -1) {
                     limpiarSoft();
                     Asignacion asignacion = fileAsignacion.getAsignaciones().getInfo((tbAsignacion.getSelectedRow() + 1));
-                    Usuario ud = fileUsuario.getUsuarios().getInfo(asignacion.getUsuario_ID());
+                    Usuario ud = fileUsuario.getUsuariosTodos().getInfo(asignacion.getUsuario_ID());
                     Persona d = filePersona.buscarBinaria("dni", ud.getPersona_DNI());
 
                     txtDni.setText(d.getDni());

@@ -18,10 +18,31 @@ public class Tutoria {
     private String horaInicio;
     private String horaFin;
     private String comentario;
-    private Integer modalidad_ID;
     private Integer asignacion_ID;
+    private Integer modalidad_ID;
+    private Boolean horarioValido;
+
+    public Tutoria(Integer id, LocalDate fecha, String tema, String horaInicio, String horaFin, String comentario, Integer asignacion_ID, Integer modalidad_ID, Boolean horarioValido) {
+        this.id = id;
+        this.fecha = fecha;
+        this.tema = tema;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+        this.comentario = comentario;
+        this.asignacion_ID = asignacion_ID;
+        this.modalidad_ID = modalidad_ID;
+        this.horarioValido = horarioValido;
+    }
     
     public Tutoria() {
+    }
+
+    public Boolean getHorarioValido() {
+        return horarioValido;
+    }
+
+    public void setHorarioValido(Boolean horarioValido) {
+        this.horarioValido = horarioValido;
     }
 
     public Integer getId() {

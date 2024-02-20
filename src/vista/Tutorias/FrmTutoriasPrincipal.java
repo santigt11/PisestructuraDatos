@@ -39,7 +39,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     }
 
     public void cargarUsuario(Usuario usuario) {
-        usuarioControl.setTutoria(usuario);
+        usuarioControl.setUsuario(usuario);
         if (usuario.getRol_id() == 1) {
             btGenerarInforme.setVisible(false);
             btNuevaTutoria.setVisible(false);
@@ -67,7 +67,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     }
 
     private void cargarTutoriasLista(DynamicList<CursaTutoria> tutoriasM) throws EmptyException {
-        Utilvista.cargarListaAsignacionMatricula(tutoriasM, lstTutorias);
+        Utilvista.cargarListaCursaTutorias(tutoriasM, lstTutorias);
     }
 
     private void cargarTutorias() throws EmptyException {

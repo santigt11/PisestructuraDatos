@@ -53,7 +53,7 @@ public class FrmMatricula extends javax.swing.JFrame {
                     Persona estudiante = (Persona) p;
                     fileMatricula.getMatricula().setPersona_DNI(estudiante.getDni());
                     fileMatricula.getMatricula().setFecha(dtRegistro.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-                    fileMatricula.getMatricula().setExpActivo(true);
+                    fileMatricula.getMatricula().setExpedienteActivo(true);
 
                     fileMatricula.persist(fileMatricula.getMatricula());
                     JOptionPane.showMessageDialog(null, "Datos guardados");
@@ -118,9 +118,9 @@ public class FrmMatricula extends javax.swing.JFrame {
             case 3:
                 if (tbMatricula.getSelectedRow() > -1) {
                     limpiarSoft();
-                    if (fileMatricula.getMatricula().getExpActivo()) {
+                    if (fileMatricula.getMatricula().getExpedienteActivo()) {
                         cbxExpediente.setSelectedIndex(0);
-                    } else if (fileMatricula.getMatricula().getExpActivo() == false) {
+                    } else if (fileMatricula.getMatricula().getExpedienteActivo() == false) {
                         cbxExpediente.setSelectedIndex(1);
                     }
                 }
