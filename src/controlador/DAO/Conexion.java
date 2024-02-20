@@ -10,8 +10,8 @@ public class Conexion {
     //Detalles de la base de datos
     public static final String DRIVER = "oracle.jdbc.OracleDriver";
     public static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-    public static final String USERNAME = "PIS";
-    public static final String PASSWORD = "PIS";
+    public static final String USERNAME = "ESTRUCT";
+    public static final String PASSWORD = "T25estefa";
 
  
     public static Connection instancia;

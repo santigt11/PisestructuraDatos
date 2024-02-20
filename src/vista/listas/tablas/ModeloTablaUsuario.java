@@ -66,4 +66,13 @@ public class ModeloTablaUsuario extends AbstractTableModel {
     public void setUsuarios(DynamicList<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
+
+    public DynamicList<Persona> getPersonas() {
+        return personas;
+    }
+
+    public void setPersonas(DynamicList<Persona> personas) {
+        this.personas = personas;
+    }
+    
 }
