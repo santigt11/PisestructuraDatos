@@ -5,7 +5,11 @@
 package vista.Login;
 
 import controlador.Admin.PersonaBD;
+<<<<<<< HEAD
 import controlador.Login.UsuarioDB;
+=======
+import controlador.Login.UsuarioBD;
+>>>>>>> Steven-Luna
 import controlador.TDA.listas.Exception.EmptyException;
 import javax.swing.JOptionPane;
 import java.awt.BorderLayout;
@@ -65,7 +69,11 @@ public class Acceso extends javax.swing.JFrame {
 
     //creacion de instancia de los controladores
     private PersonaBD controlPersona = new PersonaBD();
+<<<<<<< HEAD
     private UsuarioDB controlUsuario = new UsuarioDB();
+=======
+    private UsuarioBD controlUsuario = new UsuarioBD();
+>>>>>>> Steven-Luna
     
     // limpiar
     private void limpiar() {

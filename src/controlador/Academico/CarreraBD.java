@@ -35,7 +35,7 @@ public class CarreraBD extends AdaptadorDao<Carrera> {
     }
 
     @Override
-    public Boolean persist(Carrera obj){
+    public Boolean persist(Carrera obj) {
         obj.setId(all().getLength() + 1);
         return super.persist(obj);
     }
@@ -70,6 +70,16 @@ public class CarreraBD extends AdaptadorDao<Carrera> {
             }
         }
         return null;
+    }
+
+    public boolean buscarCodigo(String text) throws EmptyException {
+        carreras = all();
+        for (int i = 0; i < carreras.getLength(); i++) {
+            if (carreras.getInfo(i).getCodigo().equals(text)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
