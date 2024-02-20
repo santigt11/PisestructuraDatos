@@ -11,6 +11,8 @@ import controlador.Tutorias.TutoriaBD;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.Tutorias.HorarioBD;
 import java.time.ZoneId;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.Matricula;
 import modelo.Cursa;
@@ -19,9 +21,9 @@ import vista.listas.util.Utilvista;
 
 public class FrmNuevaTutoria extends javax.swing.JFrame {
 
-    public FrmNuevaTutoria() {
+    public FrmNuevaTutoria() throws EmptyException {
         initComponents();
-//        limpiar();
+        limpiar();
     }
 
     private TutoriaBD tutoriaControl = new TutoriaBD();
@@ -42,8 +44,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     }
 
     private void cargarAsignaciones() throws EmptyException {
-//        personaControl.setPersona(personaControl.buscarBinaria("dni", "1101201301"));
-//        System.out.println(personaControl.buscarBinaria("dni", "1101201301"));
+        usuarioControl.buscarBinaria("id", "1");
         contratoControl.setAsignaciones(contratoControl.buscarLineal(contratoControl.all(), "usuario_ID",String.valueOf(usuarioControl.getUsuario().getId())));
         Utilvista.cargarComboAsignaturaContrato(contratoControl.getAsignaciones(), cbxHoraInicio);
     }
@@ -507,7 +508,11 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmNuevaTutoria().setVisible(true);
+                try {
+                    new FrmNuevaTutoria().setVisible(true);
+                } catch (EmptyException ex) {
+                    Logger.getLogger(FrmNuevaTutoria.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
