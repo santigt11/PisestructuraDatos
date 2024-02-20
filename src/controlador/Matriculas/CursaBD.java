@@ -19,7 +19,7 @@ public class CursaBD extends AdaptadorDao<Cursa> {
         cursas = all();
         return cursas;
     }
-    
+
     public DynamicList<Cursa> getCursas() {
         return cursas;
     }
@@ -61,7 +61,7 @@ public class CursaBD extends AdaptadorDao<Cursa> {
         int inicio = 0;
         DynamicList<Cursa> lista = all();
         int fin = lista.getLength() - 1;
-        Cursa cursas[] = lista.toArray();
+        Cursa matriculasAsignaturas[] = lista.toArray();
         while (inicio <= fin) {
             int medio = (inicio + fin) / 2;
             Cursa cursa = cursas[medio];

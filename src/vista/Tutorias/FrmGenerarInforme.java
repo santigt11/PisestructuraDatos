@@ -20,8 +20,6 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
         cbxHorario = new javax.swing.JComboBox<>();
         cbxAsignatura = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -67,7 +65,7 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
                 txtTotalHorasActionPerformed(evt);
             }
         });
-        bg.add(txtTotalHoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 470, 50, 20));
+        bg.add(txtTotalHoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 470, 80, 20));
 
         jSeparator1.setBackground(new java.awt.Color(58, 39, 34));
         jSeparator1.setForeground(new java.awt.Color(58, 39, 34));
@@ -103,17 +101,7 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Franklin Gothic Book", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(51, 51, 51));
         jLabel7.setText("Total de Horas:");
-        bg.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, -1, 20));
-
-        jLabel8.setFont(new java.awt.Font("Franklin Gothic Book", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel8.setText("Total de Horas:");
-        bg.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, -1, 20));
-
-        jLabel9.setFont(new java.awt.Font("Franklin Gothic Book", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel9.setText("Total de Horas:");
-        bg.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, -1, 20));
+        bg.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, -1, 20));
 
         jLabel10.setFont(new java.awt.Font("Franklin Gothic Book", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(51, 51, 51));
@@ -157,8 +145,6 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JList<String> lstTutorias;

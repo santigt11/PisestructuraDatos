@@ -1,11 +1,11 @@
 package vista.Academico;
 
+import controlador.Academico.AsignacionBD;
 import controlador.Academico.AsignaturaBD;
 import controlador.TDA.listas.Exception.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import controlador.Academico.ContratoBD;
 import controlador.Admin.PersonaBD;
 import java.time.ZoneId;
 import modelo.*;
@@ -15,7 +15,7 @@ import vista.listas.util.Utilvista;
 
 public class FrmContrato extends javax.swing.JFrame {
 
-    private ContratoBD fileContrato = new ContratoBD();
+    private AsignacionBD fileContrato = new AsignacionBD();
     private PersonaBD filePersona = new PersonaBD();
     private AsignaturaBD fileAsignatura = new AsignaturaBD();
 

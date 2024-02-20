@@ -259,10 +259,10 @@ public class AdaptadorDao<T> implements DaoInterface<T> {
             }
 
             if (entry.getValue().getClass().getSimpleName().equalsIgnoreCase("Date")) {
-                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
                 Date dateValue = (Date) entry.getValue();
                 String formattedDate = formato.format(dateValue);
-                query += "TO_DATE('" + formattedDate + "', 'YYYY-MM-DD HH24:MI:SS'), ";
+                query += "TO_DATE('" + formattedDate + "', 'YYYY-MM-DD'), ";
             }
             if (entry.getValue().getClass().isEnum() || entry.getValue().getClass().getSimpleName().equalsIgnoreCase("String")) {
                 query += "'" + entry.getValue().toString() + "'" + ", ";
@@ -293,8 +293,10 @@ public class AdaptadorDao<T> implements DaoInterface<T> {
                     query += entry.getValue() + ", ";
                 }
                 if (entry.getValue().getClass().getSimpleName().equalsIgnoreCase("Date")) {
-                    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                    query += '"' + formato.format(entry.getValue()) + '"' + ", ";
+                    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+                    Date dateValue = (Date) entry.getValue();
+                    String formattedDate = formato.format(dateValue);
+                    query += "TO_DATE('" + formattedDate + "', 'YYYY-MM-DD'), ";
                 }
                 if (entry.getValue().getClass().isEnum() || entry.getValue().getClass().getSimpleName().equalsIgnoreCase("String")) {
                     query += "'" + entry.getValue().toString() + "'" + ", ";
@@ -303,7 +305,7 @@ public class AdaptadorDao<T> implements DaoInterface<T> {
                 if (entry.getValue().getClass().getSimpleName().equalsIgnoreCase("LocalDate")) {
                     LocalDate localDate = (LocalDate) entry.getValue();
                     String formattedDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(localDate);
-                    query += "'" + formattedDate + "'" + ", ";
+                    query += "TO_DATE('" + formattedDate + "', 'yyyy-MM-dd'), ";
                 }
             }
 

@@ -7,15 +7,15 @@ public class Matricula {
     private Integer id;
     private LocalDate fechaRegistro;
     private Boolean expActivo;
-    private String persona_DNI;
+    private Integer usuario_ID;
     private Integer periodoAcademico_ID;
 
-    public Matricula(Integer id, LocalDate fechaRegistro, Boolean expActivo, String idPersona, Integer idPAcademico) {
+    public Matricula(Integer id, LocalDate fechaRegistro, Boolean expActivo, Integer usuario_ID, Integer periodoAcademico_ID) {
         this.id = id;
         this.fechaRegistro = fechaRegistro;
         this.expActivo = expActivo;
-        this.persona_DNI = idPersona;
-        this.periodoAcademico_ID = idPAcademico;
+        this.usuario_ID = usuario_ID;
+        this.periodoAcademico_ID = periodoAcademico_ID;
     }
 
     public Matricula() {
@@ -37,12 +37,12 @@ public class Matricula {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public String getPersona_DNI() {
-        return persona_DNI;
+    public Integer getUsuario_ID() {
+        return usuario_ID;
     }
 
-    public void setPersona_DNI(String idPersona) {
-        this.persona_DNI = idPersona;
+    public void setUsuario_ID(Integer usuario_ID) {
+        this.usuario_ID = usuario_ID;
     }
 
     public Integer getPeriodoAcademico_ID() {
@@ -72,8 +72,8 @@ public class Matricula {
                 return this.id.compareTo(Integer.parseInt(valorBuscado));
             case "fechaRegistro":
                 return this.fechaRegistro.compareTo(LocalDate.parse(valorBuscado));
-            case "persona_dni":
-                return this.persona_DNI.compareTo(valorBuscado);
+            case "usuario_id":
+                return this.usuario_ID.compareTo(Integer.parseInt(valorBuscado));
             case "periodoacademico_id":
                 return this.periodoAcademico_ID.compareTo(Integer.parseInt(valorBuscado));
             default:
