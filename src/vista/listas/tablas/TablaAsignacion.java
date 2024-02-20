@@ -2,20 +2,26 @@ package vista.listas.tablas;
 
 import controlador.Academico.AsignaturaBD;
 import controlador.Admin.PersonaBD;
+import controlador.Login.UsuarioBD;
+import controlador.Matriculas.PeriodoBD;
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import javax.swing.table.AbstractTableModel;
 import modelo.Asignacion;
+import modelo.Persona;
+import modelo.Usuario;
 
 public class TablaAsignacion extends AbstractTableModel {
 
-    private DynamicList<Asignacion> contratos;
+    private DynamicList<Asignacion> asignaciones;
     private PersonaBD filePersona = new PersonaBD();
     private AsignaturaBD fileAsignatura = new AsignaturaBD();
+    private UsuarioBD fileUsuario = new UsuarioBD();
+    private PeriodoBD filePeriodo = new PeriodoBD();
 
     @Override
     public int getRowCount() {
-        return contratos.getLength();
+        return asignaciones.getLength();
     }
 
     @Override
@@ -26,16 +32,16 @@ public class TablaAsignacion extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         try {
-            Asignacion ct = contratos.getInfo(rowIndex);
+            Asignacion asignacion = asignaciones.getInfo(rowIndex);
+            Usuario usuario = fileUsuario.getUsuarios().getInfo(asignacion.getUsuario_ID());
+            Persona docente = filePersona.buscarBinaria("dni", usuario.getPersona_DNI());
             switch (columnIndex) {
                 case 0:
-                    return (ct != null) ? filePersona.buscarBinaria("dni", ct.getDniPersona()).getApellido() + " " + filePersona.buscarBinaria("dni", ct.getDniPersona()).getNombre(): " ";
+                    return (asignacion != null) ? docente.getApellido() + " " + docente.getNombre(): " ";
                 case 1:
-                    return (ct != null) ? fileAsignatura.buscarBinaria("codigo", ct.getAsignatura_CODIGO()).getCodigo(): "";
+                    return (asignacion != null) ? fileAsignatura.buscarBinaria("codigo", asignacion.getAsignatura_CODIGO()).getCodigo(): "";
                 case 2:
-                    return (ct != null) ? ct.getFechaRegistro(): "";
-                case 3:
-                    return (ct != null) ? ct.getFechaCulminacion(): "";
+                    return (asignacion != null) ? filePeriodo.getPeriodos().getInfo(asignacion.getPeriodoAcademico_ID()): "";
                 default:
                     return null;
             }
@@ -52,20 +58,18 @@ public class TablaAsignacion extends AbstractTableModel {
             case 1:
                 return "ASIGNATURA";
             case 2:
-                return "FECHA DE REGISTRO";
-            case 3:
-                return "FECHA DE CULMINACION";
+                return "PERIODO ACADEMICO";
             default:
                 return null;
         }
     }
 
-    public DynamicList<Asignacion> getContratos() {
-        return contratos;
+    public DynamicList<Asignacion> getAsignaciones() {
+        return asignaciones;
     }
 
-    public void setContratos(DynamicList<Asignacion> contrato) {
-        this.contratos = contrato;
+    public void setAsignaciones(DynamicList<Asignacion> asignaciones) {
+        this.asignaciones = asignaciones;
     }
 
 }
