@@ -221,7 +221,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="buttonIcon2" min="-2" pref="72" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -246,7 +246,7 @@
                                       <Component id="jLabel7" min="-2" pref="147" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Component id="jSeparator1" alignment="0" min="-2" pref="218" max="-2" attributes="0"/>
+                              <Component id="jSeparator1" alignment="1" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                   <Component id="jLabel11" min="-2" pref="53" max="-2" attributes="0"/>
@@ -270,12 +270,10 @@
                                   <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtUsuario" min="-2" pref="199" max="-2" attributes="0"/>
-                                          <Component id="jSeparator3" min="-2" pref="209" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jSeparator3" min="-2" pref="209" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                              <Component id="txtUsuario" alignment="1" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">

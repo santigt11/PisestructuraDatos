@@ -28,8 +28,8 @@ public class UsuarioBD extends AdaptadorDao<Usuario> {
         return usuarios;
     }
 
-    public void setUsuarios(DynamicList<Usuario> tutorias) {
-        this.usuarios = tutorias;
+    public void setUsuarios(DynamicList<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
 
     public void setUsuario(Usuario usuario) {
@@ -43,7 +43,7 @@ public class UsuarioBD extends AdaptadorDao<Usuario> {
         return usuario;
     }
 
-    public void setTutoria(Usuario ssuario) {
+    public void setUsuarios(Usuario usuario) {
         this.usuario = usuario;
     }
 
@@ -105,8 +105,12 @@ public class UsuarioBD extends AdaptadorDao<Usuario> {
         return null;
     }
 
-    public void update(Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+   public boolean update() {
+
+        try {
+            update(this.usuario);
+            return true;
+        } catch (Exception e) {
+            e.
 
 }

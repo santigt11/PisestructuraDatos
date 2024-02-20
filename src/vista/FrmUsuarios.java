@@ -4,6 +4,12 @@
  */
 package vista;
 
+import controlador.Admin.PersonaBD;
+import controlador.Login.UsuarioBD;
+import modelo.Persona;
+import modelo.Usuario;
+import vista.listas.tablas.ModeloTablaUsuario;
+
 /**
  *
  * @author Usuario
@@ -13,8 +19,26 @@ public class FrmUsuarios extends javax.swing.JFrame {
     /**
      * Creates new form FrmUsuarios
      */
+    private Usuario user;
+    private Persona persona;
+    private UsuarioBD usuarioBD = new UsuarioBD();
+    ModeloTablaUsuario mtu=new ModeloTablaUsuario();
+
+    public FrmUsuarios(Usuario usuario, Persona persona) {
+        this.user = usuario;
+        this.persona = persona;
+        initComponents();
+        cargarTabla();
+    }
+
     public FrmUsuarios() {
         initComponents();
+    }
+      private void cargarTabla() {
+        mtu.setUsuarios(usuarioBD.all());
+        usuarioBD.setUsuarios(usuarioBD.all());
+        tbUsuarios.setModel(mtu);
+        tbUsuarios.updateUI();
     }
 
     /**
@@ -28,15 +52,15 @@ public class FrmUsuarios extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbUsuarios = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 250, 205));
 
-        jTable1.setBackground(new java.awt.Color(212, 173, 107));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbUsuarios.setBackground(new java.awt.Color(212, 173, 107));
+        tbUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -47,7 +71,7 @@ public class FrmUsuarios extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbUsuarios);
 
         jLabel1.setFont(new java.awt.Font("Franklin Gothic Book", 1, 34)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
@@ -127,6 +151,6 @@ public class FrmUsuarios extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tbUsuarios;
     // End of variables declaration//GEN-END:variables
 }

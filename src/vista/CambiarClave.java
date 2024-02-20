@@ -125,6 +125,11 @@ public class CambiarClave extends javax.swing.JFrame {
         buttonPopup1.setForeground(new java.awt.Color(102, 51, 0));
         buttonPopup1.setText("Guardar");
         buttonPopup1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonPopup1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPopup1ActionPerformed(evt);
+            }
+        });
 
         txtNuevaClave.setBackground(new java.awt.Color(212, 173, 107));
 
@@ -240,6 +245,11 @@ public class CambiarClave extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void buttonPopup1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPopup1ActionPerformed
+        // TODO add your handling code here:
+        validarNuevasClaves();
+    }//GEN-LAST:event_buttonPopup1ActionPerformed
 
     /**
      * @param args the command line arguments
