@@ -11,12 +11,9 @@ import controlador.Tutorias.TutoriaBD;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.Tutorias.HorarioBD;
 import java.time.ZoneId;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.Matricula;
 import modelo.Cursa;
-import modelo.Persona;
 import modelo.Usuario;
 import vista.listas.util.Utilvista;
 
