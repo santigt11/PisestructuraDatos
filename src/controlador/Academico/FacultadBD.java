@@ -3,6 +3,9 @@ package controlador.Academico;
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.dao.AdaptadorDao;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.Facultad;
 
 public class FacultadBD extends AdaptadorDao<Facultad> {
@@ -35,7 +38,7 @@ public class FacultadBD extends AdaptadorDao<Facultad> {
     }
 
     @Override
-    public Boolean persist(Facultad obj){
+    public Boolean persist(Facultad obj) {
         obj.setId(all().getLength() + 1);
         return super.persist(obj);
     }
@@ -72,4 +75,13 @@ public class FacultadBD extends AdaptadorDao<Facultad> {
         return null;
     }
 
+    public boolean buscarCodigo(String text) throws EmptyException {
+        facultades = all();
+        for (int i = 0; i < facultades.getLength(); i++) {
+            if (facultades.getInfo(i).getCodigo().equals(text)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
