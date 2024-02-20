@@ -20,6 +20,9 @@ public class AsignacionBD extends AdaptadorDao<Asignacion> {
     }
     
     public DynamicList<Asignacion> getAsignaciones() {
+        if (asignaciones == null) {
+            asignaciones = new DynamicList<>();
+        }
         return asignaciones;
     }
     

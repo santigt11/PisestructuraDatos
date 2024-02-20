@@ -16,21 +16,21 @@ public class Tutoria {
     private LocalDate fecha;
     private String tema;
     private String horaInicio;
+    private Integer modalidad_ID;
     private String horaFin;
     private String comentario;
     private Integer asignacion_ID;
-    private Integer modalidad_ID;
     private Boolean horarioValido;
 
-    public Tutoria(Integer id, LocalDate fecha, String tema, String horaInicio, String horaFin, String comentario, Integer asignacion_ID, Integer modalidad_ID, Boolean horarioValido) {
+    public Tutoria(Integer id, LocalDate fecha, String tema, String horaInicio, Integer modalidad_ID, String horaFin, String comentario, Integer asignacion_ID, Boolean horarioValido) {
         this.id = id;
         this.fecha = fecha;
         this.tema = tema;
         this.horaInicio = horaInicio;
+        this.modalidad_ID = modalidad_ID;
         this.horaFin = horaFin;
         this.comentario = comentario;
         this.asignacion_ID = asignacion_ID;
-        this.modalidad_ID = modalidad_ID;
         this.horarioValido = horarioValido;
     }
     

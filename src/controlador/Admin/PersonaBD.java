@@ -22,6 +22,9 @@ public class PersonaBD extends AdaptadorDao<Persona> {
     }
 
     public DynamicList<Persona> getPersonas() {
+        if (personas == null) {
+            personas = new DynamicList<>();
+        }
         return personas;
     }
 
