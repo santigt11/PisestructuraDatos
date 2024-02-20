@@ -29,6 +29,22 @@ public class Persona {
         this.telefono = telefono;
     }
 
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+    
     //getters and setters
     public Integer getId() {
         return id;
