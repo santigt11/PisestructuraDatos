@@ -4,15 +4,12 @@ import controlador.TDA.listas.Exception.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
 import controlador.Academico.AsignaturaBD;
 import controlador.Academico.CarreraBD;
 import controlador.Academico.CicloBD;
 import controlador.Academico.FacultadBD;
 import controlador.Academico.MallaBD;
 import java.awt.Color;
-import java.sql.SQLException;
-
 import modelo.Facultad;
 import modelo.Carrera;
 import modelo.MallaCurricular;
@@ -137,7 +134,6 @@ public class FrmAcademico extends javax.swing.JFrame {
         txtNombreC.setText("");
         spnCiclo.setValue(0);
         txtFacultadCR.setText("");
-
         cbxFacultadC.setEnabled(true);
         txtNombreC.setEditable(true);
         spnCiclo.setEnabled(true);

@@ -6,30 +6,20 @@ import controlador.Utiles.Utiles;
 import controlador.dao.AdaptadorDao;
 import modelo.Usuario;
 
-<<<<<<<< HEAD:src/controlador/Login/UsuarioDB.java
-public class UsuarioDB extends AdaptadorDao<Usuario> {
-========
-public class UsuarioBD extends AdaptadorDao<Usuario> {
->>>>>>>> Steven-Luna:src/controlador/Login/UsuarioBD.java
 
+public class UsuarioBD extends AdaptadorDao<Usuario> {
     private DynamicList<Usuario> usuarios;
     private Usuario usuario;
 
-<<<<<<<< HEAD:src/controlador/Login/UsuarioDB.java
-    public UsuarioDB(DynamicList<Usuario> usuarios, Usuario usuario) {
-========
+
     public UsuarioBD(DynamicList<Usuario> usuarios, Usuario usuario) {
->>>>>>>> Steven-Luna:src/controlador/Login/UsuarioBD.java
         super(Usuario.class);
         this.usuarios = usuarios;
         this.usuario = usuario;
     }
 
-<<<<<<<< HEAD:src/controlador/Login/UsuarioDB.java
-    public UsuarioDB() {
-========
+
     public UsuarioBD() {
->>>>>>>> Steven-Luna:src/controlador/Login/UsuarioBD.java
         super(Usuario.class);
     }
 
