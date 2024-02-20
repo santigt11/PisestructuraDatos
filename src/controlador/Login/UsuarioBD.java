@@ -4,6 +4,7 @@ import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.Utiles.Utiles;
 import controlador.dao.AdaptadorDao;
+import modelo.Persona;
 import modelo.Usuario;
 
 
@@ -105,12 +106,18 @@ public class UsuarioBD extends AdaptadorDao<Usuario> {
         return null;
     }
 
-   public boolean update() {
+   public boolean update(Usuario usuario) {
+    try {
+        // Actualiza el usuario proporcionado como argumento
+        // Utiliza this.usuario para referirte al atributo de la clase en lugar del parámetro
+        update(usuario);
+        return true;
+    } catch (Exception e) {
+        // Asegúrate de manejar cualquier excepción correctamente
+        e.printStackTrace(); // Esto imprimirá la traza de la excepción en la consola para ayudarte a depurar errores
+        return false; // Debes tener un retorno en el caso de que la actualización falle
+    }
 
-        try {
-            update(this.usuario);
-            return true;
-        } catch (Exception e) {
-            e.
+}
 
 }

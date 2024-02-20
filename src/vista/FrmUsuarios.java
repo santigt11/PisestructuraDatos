@@ -6,6 +6,7 @@ package vista;
 
 import controlador.Admin.PersonaBD;
 import controlador.Login.UsuarioBD;
+import controlador.TDA.listas.DynamicList;
 import modelo.Persona;
 import modelo.Usuario;
 import vista.listas.tablas.ModeloTablaUsuario;
@@ -22,7 +23,7 @@ public class FrmUsuarios extends javax.swing.JFrame {
     private Usuario user;
     private Persona persona;
     private UsuarioBD usuarioBD = new UsuarioBD();
-    ModeloTablaUsuario mtu=new ModeloTablaUsuario();
+    ModeloTablaUsuario mtu = new ModeloTablaUsuario();
 
     public FrmUsuarios(Usuario usuario, Persona persona) {
         this.user = usuario;
@@ -34,12 +35,15 @@ public class FrmUsuarios extends javax.swing.JFrame {
     public FrmUsuarios() {
         initComponents();
     }
-      private void cargarTabla() {
+
+    private void cargarTabla() {
         mtu.setUsuarios(usuarioBD.all());
         usuarioBD.setUsuarios(usuarioBD.all());
         tbUsuarios.setModel(mtu);
         tbUsuarios.updateUI();
     }
+
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.

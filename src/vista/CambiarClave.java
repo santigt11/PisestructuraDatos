@@ -26,7 +26,8 @@ public class CambiarClave extends javax.swing.JFrame {
         this.usuario=usuario;
         this.persona=persona;
         initComponents();
-        validarClave();
+        validarClave(usuario, persona);
+        validarNuevasClaves(usuario, persona);
     }
       public CambiarClave() {
         
@@ -35,22 +36,22 @@ public class CambiarClave extends javax.swing.JFrame {
     }
     
 
-    private Boolean validarClave() {
+    private Boolean validarClave(Usuario usuario, Persona persona) {
         String clave = txtClaveActual.getText();
         return usuario.getClave().equals(clave);
     }
 
-    private Boolean validarNuevasClaves() {
+    private Boolean validarNuevasClaves(Usuario usuario, Persona persona) {
         String clave1 = txtNuevaClave.getText();
         String clave2 = txtRepetirClave.getText();
         return clave1.equals(clave2);
     }
 
     private void updateClave() {
-        if (validarClave()) {
+        if (validarClave( usuario, persona)) {
             try {
                 cc.setUsuario(usuario);
-                if (validarNuevasClaves()) {
+                if (validarNuevasClaves(usuario, persona)) {
                     String claveNueva = txtNuevaClave.getText();
                     usuario.setClave(claveNueva);
                     cc.update(usuario);
@@ -248,7 +249,7 @@ public class CambiarClave extends javax.swing.JFrame {
 
     private void buttonPopup1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPopup1ActionPerformed
         // TODO add your handling code here:
-        validarNuevasClaves();
+        updateClave();
     }//GEN-LAST:event_buttonPopup1ActionPerformed
 
     /**
