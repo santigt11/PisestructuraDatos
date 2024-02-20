@@ -56,9 +56,8 @@ public class AsignacionBD extends AdaptadorDao<Asignacion> {
         return listaBusqueda;
     }
 
-    public Asignacion buscarBinaria(String campo, String valorBuscado) throws EmptyException {
+    public Asignacion buscarBinaria(DynamicList<Asignacion> lista, String campo, String valorBuscado) throws EmptyException {
         int inicio = 0;
-        DynamicList<Asignacion> lista = all();
         int fin = lista.getLength() - 1;
         Asignacion asignaciones[] = lista.toArray();
         while (inicio <= fin) {
