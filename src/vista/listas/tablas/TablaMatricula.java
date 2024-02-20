@@ -1,8 +1,8 @@
 package vista.listas.tablas;
 
 
-import controlador.Matriculas.PeriodoArchivos;
-import controlador.Admin.PersonaArchivos;
+import controlador.Matriculas.PeriodoBD;
+import controlador.Admin.PersonaBD;
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import javax.swing.table.AbstractTableModel;
@@ -11,8 +11,8 @@ import modelo.Matricula;
 public class TablaMatricula extends AbstractTableModel {
 
     private DynamicList<Matricula> matriculas;
-    private PersonaArchivos filePersona = new PersonaArchivos();
-    private PeriodoArchivos filePeriodo = new PeriodoArchivos();
+    private PersonaBD filePersona = new PersonaBD();
+    private PeriodoBD filePeriodo = new PeriodoBD();
     
 
     @Override
@@ -37,7 +37,7 @@ public class TablaMatricula extends AbstractTableModel {
                 case 2:
                     return (mt != null) ? filePeriodo.getPeriodos().getInfo(mt.getPeriodoAcademico_ID()).getFechaIncio() + " " + filePeriodo.getPeriodos().getInfo(mt.getPeriodoAcademico_ID()).getFechaFin(): "";
                 case 3:
-                    return (mt != null) ? mt.isExpActivo() ? "ACTIVO" : "INACTIVO" : "";
+                    return (mt != null) ? mt.getExpedienteActivo()? "ACTIVO" : "INACTIVO" : "";
                 default:
                     return null;
             }

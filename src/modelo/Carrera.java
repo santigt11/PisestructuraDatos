@@ -4,17 +4,19 @@ public class Carrera {
 
     private Integer id;
     private String nombre;
-    private Integer numCiclos;
+    private Integer numCiclo;
+    private String codigo;
     private Integer facultad_ID;
 
     public Carrera() {
     }
 
-    public Carrera(Integer id, String nombre, Integer numCiclos, Integer idFacultad) {
+    public Carrera(Integer id, String nombre, Integer numCiclo, String codigo, Integer facultad_ID) {
         this.id = id;
         this.nombre = nombre;
-        this.numCiclos = numCiclos;
-        this.facultad_ID = idFacultad;
+        this.numCiclo = numCiclo;
+        this.codigo = codigo;
+        this.facultad_ID = facultad_ID;
     }
 
     public Integer getId() {
@@ -25,6 +27,14 @@ public class Carrera {
         this.id = id;
     }
 
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -33,12 +43,12 @@ public class Carrera {
         this.nombre = nombre;
     }
 
-    public Integer getNumCiclos() {
-        return numCiclos;
+    public Integer getNumCiclo() {
+        return numCiclo;
     }
 
-    public void setNumCiclos(Integer numCiclos) {
-        this.numCiclos = numCiclos;
+    public void setNumCiclo(Integer numCiclo) {
+        this.numCiclo = numCiclo;
     }
 
     public Integer getFacultad_ID() {

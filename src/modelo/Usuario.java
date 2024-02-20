@@ -11,21 +11,19 @@ package modelo;
 public class Usuario {
 
     private Integer id;
-    private String correo;
-    private String clave;
+    private Boolean activo;
     private String persona_DNI;
+    private Integer rol_id;
 
     public Usuario() {
     }
 
-
-    public Usuario(Integer id, String correo, String clave) {
+    public Usuario(Integer id, Boolean activo, String persona_DNI, Integer rol_id) {
         this.id = id;
-        this.correo = correo;
-        this.clave = clave;
+        this.activo = activo;
+        this.persona_DNI = persona_DNI;
+        this.rol_id = rol_id;
     }
-
-
 
     public Integer getId() {
         return id;
@@ -35,10 +33,13 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getCorreo() {
-        return correo;
+    public Boolean getActivo() {
+        return activo;
     }
 
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
+    }
 
     public String getPersona_DNI() {
         return persona_DNI;
@@ -48,35 +49,32 @@ public class Usuario {
         this.persona_DNI = persona_DNI;
     }
 
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public Integer getRol_id() {
+        return rol_id;
     }
 
-    public String getClave() {
-        return clave;
+    public void setRol_id(Integer rol_id) {
+        this.rol_id = rol_id;
     }
 
-    public void setClave(String clave) {
-        this.clave = clave;
-    }
-
-public Boolean compare(Usuario u, String field, Integer type) {
+    public Boolean compare(Usuario u, String field, Integer type) {
         switch (type) {
             case 0 -> {
-                if (field.equalsIgnoreCase("correo")) {
-                    return this.getCorreo().toLowerCase().compareTo(u.getCorreo().toLowerCase()) < 0;
-                }
-                else if (field.equalsIgnoreCase("correo")) {
-                    return this.getCorreo().compareTo(u.getCorreo().toLowerCase()) > 0;
+                if (field.equalsIgnoreCase("persona_dni")) {
+                    return this.getPersona_DNI().toLowerCase().compareTo(u.getPersona_DNI().toLowerCase()) < 0;
+                } else if (field.equalsIgnoreCase("rol_id")) {
+                    return this.getRol_id().compareTo(u.getRol_id()) < 0;
+                }   else if (field.equalsIgnoreCase("id")) {
+                    return this.getId().compareTo(u.getId()) < 0;
                 }
             }
-             case 1 -> {
-                if (field.equalsIgnoreCase("persona_DNI")) {
-                    return this.getPersona_DNI().toLowerCase().compareTo(u.getCorreo().toLowerCase()) < 0;
-                }
-                else if (field.equalsIgnoreCase("persona_DNI")) {
-                    return this.getPersona_DNI().compareTo(u.getCorreo().toLowerCase()) > 0;
+            case 1 -> {
+                if (field.equalsIgnoreCase("persona_dni")) {
+                    return this.getPersona_DNI().toLowerCase().compareTo(u.getPersona_DNI().toLowerCase()) > 0;
+                } else if (field.equalsIgnoreCase("rol_id")) {
+                    return this.getRol_id().compareTo(u.getRol_id()) > 0;
+                }   else if (field.equalsIgnoreCase("id")) {
+                    return this.getId().compareTo(u.getId()) > 0;
                 }
             }
             default -> {
@@ -91,16 +89,15 @@ public Boolean compare(Usuario u, String field, Integer type) {
         switch (campo.toLowerCase()) {
             case "id":
                 return this.id.compareTo(Integer.parseInt(valorBuscado));
-            case "correo":
-                return this.correo.compareToIgnoreCase(valorBuscado);
-
-            case "clave":
-                return this.clave.compareToIgnoreCase(valorBuscado);
-
-            case "idpersona":
+            case "persona_dni":
                 return this.persona_DNI.compareToIgnoreCase(valorBuscado);
             default:
                 throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
         }
+    }
+
+    @Override
+    public String toString() {
+        return persona_DNI;
     }
 }

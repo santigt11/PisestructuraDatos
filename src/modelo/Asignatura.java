@@ -6,17 +6,27 @@ public class Asignatura {
     private String nombre;
     private String codigo;
     private Integer totalHoras;
-    private Integer mallaCurricular_ID;
-
+    private Integer ciclo_ID;
+    private Integer tipoUnidad_ID;
+    
     public Asignatura() {
     }
 
-    public Asignatura(Integer id, String nombre, String codigo, Integer totalHoras, Integer idMalla) {
+    public Asignatura(Integer id, String nombre, String codigo, Integer totalHoras, Integer ciclo_ID, Integer tipoUnidad_ID) {
         this.id = id;
         this.nombre = nombre;
         this.codigo = codigo;
         this.totalHoras = totalHoras;
-        this.mallaCurricular_ID = idMalla;
+        this.ciclo_ID = ciclo_ID;
+        this.tipoUnidad_ID = tipoUnidad_ID;
+    }
+    
+    public Integer getTipoUnidad_ID() {
+        return tipoUnidad_ID;
+    }
+
+    public void setTipoUnidad_ID(Integer tipoUnidad_ID) {
+        this.tipoUnidad_ID = tipoUnidad_ID;
     }
 
     public Integer getId() {
@@ -51,12 +61,12 @@ public class Asignatura {
         this.totalHoras = totalHoras;
     }
 
-    public Integer getMallaCurricular_ID() {
-        return mallaCurricular_ID;
+    public Integer getCiclo_ID() {
+        return ciclo_ID;
     }
 
-    public void setMallaCurricular_ID(Integer mallaCurricular_ID) {
-        this.mallaCurricular_ID = mallaCurricular_ID;
+    public void setCiclo_ID(Integer ciclo_ID) {
+        this.ciclo_ID = ciclo_ID;
     }
 
     @Override
@@ -71,7 +81,7 @@ public class Asignatura {
             case "nombre":
                 return this.nombre.compareToIgnoreCase(valorBuscado);
             case "mallaCurricular_ID":
-                return this.mallaCurricular_ID.compareTo(Integer.parseInt(valorBuscado));
+                return this.ciclo_ID.compareTo(Integer.parseInt(valorBuscado));
             default:
                 throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
         }

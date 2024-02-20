@@ -5,17 +5,27 @@ import java.time.LocalDate;
 public class Matricula {
 
     private Integer id;
-    private LocalDate fecha;
-    private Boolean expActivo;
-    private String persona_DNI;
+    private LocalDate fechaRegistro;
+    private Boolean expendienteActivo;
+    private Integer numero;
+    private Integer usuario_ID;
     private Integer periodoAcademico_ID;
 
-    public Matricula(Integer id, LocalDate fecha, Boolean expActivo, String idPersona, Integer idPAcademico) {
+    public Matricula(Integer id, LocalDate fechaRegistro, Boolean expendienteActivo, Integer numero, Integer usuario_ID, Integer periodoAcademico_ID) {
         this.id = id;
-        this.fecha = fecha;
-        this.expActivo = expActivo;
-        this.persona_DNI = idPersona;
-        this.periodoAcademico_ID = idPAcademico;
+        this.fechaRegistro = fechaRegistro;
+        this.expendienteActivo = expendienteActivo;
+        this.numero = numero;
+        this.usuario_ID = usuario_ID;
+        this.periodoAcademico_ID = periodoAcademico_ID;
+    }
+
+    public Integer getNumero() {
+        return numero;
+    }
+
+    public void setNumero(Integer numero) {
+        this.numero = numero;
     }
 
     public Matricula() {
@@ -29,28 +39,20 @@ public class Matricula {
         this.id = id;
     }
 
-    public LocalDate getFecha() {
-        return fecha;
+    public LocalDate getFechaRegistro() {
+        return fechaRegistro;
     }
 
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
+    public void setFechaRegistro(LocalDate fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
-    public boolean isExpActivo() {
-        return expActivo;
+    public Integer getUsuario_ID() {
+        return usuario_ID;
     }
 
-    public void setExpActivo(boolean expActivo) {
-        this.expActivo = expActivo;
-    }
-
-    public String getPersona_DNI() {
-        return persona_DNI;
-    }
-
-    public void setPersona_DNI(String idPersona) {
-        this.persona_DNI = idPersona;
+    public void setUsuario_ID(Integer usuario_ID) {
+        this.usuario_ID = usuario_ID;
     }
 
     public Integer getPeriodoAcademico_ID() {
@@ -61,19 +63,27 @@ public class Matricula {
         this.periodoAcademico_ID = idPAcademico;
     }
 
+    public Boolean getExpendienteActivo() {
+        return expendienteActivo;
+    }
+
+    public void setExpendienteActivo(Boolean expendienteActivo) {
+        this.expendienteActivo = expendienteActivo;
+    }
+
     @Override
     public String toString() {
-        return id + " - " + fecha;
+        return id + " - " + fechaRegistro;
     }
 
     public int compareCampo(String campo, String valorBuscado) {
         switch (campo.toLowerCase()) {
             case "id":
                 return this.id.compareTo(Integer.parseInt(valorBuscado));
-            case "fecha":
-                return this.fecha.compareTo(LocalDate.parse(valorBuscado));
-            case "persona_dni":
-                return this.persona_DNI.compareTo(valorBuscado);
+            case "fechaRegistro":
+                return this.fechaRegistro.compareTo(LocalDate.parse(valorBuscado));
+            case "usuario_id":
+                return this.usuario_ID.compareTo(Integer.parseInt(valorBuscado));
             case "periodoacademico_id":
                 return this.periodoAcademico_ID.compareTo(Integer.parseInt(valorBuscado));
             default:

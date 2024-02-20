@@ -15,22 +15,46 @@ public class Tutoria {
     private Integer id;
     private LocalDate fecha;
     private String tema;
-    private Modalidad modalidad;
-    private Integer horario_ID;
+    private String horaInicio;
+    private String horaFin;
+    private String comentario;
+    private Integer asignacion_ID;
+    private Integer modalidad_ID;
+    private Boolean horarioValido;
 
-    public Tutoria(Integer id, LocalDate fecha, String tema, Modalidad modalidad, Integer idHorario) {
+    public Tutoria(Integer id, LocalDate fecha, String tema, String horaInicio, String horaFin, String comentario, Integer asignacion_ID, Integer modalidad_ID, Boolean horarioValido) {
         this.id = id;
         this.fecha = fecha;
         this.tema = tema;
-        this.modalidad = modalidad;
-        this.horario_ID = idHorario;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+        this.comentario = comentario;
+        this.asignacion_ID = asignacion_ID;
+        this.modalidad_ID = modalidad_ID;
+        this.horarioValido = horarioValido;
+    }
+    
+    public Tutoria() {
     }
 
-    public Tutoria() {
+    public Boolean getHorarioValido() {
+        return horarioValido;
+    }
+
+    public void setHorarioValido(Boolean horarioValido) {
+        this.horarioValido = horarioValido;
     }
 
     public Integer getId() {
         return id;
+    }
+
+    public Integer getAsignacion_ID() {
+        return asignacion_ID;
+    }
+
+    public void setAsignacion_ID(Integer asignacion_ID) {
+        this.asignacion_ID = asignacion_ID;
     }
 
     public void setId(Integer id) {
@@ -53,20 +77,36 @@ public class Tutoria {
         this.tema = tema;
     }
 
-    public Modalidad getModalidad() {
-        return modalidad;
+    public String getHoraInicio() {
+        return horaInicio;
     }
 
-    public void setModalidad(Modalidad modalidad) {
-        this.modalidad = modalidad;
+    public void setHoraInicio(String horaInicio) {
+        this.horaInicio = horaInicio;
     }
 
-    public Integer getIdHorario() {
-        return horario_ID;
+    public String getHoraFin() {
+        return horaFin;
     }
 
-    public void setIdHorario(Integer idHorario) {
-        this.horario_ID = idHorario;
+    public void setHoraFin(String horaFin) {
+        this.horaFin = horaFin;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public Integer getModalidad_ID() {
+        return modalidad_ID;
+    }
+
+    public void setModalidad_ID(Integer modalidad_ID) {
+        this.modalidad_ID = modalidad_ID;
     }
 
     public int compareCampo(String campo, String valorBuscado) {
@@ -77,10 +117,8 @@ public class Tutoria {
                 return this.fecha.compareTo(LocalDate.parse(valorBuscado));
             case "tema":
                 return this.tema.compareToIgnoreCase(valorBuscado);
-            case "modalidad":
-                return this.modalidad.compareTo(Modalidad.valueOf(valorBuscado));
-            case "idhorario":
-                return this.horario_ID.compareTo(Integer.parseInt(valorBuscado));
+            case "asignacion_id":
+                return this.asignacion_ID.compareTo(Integer.parseInt(valorBuscado));
             default:
                 throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
         }

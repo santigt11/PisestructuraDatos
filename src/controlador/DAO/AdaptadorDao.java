@@ -8,16 +8,15 @@ package controlador.dao;
 import controlador.DAO.Conexion;
 import controlador.DAO.DaoInterface;
 import controlador.TDA.listas.DynamicList;
-import controlador.TDA.listas.Exception.EmptyException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +32,7 @@ public class AdaptadorDao<T> implements DaoInterface<T> {
     /**
      * Obejto Conexion
      */
-    private final Conexion conexion;
+    public final Conexion conexion;
     /**
      * Class del modelo a usar
      */
@@ -59,23 +58,26 @@ public class AdaptadorDao<T> implements DaoInterface<T> {
      * @throws Exception Cuando no se puede guardar en la base de datos
      */
     @Override
-    public Integer persist(T obj) throws Exception {
-        //INSERT INTO <TABLA> (..) value (...)
+    public Boolean persist(T obj) {
         String query = queryInsert(obj);
-        Integer idGenerado = -1;
-        PreparedStatement statement
-                = conexion.getConnection().prepareStatement(query,
-                        Statement.RETURN_GENERATED_KEYS);
-        statement.executeUpdate();
-        ResultSet generatedKeys = statement.getGeneratedKeys();
-        System.out.println(query);
-        if (generatedKeys.next()) {
-            idGenerado = generatedKeys.getInt(1);
-        }
 
-        conexion.getConnection().close();
-        conexion.setConnection(null);
-        return idGenerado;
+        try (PreparedStatement statement = conexion.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            int rowsAffected = statement.executeUpdate();
+
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.out.println("Error al persistir objeto: " + e.getMessage());
+            return false;
+        } finally {
+            try {
+                if (conexion.getConnection() != null) {
+                    conexion.getConnection().close();
+                    conexion.setConnection(null);
+                }
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar la conexión: " + e.getMessage());
+            }
+        }
     }
 
     /**
@@ -138,6 +140,19 @@ public class AdaptadorDao<T> implements DaoInterface<T> {
         return data;
     }
 
+    public void limpiarConexion() {
+        conexion.cerrarStatment(null);
+        try {
+            if (conexion.getConnection() != null) {
+                conexion.getConnection().close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al cerrar la conexión: " + e.getMessage());
+        } finally {
+            conexion.setConnection(null);
+        }
+    }
+
     //--------------ESTO ES DEL CRUD NO MODIFICAR AL MENOS QUE LO AMERITE------
     private T llenarObjeto(ResultSet rs) {
         T data = null;
@@ -168,10 +183,8 @@ public class AdaptadorDao<T> implements DaoInterface<T> {
             }
 
             if (f.getType().isEnum()) {
-                String enumValue = rs.getString(atributo);
-                Object enumConstant = Enum.valueOf((Class<Enum>) f.getType(), enumValue);
-                m = clazz.getMethod("set" + atributo, f.getType());
-                m.invoke(data, enumConstant);
+                m = clazz.getMethod("set" + atributo, (Class<Enum>) f.getType());
+                m.invoke(data, Enum.valueOf((Class<Enum>) f.getType(), rs.getString(atributo)));
             }
 
             if (f.getType().getSimpleName().equalsIgnoreCase("Integer")) {
@@ -194,21 +207,14 @@ public class AdaptadorDao<T> implements DaoInterface<T> {
             if (f.getType().getSimpleName().equalsIgnoreCase("Date")) {
                 m = clazz.getMethod("set" + atributo, Date.class);
                 java.sql.Date sqlDate = rs.getDate(atributo);
-                LocalDate localDate = sqlDate.toLocalDate();
+                LocalDate localDate = sqlDate.toLocalDate();  // Posible punto de error
                 m.invoke(data, localDate);
             }
 
             if (f.getType().getSimpleName().equalsIgnoreCase("LocalDate")) {
-                java.sql.Date sqlDate = rs.getDate(atributo);
-                LocalDate localDate = sqlDate.toLocalDate();
+                LocalDate localDate = rs.getDate(atributo).toLocalDate();
                 m = clazz.getMethod("set" + atributo, LocalDate.class);
                 m.invoke(data, localDate);
-            }
-
-            if (f.getType().isEnum()) {
-
-                m = clazz.getMethod("set" + atributo, (Class<Enum>) f.getType());
-                m.invoke(data, Enum.valueOf((Class<Enum>) f.getType(), rs.getString(atributo)));
             }
         } catch (Exception e) {
             System.out.println("Fijar datos error " + e);
@@ -255,14 +261,21 @@ public class AdaptadorDao<T> implements DaoInterface<T> {
         query += ") VALUES (";
         for (Map.Entry<String, Object> entry : mapa.entrySet()) {
 
-            if (entry.getValue().getClass().getSuperclass().getSimpleName().equalsIgnoreCase("Number") || entry.getValue().getClass().getSimpleName().equalsIgnoreCase("Boolean")) {
-                query += entry.getValue() + ", ";
+            if (entry.getValue().getClass().getSuperclass().getSimpleName().equalsIgnoreCase("Number")) {
+                query += entry.getValue().toString() + ", ";
             }
+
+            if (entry.getValue().getClass().getSimpleName().equalsIgnoreCase("Boolean")) {
+                boolean booleanValue = (Boolean) entry.getValue();
+                int booleanIntValue = booleanValue ? 1 : 0;
+                query += booleanIntValue + ", ";
+            }
+
             if (entry.getValue().getClass().getSimpleName().equalsIgnoreCase("Date")) {
-                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
                 Date dateValue = (Date) entry.getValue();
                 String formattedDate = formato.format(dateValue);
-                query += "TO_DATE('" + formattedDate + "', 'YYYY-MM-DD HH24:MI:SS'), ";
+                query += "TO_DATE('" + formattedDate + "', 'YYYY-MM-DD'), ";
             }
             if (entry.getValue().getClass().isEnum() || entry.getValue().getClass().getSimpleName().equalsIgnoreCase("String")) {
                 query += "'" + entry.getValue().toString() + "'" + ", ";
@@ -270,8 +283,9 @@ public class AdaptadorDao<T> implements DaoInterface<T> {
 
             if (entry.getValue().getClass().getSimpleName().equalsIgnoreCase("LocalDate")) {
                 LocalDate localDate = (LocalDate) entry.getValue();
-                String formattedDate = DateTimeFormatter.ofPattern("YYYY-MM-DD").format(localDate);
-                query += "TO_DATE('" + formattedDate + "', 'YYYY-MM-DD'), ";
+                String formattedDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(localDate);
+                query += "TO_DATE('" + formattedDate + "', 'yyyy-MM-dd'), ";
+                System.out.println(query);
             }
         }
         query = query.substring(0, query.length() - 2);
@@ -292,8 +306,10 @@ public class AdaptadorDao<T> implements DaoInterface<T> {
                     query += entry.getValue() + ", ";
                 }
                 if (entry.getValue().getClass().getSimpleName().equalsIgnoreCase("Date")) {
-                    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                    query += '"' + formato.format(entry.getValue()) + '"' + ", ";
+                    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+                    Date dateValue = (Date) entry.getValue();
+                    String formattedDate = formato.format(dateValue);
+                    query += "TO_DATE('" + formattedDate + "', 'YYYY-MM-DD'), ";
                 }
                 if (entry.getValue().getClass().isEnum() || entry.getValue().getClass().getSimpleName().equalsIgnoreCase("String")) {
                     query += "'" + entry.getValue().toString() + "'" + ", ";
@@ -302,7 +318,7 @@ public class AdaptadorDao<T> implements DaoInterface<T> {
                 if (entry.getValue().getClass().getSimpleName().equalsIgnoreCase("LocalDate")) {
                     LocalDate localDate = (LocalDate) entry.getValue();
                     String formattedDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(localDate);
-                    query += "'" + formattedDate + "'" + ", ";
+                    query += "TO_DATE('" + formattedDate + "', 'yyyy-MM-dd'), ";
                 }
             }
 
