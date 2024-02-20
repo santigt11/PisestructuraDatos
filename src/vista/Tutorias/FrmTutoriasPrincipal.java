@@ -1,6 +1,7 @@
 package vista.Tutorias;
 
 import controlador.Academico.AsignaturaBD;
+<<<<<<< HEAD
 import controlador.Academico.AsignacionBD;
 import controlador.Admin.PersonaBD;
 import controlador.Login.UsuarioDB;
@@ -10,6 +11,18 @@ import controlador.Matriculas.MatriculaBD;
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.Tutorias.TutoriaBD;
+=======
+import controlador.Academico.CarreraBD;
+import controlador.Academico.ContratoBD;
+import controlador.Academico.FacultadBD;
+import controlador.Academico.MallaBD;
+import controlador.Admin.PersonaBD;
+import controlador.Matriculas.CursaBD;
+import controlador.TDA.listas.DynamicList;
+import controlador.TDA.listas.Exception.EmptyException;
+import controlador.Tutorias.TutoriaBD;
+import controlador.Tutorias.AsignacionMatriculabd;
+>>>>>>> Steven-Luna
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -23,6 +36,7 @@ import vista.listas.util.Utilvista;
 
 public class FrmTutoriasPrincipal extends javax.swing.JFrame {
 
+<<<<<<< HEAD
     private CursaTutoriaBD fileTutoriaM = new CursaTutoriaBD();
     private TutoriaBD tutoriaControl = new TutoriaBD();
     private CursaTutoriaBD fileMatriculaAsg = new CursaTutoriaBD();
@@ -34,6 +48,20 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     private UsuarioDB usuarioControl = new UsuarioDB();
     private CursaBD cursaControl = new CursaBD();
     
+=======
+    private AsignacionMatriculabd fileTutoriaM = new AsignacionMatriculabd();
+    private TutoriaBD fileTutoria = new TutoriaBD();
+    private CursaBD fileMatriculaAsg = new CursaBD();
+    private static PersonaBD personaControl = new PersonaBD();
+    private FacultadBD fileFacultad = new FacultadBD();
+    private CarreraBD fileCarrera = new CarreraBD();
+    private MallaBD fileMalla = new MallaBD();
+    private AsignaturaBD fileAsignatura = new AsignaturaBD();
+    private ContratoBD contratoControl = new ContratoBD();
+    private AsignaturaBD asignaturaControl = new AsignaturaBD();
+    private CursaBD matriculaAsignaturaControl = new CursaBD();
+
+>>>>>>> Steven-Luna
     public FrmTutoriasPrincipal() {
         initComponents();
     }

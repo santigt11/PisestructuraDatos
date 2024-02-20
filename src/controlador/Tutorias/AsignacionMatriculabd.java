@@ -21,6 +21,7 @@ public class AsignacionMatriculaBD extends AdaptadorDao<CursaTutoria> {
         this.tutoria = tutoria;
     }
 
+
     public DynamicList<CursaTutoria> getTutoriaMatriculasTodos() {
         tutorias = all();
         return tutorias;
