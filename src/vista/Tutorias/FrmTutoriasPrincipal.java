@@ -4,7 +4,7 @@ import controlador.Academico.AsignaturaBD;
 <<<<<<< HEAD
 import controlador.Academico.AsignacionBD;
 import controlador.Admin.PersonaBD;
-import controlador.Login.UsuarioDB;
+import controlador.Login.UsuarioBD;
 import controlador.Matriculas.CursaTutoriaBD;
 import controlador.Matriculas.CursaBD;
 import controlador.Matriculas.MatriculaBD;
@@ -45,7 +45,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     private AsignaturaBD asignaturaControl = new AsignaturaBD();
     private CursaTutoriaBD cursaTutoriaControl = new CursaTutoriaBD();
     private MatriculaBD matriculaControl = new MatriculaBD();
-    private UsuarioDB usuarioControl = new UsuarioDB();
+    private UsuarioBD usuarioControl = new UsuarioBD();
     private CursaBD cursaControl = new CursaBD();
     
 =======
