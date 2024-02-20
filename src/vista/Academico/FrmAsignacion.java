@@ -6,6 +6,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import controlador.Academico.AsignacionBD;
+import controlador.Academico.CarreraBD;
+import controlador.Academico.CicloBD;
+import controlador.Academico.FacultadBD;
+import controlador.Academico.MallaBD;
 import controlador.Admin.PersonaBD;
 import controlador.Login.UsuarioBD;
 import java.time.ZoneId;
@@ -19,6 +23,9 @@ public class FrmAsignacion extends javax.swing.JFrame {
     private AsignacionBD fileAsignacion = new AsignacionBD();
     private PersonaBD filePersona = new PersonaBD();
     private UsuarioBD fileUsuario = new UsuarioBD();
+    private CarreraBD fileCarrera = new CarreraBD();
+    private MallaBD fileMalla = new MallaBD();
+    private CicloBD fileCiclo = new CicloBD();
     private AsignaturaBD fileAsignatura = new AsignaturaBD();
 
     private TablaAsignacion tc = new TablaAsignacion();
@@ -37,15 +44,28 @@ public class FrmAsignacion extends javax.swing.JFrame {
     private void limpiar() {
         try {
             Utilvista.cargarListaFacultades(lstFacultad);
-            Utilvista.cargarListaUsuariosD(lstDocente);
+            //Utilvista.cargarListaUsuariosD(lstDocente);
         } catch (EmptyException ex) {
             Logger.getLogger(FrmAsignacion.class.getName()).log(Level.SEVERE, null, ex);
         }
         cargarTablaContratos();
 
+        lblA.setVisible(true);
+        txtAsignatura.setVisible(true);
+        lblP.setVisible(true);
+        txtPeriodo.setVisible(true);
+        btCrearContrato.setVisible(true);
+        btAsignarHorario.setVisible(false);
+        lblC.setVisible(true);
+        lblDia.setVisible(false);
+        cbxDia.setVisible(false);
+        lblHI.setVisible(false);
+        spnHI.setVisible(false);
+        lblHF.setVisible(false);
+        spnHF.setVisible(false);
+        jpA.setVisible(true);
+
         limpiarSoft();
-
-
         Utilvista.limpiarLista(lstCarrera);
         Utilvista.limpiarLista(lstMalla);
         Utilvista.limpiarLista(lstAsignatura);
@@ -101,19 +121,17 @@ public class FrmAsignacion extends javax.swing.JFrame {
                 }
                 break;
             case 3:
-                if (tbContrato.getSelectedRow() > -1) {
+                if (tbAsignacion.getSelectedRow() > -1) {
                     limpiarSoft();
-                    Usuario docente = fileUsuario.buscarBinaria("dni", fileAsignacion.getContrato().getDniPersona());
+                    Asignacion asignacion = fileAsignacion.getAsignaciones().getInfo((tbAsignacion.getSelectedRow() + 1));
+                    Usuario ud = fileUsuario.getUsuarios().getInfo(asignacion.getUsuario_ID());
+                    Persona d = filePersona.buscarBinaria("dni", ud.getPersona_DNI());
 
-                    fileAsignacion.setContrato(tc.getContratos().getInfo(tbContrato.getSelectedRow()));
-                    
-                    txtDni.setText(docente.getDni());
-                    txtApellidos.setText(docente.getApellido());
-                    txtNombres.setText(docente.getNombre());
-                    txtTelefono.setText(docente.getTelefono());
-                    txtAsignatura.setText(fileAsignatura.buscarBinaria("codigo", fileAsignacion.getContrato().getAsignatura_CODIGO()).getNombre());
-                    dtRegistro.setDate(java.sql.Date.valueOf(fileAsignacion.getContrato().getFechaRegistro()));
-                    dtCulminacion.setDate(java.sql.Date.valueOf(fileAsignacion.getContrato().getFechaCulminacion()));
+                    txtDni.setText(d.getDni());
+                    txtApellidos.setText(d.getApellido());
+                    txtNombres.setText(d.getNombre());
+                    txtTelefono.setText(d.getTelefono());
+                    txtAsignatura.setText(fileAsignatura.buscarBinaria("codigo", asignacion.getAsignatura_CODIGO()).getNombre());
                 }
                 break;
             default:
@@ -122,9 +140,9 @@ public class FrmAsignacion extends javax.swing.JFrame {
     }
 
     private void cargarTablaContratos() {
-        tc.setContratos(fileAsignacion.all());
-        tbContrato.setModel(tc);
-        tbContrato.updateUI();
+        tc.setAsignaciones(fileAsignacion.all());
+        tbAsignacion.setModel(tc);
+        tbAsignacion.updateUI();
     }
 
     @SuppressWarnings("unchecked")
@@ -147,7 +165,7 @@ public class FrmAsignacion extends javax.swing.JFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         lstAsignatura = new javax.swing.JList<>();
         jScrollPane9 = new javax.swing.JScrollPane();
-        lstAsignatura1 = new javax.swing.JList<>();
+        lstCiclo = new javax.swing.JList<>();
         jLabel16 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jpDocentes = new javax.swing.JPanel();
@@ -165,11 +183,22 @@ public class FrmAsignacion extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
         btCrearContrato = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        tbContrato = new javax.swing.JTable();
-        jLabel14 = new javax.swing.JLabel();
+        lblC = new javax.swing.JLabel();
+        jpA = new javax.swing.JScrollPane();
+        tbAsignacion = new javax.swing.JTable();
+        lblA = new javax.swing.JLabel();
         txtAsignatura = new javax.swing.JTextField();
+        lblP = new javax.swing.JLabel();
+        txtPeriodo = new javax.swing.JTextField();
+        btAsignarHorario = new javax.swing.JButton();
+        lblDia = new javax.swing.JLabel();
+        cbxDia = new javax.swing.JComboBox<>();
+        lblHI = new javax.swing.JLabel();
+        lblHF = new javax.swing.JLabel();
+        spnHF = new javax.swing.JSpinner();
+        spnHI = new javax.swing.JSpinner();
+        btHT = new javax.swing.JButton();
+        btAsignacion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -204,7 +233,7 @@ public class FrmAsignacion extends javax.swing.JFrame {
 
         jScrollPane8.setPreferredSize(new java.awt.Dimension(262, 130));
 
-        lstFacultad.setFont(new java.awt.Font("Roboto Thin", 0, 12)); // NOI18N
+        lstFacultad.setFont(new java.awt.Font("Roboto Thin", 1, 11)); // NOI18N
         lstFacultad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lstFacultadMouseClicked(evt);
@@ -218,7 +247,7 @@ public class FrmAsignacion extends javax.swing.JFrame {
 
         jScrollPane5.setPreferredSize(new java.awt.Dimension(262, 130));
 
-        lstCarrera.setFont(new java.awt.Font("Roboto Thin", 0, 12)); // NOI18N
+        lstCarrera.setFont(new java.awt.Font("Roboto Thin", 1, 11)); // NOI18N
         lstCarrera.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lstCarreraMouseClicked(evt);
@@ -235,7 +264,7 @@ public class FrmAsignacion extends javax.swing.JFrame {
 
         jScrollPane7.setPreferredSize(new java.awt.Dimension(262, 130));
 
-        lstMalla.setFont(new java.awt.Font("Roboto Thin", 0, 12)); // NOI18N
+        lstMalla.setFont(new java.awt.Font("Roboto Thin", 1, 11)); // NOI18N
         lstMalla.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lstMallaMouseClicked(evt);
@@ -249,7 +278,7 @@ public class FrmAsignacion extends javax.swing.JFrame {
 
         jScrollPane6.setPreferredSize(new java.awt.Dimension(262, 130));
 
-        lstAsignatura.setFont(new java.awt.Font("Roboto Thin", 0, 12)); // NOI18N
+        lstAsignatura.setFont(new java.awt.Font("Roboto Thin", 1, 11)); // NOI18N
         lstAsignatura.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lstAsignaturaMouseClicked(evt);
@@ -259,13 +288,13 @@ public class FrmAsignacion extends javax.swing.JFrame {
 
         jScrollPane9.setPreferredSize(new java.awt.Dimension(262, 130));
 
-        lstAsignatura1.setFont(new java.awt.Font("Roboto Thin", 0, 12)); // NOI18N
-        lstAsignatura1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lstCiclo.setFont(new java.awt.Font("Roboto Thin", 1, 11)); // NOI18N
+        lstCiclo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lstAsignatura1MouseClicked(evt);
+                lstCicloMouseClicked(evt);
             }
         });
-        jScrollPane9.setViewportView(lstAsignatura1);
+        jScrollPane9.setViewportView(lstCiclo);
 
         jLabel16.setFont(new java.awt.Font("Roboto Medium", 1, 13)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
@@ -383,13 +412,13 @@ public class FrmAsignacion extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("Nombres:");
-        jpContrato.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 92, -1, -1));
+        jpContrato.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 92, -1, 20));
 
         jLabel8.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("Apellidos:");
-        jpContrato.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 65, -1, -1));
+        jpContrato.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 65, -1, 20));
 
         jLabel9.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
@@ -399,8 +428,8 @@ public class FrmAsignacion extends javax.swing.JFrame {
 
         txtDni.setEditable(false);
         txtDni.setBackground(new java.awt.Color(237, 209, 163));
-        txtDni.setFont(new java.awt.Font("Roboto Light", 0, 13)); // NOI18N
-        txtDni.setBorder(null);
+        txtDni.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        txtDni.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         txtDni.setMaximumSize(new java.awt.Dimension(64, 17));
         txtDni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -411,14 +440,14 @@ public class FrmAsignacion extends javax.swing.JFrame {
 
         txtApellidos.setEditable(false);
         txtApellidos.setBackground(new java.awt.Color(237, 209, 163));
-        txtApellidos.setFont(new java.awt.Font("Roboto Light", 0, 13)); // NOI18N
-        txtApellidos.setBorder(null);
+        txtApellidos.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        txtApellidos.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         jpContrato.add(txtApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 64, 130, -1));
 
         txtNombres.setEditable(false);
         txtNombres.setBackground(new java.awt.Color(237, 209, 163));
-        txtNombres.setFont(new java.awt.Font("Roboto Light", 0, 13)); // NOI18N
-        txtNombres.setBorder(null);
+        txtNombres.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        txtNombres.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         txtNombres.setMaximumSize(new java.awt.Dimension(64, 17));
         jpContrato.add(txtNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 91, 130, -1));
 
@@ -426,14 +455,14 @@ public class FrmAsignacion extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel10.setText("Telefono:");
-        jpContrato.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 119, -1, -1));
+        jpContrato.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, 20));
 
         txtTelefono.setEditable(false);
         txtTelefono.setBackground(new java.awt.Color(237, 209, 163));
-        txtTelefono.setFont(new java.awt.Font("Roboto Light", 0, 13)); // NOI18N
-        txtTelefono.setBorder(null);
+        txtTelefono.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        txtTelefono.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         txtTelefono.setMaximumSize(new java.awt.Dimension(64, 17));
-        jpContrato.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 118, 130, -1));
+        jpContrato.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 130, -1));
 
         btCrearContrato.setBackground(new java.awt.Color(102, 51, 0));
         btCrearContrato.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -445,55 +474,138 @@ public class FrmAsignacion extends javax.swing.JFrame {
                 btCrearContratoActionPerformed(evt);
             }
         });
-        jpContrato.add(btCrearContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, 32));
+        jpContrato.add(btCrearContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, -1, 32));
 
-        jLabel11.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel11.setText("Contratos:");
-        jpContrato.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 296, -1, -1));
+        lblC.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        lblC.setForeground(new java.awt.Color(0, 0, 0));
+        lblC.setText("Contratos:");
+        jpContrato.add(lblC, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, -1));
 
-        jScrollPane4.setBackground(new java.awt.Color(242, 242, 242));
+        jpA.setBackground(new java.awt.Color(242, 242, 242));
 
-        tbContrato.setFont(new java.awt.Font("Roboto Thin", 0, 12)); // NOI18N
-        tbContrato.setModel(new javax.swing.table.DefaultTableModel(
+        tbAsignacion.setFont(new java.awt.Font("Roboto Thin", 0, 12)); // NOI18N
+        tbAsignacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "DOCENTE", "ASIGNATURA", "FECHA DE REGISTRO", "FECHA DE CULMINACION"
+                "DOCENTE", "ASIGNATURA", "PERIODO ACADEMICO"
             }
         ));
-        tbContrato.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbAsignacion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbContratoMouseClicked(evt);
+                tbAsignacionMouseClicked(evt);
             }
         });
-        jScrollPane4.setViewportView(tbContrato);
+        jpA.setViewportView(tbAsignacion);
 
-        jpContrato.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 320, 220));
+        jpContrato.add(jpA, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 320, 210));
 
-        jLabel14.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel14.setText("Asignatura:");
-        jpContrato.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 146, -1, -1));
+        lblA.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        lblA.setForeground(new java.awt.Color(0, 0, 0));
+        lblA.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblA.setText("Asignatura:");
+        jpContrato.add(lblA, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, 20));
 
         txtAsignatura.setEditable(false);
         txtAsignatura.setBackground(new java.awt.Color(237, 209, 163));
-        txtAsignatura.setFont(new java.awt.Font("Roboto Light", 0, 13)); // NOI18N
-        txtAsignatura.setBorder(null);
+        txtAsignatura.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        txtAsignatura.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         txtAsignatura.setMaximumSize(new java.awt.Dimension(64, 17));
         txtAsignatura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAsignaturaActionPerformed(evt);
             }
         });
-        jpContrato.add(txtAsignatura, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 145, 130, -1));
+        jpContrato.add(txtAsignatura, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 130, -1));
 
-        jPanel1.add(jpContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 40, 340, 540));
+        lblP.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        lblP.setForeground(new java.awt.Color(0, 0, 0));
+        lblP.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblP.setText("Periodo:");
+        jpContrato.add(lblP, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 50, 20));
+
+        txtPeriodo.setEditable(false);
+        txtPeriodo.setBackground(new java.awt.Color(237, 209, 163));
+        txtPeriodo.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        txtPeriodo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        txtPeriodo.setMaximumSize(new java.awt.Dimension(64, 17));
+        txtPeriodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPeriodoActionPerformed(evt);
+            }
+        });
+        jpContrato.add(txtPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 130, -1));
+
+        btAsignarHorario.setBackground(new java.awt.Color(102, 51, 0));
+        btAsignarHorario.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        btAsignarHorario.setForeground(new java.awt.Color(255, 255, 255));
+        btAsignarHorario.setText("Asignar Horario");
+        btAsignarHorario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btAsignarHorario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAsignarHorarioActionPerformed(evt);
+            }
+        });
+        jpContrato.add(btAsignarHorario, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 140, 30));
+
+        lblDia.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        lblDia.setForeground(new java.awt.Color(0, 0, 0));
+        lblDia.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblDia.setText("Dia:");
+        jpContrato.add(lblDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 40, 20));
+
+        cbxDia.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        cbxDia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lunes", "Martes", "Miercoles", "Jueves", "Viernes" }));
+        jpContrato.add(cbxDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 80, -1));
+
+        lblHI.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        lblHI.setForeground(new java.awt.Color(0, 0, 0));
+        lblHI.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblHI.setText("Hora Inicio:");
+        jpContrato.add(lblHI, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 80, 30));
+
+        lblHF.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        lblHF.setForeground(new java.awt.Color(0, 0, 0));
+        lblHF.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblHF.setText("Hora Fin:");
+        jpContrato.add(lblHF, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 60, 30));
+
+        spnHF.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        spnHF.setModel(new javax.swing.SpinnerListModel(new String[] {"07:00,", "07:00,", "09:00,", "10:00,", "11:00,", "12:00,", "13:00,", "14:00,", "15:00,", "16:00,", "17:00,", "18:00"}));
+        jpContrato.add(spnHF, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, -1, -1));
+
+        spnHI.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        spnHI.setModel(new javax.swing.SpinnerListModel(new String[] {"07:00,", "07:00,", "09:00,", "10:00,", "11:00,", "12:00,", "13:00,", "14:00,", "15:00,", "16:00,", "17:00,", "18:00"}));
+        jpContrato.add(spnHI, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, -1, -1));
+
+        jPanel1.add(jpContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 80, 340, 500));
+
+        btHT.setBackground(new java.awt.Color(102, 51, 0));
+        btHT.setFont(new java.awt.Font("Roboto Medium", 1, 12)); // NOI18N
+        btHT.setForeground(new java.awt.Color(255, 255, 255));
+        btHT.setText("Horario de Tutorias");
+        btHT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btHT.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        btHT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btHTActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btHT, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 50, -1, 40));
+
+        btAsignacion.setBackground(new java.awt.Color(102, 51, 0));
+        btAsignacion.setFont(new java.awt.Font("Roboto Medium", 1, 12)); // NOI18N
+        btAsignacion.setForeground(new java.awt.Color(255, 255, 255));
+        btAsignacion.setText("Asignacion");
+        btAsignacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btAsignacion.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        btAsignacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAsignacionActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btAsignacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 50, 100, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 590));
 
@@ -510,15 +622,15 @@ public class FrmAsignacion extends javax.swing.JFrame {
 
     private void lstCarreraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstCarreraMouseClicked
         if (lstCarrera.getSelectedValue() != null) {
-            txtAsignatura.setText("");
-            Utilvista.limpiarLista(lstMalla);
-            Utilvista.limpiarLista(lstAsignatura);
-            Object c = lstCarrera.getSelectedValue();
-            Carrera carrera = (Carrera) c;
-            try {
-                Utilvista.cargarListaMallas(lstMalla, carrera);
-            } catch (EmptyException ex) {
-                Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
+            if (!fileMalla.getMallas().isEmpty()) {
+                Object c = lstCarrera.getSelectedValue();
+                Carrera carrera = (Carrera) c;
+                Utilvista.limpiarLista(lstMalla);
+                try {
+                    Utilvista.cargarListaMallas(lstMalla, carrera);
+                } catch (EmptyException ex) {
+                    JOptionPane.showMessageDialog(null, "Error al cargar lista de mallas curriculares", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         } else {
             JOptionPane.showMessageDialog(null, "No existe ninguna carrera disponible", "Error", JOptionPane.ERROR_MESSAGE);
@@ -527,14 +639,14 @@ public class FrmAsignacion extends javax.swing.JFrame {
 
     private void lstMallaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstMallaMouseClicked
         if (lstMalla.getSelectedValue() != null) {
-            txtAsignatura.setText("");
-            Utilvista.limpiarLista(lstAsignatura);
-            Object m = lstMalla.getSelectedValue();
-            MallaCurricular malla = (MallaCurricular) m;
-            try {
-                Utilvista.cargarListaAsignaturas(lstAsignatura, malla);
-            } catch (EmptyException ex) {
-                Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
+            if (!fileCiclo.getCiclos().isEmpty()) {
+                Object m = lstMalla.getSelectedValue();
+                MallaCurricular malla = (MallaCurricular) m;
+                try {
+                    Utilvista.cargarListaCiclos(lstCiclo, malla);
+                } catch (EmptyException ex) {
+                    JOptionPane.showMessageDialog(null, "Error al cargar lista de ciclos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         } else {
             JOptionPane.showMessageDialog(null, "No existe ninguna malla curricular disponible", "Error", JOptionPane.ERROR_MESSAGE);
@@ -543,16 +655,15 @@ public class FrmAsignacion extends javax.swing.JFrame {
 
     private void lstFacultadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstFacultadMouseClicked
         if (lstFacultad.getSelectedValue() != null) {
-            txtAsignatura.setText("");
-            Utilvista.limpiarLista(lstCarrera);
-            Utilvista.limpiarLista(lstMalla);
-            Utilvista.limpiarLista(lstAsignatura);
-            Object f = lstFacultad.getSelectedValue();
-            Facultad facultad = (Facultad) f;
-            try {
-                Utilvista.cargarListaCarreras(lstCarrera, facultad);
-            } catch (EmptyException ex) {
-                Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
+            if (!fileCarrera.getCarreras().isEmpty()) {
+                Object f = lstFacultad.getSelectedValue();
+                Facultad facultad = (Facultad) f;
+                Utilvista.limpiarLista(lstCarrera);
+                try {
+                    Utilvista.cargarListaCarreras(lstCarrera, facultad);
+                } catch (EmptyException ex) {
+                    JOptionPane.showMessageDialog(null, "Error al cargar lista de carreras", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         } else {
             JOptionPane.showMessageDialog(null, "No existe ninguna facultad disponible", "Error", JOptionPane.ERROR_MESSAGE);
@@ -569,7 +680,7 @@ public class FrmAsignacion extends javax.swing.JFrame {
             try {
                 cargarVista(2);
             } catch (EmptyException ex) {
-                Logger.getLogger(FrmAsignacion.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Error al cargar datos", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(null, "No existe ninguna asignatura disponible", "Error", JOptionPane.ERROR_MESSAGE);
@@ -592,17 +703,71 @@ public class FrmAsignacion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lstDocenteMouseClicked
 
-    private void tbContratoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbContratoMouseClicked
+    private void tbAsignacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbAsignacionMouseClicked
         try {
             cargarVista(3);
         } catch (EmptyException ex) {
             Logger.getLogger(FrmAsignacion.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_tbContratoMouseClicked
+    }//GEN-LAST:event_tbAsignacionMouseClicked
 
-    private void lstAsignatura1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstAsignatura1MouseClicked
+    private void lstCicloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstCicloMouseClicked
+        if (lstCiclo.getSelectedValue() != null) {
+            if (!fileAsignatura.getAsignaturas().isEmpty()) {
+                Object c = lstCiclo.getSelectedValue();
+                Ciclo ciclo = (Ciclo) c;
+                try {
+                    Utilvista.cargarListaAsignaturas(lstAsignatura, ciclo);
+                } catch (EmptyException ex) {
+                    JOptionPane.showMessageDialog(null, "Error al cargar lista de asignatura", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No existe ningun ciclo disponible", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_lstCicloMouseClicked
+
+    private void txtPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPeriodoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_lstAsignatura1MouseClicked
+    }//GEN-LAST:event_txtPeriodoActionPerformed
+
+    private void btHTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHTActionPerformed
+        lblA.setVisible(false);
+        txtAsignatura.setVisible(false);
+        lblP.setVisible(false);
+        txtPeriodo.setVisible(false);
+        btCrearContrato.setVisible(false);
+        btAsignarHorario.setVisible(true);
+        lblC.setVisible(false);
+        lblDia.setVisible(true);
+        cbxDia.setVisible(true);
+        lblHI.setVisible(true);
+        spnHI.setVisible(true);
+        lblHF.setVisible(true);
+        spnHF.setVisible(true);
+        jpA.setVisible(false);
+    }//GEN-LAST:event_btHTActionPerformed
+
+    private void btAsignacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAsignacionActionPerformed
+        lblA.setVisible(true);
+        txtAsignatura.setVisible(true);
+        lblP.setVisible(true);
+        txtPeriodo.setVisible(true);
+        btCrearContrato.setVisible(true);
+        btAsignarHorario.setVisible(false);
+        lblC.setVisible(true);
+        lblDia.setVisible(false);
+        cbxDia.setVisible(false);
+        lblHI.setVisible(false);
+        spnHI.setVisible(false);
+        lblHF.setVisible(false);
+        spnHF.setVisible(false);
+        jpA.setVisible(true);
+    }//GEN-LAST:event_btAsignacionActionPerformed
+
+    private void btAsignarHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAsignarHorarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btAsignarHorarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -655,10 +820,12 @@ public class FrmAsignacion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btAsignacion;
+    private javax.swing.JButton btAsignarHorario;
     private javax.swing.JButton btCrearContrato;
+    private javax.swing.JButton btHT;
+    private javax.swing.JComboBox<String> cbxDia;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
@@ -673,26 +840,35 @@ public class FrmAsignacion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JScrollPane jpA;
     private javax.swing.JPanel jpContrato;
     private javax.swing.JPanel jpDocentes;
     private javax.swing.JPanel jpFCA;
+    private javax.swing.JLabel lblA;
+    private javax.swing.JLabel lblC;
+    private javax.swing.JLabel lblDia;
+    private javax.swing.JLabel lblHF;
+    private javax.swing.JLabel lblHI;
+    private javax.swing.JLabel lblP;
     private javax.swing.JList<String> lstAsignatura;
-    private javax.swing.JList<String> lstAsignatura1;
     private javax.swing.JList<String> lstCarrera;
+    private javax.swing.JList<String> lstCiclo;
     private javax.swing.JList<String> lstDocente;
     private javax.swing.JList<String> lstFacultad;
     private javax.swing.JList<String> lstMalla;
-    private javax.swing.JTable tbContrato;
+    private javax.swing.JSpinner spnHF;
+    private javax.swing.JSpinner spnHI;
+    private javax.swing.JTable tbAsignacion;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtAsignatura;
     private javax.swing.JTextField txtDni;
     private javax.swing.JTextField txtNombres;
+    private javax.swing.JTextField txtPeriodo;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
