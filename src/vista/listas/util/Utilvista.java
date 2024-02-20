@@ -13,6 +13,7 @@ import controlador.Matriculas.CursaTutoriaBD;
 import controlador.Matriculas.CursaBD;
 import controlador.Matriculas.PeriodoBD;
 import controlador.Admin.PersonaBD;
+import controlador.Login.UsuarioBD;
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.Tutorias.TutoriaBD;
@@ -131,12 +132,12 @@ public class Utilvista {
 
     //Matricula-Asignatura
     public static void cargarComboMatriculasAsignaturas(JComboBox cbx) throws EmptyException {
-        AsignacionMatriculabd maa = new AsignacionMatriculaBD();
-        CursaBD maa = new CursaBD();
-        maa.setAsgMatriculas(maa.all());
+        CursaTutoriaBD ct = new CursaTutoriaBD();
+        CursaBD c=  new CursaBD();
+        c.setCursas(c.all());
         cbx.removeAllItems();
-        for (Integer i = 0; i < maa.getAsgMatriculas().getLength(); i++) {
-            cbx.addItem(maa.getAsgMatriculas().getInfo(i));
+        for (Integer i = 0; i < c.getCursasTodas().getLength(); i++) {
+            cbx.addItem(c.getCursasTodas().getInfo(i));
         }
     }
 
@@ -228,19 +229,6 @@ public class Utilvista {
         lst.setModel(modeloLista);
     }
 
-    public static void cargarListaDocentes(JList lst) throws EmptyException {
-        PersonaBD pa = new PersonaBD();
-        pa.setPersonas(pa.all());
-        System.out.println(pa.all().toString());
-        DefaultListModel modeloLista = new DefaultListModel();
-        for (Integer i = 0; i < pa.getPersonas().getLength(); i++) {
-            if (pa.getPersonas().getInfo(i).getRol().toString().equals("DOCENTE")) {
-                modeloLista.addElement(pa.getPersonas().getInfo(i));
-            }
-        }
-        lst.setModel(modeloLista);
-    }
-
     public static void cargarListaEstudiantes(JList lst) throws EmptyException {
         PersonaBD ea = new PersonaBD();
         ea.setPersonas(ea.all());
@@ -272,22 +260,18 @@ public class Utilvista {
         }
         lst.setModel(modeloLista);
     }
-    
-    //
-    public static void cargarListaUsuarios(DynamicList<Usuario> lista, JList lst) throws EmptyException {
-//
-//    public static void cargarListaDocentes(JList lst) throws EmptyException {
-//        PersonaArchivos pa = new PersonaArchivos();
-//        pa.setPersonas(pa.all());
-//        System.out.println(pa.all().toString());
-//        DefaultListModel modeloLista = new DefaultListModel();
-//        for (Integer i = 0; i < pa.getPersonas().getLength(); i++) {
-//            if (pa.getPersonas().getInfo(i).getRol().toString().equals("DOCENTE")) {
-//                modeloLista.addElement(pa.getPersonas().getInfo(i));
-//            }
-//        }
-//        lst.setModel(modeloLista);
-//    }
+
+    public static void cargarListaUsuariosD(JList lst) throws EmptyException {
+        UsuarioBD ud = new UsuarioBD();
+        ud.setUsuarios(ud.all());
+        DefaultListModel modeloLista = new DefaultListModel();
+        for (Integer i = 0; i < ud.getUsuarios().getLength(); i++) {
+            if (ud.getUsuarios().getInfo(i).getRol().toString().equals("DOCENTE")) {
+                modeloLista.addElement(ud.getUsuarios().getInfo(i));
+            }
+        }
+        lst.setModel(modeloLista);
+    }
 //
 //    public static void cargarListaEstudiantes(JList lst) throws EmptyException {
 //        PersonaArchivos ea = new PersonaArchivos();
@@ -345,7 +329,7 @@ public class Utilvista {
         DefaultListModel modeloLista = new DefaultListModel();
         lst.setModel(modeloLista);
     }
-    
+
     public static void cargarListaTutorias(DynamicList<Tutoria> lista, JList lst) throws EmptyException {
         DefaultListModel modeloLista = new DefaultListModel();
         for (Integer i = 0; i < lista.getLength(); i++) {

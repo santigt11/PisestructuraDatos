@@ -7,7 +7,7 @@ import controlador.TDA.listas.Exception.EmptyException;
 import javax.swing.table.AbstractTableModel;
 import modelo.Asignacion;
 
-public class TablaContrato extends AbstractTableModel {
+public class TablaAsignacion extends AbstractTableModel {
 
     private DynamicList<Asignacion> contratos;
     private PersonaBD filePersona = new PersonaBD();
