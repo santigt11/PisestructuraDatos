@@ -1,31 +1,33 @@
 package vista.Academico;
 
-import controlador.Academico.AsignaturaBD;
 import controlador.TDA.listas.Exception.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
+import controlador.Academico.AsignaturaBD;
 import controlador.Academico.CarreraBD;
 import controlador.Academico.CicloBD;
 import controlador.Academico.FacultadBD;
 import controlador.Academico.MallaBD;
 import java.awt.Color;
+import java.sql.SQLException;
+
 import modelo.Facultad;
 import modelo.Carrera;
 import modelo.MallaCurricular;
 import modelo.Asignatura;
 import modelo.Ciclo;
-import vista.listas.util.Utilvista;
 
+import vista.listas.util.Utilvista;
 
 public class FrmAcademico extends javax.swing.JFrame {
 
     private FacultadBD fileFacultad = new FacultadBD();
     private CarreraBD fileCarrera = new CarreraBD();
     private MallaBD fileMalla = new MallaBD();
-    private AsignaturaBD fileAsignatura = new AsignaturaBD();
     private CicloBD fileCiclo = new CicloBD();
+    private AsignaturaBD fileAsignatura = new AsignaturaBD();
 
     public FrmAcademico() throws EmptyException {
         initComponents();
