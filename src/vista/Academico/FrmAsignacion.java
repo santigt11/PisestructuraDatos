@@ -1,105 +1,43 @@
 package vista.Academico;
 
-import controlador.Academico.AsignacionBD;
 import controlador.Academico.AsignaturaBD;
 import controlador.TDA.listas.Exception.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import controlador.Academico.AsignacionBD;
 import controlador.Admin.PersonaBD;
+import controlador.Login.UsuarioBD;
 import java.time.ZoneId;
 import modelo.*;
 
-import vista.listas.tablas.TablaContrato;
+import vista.listas.tablas.TablaAsignacion;
 import vista.listas.util.Utilvista;
 
 public class FrmAsignacion extends javax.swing.JFrame {
 
-    private AsignacionBD fileContrato = new AsignacionBD();
+    private AsignacionBD fileAsignacion = new AsignacionBD();
     private PersonaBD filePersona = new PersonaBD();
+    private UsuarioBD fileUsuario = new UsuarioBD();
     private AsignaturaBD fileAsignatura = new AsignaturaBD();
 
-    private TablaContrato tc = new TablaContrato();
+    private TablaAsignacion tc = new TablaAsignacion();
+
+    public FrmAsignacion() {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        limpiar();
+    }
 
     private Boolean verificar() {
         return (!txtAsignatura.getText().trim().isEmpty()
-                && !txtDni.getText().trim().isEmpty()
-                && !dtRegistro.getDate().toString().isEmpty()
-                && !dtCulminacion.getDate().toString().isEmpty());
-    }
-
-    private void guardar() throws Exception {
-        if (verificar()) {
-            Object p = lstDocente.getSelectedValue();
-            Persona docente = (Persona) p;
-            Object a = lstAsignatura.getSelectedValue();
-            Asignatura asignatura = (Asignatura) a;
-            fileContrato.getContrato().setDniPersona(docente.getDni());
-            fileContrato.getContrato().setAsignatura_CODIGO(asignatura.getCodigo());
-            fileContrato.getContrato().setFechaRegistro(dtRegistro.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-            fileContrato.getContrato().setFechaCulminacion(dtCulminacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-
-            fileContrato.persist(fileContrato.getContrato());
-            JOptionPane.showMessageDialog(null, "Datos guardados");
-            limpiar();
-            fileContrato.setContrato(null);
-        } else {
-            JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    private void cargarVista(Integer var) throws EmptyException {
-        switch (var) {
-            case 1:
-                if (lstDocente.getSelectedIndex() < 0) {
-                    JOptionPane.showMessageDialog(null, "Escoja un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    limpiarSoft();
-                    Object p = lstDocente.getSelectedValue();
-                    Persona docente = (Persona) p;
-                    txtDni.setText(docente.getDni());
-                    txtApellidos.setText(docente.getApellido());
-                    txtNombres.setText(docente.getNombre());
-                    txtTelefono.setText(docente.getTelefono());
-                }
-                break;
-            case 2:
-                if (lstAsignatura.getSelectedValue() != null) {
-                    Object a = lstAsignatura.getSelectedValue();
-                    Asignatura asignatura = (Asignatura) a;
-                    txtAsignatura.setText(asignatura.getNombre());
-                }
-                break;
-            case 3:
-                if (tbContrato.getSelectedRow() > -1) {
-                    limpiarSoft();
-                    Persona docente = filePersona.buscarBinaria("dni", fileContrato.getContrato().getDniPersona());
-
-                    fileContrato.setContrato(tc.getContratos().getInfo(tbContrato.getSelectedRow()));
-                    txtDni.setText(docente.getDni());
-                    txtApellidos.setText(docente.getApellido());
-                    txtNombres.setText(docente.getNombre());
-                    txtTelefono.setText(docente.getTelefono());
-                    txtAsignatura.setText(fileAsignatura.buscarBinaria("codigo", fileContrato.getContrato().getAsignatura_CODIGO()).getNombre());
-                    dtRegistro.setDate(java.sql.Date.valueOf(fileContrato.getContrato().getFechaRegistro()));
-                    dtCulminacion.setDate(java.sql.Date.valueOf(fileContrato.getContrato().getFechaCulminacion()));
-                }
-                break;
-            default:
-                throw new AssertionError();
-        }
-    }
-
-    private void cargarTablaContratos() {
-        tc.setContratos(fileContrato.all());
-        tbContrato.setModel(tc);
-        tbContrato.updateUI();
+                && !txtDni.getText().trim().isEmpty());
     }
 
     private void limpiar() {
         try {
             Utilvista.cargarListaFacultades(lstFacultad);
-            Utilvista.cargarListaDocentes(lstDocente);
+            Utilvista.cargarListaUsuariosD(lstDocente);
         } catch (EmptyException ex) {
             Logger.getLogger(FrmAsignacion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -107,11 +45,6 @@ public class FrmAsignacion extends javax.swing.JFrame {
 
         limpiarSoft();
 
-        txtDni.setEnabled(false);
-        txtApellidos.setEnabled(false);
-        txtNombres.setEnabled(false);
-        txtTelefono.setEnabled(false);
-        txtAsignatura.setEnabled(false);
 
         Utilvista.limpiarLista(lstCarrera);
         Utilvista.limpiarLista(lstMalla);
@@ -124,24 +57,76 @@ public class FrmAsignacion extends javax.swing.JFrame {
         txtNombres.setText("");
         txtTelefono.setText("");
         txtAsignatura.setText("");
-        dtRegistro.setDate(null);
-        dtCulminacion.setDate(null);
     }
 
-    /**
-     * Creates new form FrmContrato
-     */
-    public FrmAsignacion() {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        limpiar();
+    private void guardar() throws Exception {
+        if (verificar()) {
+            Object u = lstDocente.getSelectedValue();
+            Usuario docente = (Usuario) u;
+            Object a = lstAsignatura.getSelectedValue();
+            Asignatura asignatura = (Asignatura) a;
+            fileAsignacion.getAsignacion().setUsuario_ID(docente.getId());
+            fileAsignacion.getAsignacion().setAsignatura_CODIGO(asignatura.getCodigo());
+
+            fileAsignacion.persist(fileAsignacion.getAsignacion());
+            JOptionPane.showMessageDialog(null, "Datos guardados");
+            limpiar();
+            fileAsignacion.setAsignacion(null);
+        } else {
+            JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
+    private void cargarVista(Integer var) throws EmptyException {
+        switch (var) {
+            case 1:
+                if (lstDocente.getSelectedIndex() < 0) {
+                    JOptionPane.showMessageDialog(null, "Escoja un registro de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    limpiarSoft();
+                    Object d = lstDocente.getSelectedValue();
+                    Usuario docente = (Usuario) d;
+                    Persona p = filePersona.buscarBinaria("dni", docente.getPersona_DNI());
+                    txtDni.setText(p.getDni());
+                    txtApellidos.setText(p.getApellido());
+                    txtNombres.setText(p.getNombre());
+                    txtTelefono.setText(p.getTelefono());
+                }
+                break;
+            case 2:
+                if (lstAsignatura.getSelectedValue() != null) {
+                    Object a = lstAsignatura.getSelectedValue();
+                    Asignatura asignatura = (Asignatura) a;
+                    txtAsignatura.setText(asignatura.getNombre());
+                }
+                break;
+            case 3:
+                if (tbContrato.getSelectedRow() > -1) {
+                    limpiarSoft();
+                    Usuario docente = fileUsuario.buscarBinaria("dni", fileAsignacion.getContrato().getDniPersona());
+
+                    fileAsignacion.setContrato(tc.getContratos().getInfo(tbContrato.getSelectedRow()));
+                    
+                    txtDni.setText(docente.getDni());
+                    txtApellidos.setText(docente.getApellido());
+                    txtNombres.setText(docente.getNombre());
+                    txtTelefono.setText(docente.getTelefono());
+                    txtAsignatura.setText(fileAsignatura.buscarBinaria("codigo", fileAsignacion.getContrato().getAsignatura_CODIGO()).getNombre());
+                    dtRegistro.setDate(java.sql.Date.valueOf(fileAsignacion.getContrato().getFechaRegistro()));
+                    dtCulminacion.setDate(java.sql.Date.valueOf(fileAsignacion.getContrato().getFechaCulminacion()));
+                }
+                break;
+            default:
+                throw new AssertionError();
+        }
+    }
+
+    private void cargarTablaContratos() {
+        tc.setContratos(fileAsignacion.all());
+        tbContrato.setModel(tc);
+        tbContrato.updateUI();
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -161,6 +146,9 @@ public class FrmAsignacion extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         lstAsignatura = new javax.swing.JList<>();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        lstAsignatura1 = new javax.swing.JList<>();
+        jLabel16 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jpDocentes = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -176,10 +164,6 @@ public class FrmAsignacion extends javax.swing.JFrame {
         txtNombres = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        dtRegistro = new com.toedter.calendar.JDateChooser();
-        jLabel13 = new javax.swing.JLabel();
-        dtCulminacion = new com.toedter.calendar.JDateChooser();
         btCrearContrato = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -194,16 +178,16 @@ public class FrmAsignacion extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Academico Contratos");
+        jLabel6.setText("Academico Asignaciones");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(435, 435, 435)
+                .addGap(420, 420, 420)
                 .addComponent(jLabel6)
-                .addContainerGap(438, Short.MAX_VALUE))
+                .addContainerGap(421, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,6 +257,20 @@ public class FrmAsignacion extends javax.swing.JFrame {
         });
         jScrollPane6.setViewportView(lstAsignatura);
 
+        jScrollPane9.setPreferredSize(new java.awt.Dimension(262, 130));
+
+        lstAsignatura1.setFont(new java.awt.Font("Roboto Thin", 0, 12)); // NOI18N
+        lstAsignatura1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstAsignatura1MouseClicked(evt);
+            }
+        });
+        jScrollPane9.setViewportView(lstAsignatura1);
+
+        jLabel16.setFont(new java.awt.Font("Roboto Medium", 1, 13)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel16.setText("Ciclos");
+
         javax.swing.GroupLayout jpFCALayout = new javax.swing.GroupLayout(jpFCA);
         jpFCA.setLayout(jpFCALayout);
         jpFCALayout.setHorizontalGroup(
@@ -282,44 +280,52 @@ public class FrmAsignacion extends javax.swing.JFrame {
                 .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel18)
                     .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
+                .addGap(10, 10, 10)
                 .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
+                .addGap(10, 10, 10)
                 .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
+                .addGap(10, 10, 10)
+                .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel16)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
                 .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel15)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(10, Short.MAX_VALUE))
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15))
         );
         jpFCALayout.setVerticalGroup(
             jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpFCALayout.createSequentialGroup()
                 .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpFCALayout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jpFCALayout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel15))
+                        .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel16)
+                                .addComponent(jLabel15))
+                            .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
                             .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jpFCALayout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
-        getContentPane().add(jpFCA, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 341, 560, 240));
+        getContentPane().add(jpFCA, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 341, 680, 240));
 
         jPanel1.setBackground(new java.awt.Color(255, 250, 205));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -345,7 +351,7 @@ public class FrmAsignacion extends javax.swing.JFrame {
             jpDocentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpDocentesLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jpDocentesLayout.createSequentialGroup()
                 .addContainerGap()
@@ -362,7 +368,7 @@ public class FrmAsignacion extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel1.add(jpDocentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 560, 290));
+        jPanel1.add(jpDocentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 680, 290));
 
         jpContrato.setBackground(new java.awt.Color(212, 173, 107));
         jpContrato.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -391,7 +397,8 @@ public class FrmAsignacion extends javax.swing.JFrame {
         jLabel9.setText("DNI:");
         jpContrato.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 37, -1, 17));
 
-        txtDni.setBackground(new java.awt.Color(35, 35, 35));
+        txtDni.setEditable(false);
+        txtDni.setBackground(new java.awt.Color(237, 209, 163));
         txtDni.setFont(new java.awt.Font("Roboto Light", 0, 13)); // NOI18N
         txtDni.setBorder(null);
         txtDni.setMaximumSize(new java.awt.Dimension(64, 17));
@@ -400,18 +407,20 @@ public class FrmAsignacion extends javax.swing.JFrame {
                 txtDniActionPerformed(evt);
             }
         });
-        jpContrato.add(txtDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 37, 155, -1));
+        jpContrato.add(txtDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 37, 130, -1));
 
-        txtApellidos.setBackground(new java.awt.Color(35, 35, 35));
+        txtApellidos.setEditable(false);
+        txtApellidos.setBackground(new java.awt.Color(237, 209, 163));
         txtApellidos.setFont(new java.awt.Font("Roboto Light", 0, 13)); // NOI18N
         txtApellidos.setBorder(null);
-        jpContrato.add(txtApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 64, 196, -1));
+        jpContrato.add(txtApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 64, 130, -1));
 
-        txtNombres.setBackground(new java.awt.Color(35, 35, 35));
+        txtNombres.setEditable(false);
+        txtNombres.setBackground(new java.awt.Color(237, 209, 163));
         txtNombres.setFont(new java.awt.Font("Roboto Light", 0, 13)); // NOI18N
         txtNombres.setBorder(null);
         txtNombres.setMaximumSize(new java.awt.Dimension(64, 17));
-        jpContrato.add(txtNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 91, 196, -1));
+        jpContrato.add(txtNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 91, 130, -1));
 
         jLabel10.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
@@ -419,39 +428,12 @@ public class FrmAsignacion extends javax.swing.JFrame {
         jLabel10.setText("Telefono:");
         jpContrato.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 119, -1, -1));
 
-        txtTelefono.setBackground(new java.awt.Color(35, 35, 35));
+        txtTelefono.setEditable(false);
+        txtTelefono.setBackground(new java.awt.Color(237, 209, 163));
         txtTelefono.setFont(new java.awt.Font("Roboto Light", 0, 13)); // NOI18N
         txtTelefono.setBorder(null);
         txtTelefono.setMaximumSize(new java.awt.Dimension(64, 17));
-        jpContrato.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 118, 155, -1));
-
-        jLabel12.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel12.setText("Fecha de Registro del Contrato:");
-        jpContrato.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 166, -1, 40));
-
-        dtRegistro.setBackground(new java.awt.Color(242, 242, 242));
-        dtRegistro.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
-        jpContrato.add(dtRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 172, 131, -1));
-
-        jLabel13.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel13.setText("Fecha de Culminacion del Contrato:");
-        jpContrato.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 208, -1, 26));
-
-        dtCulminacion.setBackground(new java.awt.Color(242, 242, 242));
-        dtCulminacion.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
-        dtCulminacion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                dtCulminacionMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                dtCulminacionMouseEntered(evt);
-            }
-        });
-        jpContrato.add(dtCulminacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 208, 131, -1));
+        jpContrato.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 118, 130, -1));
 
         btCrearContrato.setBackground(new java.awt.Color(102, 51, 0));
         btCrearContrato.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -463,7 +445,7 @@ public class FrmAsignacion extends javax.swing.JFrame {
                 btCrearContratoActionPerformed(evt);
             }
         });
-        jpContrato.add(btCrearContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 252, -1, 32));
+        jpContrato.add(btCrearContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, 32));
 
         jLabel11.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
@@ -491,7 +473,7 @@ public class FrmAsignacion extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(tbContrato);
 
-        jpContrato.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 319, 430, 210));
+        jpContrato.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 320, 220));
 
         jLabel14.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(0, 0, 0));
@@ -499,7 +481,8 @@ public class FrmAsignacion extends javax.swing.JFrame {
         jLabel14.setText("Asignatura:");
         jpContrato.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 146, -1, -1));
 
-        txtAsignatura.setBackground(new java.awt.Color(35, 35, 35));
+        txtAsignatura.setEditable(false);
+        txtAsignatura.setBackground(new java.awt.Color(237, 209, 163));
         txtAsignatura.setFont(new java.awt.Font("Roboto Light", 0, 13)); // NOI18N
         txtAsignatura.setBorder(null);
         txtAsignatura.setMaximumSize(new java.awt.Dimension(64, 17));
@@ -508,9 +491,9 @@ public class FrmAsignacion extends javax.swing.JFrame {
                 txtAsignaturaActionPerformed(evt);
             }
         });
-        jpContrato.add(txtAsignatura, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 145, 195, -1));
+        jpContrato.add(txtAsignatura, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 145, 130, -1));
 
-        jPanel1.add(jpContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 40, 460, 540));
+        jPanel1.add(jpContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 40, 340, 540));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 590));
 
@@ -601,15 +584,6 @@ public class FrmAsignacion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btCrearContratoActionPerformed
 
-    private void dtCulminacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dtCulminacionMouseClicked
-
-
-    }//GEN-LAST:event_dtCulminacionMouseClicked
-
-    private void dtCulminacionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dtCulminacionMouseEntered
-
-    }//GEN-LAST:event_dtCulminacionMouseEntered
-
     private void lstDocenteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstDocenteMouseClicked
         try {
             cargarVista(1);
@@ -625,6 +599,10 @@ public class FrmAsignacion extends javax.swing.JFrame {
             Logger.getLogger(FrmAsignacion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_tbContratoMouseClicked
+
+    private void lstAsignatura1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstAsignatura1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lstAsignatura1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -678,14 +656,11 @@ public class FrmAsignacion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCrearContrato;
-    private com.toedter.calendar.JDateChooser dtCulminacion;
-    private com.toedter.calendar.JDateChooser dtRegistro;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -703,10 +678,12 @@ public class FrmAsignacion extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JPanel jpContrato;
     private javax.swing.JPanel jpDocentes;
     private javax.swing.JPanel jpFCA;
     private javax.swing.JList<String> lstAsignatura;
+    private javax.swing.JList<String> lstAsignatura1;
     private javax.swing.JList<String> lstCarrera;
     private javax.swing.JList<String> lstDocente;
     private javax.swing.JList<String> lstFacultad;
