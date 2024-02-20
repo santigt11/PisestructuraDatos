@@ -53,7 +53,7 @@ public class FrmMatricula extends javax.swing.JFrame {
                     Persona estudiante = (Persona) p;
                     fileMatricula.getMatricula().setPersona_DNI(estudiante.getDni());
                     fileMatricula.getMatricula().setFecha(dtRegistro.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-                    fileMatricula.getMatricula().setExpActivo(true);
+                    fileMatricula.getMatricula().setExpedienteActivo(true);
 
                     fileMatricula.persist(fileMatricula.getMatricula());
                     JOptionPane.showMessageDialog(null, "Datos guardados");
@@ -118,9 +118,9 @@ public class FrmMatricula extends javax.swing.JFrame {
             case 3:
                 if (tbMatricula.getSelectedRow() > -1) {
                     limpiarSoft();
-                    if (fileMatricula.getMatricula().getExpActivo()) {
+                    if (fileMatricula.getMatricula().getExpedienteActivo()) {
                         cbxExpediente.setSelectedIndex(0);
-                    } else if (fileMatricula.getMatricula().getExpActivo() == false) {
+                    } else if (fileMatricula.getMatricula().getExpedienteActivo() == false) {
                         cbxExpediente.setSelectedIndex(1);
                     }
                 }
@@ -217,6 +217,7 @@ public class FrmMatricula extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jpDocentes = new javax.swing.JPanel();
@@ -269,7 +270,6 @@ public class FrmMatricula extends javax.swing.JFrame {
         btAgregarAsignaturaMatricula = new javax.swing.JButton();
         cbxMatricula = new javax.swing.JComboBox<>();
         jLabel24 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tbMatricula = new javax.swing.JTable();
@@ -279,12 +279,15 @@ public class FrmMatricula extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         btMatricula = new javax.swing.JButton();
         btMatriculaAsg = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel3.setBackground(new java.awt.Color(88, 156, 20));
+        jPanel1.setBackground(new java.awt.Color(255, 250, 205));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel3.setBackground(new java.awt.Color(102, 51, 0));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -304,9 +307,9 @@ public class FrmMatricula extends javax.swing.JFrame {
             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 30));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 30));
 
-        jpDocentes.setBackground(new java.awt.Color(242, 242, 242));
+        jpDocentes.setBackground(new java.awt.Color(212, 173, 107));
 
         jLabel4.setFont(new java.awt.Font("Roboto Medium", 1, 13)); // NOI18N
         jLabel4.setText("Estudiantes");
@@ -344,9 +347,9 @@ public class FrmMatricula extends javax.swing.JFrame {
                 .addGap(19, 19, 19))
         );
 
-        getContentPane().add(jpDocentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 41, 560, 290));
+        jPanel1.add(jpDocentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 41, 560, 290));
 
-        jpFCA.setBackground(new java.awt.Color(242, 242, 242));
+        jpFCA.setBackground(new java.awt.Color(212, 173, 107));
 
         jLabel18.setFont(new java.awt.Font("Roboto Medium", 1, 13)); // NOI18N
         jLabel18.setText("Facultades");
@@ -449,13 +452,13 @@ public class FrmMatricula extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(jpFCA, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 336, 560, 240));
+        jPanel1.add(jpFCA, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 336, 560, 240));
 
-        jPanel4.setBackground(new java.awt.Color(242, 242, 242));
+        jPanel4.setBackground(new java.awt.Color(212, 173, 107));
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jpMatricula.setBackground(new java.awt.Color(242, 242, 242));
+        jpMatricula.setBackground(new java.awt.Color(212, 173, 107));
 
         jLabel5.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
         jLabel5.setText("Nueva Matricula:");
@@ -475,8 +478,9 @@ public class FrmMatricula extends javax.swing.JFrame {
         jLabel9.setText("DNI:");
         jLabel9.setToolTipText("");
 
+        txtDni.setEditable(false);
+        txtDni.setBackground(new java.awt.Color(237, 209, 163));
         txtDni.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
-        txtDni.setEnabled(false);
         txtDni.setMinimumSize(new java.awt.Dimension(68, 30));
         txtDni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -484,8 +488,9 @@ public class FrmMatricula extends javax.swing.JFrame {
             }
         });
 
+        txtApellidos.setEditable(false);
+        txtApellidos.setBackground(new java.awt.Color(237, 209, 163));
         txtApellidos.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
-        txtApellidos.setEnabled(false);
         txtApellidos.setMinimumSize(new java.awt.Dimension(68, 30));
         txtApellidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -493,8 +498,9 @@ public class FrmMatricula extends javax.swing.JFrame {
             }
         });
 
+        txtNombres.setEditable(false);
+        txtNombres.setBackground(new java.awt.Color(237, 209, 163));
         txtNombres.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
-        txtNombres.setEnabled(false);
         txtNombres.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombresActionPerformed(evt);
@@ -506,8 +512,9 @@ public class FrmMatricula extends javax.swing.JFrame {
         jLabel10.setText("Telefono:");
         jLabel10.setToolTipText("");
 
+        txtTelefono.setEditable(false);
+        txtTelefono.setBackground(new java.awt.Color(237, 209, 163));
         txtTelefono.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
-        txtTelefono.setEnabled(false);
         txtTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTelefonoActionPerformed(evt);
@@ -522,7 +529,7 @@ public class FrmMatricula extends javax.swing.JFrame {
         dtRegistro.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
         dtRegistro.setPreferredSize(new java.awt.Dimension(93, 24));
 
-        btCrearMatricula.setBackground(new java.awt.Color(88, 156, 20));
+        btCrearMatricula.setBackground(new java.awt.Color(102, 51, 0));
         btCrearMatricula.setForeground(new java.awt.Color(255, 255, 255));
         btCrearMatricula.setText("Crear Nuevo Matricula");
         btCrearMatricula.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -546,8 +553,9 @@ public class FrmMatricula extends javax.swing.JFrame {
         jLabel21.setText("Periodo Academico:");
         jLabel21.setToolTipText("");
 
+        txtPeriodo.setEditable(false);
+        txtPeriodo.setBackground(new java.awt.Color(237, 209, 163));
         txtPeriodo.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
-        txtPeriodo.setEnabled(false);
 
         javax.swing.GroupLayout jpMatriculaLayout = new javax.swing.GroupLayout(jpMatricula);
         jpMatricula.setLayout(jpMatriculaLayout);
@@ -640,15 +648,16 @@ public class FrmMatricula extends javax.swing.JFrame {
 
         jPanel4.add(jpMatricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 0, 370, 290));
 
-        jpMatriculaAsg.setBackground(new java.awt.Color(242, 242, 242));
+        jpMatriculaAsg.setBackground(new java.awt.Color(212, 173, 107));
 
         jLabel16.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel16.setText("Facultad:");
         jLabel16.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
+        txtFacultad.setEditable(false);
+        txtFacultad.setBackground(new java.awt.Color(237, 209, 163));
         txtFacultad.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
         txtFacultad.setBorder(null);
-        txtFacultad.setEnabled(false);
         txtFacultad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFacultadActionPerformed(evt);
@@ -659,9 +668,10 @@ public class FrmMatricula extends javax.swing.JFrame {
         jLabel17.setText("Carrera:");
         jLabel17.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
+        txtCarreras.setEditable(false);
+        txtCarreras.setBackground(new java.awt.Color(237, 209, 163));
         txtCarreras.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
         txtCarreras.setBorder(null);
-        txtCarreras.setEnabled(false);
         txtCarreras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCarrerasActionPerformed(evt);
@@ -672,9 +682,10 @@ public class FrmMatricula extends javax.swing.JFrame {
         jLabel19.setText("Malla Curricular:");
         jLabel19.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
+        txtMalla.setEditable(false);
+        txtMalla.setBackground(new java.awt.Color(237, 209, 163));
         txtMalla.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
         txtMalla.setBorder(null);
-        txtMalla.setEnabled(false);
         txtMalla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMallaActionPerformed(evt);
@@ -685,27 +696,28 @@ public class FrmMatricula extends javax.swing.JFrame {
         jLabel14.setText("Asignatura:");
         jLabel14.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
+        txtAsignatura.setEditable(false);
+        txtAsignatura.setBackground(new java.awt.Color(237, 209, 163));
         txtAsignatura.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
         txtAsignatura.setBorder(null);
-        txtAsignatura.setEnabled(false);
         txtAsignatura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAsignaturaActionPerformed(evt);
             }
         });
 
-        txtCurso.setBackground(new java.awt.Color(242, 242, 242));
+        txtCurso.setBackground(new java.awt.Color(237, 209, 163));
         txtCurso.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
         txtCurso.setBorder(null);
 
         jLabel13.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        jLabel13.setText("Curso:");
+        jLabel13.setText("Paralelo:");
         jLabel13.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         jLabel23.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
         jLabel23.setText("Nueva Matricula - Asignatura:");
 
-        btAgregarAsignaturaMatricula.setBackground(new java.awt.Color(88, 156, 20));
+        btAgregarAsignaturaMatricula.setBackground(new java.awt.Color(102, 51, 0));
         btAgregarAsignaturaMatricula.setForeground(new java.awt.Color(255, 255, 255));
         btAgregarAsignaturaMatricula.setText("Agregar Asignatura a Matricula");
         btAgregarAsignaturaMatricula.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -721,8 +733,6 @@ public class FrmMatricula extends javax.swing.JFrame {
         jLabel24.setText("Matricula:");
         jLabel24.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jLabel24.setPreferredSize(new java.awt.Dimension(53, 14));
-
-        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout jpMatriculaAsgLayout = new javax.swing.GroupLayout(jpMatriculaAsg);
         jpMatriculaAsg.setLayout(jpMatriculaAsgLayout);
@@ -757,13 +767,10 @@ public class FrmMatricula extends javax.swing.JFrame {
                         .addGap(9, 9, 9)
                         .addComponent(txtAsignatura, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpMatriculaAsgLayout.createSequentialGroup()
-                        .addGap(120, 120, 120)
+                        .addGap(107, 107, 107)
                         .addComponent(jLabel13)
-                        .addGap(5, 5, 5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpMatriculaAsgLayout.createSequentialGroup()
-                        .addGap(160, 160, 160)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpMatriculaAsgLayout.createSequentialGroup()
                         .addGap(150, 150, 150)
                         .addComponent(btAgregarAsignaturaMatricula)))
@@ -793,21 +800,20 @@ public class FrmMatricula extends javax.swing.JFrame {
                 .addGroup(jpMatriculaAsgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtAsignatura, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(jpMatriculaAsgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
+                .addGap(9, 9, 9)
+                .addGroup(jpMatriculaAsgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
                 .addComponent(btAgregarAsignaturaMatricula)
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jPanel4.add(jpMatriculaAsg, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 430, 290));
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 70, 460, 310));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 70, 460, 310));
 
-        jPanel2.setBackground(new java.awt.Color(242, 242, 242));
+        jPanel2.setBackground(new java.awt.Color(212, 173, 107));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jScrollPane4.setFont(new java.awt.Font("Roboto Thin", 0, 12)); // NOI18N
@@ -870,17 +876,17 @@ public class FrmMatricula extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel22)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 384, 460, 190));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 384, 460, 190));
 
-        btMatricula.setBackground(new java.awt.Color(88, 156, 20));
+        btMatricula.setBackground(new java.awt.Color(102, 51, 0));
         btMatricula.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         btMatricula.setForeground(new java.awt.Color(255, 255, 255));
         btMatricula.setText("Matricula");
@@ -891,9 +897,9 @@ public class FrmMatricula extends javax.swing.JFrame {
                 btMatriculaActionPerformed(evt);
             }
         });
-        getContentPane().add(btMatricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 40, 120, 40));
+        jPanel1.add(btMatricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 40, 120, 40));
 
-        btMatriculaAsg.setBackground(new java.awt.Color(88, 156, 20));
+        btMatriculaAsg.setBackground(new java.awt.Color(102, 51, 0));
         btMatriculaAsg.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         btMatriculaAsg.setForeground(new java.awt.Color(255, 255, 255));
         btMatriculaAsg.setText("Matricula - Asignatura");
@@ -904,11 +910,8 @@ public class FrmMatricula extends javax.swing.JFrame {
                 btMatriculaAsgActionPerformed(evt);
             }
         });
-        getContentPane().add(btMatriculaAsg, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 40, -1, 40));
+        jPanel1.add(btMatriculaAsg, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 40, -1, 40));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 590));
 
         pack();
@@ -1153,7 +1156,6 @@ public class FrmMatricula extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel jpDocentes;
     private javax.swing.JPanel jpFCA;
     private javax.swing.JPanel jpMatricula;

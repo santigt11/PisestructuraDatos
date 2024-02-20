@@ -7,16 +7,26 @@ public class Asignatura {
     private String codigo;
     private Integer totalHoras;
     private Integer ciclo_ID;
-
+    private Integer tipoUnidad_ID;
+    
     public Asignatura() {
     }
 
-    public Asignatura(Integer id, String nombre, String codigo, Integer totalHoras, Integer idMalla) {
+    public Asignatura(Integer id, String nombre, String codigo, Integer totalHoras, Integer ciclo_ID, Integer tipoUnidad_ID) {
         this.id = id;
         this.nombre = nombre;
         this.codigo = codigo;
         this.totalHoras = totalHoras;
-        this.ciclo_ID = idMalla;
+        this.ciclo_ID = ciclo_ID;
+        this.tipoUnidad_ID = tipoUnidad_ID;
+    }
+    
+    public Integer getTipoUnidad_ID() {
+        return tipoUnidad_ID;
+    }
+
+    public void setTipoUnidad_ID(Integer tipoUnidad_ID) {
+        this.tipoUnidad_ID = tipoUnidad_ID;
     }
 
     public Integer getId() {
