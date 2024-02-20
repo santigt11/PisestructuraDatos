@@ -22,8 +22,12 @@ public class AsignaturaBD extends AdaptadorDao<Asignatura> {
         this.asignatura = asignatura;
     }
 
-    public DynamicList<Asignatura> getAsignaturas() {
+    public DynamicList<Asignatura> getAsignaturasTodas() {
         asignaturas = all();
+        return asignaturas;
+    }
+
+    public DynamicList<Asignatura> getAsignaturas() {
         return asignaturas;
     }
 
@@ -43,7 +47,7 @@ public class AsignaturaBD extends AdaptadorDao<Asignatura> {
     }
 
     @Override
-    public Boolean persist(Asignatura obj) {
+    public Boolean persist(Asignatura obj){
         obj.setId(all().getLength() + 1);
         return super.persist(obj);
     }

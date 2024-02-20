@@ -130,7 +130,7 @@ public class FrmAcademico extends javax.swing.JFrame {
     }
 
     private void limpiarCarrera() {
-        cbxFacultadC.setSelectedIndex(0);
+        //cbxFacultadC.setSelectedIndex(0);
         txtNombreC.setText("");
         spnCiclo.setValue(0);
         txtFacultadCR.setText("");
@@ -156,11 +156,11 @@ public class FrmAcademico extends javax.swing.JFrame {
     }
 
     private void limpiarMalla() {
-        cbxFacultadM.setSelectedIndex(0);
-        cbxCarreraM.setSelectedIndex(0);
+        //cbxFacultadM.setSelectedIndex(0);
+        //cbxCarreraM.setSelectedIndex(0);
         txtDescripcion.setText("");
         txtPensum.setText("");
-        cbxVigencia.setSelectedIndex(0);
+        //cbxVigencia.setSelectedIndex(0);
 
         cbxFacultadM.setEnabled(true);
         cbxCarreraM.setEnabled(true);
@@ -188,11 +188,11 @@ public class FrmAcademico extends javax.swing.JFrame {
     }
 
     private void limpiarCiclo() {
-        cbxFacultadCl.setSelectedIndex(0);
-        cbxCarreraCl.setSelectedIndex(0);
-        cbxMallaCl.setSelectedIndex(-1);
+        //cbxFacultadCl.setSelectedIndex(0);
+        //cbxCarreraCl.setSelectedIndex(0);
+        //cbxMallaCl.setSelectedIndex(0);
         txtNombreCl.setText("");
-        cbxEstadoCl.setSelectedIndex(0);
+        //cbxEstadoCl.setSelectedIndex(0);
 
         cbxFacultadCl.setEnabled(true);
         cbxCarreraCl.setEnabled(true);
@@ -223,10 +223,10 @@ public class FrmAcademico extends javax.swing.JFrame {
     }
 
     private void limpiarAsignatura() {
-        cbxFacultadA.setSelectedIndex(0);
-        cbxCarreraA.setSelectedIndex(0);
-        cbxMallaA.setSelectedIndex(-1);
-        cbxCicloA.setSelectedIndex(-1);
+        //cbxFacultadA.setSelectedIndex(0);
+        //cbxCarreraA.setSelectedIndex(0);
+        //cbxMallaA.setSelectedIndex(0);
+        //cbxCicloA.setSelectedIndex(0);
         txtNombreA.setText("");
         txtCodigoA.setText("");
         spnTotalHorasA.setValue(0);
@@ -250,7 +250,7 @@ public class FrmAcademico extends javax.swing.JFrame {
         cbxFacultadA.setVisible(true);
         cbxCarreraA.setVisible(true);
         cbxMallaA.setVisible(true);
-        cbxCicloA.setVisible(true);
+        cbxMallaA.setVisible(true);
         txtFacultadAR.setText("");
         txtFacultadAR.setVisible(false);
         txtCarreraAR.setText("");
@@ -506,7 +506,7 @@ public class FrmAcademico extends javax.swing.JFrame {
                     cbxCarreraCl.setVisible(false);
                     cbxMallaCl.setVisible(false);
                     cbxEstadoCl.setEnabled(false);
-                    txtNombreCl.setEditable(false);
+                    txtNombreCl.setEnabled(false);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Error al cargar los datos", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -541,15 +541,14 @@ public class FrmAcademico extends javax.swing.JFrame {
                     cbxFacultadA.setVisible(false);
                     cbxCarreraA.setVisible(false);
                     cbxMallaA.setVisible(false);
-                    cbxCicloA.setVisible(false);
+                    cbxMallaA.setVisible(false);
 
                     btCrearA.setEnabled(false);
                     btCrearA.setForeground(Color.DARK_GRAY);
                     cbxCarreraA.setEnabled(false);
                     cbxMallaA.setEnabled(false);
-                    cbxCicloA.setEnabled(false);
-                    txtNombreA.setEditable(false);
-                    txtCodigoA.setEditable(false);
+                    txtNombreA.setEnabled(false);
+                    txtCodigoA.setEnabled(false);
                     spnTotalHorasA.setEnabled(false);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Error al cargar los datos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -969,6 +968,7 @@ public class FrmAcademico extends javax.swing.JFrame {
         cbxFacultadM.setBackground(new java.awt.Color(237, 209, 163));
         cbxFacultadM.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         cbxFacultadM.setForeground(new java.awt.Color(242, 242, 242));
+        cbxFacultadM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxFacultadM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxFacultadMActionPerformed(evt);
@@ -986,6 +986,7 @@ public class FrmAcademico extends javax.swing.JFrame {
         cbxCarreraM.setBackground(new java.awt.Color(237, 209, 163));
         cbxCarreraM.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         cbxCarreraM.setForeground(new java.awt.Color(242, 242, 242));
+        cbxCarreraM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jpMalla.add(cbxCarreraM);
         cbxCarreraM.setBounds(180, 90, 210, 29);
 
@@ -1361,31 +1362,31 @@ public class FrmAcademico extends javax.swing.JFrame {
         jpAsignatura.add(cbxCicloA);
         cbxCicloA.setBounds(550, 80, 220, 29);
 
-        txtFacultadAR.setEditable(false);
         txtFacultadAR.setBackground(new java.awt.Color(237, 209, 163));
         txtFacultadAR.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtFacultadAR.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        txtFacultadAR.setEnabled(false);
         jpAsignatura.add(txtFacultadAR);
         txtFacultadAR.setBounds(180, 50, 220, 30);
 
-        txtCarreraAR.setEditable(false);
         txtCarreraAR.setBackground(new java.awt.Color(237, 209, 163));
         txtCarreraAR.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtCarreraAR.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        txtCarreraAR.setEnabled(false);
         jpAsignatura.add(txtCarreraAR);
         txtCarreraAR.setBounds(550, 50, 220, 30);
 
-        txtMallaAR.setEditable(false);
         txtMallaAR.setBackground(new java.awt.Color(237, 209, 163));
         txtMallaAR.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtMallaAR.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        txtMallaAR.setEnabled(false);
         jpAsignatura.add(txtMallaAR);
         txtMallaAR.setBounds(180, 80, 220, 30);
 
-        txtCicloAR.setEditable(false);
         txtCicloAR.setBackground(new java.awt.Color(237, 209, 163));
         txtCicloAR.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtCicloAR.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        txtCicloAR.setEnabled(false);
         jpAsignatura.add(txtCicloAR);
         txtCicloAR.setBounds(550, 80, 220, 30);
 
@@ -1578,7 +1579,6 @@ public class FrmAcademico extends javax.swing.JFrame {
         jLabel31.setForeground(new java.awt.Color(0, 0, 0));
         jLabel31.setText("Ciclos:");
 
-        lstCiclo.setFont(new java.awt.Font("Roboto Thin", 1, 11)); // NOI18N
         lstCiclo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lstCicloMouseClicked(evt);
@@ -1940,13 +1940,9 @@ public class FrmAcademico extends javax.swing.JFrame {
         if (lstCarrera.getSelectedValue() != null) {
             cargarVista(2);
             btModificarCarrera.setEnabled(true);
-            btModificarCarrera.setForeground(Color.WHITE);
             btModificarMalla.setEnabled(false);
-            btModificarMalla.setForeground(Color.DARK_GRAY);
             btModificarCiclo.setEnabled(false);
-            btModificarCiclo.setForeground(Color.DARK_GRAY);
             btModificarAsignatura.setEnabled(false);
-            btModificarAsignatura.setForeground(Color.DARK_GRAY);
             if (!fileMalla.getMallas().isEmpty()) {
                 Object c = lstCarrera.getSelectedValue();
                 Carrera carrera = (Carrera) c;
@@ -1982,15 +1978,10 @@ public class FrmAcademico extends javax.swing.JFrame {
             cargarVista(1);
 
             btModificarFacultad.setEnabled(true);
-            btModificarFacultad.setForeground(Color.WHITE);
             btModificarCarrera.setEnabled(false);
-            btModificarCarrera.setForeground(Color.DARK_GRAY);
             btModificarMalla.setEnabled(false);
-            btModificarMalla.setForeground(Color.DARK_GRAY);
             btModificarCiclo.setEnabled(false);
-            btModificarCiclo.setForeground(Color.DARK_GRAY);
             btModificarAsignatura.setEnabled(false);
-            btModificarAsignatura.setForeground(Color.DARK_GRAY);
 
             if (!fileCarrera.getCarreras().isEmpty()) {
                 Object f = lstFacultad.getSelectedValue();
@@ -2010,7 +2001,6 @@ public class FrmAcademico extends javax.swing.JFrame {
         if (lstAsignatura.getSelectedValue() != null) {
             cargarVista(5);
             btModificarAsignatura.setEnabled(true);
-            btModificarAsignatura.setForeground(Color.WHITE);
         } else {
             JOptionPane.showMessageDialog(null, "No existe ninguna asignatura disponible", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -2047,11 +2037,8 @@ public class FrmAcademico extends javax.swing.JFrame {
         if (lstMalla.getSelectedValue() != null) {
             cargarVista(3);
             btModificarMalla.setEnabled(true);
-            btModificarMalla.setForeground(Color.WHITE);
             btModificarCiclo.setEnabled(false);
-            btModificarCiclo.setForeground(Color.DARK_GRAY);
             btModificarAsignatura.setEnabled(false);
-            btModificarAsignatura.setForeground(Color.DARK_GRAY);
 
             if (!fileCiclo.getCiclos().isEmpty()) {
                 Object m = lstMalla.getSelectedValue();
@@ -2068,24 +2055,12 @@ public class FrmAcademico extends javax.swing.JFrame {
     }//GEN-LAST:event_lstMallaMouseClicked
 
     private void lstCicloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstCicloMouseClicked
-        if (lstCiclo.getSelectedValue() != null) {
-            cargarVista(4);
-            btModificarCiclo.setEnabled(true);
-            btModificarCiclo.setForeground(Color.WHITE);
-            btModificarAsignatura.setEnabled(false);
-            btModificarAsignatura.setForeground(Color.DARK_GRAY);
-
-            if (!fileAsignatura.getAsignaturas().isEmpty()) {
-                Object c = lstCiclo.getSelectedValue();
-                Ciclo ciclo = (Ciclo) c;
-                try {
-                    Utilvista.cargarListaAsignaturas(lstAsignatura, ciclo);
-                } catch (EmptyException ex) {
-                    JOptionPane.showMessageDialog(null, "Error al cargar lista de asignatura", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "No existe ningun ciclo disponible", "Error", JOptionPane.ERROR_MESSAGE);
+        Object cl = lstCiclo.getSelectedValue();
+        Ciclo ciclo = (Ciclo) cl;
+        try {
+            Utilvista.cargarListaAsignaturas(lstAsignatura, ciclo);
+        } catch (EmptyException ex) {
+            JOptionPane.showMessageDialog(null, "Error al cargar lista de asignaturas", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_lstCicloMouseClicked
 
