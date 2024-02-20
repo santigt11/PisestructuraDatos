@@ -96,9 +96,9 @@ public class CambiarClave extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("CAMBIO CLAVE");
 
-        jButton1.setBackground(new java.awt.Color(58, 39, 34));
+        jButton1.setBackground(new java.awt.Color(212, 173, 107));
         jButton1.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setForeground(new java.awt.Color(102, 51, 0));
         jButton1.setText("Regresar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,13 +120,15 @@ public class CambiarClave extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Repetir Clave");
 
+        buttonPopup1.setBackground(new java.awt.Color(255, 255, 255));
+        buttonPopup1.setForeground(new java.awt.Color(102, 51, 0));
         buttonPopup1.setText("Guardar");
 
-        txtNuevaClave.setText("jPasswordField1");
+        txtNuevaClave.setBackground(new java.awt.Color(212, 173, 107));
 
-        txtRepetirClave.setText("jPasswordField1");
+        txtRepetirClave.setBackground(new java.awt.Color(212, 173, 107));
 
-        txtClaveActual.setText("jPasswordField1");
+        txtClaveActual.setBackground(new java.awt.Color(212, 173, 107));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

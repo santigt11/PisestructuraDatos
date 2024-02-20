@@ -56,7 +56,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
         txtUsuario.setText(persona.getNombre() + " " + persona.getApellido());
         NombreUsuariot.setText(persona.getNombre() + " " + persona.getApellido());
         mostrarGif();
-        ImageIcon icono = new ImageIcon(getClass().getResource("/imagenes/matricula.png"));
+        ImageIcon icono = new ImageIcon(getClass().getResource("/imagenes/FT.png"));
         FotoAdmin.setIcon(icono);
 
     }
@@ -84,7 +84,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
         setSize(1122, 670);
 
         // Crea un JLabel y carga el GIF
-        ImageIcon gifIcon = new ImageIcon("src/imagenes/GIF.gif"); // Reemplaza con la ruta de tu archivo GIF
+        ImageIcon gifIcon = new ImageIcon("src/imagenes/GIFMENU.gif"); // Reemplaza con la ruta de tu archivo GIF
         JLabel backgroundLabel = new JLabel(gifIcon);
 
         // Establece el layout del JFrame como BorderLayout

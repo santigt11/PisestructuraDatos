@@ -105,4 +105,8 @@ public class UsuarioBD extends AdaptadorDao<Usuario> {
         return null;
     }
 
+    public void update(Usuario usuario) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }
