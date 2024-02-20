@@ -3,7 +3,7 @@ package vista.Tutorias;
 import controlador.Academico.AsignaturaBD;
 import controlador.Academico.AsignacionBD;
 import controlador.Admin.PersonaBD;
-import controlador.Login.UsuarioDB;
+import controlador.Login.UsuarioBD;
 import controlador.Matriculas.MatriculaBD;
 import controlador.Matriculas.CursaBD;
 import controlador.Matriculas.CursaTutoriaBD;
@@ -11,12 +11,9 @@ import controlador.Tutorias.TutoriaBD;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.Tutorias.HorarioBD;
 import java.time.ZoneId;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.Matricula;
 import modelo.Cursa;
-import modelo.Persona;
 import modelo.Usuario;
 import vista.listas.util.Utilvista;
 
@@ -35,7 +32,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private PersonaBD personaControl = new PersonaBD();
     private AsignacionBD contratoControl = new AsignacionBD();
     private MatriculaBD matriculaControl = new MatriculaBD();
-    private static UsuarioDB usuarioControl = new UsuarioDB();
+    private static UsuarioBD usuarioControl = new UsuarioBD();
     private CursaTutoriaBD tutoriaMatrControl = new CursaTutoriaBD();
     
     public static void cargarDocente(Usuario usuario) {
