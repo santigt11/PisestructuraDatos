@@ -58,9 +58,9 @@ public class CursaBD extends AdaptadorDao<Cursa> {
         return listaBusqueda;
     }
 
-    public Cursa buscarBinaria(String campo, String valorBuscado) throws EmptyException {
+    public Cursa buscarBinaria(DynamicList<Cursa> lista, String campo, String valorBuscado) throws EmptyException {
         int inicio = 0;
-        DynamicList<Cursa> lista = ordenarMerge(all(), "id", 0);
+        lista = ordenarMerge(all(), "id", 0);
         int fin = lista.getLength() - 1;
         Cursa matriculasAsignaturas[] = lista.toArray();
         while (inicio <= fin) {

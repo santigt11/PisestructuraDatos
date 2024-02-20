@@ -285,11 +285,12 @@ public class AdaptadorDao<T> implements DaoInterface<T> {
                 LocalDate localDate = (LocalDate) entry.getValue();
                 String formattedDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(localDate);
                 query += "TO_DATE('" + formattedDate + "', 'yyyy-MM-dd'), ";
-                System.out.println(query);
+                
             }
         }
         query = query.substring(0, query.length() - 2);
         query += ")";
+        System.out.println(query);
         return query;
     }
 

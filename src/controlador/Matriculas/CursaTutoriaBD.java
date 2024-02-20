@@ -21,10 +21,13 @@ public class CursaTutoriaBD extends AdaptadorDao<CursaTutoria> {
     }
     
     public DynamicList<CursaTutoria> getCursaTutorias() {
+        if (cursaTutorias == null) {
+            cursaTutorias = new DynamicList<>();
+        }
         return cursaTutorias;
     }
 
-    public void setAsgMatriculas(DynamicList<CursaTutoria> cursaTutorias) {
+    public void setCursaTutorias(DynamicList<CursaTutoria> cursaTutorias) {
         this.cursaTutorias = cursaTutorias;
     }
 
