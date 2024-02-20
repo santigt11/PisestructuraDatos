@@ -40,7 +40,7 @@ public class CursaBD extends AdaptadorDao<Cursa> {
     }
 
     @Override
-    public Boolean persist(Cursa obj){
+    public Boolean persist(Cursa obj) {
         obj.setId(all().getLength() + 1);
         return super.persist(obj);
     }
@@ -64,10 +64,10 @@ public class CursaBD extends AdaptadorDao<Cursa> {
         Cursa matriculasAsignaturas[] = lista.toArray();
         while (inicio <= fin) {
             int medio = (inicio + fin) / 2;
-            Cursa cursa = cursas[medio];
-            int comparacion = cursa.compareCampo(campo, valorBuscado);
+            Cursa matriculaAsignatura = matriculasAsignaturas[medio];
+            int comparacion = matriculaAsignatura.compareCampo(campo, valorBuscado);
             if (comparacion == 0) {
-                return cursa;
+                return matriculaAsignatura;
             } else if (comparacion < 0) {
                 inicio = medio + 1;
             } else {

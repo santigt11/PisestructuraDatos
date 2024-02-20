@@ -3,7 +3,7 @@ package vista.Tutorias;
 import controlador.Academico.AsignaturaBD;
 import controlador.Academico.AsignacionBD;
 import controlador.Admin.PersonaBD;
-import controlador.Login.UsuarioDB;
+import controlador.Login.UsuarioBD;
 import controlador.Matriculas.MatriculaBD;
 import controlador.Matriculas.CursaBD;
 import controlador.Matriculas.CursaTutoriaBD;
@@ -32,7 +32,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private PersonaBD personaControl = new PersonaBD();
     private AsignacionBD contratoControl = new AsignacionBD();
     private MatriculaBD matriculaControl = new MatriculaBD();
-    private static UsuarioDB usuarioControl = new UsuarioDB();
+    private static UsuarioBD usuarioControl = new UsuarioBD();
     private CursaTutoriaBD tutoriaMatrControl = new CursaTutoriaBD();
     
     public static void cargarDocente(Usuario usuario) {
