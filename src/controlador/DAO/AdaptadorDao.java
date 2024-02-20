@@ -140,19 +140,6 @@ public class AdaptadorDao<T> implements DaoInterface<T> {
         return data;
     }
 
-    public void limpiarConexion() {
-        conexion.cerrarStatment(null);
-        try {
-            if (conexion.getConnection() != null) {
-                conexion.getConnection().close();
-            }
-        } catch (SQLException e) {
-            System.out.println("Error al cerrar la conexión: " + e.getMessage());
-        } finally {
-            conexion.setConnection(null);
-        }
-    }
-
     //--------------ESTO ES DEL CRUD NO MODIFICAR AL MENOS QUE LO AMERITE------
     private T llenarObjeto(ResultSet rs) {
         T data = null;
