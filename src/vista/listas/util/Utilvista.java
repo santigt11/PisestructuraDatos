@@ -129,8 +129,8 @@ public class Utilvista {
         MatriculaBD ma = new MatriculaBD();
         ma.setMatriculas(ma.all());
         cbx.removeAllItems();
-        for (Integer i = 0; i < ma.getMatriculas().getLength(); i++) {
-            cbx.addItem(ma.getMatriculas().getInfo(i));
+        for (Integer i = 0; i < ma.getMatriculasTodas().getLength(); i++) {
+            cbx.addItem(ma.getMatriculasTodas().getInfo(i));
         }
     }
 

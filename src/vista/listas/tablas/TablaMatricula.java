@@ -37,7 +37,7 @@ public class TablaMatricula extends AbstractTableModel {
                 case 1:
                     return (mt != null) ? mt.getFechaRegistro(): "";
                 case 2:
-                    return (mt != null) ? filePeriodo.getPeriodos().getInfo(mt.getPeriodoAcademico_ID()).getFechaInicio()+ " " + filePeriodo.getPeriodos().getInfo(mt.getPeriodoAcademico_ID()).getFechaFin(): "";
+                    return (mt != null) ? filePeriodo.getPeriodos().getInfo(mt.getPeriodoAcademico_ID()-1).getFechaInicio()+ " " + filePeriodo.getPeriodos().getInfo(mt.getPeriodoAcademico_ID()-1).getFechaFin(): "";
                 case 3:
                     return (mt != null) ? mt.getExpedienteActivo()? "ACTIVO" : "INACTIVO" : "";
                 default:
