@@ -27,10 +27,12 @@ public class FrmUsuarios extends javax.swing.JFrame {
     ModeloTablaUsuario mtu = new ModeloTablaUsuario();
 
     public FrmUsuarios(Usuario usuario, Persona persona) {
+                initComponents();
+
         this.user = usuario;
         this.persona = persona;
-        initComponents();
         cargarTabla();
+        limpiar();
     }
 
     public FrmUsuarios() {
@@ -43,7 +45,11 @@ public class FrmUsuarios extends javax.swing.JFrame {
         tbUsuarios.setModel(mtu);
         tbUsuarios.updateUI();
     }
-
+    
+    private void limpiar (){
+        cargarTabla();
+    
+    }
  
 
     /**
