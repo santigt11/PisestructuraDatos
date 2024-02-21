@@ -80,7 +80,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private void cargarListaCursas() throws EmptyException {
         lstCursa.removeAll(); // Elimina todos los elementos de la lista
         if (cbxAsignatura.getSelectedIndex() >= 0) { // Verificar que el índice seleccionado sea válido
-            cursaControl.setCursas(cursaControl.buscarLineal(cursaControl.all(), "asignatura_codigo", asignaturaControl.buscarBinaria("nombre", cbxAsignatura.getSelectedItem().toString()).getCodigo()));
+            cursaControl.setCursas(cursaControl.buscarLineal(cursaControl.all(), "asignatura_codigo", asignaturaControl.buscarBinaria(asignaturaControl.all(),"nombre", cbxAsignatura.getSelectedItem().toString()).getCodigo()));
             if (!cursaControl.getCursas().isEmpty()) {
                 Matricula matricula;
                 for (int i = 0; i < cursaControl.getCursas().getLength(); i++) {
@@ -113,7 +113,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
             tutoriaControl.getTutoria().setHoraInicio(cbxHoraInicio.getSelectedItem().toString());
             tutoriaControl.getTutoria().setHorarioValido(true);
             tutoriaControl.getTutoria().setId(tutoriaControl.all().getLength() + 1);
-            asignacionControl.setAsignaciones(asignacionControl.buscarLineal(asignacionControl.all(), "asignatura_codigo", asignaturaControl.buscarBinaria("nombre", cbxAsignatura.getSelectedItem().toString()).getCodigo()));
+            asignacionControl.setAsignaciones(asignacionControl.buscarLineal(asignacionControl.all(), "asignatura_codigo", asignaturaControl.buscarBinaria(asignaturaControl.all(), "nombre", cbxAsignatura.getSelectedItem().toString()).getCodigo()));
             asignacionControl.setAsignacion(asignacionControl.buscarBinaria(asignacionControl.getAsignaciones(), "usuario_id", String.valueOf(usuarioNavegacion.getId())));
             tutoriaControl.getTutoria().setAsignacion_ID(asignacionControl.getAsignacion().getId());
         } else {
@@ -148,7 +148,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
             Persona estudiante = (Persona) p;
             personaControl.getPersonas().add(estudiante);
             usuarioControl.setUsuario(usuarioControl.buscarBinaria(usuarioControl.all(), "persona_dni", estudiante.getDni()));
-            matriculaControl.setMatricula(matriculaControl.buscarBinaria("usuario_id", String.valueOf(usuarioControl.getUsuario().getId())));
+            matriculaControl.setMatricula(matriculaControl.buscarBinaria(matriculaControl.all(), "usuario_id", String.valueOf(usuarioControl.getUsuario().getId())));
             cursaControl.setCursas(cursaControl.buscarLineal(cursaControl.all(), "matricula_id", String.valueOf(matriculaControl.getMatricula().getId())));
             cursaControl.setCursa(cursaControl.buscarBinaria(cursaControl.getCursas(), "asignatura_codigo", asignaturaControl.get(cbxAsignatura.getSelectedIndex() + 1).getCodigo()));
             cursaTutoriasControl.getCursaTutoria().setTutoria_ID(tutoriaControl.getTutoria().getId());
