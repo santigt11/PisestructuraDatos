@@ -11,6 +11,8 @@ import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.Tutorias.TutoriaBD;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
 import modelo.Asignacion;
@@ -35,27 +37,36 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     private CursaBD cursaControl = new CursaBD();
     private Usuario usuarioNavegacion;
 
-    public FrmTutoriasPrincipal() {
+    public FrmTutoriasPrincipal() throws EmptyException {
         initComponents();
+        cargarAsignaciones();
+        cargarTutorias();
     }
 
     private void cargarAsignaciones() throws EmptyException {
-        usuarioNavegacion = usuarioControl.buscarBinaria(usuarioControl.all(), "id", "1");
-        usuarioControl.setUsuario(usuarioControl.buscarBinaria(usuarioControl.all(), "id", "1"));
+        usuarioNavegacion = usuarioControl.buscarBinaria(usuarioControl.all(), "id", "2");
+        usuarioControl.setUsuario(usuarioControl.buscarBinaria(usuarioControl.all(), "id", "2"));
+        cargarUsuario(usuarioNavegacion);
         personaControl.setPersona(personaControl.buscarBinaria(personaControl.all(), "dni", usuarioNavegacion.getPersona_DNI()));
         lbUsuario.setText(personaControl.getPersona().getApellido() + " " + personaControl.getPersona().getNombre());
         if (usuarioNavegacion.getRol_id() == 1) {
-            matriculaControl.buscarBinaria("usuario_ID", String.valueOf(usuarioControl.getUsuario().getId()));
+            System.out.println("paso 1");
+            matriculaControl.setMatricula(matriculaControl.buscarBinaria(matriculaControl.all(), "usuario_ID", String.valueOf(usuarioControl.getUsuario().getId())));
             cursaControl.setCursas(cursaControl.buscarLineal(cursaControl.all(), "matricula_id", String.valueOf(matriculaControl.getMatricula().getId())));
             DynamicList<Asignatura> asignaturasMostrar = new DynamicList<>();
             Asignatura asignatura;
             Cursa[] cursas = cursaControl.getCursas().toArray();
+            System.out.println("paso 2");
             for (int i = 0; i < cursaControl.getCursas().getLength(); i++) {
-                asignatura = asignaturaControl.buscarBinaria("codigo", cursas[i].getAsignatura_CODIGO());
+                asignatura = asignaturaControl.buscarBinaria(asignaturaControl.all(), "codigo", cursas[i].getAsignatura_CODIGO());
                 asignaturasMostrar.add(asignatura);
             }
-            Utilvista.cargarComboAsignaturas(cbxAsignaturas);
+            System.out.println("paso 3");
+            Utilvista.cargarComboAsignaturas(cbxAsignaturas, asignaturasMostrar);
         } else if (usuarioNavegacion.getRol_id() == 2) {
+            usuarioNavegacion = usuarioControl.buscarBinaria(usuarioControl.all(), "id", "1");
+            usuarioControl.setUsuario(usuarioControl.buscarBinaria(usuarioControl.all(), "id", "1"));
+            personaControl.setPersona(personaControl.buscarBinaria(personaControl.all(), "dni", usuarioNavegacion.getPersona_DNI()));
             asignacionControl.setAsignaciones(asignacionControl.buscarLineal(asignacionControl.all(), "usuario_ID", String.valueOf(usuarioControl.getUsuario().getId())));
             Utilvista.cargarComboAsignacion(asignacionControl.getAsignaciones(), cbxAsignaturas);
             lbUsuario.setText(personaControl.getPersona().getApellido() + " " + personaControl.getPersona().getNombre());
@@ -67,6 +78,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         if (usuario.getRol_id() == 1) {
             btGenerarInforme.setVisible(false);
             btNuevaTutoria.setVisible(false);
+            btNuevaTutoria1.setVisible(false);
         } else {
             chkNo.setVisible(false);
             lbRecibirTutoria.setVisible(false);
@@ -79,6 +91,9 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         if (chkSi.isSelected()) {
             cursaTutoriaControl.getCursaTutoria().setImpartida(true);
             cursaTutoriaControl.merge(cursaTutoriaControl.getCursaTutoria());
+        }else{
+            cursaTutoriaControl.getCursaTutoria().setImpartida(false);
+            cursaTutoriaControl.merge(cursaTutoriaControl.getCursaTutoria());
         }
     }
 
@@ -90,61 +105,77 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         chkNo.setSelected(false);
     }
 
-    private void cargarTutoriasLista(DynamicList<CursaTutoria> tutoriasM) throws EmptyException {
-        Utilvista.cargarListaCursaTutorias(tutoriasM, lstTutorias);
-    }
-
     private void cargarTutorias() throws EmptyException {
-        personaControl.setPersona(personaControl.buscarBinaria(personaControl.all(), "dni", usuarioControl.getUsuario().getPersona_DNI()));
-        if (usuarioControl.getUsuario().getRol_id() == 1) {
-            matriculaControl.setMatricula(matriculaControl.buscarBinaria("usuario_id", String.valueOf(usuarioControl.getUsuario().getId())));
+        personaControl.setPersona(personaControl.buscarBinaria(personaControl.all(), "dni", usuarioNavegacion.getPersona_DNI()));
+        System.out.println("paso 4");
+        if (usuarioNavegacion.getRol_id() == 1) {
+            matriculaControl.setMatricula(matriculaControl.buscarBinaria(matriculaControl.all(), "usuario_id", String.valueOf(usuarioNavegacion.getId())));
             cursaControl.setCursas(cursaControl.buscarLineal(cursaControl.all(), "matricula_id", String.valueOf(matriculaControl.getMatricula().getId())));
-            DynamicList<CursaTutoria> cursasTutoria = new DynamicList<>();
             Cursa[] cursas = cursaControl.getCursas().toArray();
-//            for (int i = 0; i < cursaControl.getCursas().getLength(); i++) {
-//                cursascursaTutoriaControl.buscarLineal(cursasTutoria, "cursa_id", String.valueOf(cursas[i].getId()));
-//            }
             DynamicList<CursaTutoria> cursasTutoriaFinal = new DynamicList<>();
-            for (Cursa cursa : cursas) {
-                cursaTutoriaControl.buscarLineal(cursaTutoriaControl.getCursaTutoriasTodos(), "cursa_id", String.valueOf(cursa.getId()));
-                for (int i = 0; i < cursaTutoriaControl.getCursaTutorias().getLength(); i++) {
-                    cursasTutoriaFinal.add(cursaTutoriaControl.get(i));
+            for (int i = 0; i < cursaControl.getCursas().getLength(); i++) {
+                cursaTutoriaControl.setCursaTutorias(cursaTutoriaControl.buscarLineal(cursaTutoriaControl.all(), "cursa_id", String.valueOf(cursas[i].getId())));
+                CursaTutoria[] cursasTutorias = cursaTutoriaControl.getCursaTutorias().toArray();
+                for (int j = 0; j < cursaTutoriaControl.getCursaTutorias().getLength(); j++) { // Cambio de i a j
+                    cursasTutoriaFinal.add(cursasTutorias[j]);
                 }
             }
+
+            System.out.println("paso 5");
+//            DynamicList<CursaTutoria> cursasTutoriaFinal = new DynamicList<>();
+//            for (Cursa cursa : cursas) {
+//                cursaTutoriaControl.setCursaTutorias(cursaTutoriaControl.buscarLineal(cursaTutoriaControl.all(), "cursa_id", String.valueOf(cursa.getId())));
+//                for (int i = 0; i < cursaTutoriaControl.getCursaTutorias().getLength(); i++) {
+//                    cursasTutoriaFinal.add(cursaTutoriaControl.get(i));
+//                }
+//            }
+//            System.out.println("AAAAAAAAAA");
+//            System.out.println(cursasTutoriaFinal);
+
             DynamicList<Tutoria> tutoriaFinal = new DynamicList<>();
             for (CursaTutoria cursaTutoria : cursasTutoriaFinal.toArray()) {
                 tutoriaFinal.add(tutoriaControl.buscarBinaria("id", String.valueOf(cursaTutoria.getTutoria_ID())));
             }
             Utilvista.cargarListaTutorias(tutoriaFinal, lstTutorias);
+            System.out.println("paso 6");
+        } else {
+            System.out.println("paso 5 DOCENTE");
+            DynamicList<Tutoria> tutorias = new DynamicList<>();
+            Asignacion[] asignaciones = asignacionControl.getAsignaciones().toArray();
+            tutoriaControl.setTutorias(tutoriaControl.buscarLineal(tutoriaControl.all(), "asignacion_id", String.valueOf(asignaciones[cbxAsignaturas.getSelectedIndex()].getId())));
+            for (int j = 0; j < tutoriaControl.getTutorias().getLength(); j++) {
+                tutorias.add(tutoriaControl.getTutorias().getInfo(j));
+            }
+            Utilvista.cargarListaTutorias(tutorias, lstTutorias);
         }
-        asignacionControl.setAsignaciones(asignacionControl.buscarLineal(asignacionControl.all(), "DNIDocente", String.valueOf(personaControl.getPersona().getDni())));
-        Asignacion asignaciones[] = asignacionControl.getAsignaciones().toArray();
-        Asignacion asignacion;
-        DynamicList<Asignatura> asignaturas = new DynamicList<>();
-        for (int i = 0; i < asignacionControl.getAsignaciones().getLength(); i++) {
-            asignacion = asignacionControl.get(asignaciones[i].getId());
-            asignaturas.add(asignaturaControl.buscarBinaria("codigo", asignacion.getAsignatura_CODIGO()));
-        }
-        Asignatura asignaturasArray[] = asignaturaControl.getAsignaturas().toArray();
-        Asignatura asignatura;
-        DynamicList<CursaTutoria> matriculasAsignaturas = new DynamicList<>();
-        for (int i = 0; i < asignaturaControl.getAsignaturas().getLength(); i++) {
-            asignatura = asignaturaControl.get(asignaturasArray[i].getId());
-            matriculasAsignaturas.add(cursaTutoriaControl.buscarBinaria("codigo", asignatura.getCodigo()));
-        }
-        CursaTutoria tMatriculas[] = cursaTutoriaControl.getCursaTutorias().toArray();
-        CursaTutoria tMatricula;
-        DynamicList<CursaTutoria> tutoriasMatricula = new DynamicList<>();
-        for (int i = 0; i < cursaTutoriaControl.getCursaTutorias().getLength(); i++) {
-            tMatricula = fileTutoriaM.get(tMatriculas[i].getId());
-            tutoriasMatricula.add(tMatricula);
-        }
+//        asignacionControl.setAsignaciones(asignacionControl.buscarLineal(asignacionControl.all(), "DNIDocente", String.valueOf(personaControl.getPersona().getDni())));
+//        Asignacion asignaciones[] = asignacionControl.getAsignaciones().toArray();
+//        Asignacion asignacion;
+//        DynamicList<Asignatura> asignaturas = new DynamicList<>();
+//        for (int i = 0; i < asignacionControl.getAsignaciones().getLength(); i++) {
+//            asignacion = asignacionControl.get(asignaciones[i].getId());
+//            asignaturas.add(asignaturaControl.buscarBinaria("codigo", asignacion.getAsignatura_CODIGO()));
+//        }
+//        Asignatura asignaturasArray[] = asignaturaControl.getAsignaturas().toArray();
+//        Asignatura asignatura;
+//        DynamicList<CursaTutoria> matriculasAsignaturas = new DynamicList<>();
+//        for (int i = 0; i < asignaturaControl.getAsignaturas().getLength(); i++) {
+//            asignatura = asignaturaControl.get(asignaturasArray[i].getId());
+//            matriculasAsignaturas.add(cursaTutoriaControl.buscarBinaria("codigo", asignatura.getCodigo()));
+//        }
+//        CursaTutoria tMatriculas[] = cursaTutoriaControl.getCursaTutorias().toArray();
+//        CursaTutoria tMatricula;
+//        DynamicList<CursaTutoria> tutoriasMatricula = new DynamicList<>();
+//        for (int i = 0; i < cursaTutoriaControl.getCursaTutorias().getLength(); i++) {
+//            tMatricula = fileTutoriaM.get(tMatriculas[i].getId());
+//            tutoriasMatricula.add(tMatricula);
+//        }
     }
 
-    private void cargarVista(CursaTutoria asgMatricula) throws EmptyException {
+    private void cargarVistaCursaTutoria(CursaTutoria asgMatricula) throws EmptyException {
         fileTutoriaM.setCursaTutoria(asgMatricula);
-        CursaTutoria matriculaAsg = fileMatriculaAsg.buscarBinaria("id", fileTutoriaM.getCursaTutoria().getCursa_ID().toString());
-        Asignatura asignatura = asignaturaControl.buscarBinaria("id", matriculaAsg.getId().toString());
+        CursaTutoria matriculaAsg = fileMatriculaAsg.buscarBinaria(fileMatriculaAsg.all(), "id", String.valueOf(fileTutoriaM.getCursaTutoria().getCursa_ID()));
+        Asignatura asignatura = asignaturaControl.buscarBinaria(asignaturaControl.all(), "id", matriculaAsg.getId().toString());
         Tutoria tutoria = tutoriaControl.buscarBinaria("id", fileTutoriaM.getCursaTutoria().getTutoria_ID().toString());
         txtAsignatura.setText(asignatura.getNombre());
         txtTema.setText(tutoria.getTema());
@@ -156,6 +187,10 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
             chkSi.setSelected(false);
             chkNo.setSelected(true);
         }
+    }
+
+    private void cargarVistaTutoria() {
+
     }
 
     @SuppressWarnings("unchecked")
@@ -388,14 +423,20 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Salir");
-        bg.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 500, -1, -1));
+        bg.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 500, -1, -1));
 
         cbxAsignaturas.setBackground(new java.awt.Color(212, 173, 107));
         cbxAsignaturas.setForeground(new java.awt.Color(0, 0, 0));
         cbxAsignaturas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxAsignaturas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbxAsignaturasMouseClicked(evt);
+            }
+        });
         bg.add(cbxAsignaturas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 220, -1));
 
         btNuevaTutoria.setBackground(new java.awt.Color(102, 51, 0));
+        btNuevaTutoria.setForeground(new java.awt.Color(255, 255, 255));
         btNuevaTutoria.setText("Nueva Tutoria");
         btNuevaTutoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -405,7 +446,13 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         bg.add(btNuevaTutoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 20, -1, -1));
 
         btGenerarInforme.setBackground(new java.awt.Color(102, 51, 0));
+        btGenerarInforme.setForeground(new java.awt.Color(255, 255, 255));
         btGenerarInforme.setText("Generar Informe");
+        btGenerarInforme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGenerarInformeActionPerformed(evt);
+            }
+        });
         bg.add(btGenerarInforme, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 20, 130, -1));
 
         jDateChooser1.setBackground(new java.awt.Color(212, 173, 107));
@@ -417,7 +464,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
 
         lbUsuario.setForeground(new java.awt.Color(0, 0, 0));
         lbUsuario.setText("Usuario:");
-        bg.add(lbUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 490, 50, -1));
+        bg.add(lbUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 490, 150, -1));
 
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Usuario:");
@@ -441,11 +488,21 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     private void lstTutoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTutoriasMouseClicked
         if (lstTutorias.getSelectedValue() != null) {
             Object t = lstTutorias.getSelectedValue();
-            CursaTutoria tutoria = (CursaTutoria) t;
-            try {
-                cargarVista(tutoria);
-            } catch (EmptyException ex) {
-                System.out.println(ex.toString());
+            if (usuarioNavegacion.getRol_id() == 1) {
+                Tutoria tutoria = (Tutoria) t;
+                try {
+                    System.out.println(tutoria.getId());
+                    cursaTutoriaControl.setCursaTutoria(cursaTutoriaControl.buscarBinaria(cursaTutoriaControl.getCursaTutorias(), "tutoria_id", String.valueOf(tutoria.getId())));
+                } catch (EmptyException ex) {
+                    Logger.getLogger(FrmTutoriasPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    cargarVistaCursaTutoria(cursaTutoriaControl.getCursaTutoria());
+                } catch (EmptyException ex) {
+                    System.out.println(ex.toString());
+                }
+            } else if (usuarioNavegacion.getRol_id() == 2) {
+                Tutoria tutoria = (Tutoria) t;
             }
         } else {
             JOptionPane.showMessageDialog(null, "El objeto es nulo!", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -453,7 +510,13 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_lstTutoriasMouseClicked
 
     private void btNuevaTutoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNuevaTutoriaActionPerformed
-        // TODO add your handling code here:
+        try {
+            FrmNuevaTutoria tutoriaFrm = new FrmNuevaTutoria(usuarioNavegacion);
+            tutoriaFrm.setVisible(true);
+
+        } catch (EmptyException ex) {
+            Logger.getLogger(FrmTutoriasPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btNuevaTutoriaActionPerformed
 
     private void chkNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkNoActionPerformed
@@ -479,16 +542,39 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
         try {
             guardarImpartida();
+            JOptionPane.showMessageDialog(null, "Tutoria guardada con exito");
+            limpiar();
         } catch (Exception ex) {
             System.out.println(ex.toString());
         }
     }//GEN-LAST:event_btGuardarActionPerformed
 
+    private void cbxAsignaturasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxAsignaturasMouseClicked
+        try {
+            cargarTutorias();
+        } catch (EmptyException ex) {
+            Logger.getLogger(FrmTutoriasPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cbxAsignaturasMouseClicked
+
+    private void btGenerarInformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGenerarInformeActionPerformed
+        try {
+            FrmGenerarInforme informeFrm = new FrmGenerarInforme();
+            informeFrm.setVisible(true);
+        } catch (Exception e) {
+            Logger.getLogger(FrmTutoriasPrincipal.class.getName()).log(Level.SEVERE, null, e.toString());
+        }
+    }//GEN-LAST:event_btGenerarInformeActionPerformed
+
     public static void main(String args[]) throws UnsupportedLookAndFeelException {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmTutoriasPrincipal().setVisible(true);
+                try {
+                    new FrmTutoriasPrincipal().setVisible(true);
+                } catch (EmptyException ex) {
+                    Logger.getLogger(FrmTutoriasPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
