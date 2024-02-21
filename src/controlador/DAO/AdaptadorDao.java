@@ -285,7 +285,7 @@ public class AdaptadorDao<T> implements DaoInterface<T> {
                 LocalDate localDate = (LocalDate) entry.getValue();
                 String formattedDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(localDate);
                 query += "TO_DATE('" + formattedDate + "', 'yyyy-MM-dd'), ";
-
+                
             }
         }
         query = query.substring(0, query.length() - 2);
@@ -303,13 +303,8 @@ public class AdaptadorDao<T> implements DaoInterface<T> {
                 id = (Integer) entry.getValue();
             } else {
                 query += entry.getKey() + " = ";
-                if (entry.getValue().getClass().getSuperclass().getSimpleName().equalsIgnoreCase("Number")) {
+                if (entry.getValue().getClass().getSuperclass().getSimpleName().equalsIgnoreCase("Number") || entry.getValue().getClass().getSimpleName().equalsIgnoreCase("Boolean")) {
                     query += entry.getValue() + ", ";
-                }
-                if (entry.getValue().getClass().getSimpleName().equalsIgnoreCase("Boolean")) {
-                    boolean booleanValue = (Boolean) entry.getValue();
-                    int booleanIntValue = booleanValue ? 1 : 0;
-                    query += booleanIntValue + ", ";
                 }
                 if (entry.getValue().getClass().getSimpleName().equalsIgnoreCase("Date")) {
                     SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");

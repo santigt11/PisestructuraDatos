@@ -49,10 +49,9 @@ public class MatriculaBD extends AdaptadorDao<Matricula> {
     }
 
     public DynamicList<Matricula> buscarLineal(DynamicList<Matricula> lista, String campo, String valorBuscado) throws EmptyException {
-        DynamicList<Matricula> listaOrdenada = ordenarMerge(lista, campo, 0);
-        Matricula matriculas[] = listaOrdenada.toArray();
+        Matricula matriculas[] = lista.toArray();
         DynamicList<Matricula> listaBusqueda = new DynamicList<>();
-        for (int i = 0; i < listaOrdenada.getLength(); i++) {
+        for (int i = 0; i < lista.getLength(); i++) {
             Matricula matricula = matriculas[i];
             if (matricula.compareCampo(campo, valorBuscado) == 0) {
                 listaBusqueda.add(matricula);
@@ -61,16 +60,15 @@ public class MatriculaBD extends AdaptadorDao<Matricula> {
         return listaBusqueda;
     }
 
-    public Matricula buscarBinaria(DynamicList<Matricula> lista, String campo, String valorBuscado) throws EmptyException {
-        DynamicList<Matricula> listaOrdenada = ordenarMerge(lista, campo, 0);
+    public Matricula buscarBinaria(String campo, String valorBuscado) throws EmptyException {
         int inicio = 0;
-        int fin = listaOrdenada.getLength() - 1;
-        Matricula matriculas[] = listaOrdenada.toArray();
+        DynamicList<Matricula> lista = ordenarMerge(all(), "id", 1);
+        int fin = lista.getLength() - 1;
+        Matricula matriculas[] = lista.toArray();
         while (inicio <= fin) {
             int medio = (inicio + fin) / 2;
             Matricula matricula = matriculas[medio];
             int comparacion = matricula.compareCampo(campo, valorBuscado);
-
             if (comparacion == 0) {
                 return matricula;
             } else if (comparacion < 0) {

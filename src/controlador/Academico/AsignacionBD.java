@@ -65,10 +65,12 @@ public class AsignacionBD extends AdaptadorDao<Asignacion> {
         int inicio = 0;
         int fin = listaOrdenada.getLength() - 1;
         Asignacion asignaciones[] = listaOrdenada.toArray();
+
         while (inicio <= fin) {
             int medio = (inicio + fin) / 2;
             Asignacion asignacion = asignaciones[medio];
             int comparacion = asignacion.compareCampo(campo, valorBuscado);
+
             if (comparacion == 0) {
                 return asignacion;
             } else if (comparacion < 0) {

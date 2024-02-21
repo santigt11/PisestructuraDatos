@@ -20,7 +20,6 @@ import javax.swing.JList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import modelo.Asignacion;
-import modelo.Asignatura;
 import modelo.Matricula;
 import modelo.CursaTutoria;
 import modelo.Tutoria;
@@ -144,11 +143,11 @@ public class Utilvista {
         return (Facultad) facultad;
     }
     
-    public static void cargarComboAsignaturas(JComboBox cbx, DynamicList<Asignatura> lista) throws EmptyException {
-        Asignatura[] asignaturas = lista.toArray();
+    public static void cargarComboAsignaturas(JComboBox cbx) throws EmptyException {
+        AsignaturaBD ct = new AsignaturaBD();
         cbx.removeAllItems();
-        for (Integer i = 0; i < lista.getLength(); i++) {
-            cbx.addItem(asignaturas[i]);
+        for (Integer i = 0; i < ct.getAsignaturas().getLength(); i++) {
+            cbx.addItem(ct.getAsignaturas().getInfo(i));
         }
     }
     

@@ -82,42 +82,8 @@ public class Asignatura {
                 return this.nombre.compareToIgnoreCase(valorBuscado);
             case "mallaCurricular_ID":
                 return this.ciclo_ID.compareTo(Integer.parseInt(valorBuscado));
-            case "id":
-                return this.id.compareTo(Integer.parseInt(valorBuscado));
             default:
                 throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
-        }
-    }
-    
-    public Boolean compare(Asignatura a, String field, Integer type) {
-        //0 menor 1 mayor
-        switch (type) {
-            case 0:// Si el tipo es 0 es menor
-                if (field.equalsIgnoreCase("ciclo_id")) {
-                    return ciclo_ID.compareTo(a.getCiclo_ID()) < 0;//compara
-                } else if (field.equalsIgnoreCase("nombre")) {
-                    return nombre.compareTo(a.getNombre()) < 0;
-                } else if (field.equalsIgnoreCase("codigo")) {
-                    return codigo.compareTo(a.getCodigo()) < 0;
-                } else if (field.equalsIgnoreCase("id")) {
-                    return id.compareTo(a.getId()) < 0;
-                }else if (field.equalsIgnoreCase("tipoUnidad_id")) {
-                    return tipoUnidad_ID.compareTo(a.getTipoUnidad_ID()) < 0;
-                }
-            case 1: //si el tipo es 1 es mayor
-                if (field.equalsIgnoreCase("ciclo_id")) {
-                    return ciclo_ID.compareTo(a.getCiclo_ID()) > 0;//compara
-                } else if (field.equalsIgnoreCase("nombre")) {
-                    return nombre.compareTo(a.getNombre()) > 0;
-                } else if (field.equalsIgnoreCase("codigo")) {
-                    return codigo.compareTo(a.getCodigo()) > 0;
-                } else if (field.equalsIgnoreCase("id")) {
-                    return id.compareTo(a.getId()) > 0;
-                }else if (field.equalsIgnoreCase("tipoUnidad_id")) {
-                    return tipoUnidad_ID.compareTo(a.getTipoUnidad_ID()) > 0;
-                }
-            default:
-                throw new AssertionError();
         }
     }
 }

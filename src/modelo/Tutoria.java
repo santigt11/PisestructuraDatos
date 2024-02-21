@@ -152,8 +152,4 @@ public class Tutoria {
         }
     }
 
-    @Override
-    public String toString() {
-        return fecha + " " + horaInicio + " " + horaFin;
-    }
 }
