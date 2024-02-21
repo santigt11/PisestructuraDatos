@@ -235,9 +235,9 @@ public class Acceso extends javax.swing.JFrame {
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
         // TODO add your handling code here:
         if (!txtNombreUsuario.getText().isEmpty() && !String.valueOf(txtContraseña.getPassword()).isEmpty()) {
-            Usuario user= null;
+            Persona persona= null;
             try {
-                user = controlUsuario.autenticarse(txtNombreUsuario.getText(), String.valueOf(txtContraseña.getPassword()));
+                persona = controlPersona.autenticarse(txtNombreUsuario.getText(), String.valueOf(txtContraseña.getPassword()));
                 //System.out.println(user.getClave());
                 //System.out.println(user.getCorreo());
             } catch (EmptyException ex) {
@@ -245,8 +245,8 @@ public class Acceso extends javax.swing.JFrame {
             }
             //controlUsuario.getPerson(user.getId_Persona())
             //Actualiza el usuario en el controlador de usuarios
-            controlUsuario.setUsuario(user);
-            Persona persona = null;//
+            controlPersona.setPersona(persona);
+            Usuario user = null;//
             try {
                 //buscar persona por medio del dni
             persona = controlPersona.buscarBinaria("dni", user.getPersona_DNI());                //System.out.println(persona.getNombre().toString());
