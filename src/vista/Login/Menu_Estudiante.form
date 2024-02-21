@@ -149,6 +149,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="buttonIcon2"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TutoriasEActionPerformed"/>
+          </Events>
         </Component>
         <Component class="org.edisoncor.gui.button.ButtonIcon" name="HorarioE">
           <Properties>

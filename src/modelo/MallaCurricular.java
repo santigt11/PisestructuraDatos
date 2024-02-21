@@ -8,22 +8,15 @@ public class MallaCurricular {
     private Boolean vigencia;
     private Integer carrera_ID;
 
-    public MallaCurricular(Integer id, String descripcion, String pensum, Integer idCarrera) {
-        this.id = id;
-        this.descripcion = descripcion;
-        this.pensum = pensum;
-        this.carrera_ID = idCarrera;
-    }
-
     public MallaCurricular() {
     }
-
-    public MallaCurricular(Integer id, String descripcion, String pensum, Integer idCarrera, Boolean vigencia) {
+    
+    public MallaCurricular(Integer id, String descripcion, String pensum, Boolean vigencia, Integer carrera_ID) {
         this.id = id;
         this.descripcion = descripcion;
         this.pensum = pensum;
         this.vigencia = vigencia;
-        this.carrera_ID = idCarrera;
+        this.carrera_ID = carrera_ID;
     }
 
     public Integer getId() {
@@ -50,20 +43,20 @@ public class MallaCurricular {
         this.pensum = pensum;
     }
 
-    public Integer getCarrera_ID() {
-        return carrera_ID;
-    }
-
-    public void setCarrera_ID(Integer idCarrera) {
-        this.carrera_ID = idCarrera;
-    }
-
-    public boolean getVigencia() {
+    public Boolean getVigencia() {
         return vigencia;
     }
 
     public void setVigencia(Boolean vigencia) {
         this.vigencia = vigencia;
+    }
+
+    public Integer getCarrera_ID() {
+        return carrera_ID;
+    }
+
+    public void setCarrera_ID(Integer carrera_ID) {
+        this.carrera_ID = carrera_ID;
     }
 
     @Override

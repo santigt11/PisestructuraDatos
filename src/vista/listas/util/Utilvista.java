@@ -1,10 +1,8 @@
 package vista.listas.util;
 
-import controlador.Academico.AsignaturaBD;
-import controlador.Academico.CarreraBD;
-import controlador.Academico.CicloBD;
-import controlador.Academico.FacultadBD;
-import controlador.Academico.MallaBD;
+import controlador.Academico.*;
+import controlador.Admin.PersonaBD;
+import controlador.Login.UsuarioBD;
 import controlador.Matriculas.MatriculaBD;
 import controlador.Matriculas.CursaTutoriaBD;
 import controlador.Matriculas.CursaBD;
@@ -13,13 +11,14 @@ import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JComboBox;
-import modelo.Facultad;
-import modelo.Carrera;
-import modelo.MallaCurricular;
+
+import modelo.*;
+
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import modelo.Asignacion;
+import modelo.Asignatura;
 import modelo.Matricula;
 import modelo.CursaTutoria;
 import modelo.Tutoria;
@@ -41,14 +40,30 @@ public class Utilvista {
 //        }
 //    }
 
-    public static void cargarComboFacultades(JComboBox cbx) throws EmptyException {
+    //CARGAR COMBOBOX
+
+    public static void cargarComboUniversidades(JComboBox cbx) throws EmptyException {
+        UniversidadBD un = new UniversidadBD();
+        un.setUniversidades(un.all());
+        cbx.removeAllItems();
+        for (Integer i = 0; i < un.getUniversidades().getLength(); i++) {
+            cbx.addItem(un.getUniversidades().getInfo(i));
+        }
+    }
+
+    public static Universidad obtenerUniversidadControl(JComboBox cbx) {
+        return (Universidad) cbx.getSelectedItem();
+    }
+
+    public static void cargarComboFacultades(JComboBox cbx, Universidad universidad) throws EmptyException {
         FacultadBD fa = new FacultadBD();
         fa.setFacultades(fa.all());
         cbx.removeAllItems();
         for (Integer i = 0; i < fa.getFacultades().getLength(); i++) {
-            cbx.addItem(fa.getFacultades().getInfo(i));
+            if (fa.getFacultades().getInfo(i).getUniversidad_ID().equals(universidad.getId())) {
+                cbx.addItem(fa.getFacultades().getInfo(i));
+            }
         }
-
     }
 
     public static Facultad obtenerFacultadControl(JComboBox cbx) {
@@ -143,11 +158,11 @@ public class Utilvista {
         return (Facultad) facultad;
     }
     
-    public static void cargarComboAsignaturas(JComboBox cbx) throws EmptyException {
-        AsignaturaBD ct = new AsignaturaBD();
+    public static void cargarComboAsignaturas(JComboBox cbx, DynamicList<Asignatura> lista) throws EmptyException {
+        Asignatura[] asignaturas = lista.toArray();
         cbx.removeAllItems();
-        for (Integer i = 0; i < ct.getAsignaturas().getLength(); i++) {
-            cbx.addItem(ct.getAsignaturas().getInfo(i));
+        for (Integer i = 0; i < lista.getLength(); i++) {
+            cbx.addItem(asignaturas[i]);
         }
     }
     
@@ -159,26 +174,56 @@ public class Utilvista {
             JOptionPane.showMessageDialog(null, "Lista vacia");
         } else {
             for (int i = 0; i < contratos.getLength(); i++) {
-                cbx.addItem(aa.buscarBinaria("codigo", contratosArray[i].getAsignatura_CODIGO()));
+                cbx.addItem(aa.buscarBinaria(aa.all(), "codigo", contratosArray[i].getAsignatura_CODIGO()));
             }
         }
     }
-
+    
+    public static void cargarListaDocentes(JList lst) throws EmptyException {
+        UsuarioBD ea = new UsuarioBD();
+        PersonaBD pa = new PersonaBD();
+        Persona[] personas = pa.all().toArray();
+        Usuario[] usuarios = ea.all().toArray();
+        DefaultListModel modeloLista = new DefaultListModel();
+        for (Integer i = 0; i < usuarios.length; i++) {
+            if (usuarios[i].getRol_id() == 2) {
+                modeloLista.addElement(pa.buscarBinaria(pa.all(), "dni", usuarios[i].getPersona_DNI()));
+            }
+        }
+        lst.setModel(modeloLista);
+    }
+    
     public static Carrera obtenerCarreraControl(JList lst, Facultad facultad) {
         Object carrera = lst.getSelectedValue();
         return (Carrera) carrera;
     }
 
-    public static void cargarListaFacultades(JList lst) throws EmptyException {
-        FacultadBD fa = new FacultadBD();
-        fa.setFacultades(fa.all());
+    //CARGAR LISTAS
+
+    //Universidad
+    public static void cargarListaUniversidades(JList lst) throws EmptyException {
+        UniversidadBD un = new UniversidadBD();
+        un.setUniversidades(un.all());
 
         DefaultListModel modeloLista = new DefaultListModel();
 
-        for (Integer i = 0; i < fa.getFacultades().getLength(); i++) {
-            modeloLista.addElement(fa.getFacultades().getInfo(i));
+        for (Integer i = 0; i < un.getUniversidades().getLength(); i++) {
+            modeloLista.addElement(un.getUniversidades().getInfo(i));
         }
 
+        lst.setModel(modeloLista);
+    }
+
+    //Facultad
+    public static void cargarListaFacultades(JList lst, Universidad universidad) throws EmptyException {
+        FacultadBD fa = new FacultadBD();
+        fa.setFacultades(fa.all());
+        DefaultListModel modeloLista = new DefaultListModel();
+        for (Integer i = 0; i < fa.getFacultades().getLength(); i++) {
+            if (fa.getFacultades().getInfo(i).getUniversidad_ID().equals(universidad.getId())) {
+                modeloLista.addElement(fa.getFacultades().getInfo(i));
+            }
+        }
         lst.setModel(modeloLista);
     }
 
@@ -230,17 +275,18 @@ public class Utilvista {
         lst.setModel(modeloLista);
     }
 
-//    public static void cargarListaEstudiantes(JList lst) throws EmptyException {
-//        PersonaBD ea = new PersonaBD();
-//        ea.setPersonas(ea.all());
-//        DefaultListModel modeloLista = new DefaultListModel();
-//        for (Integer i = 0; i < ea.getPersonas().getLength(); i++) {
-//            if (ea.getPersonas().getInfo(i).getRol().toString().equals("ESTUDIANTE")) {
-//                modeloLista.addElement(ea.getPersonas().getInfo(i));
-//            }
-//        }
-//        lst.setModel(modeloLista);
-//    }
+    public static void cargarListaEstudiantes(JList lst) throws EmptyException {
+        UsuarioBD ea = new UsuarioBD();
+        ea.setUsuarios(ea.all());
+        DefaultListModel modeloLista = new DefaultListModel();
+        for (Integer i = 0; i < ea.getUsuarios().getLength(); i++) {
+            if (ea.getUsuarios().getInfo(i).getRol_id() == 1) {
+                modeloLista.addElement(ea.getUsuarios().getInfo(i));
+            }
+        }
+        lst.setModel(modeloLista);
+    }
+    
     public static void cargarListaCursaTutorias(DynamicList<CursaTutoria> tutoriasM, JList lst) throws EmptyException {
         DefaultListModel modeloLista = new DefaultListModel();
         for (Integer i = 0; i < tutoriasM.getLength(); i++) {
@@ -249,17 +295,17 @@ public class Utilvista {
         lst.setModel(modeloLista);
     }
 
-//    public static void cargarListaMatriculasAsignaturas(JList lst, MatriculaBD matriculaControl, AsignacionMatriculaBD matriculaAsignaturaControl) throws EmptyException {
-//        AsignacionMatriculaBD maa = new AsignacionMatriculaBD();
-//        matriculaAsignaturaControl.setAsgMatriculas(maa.all());
-//        DefaultListModel modeloLista = new DefaultListModel();
-//        for (Integer i = 0; i < matriculaAsignaturaControl.getAsgMatriculas().getLength(); i++) {
-//            if (matriculaAsignaturaControl.getAsgMatriculas().getInfo(i).getMatricula_ID().equals(matriculaControl.getMatricula().getId())) {
-//                modeloLista.addElement(matriculaAsignaturaControl.getAsgMatriculas().getInfo(i));
-//            }
-//        }
-//        lst.setModel(modeloLista);
-//    }
+    public static void cargarListaMatriculasAsignaturas(JList lst, MatriculaBD matriculaControl, CursaBD matriculaAsignaturaControl) throws EmptyException {
+        CursaBD maa = new CursaBD();
+        matriculaAsignaturaControl.setCursas(maa.all());
+        DefaultListModel modeloLista = new DefaultListModel();
+        for (Integer i = 0; i < matriculaAsignaturaControl.getCursasTodas().getLength(); i++) {
+            if (matriculaAsignaturaControl.getCursasTodas().getInfo(i).getMatricula_ID().equals(matriculaControl.getMatricula().getId())) {
+                modeloLista.addElement(matriculaAsignaturaControl.getCursasTodas().getInfo(i));
+            }
+        }
+        lst.setModel(modeloLista);
+    }
 //
 //    public static void cargarListaUsuariosD(JList lst) throws EmptyException {
 //        UsuarioBD ud = new UsuarioBD();
@@ -273,17 +319,6 @@ public class Utilvista {
 //        lst.setModel(modeloLista);
 //    }
 //
-//    public static void cargarListaEstudiantes(JList lst) throws EmptyException {
-//        PersonaArchivos ea = new PersonaArchivos();
-//        ea.setPersonas(ea.all());
-//        DefaultListModel modeloLista = new DefaultListModel();
-//        for (Integer i = 0; i < ea.getPersonas().getLength(); i++) {
-//            if (ea.getPersonas().getInfo(i).getRol().toString().equals("ESTUDIANTE")) {
-//                modeloLista.addElement(ea.getPersonas().getInfo(i));
-//            }
-//        }
-//        lst.setModel(modeloLista);
-//    }
 //
 //    public static void cargarListaTutoriaMatricula(DynamicList<TutoriaMatricula> tutoriasM, JList lst) throws EmptyException {
 //        DefaultListModel modeloLista = new DefaultListModel();
@@ -293,17 +328,6 @@ public class Utilvista {
 //        lst.setModel(modeloLista);
 //    }
 //
-//    public static void cargarListaMatriculasAsignaturas(JList lst, MatriculaArchivos matriculaControl, MatriculaAsignaturaArchivos matriculaAsignaturaControl) throws EmptyException {
-//        MatriculaAsignaturaArchivos maa = new MatriculaAsignaturaArchivos();
-//        matriculaAsignaturaControl.setAsgMatriculas(maa.all());
-//        DefaultListModel modeloLista = new DefaultListModel();
-//        for (Integer i = 0; i < matriculaAsignaturaControl.getAsgMatriculas().getLength(); i++) {
-//            if (matriculaAsignaturaControl.getAsgMatriculas().getInfo(i).getMatricula_ID().equals(matriculaControl.getMatricula().getId())) {
-//                modeloLista.addElement(matriculaAsignaturaControl.getAsgMatriculas().getInfo(i));
-//            }
-//        }
-//        lst.setModel(modeloLista);
-//    }
     public static void cargarListaPersonas(DynamicList<Persona> lista, JList lst) throws EmptyException {
         DefaultListModel modeloLista = new DefaultListModel();
         for (Integer i = 0; i < lista.getLength(); i++) {

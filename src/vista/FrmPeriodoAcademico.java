@@ -11,23 +11,30 @@ import javax.swing.JOptionPane;
 public class FrmPeriodoAcademico extends javax.swing.JFrame {
     
     int xMouse, yMouse;
-
+    
     private PeriodoBD filePeriodo = new PeriodoBD();
     
     public Boolean verificar() {
         return (!dtInicio.getDate().toString().isEmpty()
                 && !dtFin.getDate().toString().isEmpty());
     }
-
+    
     private void guardar() throws EmptyException, Exception {
         if (verificar()) {
-                filePeriodo.getPeriodo().setFechaIncio(dtInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-                filePeriodo.getPeriodo().setFechaFin(dtFin.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            filePeriodo.getPeriodo().setFechaInicio(dtInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            filePeriodo.getPeriodo().setFechaFin(dtFin.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            filePeriodo.getPeriodo().setEstadoActivo(true);
+            
+            if (filePeriodo.persist(filePeriodo.getPeriodo())) {
+                if (filePeriodo.getPeriodos().getLength() > 1) {
+                    filePeriodo.getPeriodos().getInfo((filePeriodo.getPeriodos().getLength() - 1)).setEstadoActivo(false);
+                }
+                JOptionPane.showMessageDialog(null, "Periodo Academico guardada");
+                limpiar();
+                filePeriodo.setPeriodo(null);
+            } else {
                 
-                    filePeriodo.persist(filePeriodo.getPeriodo());
-                    JOptionPane.showMessageDialog(null, "Periodo Academico guardada");
-                    limpiar();
-                    filePeriodo.setPeriodo(null);
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -79,17 +86,21 @@ public class FrmPeriodoAcademico extends javax.swing.JFrame {
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(255, 250, 205));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Nueva Periodo Academico");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Fecha de Inicio:");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Fecha de Fin:");
 
+        btCrearAsignatura.setBackground(new java.awt.Color(102, 51, 0));
+        btCrearAsignatura.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btCrearAsignatura.setForeground(new java.awt.Color(255, 255, 255));
         btCrearAsignatura.setText("Crear Periodo Academico");
         btCrearAsignatura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,7 +108,7 @@ public class FrmPeriodoAcademico extends javax.swing.JFrame {
             }
         });
 
-        plSlide.setBackground(new java.awt.Color(255, 255, 255));
+        plSlide.setBackground(new java.awt.Color(102, 51, 0));
         plSlide.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 plSlideMouseDragged(evt);
@@ -112,7 +123,8 @@ public class FrmPeriodoAcademico extends javax.swing.JFrame {
             }
         });
 
-        plClose.setBackground(new java.awt.Color(255, 255, 255));
+        plClose.setBackground(new java.awt.Color(102, 51, 0));
+        plClose.setForeground(new java.awt.Color(255, 255, 255));
         plClose.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 plCloseMouseEntered(evt);
@@ -121,19 +133,10 @@ public class FrmPeriodoAcademico extends javax.swing.JFrame {
                 plCloseMouseExited(evt);
             }
         });
-
-        javax.swing.GroupLayout plCloseLayout = new javax.swing.GroupLayout(plClose);
-        plClose.setLayout(plCloseLayout);
-        plCloseLayout.setHorizontalGroup(
-            plCloseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-        plCloseLayout.setVerticalGroup(
-            plCloseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        plClose.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         X.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        X.setForeground(new java.awt.Color(255, 255, 255));
         X.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         X.setText("X");
         X.setVerticalAlignment(javax.swing.SwingConstants.TOP);
@@ -156,7 +159,7 @@ public class FrmPeriodoAcademico extends javax.swing.JFrame {
         plSlideLayout.setHorizontalGroup(
             plSlideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, plSlideLayout.createSequentialGroup()
-                .addGap(0, 463, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(plClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(X, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -174,47 +177,43 @@ public class FrmPeriodoAcademico extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(plSlide, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
-                        .addComponent(btCrearAsignatura))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(43, 43, 43)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3))
                         .addGap(28, 28, 28)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(dtFin, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
-                                .addComponent(dtInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btCrearAsignatura)
+                            .addComponent(dtFin, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(136, 136, 136)
+                        .addComponent(jLabel1)))
+                .addContainerGap(129, Short.MAX_VALUE))
+            .addComponent(plSlide, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(plSlide, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addGap(38, 38, 38)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(61, 61, 61)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel1)
-                        .addGap(33, 33, 33)
-                        .addComponent(dtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48)
                         .addComponent(dtFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)))
-                .addComponent(btCrearAsignatura)
-                .addGap(65, 65, 65))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                        .addComponent(btCrearAsignatura)
+                        .addGap(50, 50, 50))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -264,14 +263,6 @@ public class FrmPeriodoAcademico extends javax.swing.JFrame {
         plClose.setBackground(Color.white);
     }//GEN-LAST:event_XMouseExited
 
-    private void plCloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plCloseMouseEntered
-        
-    }//GEN-LAST:event_plCloseMouseEntered
-
-    private void plCloseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plCloseMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_plCloseMouseExited
-
     private void plSlideMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plSlideMouseEntered
         plClose.setBackground(Color.white);
     }//GEN-LAST:event_plSlideMouseEntered
@@ -279,6 +270,14 @@ public class FrmPeriodoAcademico extends javax.swing.JFrame {
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
         plClose.setBackground(Color.white);
     }//GEN-LAST:event_formMouseEntered
+
+    private void plCloseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plCloseMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_plCloseMouseExited
+
+    private void plCloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plCloseMouseEntered
+
+    }//GEN-LAST:event_plCloseMouseEntered
 
     /**
      * @param args the command line arguments

@@ -4,7 +4,10 @@
  */
 package vista.Login;
 
+import controlador.TDA.listas.Exception.EmptyException;
 import java.awt.BorderLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,6 +15,7 @@ import modelo.Persona;
 import modelo.Usuario;
 import vista.CambiarClave;
 import vista.Perfiles;
+import vista.Tutorias.FrmTutoriasPrincipal;
 
 /**
  *
@@ -112,6 +116,11 @@ public class Menu_Estudiante extends javax.swing.JFrame {
         TutoriasE.setBackground(new java.awt.Color(255, 250, 205));
         TutoriasE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/1118177-removebg-preview(1).png"))); // NOI18N
         TutoriasE.setText("buttonIcon2");
+        TutoriasE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TutoriasEActionPerformed(evt);
+            }
+        });
 
         HorarioE.setBackground(new java.awt.Color(255, 250, 205));
         HorarioE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/images-removebg-preview(1).png"))); // NOI18N
@@ -367,6 +376,14 @@ public class Menu_Estudiante extends javax.swing.JFrame {
         login.setVisible(true); // Mostrar la ventana de inicio de sesión
         dispose();
     }//GEN-LAST:event_btnCerrarSesionMouseClicked
+
+    private void TutoriasEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TutoriasEActionPerformed
+        try {
+            new FrmTutoriasPrincipal(user).setVisible(true);
+        } catch (EmptyException ex) {
+            Logger.getLogger(Menu_Estudiante.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_TutoriasEActionPerformed
 
     /**
      * @param args the command line arguments

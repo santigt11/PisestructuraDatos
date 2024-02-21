@@ -7,6 +7,7 @@ import controlador.Login.UsuarioBD;
 import controlador.Matriculas.MatriculaBD;
 import controlador.Matriculas.CursaBD;
 import controlador.Matriculas.CursaTutoriaBD;
+import controlador.TDA.listas.DynamicList;
 import controlador.Tutorias.TutoriaBD;
 import controlador.TDA.listas.Exception.EmptyException;
 import java.time.ZoneId;
@@ -22,8 +23,9 @@ import vista.listas.util.Utilvista;
 
 public class FrmNuevaTutoria extends javax.swing.JFrame {
 
-    public FrmNuevaTutoria() throws EmptyException {
+    public FrmNuevaTutoria(Usuario usuario) throws EmptyException {
         initComponents();
+        cargarDocente(usuario);
         limpiar();
     }
 
@@ -38,7 +40,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private static Usuario usuarioNavegacion;
     DefaultListModel modeloLista;
 
-    public static void cargarDocente(Usuario usuario) {
+    public void cargarDocente(Usuario usuario) {
         if (usuario.getRol_id() == 2) {
             usuarioNavegacion = usuario;
         }
@@ -49,11 +51,9 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         asignacionControl.setAsignacion(null);
         personaControl.setPersona(null);
         personaControl.setPersonas(null);
-        usuarioNavegacion = usuarioControl.buscarBinaria(usuarioControl.all(), "id", "1");
-        usuarioControl.setUsuario(usuarioControl.buscarBinaria(usuarioControl.all(), "id", "1"));
         personaControl.setPersona(personaControl.buscarBinaria(personaControl.all(), "dni", usuarioNavegacion.getPersona_DNI()));
         lbDocente.setText(personaControl.getPersona().getApellido() + " " + personaControl.getPersona().getNombre());
-        asignacionControl.setAsignaciones(asignacionControl.buscarLineal(asignacionControl.all(), "usuario_ID", String.valueOf(usuarioControl.getUsuario().getId())));
+        asignacionControl.setAsignaciones(asignacionControl.buscarLineal(asignacionControl.all(), "usuario_ID", String.valueOf(usuarioNavegacion.getId())));
         Utilvista.cargarComboAsignacion(asignacionControl.getAsignaciones(), cbxAsignatura);
     }
 
@@ -80,8 +80,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private void cargarListaCursas() throws EmptyException {
         lstCursa.removeAll(); // Elimina todos los elementos de la lista
         if (cbxAsignatura.getSelectedIndex() >= 0) { // Verificar que el índice seleccionado sea válido
-            String codigoAsignatura = asignaturaControl.get(cbxAsignatura.getSelectedIndex() + 1).getCodigo();
-            cursaControl.setCursas(cursaControl.buscarLineal(cursaControl.getCursasTodas(), "asignatura_codigo", codigoAsignatura));
+            cursaControl.setCursas(cursaControl.buscarLineal(cursaControl.all(), "asignatura_codigo", asignaturaControl.buscarBinaria(asignaturaControl.all(),"nombre", cbxAsignatura.getSelectedItem().toString()).getCodigo()));
             if (!cursaControl.getCursas().isEmpty()) {
                 Matricula matricula;
                 for (int i = 0; i < cursaControl.getCursas().getLength(); i++) {
@@ -95,8 +94,12 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
                     personaControl.setPersonas(null);
                     personaControl.getPersonas().add(persona);
                 }
+                System.out.println("\nPERSONAS GUARDADAS EN PERSONA CONTROL");
+                System.out.println(personaControl.getPersonas());
                 Utilvista.cargarListaPersonas(personaControl.getPersonas(), lstCursa);
                 personaControl.setPersonas(null);
+            }else{
+                Utilvista.cargarListaPersonas(new DynamicList<>(), lstCursa);
             }
         }
     }
@@ -110,7 +113,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
             tutoriaControl.getTutoria().setHoraInicio(cbxHoraInicio.getSelectedItem().toString());
             tutoriaControl.getTutoria().setHorarioValido(true);
             tutoriaControl.getTutoria().setId(tutoriaControl.all().getLength() + 1);
-            asignacionControl.setAsignaciones(asignacionControl.buscarLineal(asignacionControl.all(), "asignatura_codigo", asignaturaControl.buscarBinaria("nombre", cbxAsignatura.getSelectedItem().toString()).getCodigo()));
+            asignacionControl.setAsignaciones(asignacionControl.buscarLineal(asignacionControl.all(), "asignatura_codigo", asignaturaControl.buscarBinaria(asignaturaControl.all(), "nombre", cbxAsignatura.getSelectedItem().toString()).getCodigo()));
             asignacionControl.setAsignacion(asignacionControl.buscarBinaria(asignacionControl.getAsignaciones(), "usuario_id", String.valueOf(usuarioNavegacion.getId())));
             tutoriaControl.getTutoria().setAsignacion_ID(asignacionControl.getAsignacion().getId());
         } else {
@@ -128,6 +131,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         txtTema.setEnabled(true);
         cbxAsignatura.setSelectedIndex(0);
         cbxHoraInicio.setSelectedIndex(0);
+        cbxHoraFin.setSelectedIndex(0);
         tutoriaControl.setTutoria(null);
         tutoriaControl.setTutorias(null);
         asignacionControl.setAsignacion(null);
@@ -144,7 +148,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
             Persona estudiante = (Persona) p;
             personaControl.getPersonas().add(estudiante);
             usuarioControl.setUsuario(usuarioControl.buscarBinaria(usuarioControl.all(), "persona_dni", estudiante.getDni()));
-            matriculaControl.setMatricula(matriculaControl.buscarBinaria("usuario_id", String.valueOf(usuarioControl.getUsuario().getId())));
+            matriculaControl.setMatricula(matriculaControl.buscarBinaria(matriculaControl.all(), "usuario_id", String.valueOf(usuarioControl.getUsuario().getId())));
             cursaControl.setCursas(cursaControl.buscarLineal(cursaControl.all(), "matricula_id", String.valueOf(matriculaControl.getMatricula().getId())));
             cursaControl.setCursa(cursaControl.buscarBinaria(cursaControl.getCursas(), "asignatura_codigo", asignaturaControl.get(cbxAsignatura.getSelectedIndex() + 1).getCodigo()));
             cursaTutoriasControl.getCursaTutoria().setTutoria_ID(tutoriaControl.getTutoria().getId());
@@ -202,8 +206,9 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         lbDocente = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocationByPlatform(true);
         setResizable(false);
 
@@ -527,11 +532,22 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         jLabel15.setText("Docente:");
         bg.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, -1, -1));
 
+        jButton1.setBackground(new java.awt.Color(102, 51, 0));
+        jButton1.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Salir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        bg.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 610, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE)
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -587,7 +603,11 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     }//GEN-LAST:event_btDescartar1ActionPerformed
 
     private void cbxAsignaturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxAsignaturaMouseClicked
-
+        try {
+            cargarListaCursas();
+        } catch (EmptyException ex) {
+            Logger.getLogger(FrmNuevaTutoria.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_cbxAsignaturaMouseClicked
 
     private void cbxHoraInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxHoraInicioMouseClicked
@@ -597,11 +617,15 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private void cbxHoraFinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxHoraFinMouseClicked
 
     }//GEN-LAST:event_cbxHoraFinMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new FrmNuevaTutoria().setVisible(true);
+                    new FrmNuevaTutoria(new Usuario()).setVisible(true);
                 } catch (EmptyException ex) {
                     Logger.getLogger(FrmNuevaTutoria.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -619,6 +643,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbxHoraInicio;
     private javax.swing.JComboBox<String> cbxModalidad;
     private com.toedter.calendar.JDateChooser dcFecha;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

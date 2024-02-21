@@ -9,26 +9,27 @@ import controlador.Academico.CarreraBD;
 import controlador.Academico.CicloBD;
 import controlador.Academico.FacultadBD;
 import controlador.Academico.MallaBD;
+import controlador.Academico.UniversidadBD;
+import controlador.TDA.listas.DynamicList;
 import java.awt.Color;
-import modelo.Facultad;
-import modelo.Carrera;
-import modelo.MallaCurricular;
-import modelo.Asignatura;
-import modelo.Ciclo;
+
+import modelo.*;
 
 import vista.listas.util.Utilvista;
 
 public class FrmAcademico extends javax.swing.JFrame {
 
-    private FacultadBD fileFacultad = new FacultadBD();
-    private CarreraBD fileCarrera = new CarreraBD();
-    private MallaBD fileMalla = new MallaBD();
-    private CicloBD fileCiclo = new CicloBD();
-    private AsignaturaBD fileAsignatura = new AsignaturaBD();
+    private final UniversidadBD fileUniversidad = new UniversidadBD();
+    private final FacultadBD fileFacultad = new FacultadBD();
+    private final CarreraBD fileCarrera = new CarreraBD();
+    private final MallaBD fileMalla = new MallaBD();
+    private final CicloBD fileCiclo = new CicloBD();
+    private final AsignaturaBD fileAsignatura = new AsignaturaBD();
 
     public FrmAcademico() throws EmptyException {
         initComponents();
-        jpFacultad.setVisible(true);
+        jpUniversidad.setVisible(true);
+        jpFacultad.setVisible(false);
         jpCarrera.setVisible(false);
         jpMalla.setVisible(false);
         jpCiclo.setVisible(false);
@@ -39,6 +40,12 @@ public class FrmAcademico extends javax.swing.JFrame {
 
     public Boolean verificar(Integer var) {
         switch (var) {
+            //Universidad
+            case 0:
+                return (!txtNombreU.getText().trim().isEmpty()
+                        && !txtDireccionU.getText().trim().isEmpty()
+                        && !txtCorreoU.getText().trim().isEmpty());
+
             //Facultad
             case 1:
                 return (!txtNombreF.getText().trim().isEmpty()
@@ -54,7 +61,7 @@ public class FrmAcademico extends javax.swing.JFrame {
 
             //Malla Curricular
             case 3:
-                String fm = cbxFacultadC.getSelectedItem() != null ? cbxFacultadC.getSelectedItem().toString().trim() : "";
+                String fm = cbxFacultadM.getSelectedItem() != null ? cbxFacultadM.getSelectedItem().toString().trim() : "";
                 String cm = cbxCarreraM.getSelectedItem() != null ? cbxCarreraM.getSelectedItem().toString().trim() : "";
                 return (!cm.isEmpty()
                         && !fm.isEmpty()
@@ -63,20 +70,19 @@ public class FrmAcademico extends javax.swing.JFrame {
 
             //Ciclo
             case 4:
-                String fcl = cbxFacultadCl.getSelectedItem() != null ? cbxMallaA.getSelectedItem().toString().trim() : "";
-                String ccl = cbxCarreraCl.getSelectedItem() != null ? cbxMallaA.getSelectedItem().toString().trim() : "";
-                String mcl = cbxMallaCl.getSelectedItem() != null ? cbxMallaA.getSelectedItem().toString().trim() : "";
+                String fcl = cbxFacultadCl.getSelectedItem() != null ? cbxFacultadCl.getSelectedItem().toString().trim() : "";
+                String ccl = cbxCarreraCl.getSelectedItem() != null ? cbxCarreraCl.getSelectedItem().toString().trim() : "";
+                String mcl = cbxMallaCl.getSelectedItem() != null ? cbxMallaCl.getSelectedItem().toString().trim() : "";
                 return (!fcl.isEmpty()
                         && !ccl.isEmpty()
-                        && !mcl.isEmpty()
-                        && !txtNombreCl.getText().trim().isEmpty());
+                        && !mcl.isEmpty());
 
-            //Asigantura
+            //Asignatura
             case 5:
-                String fa = cbxFacultadA.getSelectedItem() != null ? cbxMallaA.getSelectedItem().toString().trim() : "";
-                String ca = cbxCarreraA.getSelectedItem() != null ? cbxMallaA.getSelectedItem().toString().trim() : "";
+                String fa = cbxFacultadA.getSelectedItem() != null ? cbxFacultadA.getSelectedItem().toString().trim() : "";
+                String ca = cbxCarreraA.getSelectedItem() != null ? cbxCarreraA.getSelectedItem().toString().trim() : "";
                 String ma = cbxMallaA.getSelectedItem() != null ? cbxMallaA.getSelectedItem().toString().trim() : "";
-                String cla = cbxCicloA.getSelectedItem() != null ? cbxMallaA.getSelectedItem().toString().trim() : "";
+                String cla = cbxCicloA.getSelectedItem() != null ? cbxCicloA.getSelectedItem().toString().trim() : "";
                 return (!fa.isEmpty()
                         && !ca.isEmpty()
                         && !ma.isEmpty()
@@ -91,16 +97,18 @@ public class FrmAcademico extends javax.swing.JFrame {
 
     private void limpiar() throws EmptyException {
         try {
-            if (!fileFacultad.getFacultades().isEmpty()) {
-                Utilvista.cargarComboFacultades(cbxFacultadC);
-                Utilvista.cargarComboFacultades(cbxFacultadM);
-                Utilvista.cargarComboFacultades(cbxFacultadCl);
-                Utilvista.cargarComboFacultades(cbxFacultadA);
-                Utilvista.cargarListaFacultades(lstFacultad);
+            if (!fileUniversidad.getUniversidades().isEmpty()) {
+                Utilvista.cargarComboUniversidades(cbxUniversidadF);
+                Utilvista.cargarComboUniversidades(cbxUniversidadC);
+                Utilvista.cargarComboUniversidades(cbxUniversidadM);
+                Utilvista.cargarComboUniversidades(cbxUniversidadCl);
+                Utilvista.cargarComboUniversidades(cbxUniversidadA);
+                Utilvista.cargarListaUniversidades(lstUniversidad);
             }
         } catch (EmptyException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
+        limpiarUniversidad();
         limpiarFacultad();
         limpiarCarrera();
         limpiarMalla();
@@ -108,7 +116,29 @@ public class FrmAcademico extends javax.swing.JFrame {
         limpiarAsignatura();
     }
 
+    private void limpiarUniversidad() {
+        txtNombreU.setText("");
+        txtDireccionU.setText("");
+        txtCorreoU.setText("");
+
+        txtNombreU.setEditable(true);
+        txtDireccionU.setEditable(true);
+        txtCorreoU.setEditable(true);
+        btCrearU.setEnabled(true);
+        btCrearU.setForeground(Color.WHITE);
+        btGCUniversidad.setEnabled(false);
+        btGCUniversidad.setForeground(Color.DARK_GRAY);
+        btModificarUniversidad.setEnabled(false);
+        btModificarUniversidad.setForeground(Color.DARK_GRAY);
+
+        Utilvista.limpiarLista(lstFacultad);
+
+        fileUniversidad.setUniversidad(null);
+        fileUniversidad.limpiarConexion();
+    }
+
     private void limpiarFacultad() {
+        cbxUniversidadF.setSelectedIndex(0);
         txtNombreF.setText("");
         txtCodigoF.setText("");
         txtCorreoF.setText("");
@@ -123,6 +153,10 @@ public class FrmAcademico extends javax.swing.JFrame {
         btModificarFacultad.setEnabled(false);
         btModificarFacultad.setForeground(Color.DARK_GRAY);
 
+        cbxUniversidadF.setVisible(true);
+        txtUniversidadFR.setText("");
+        txtUniversidadFR.setVisible(false);
+
         Utilvista.limpiarLista(lstCarrera);
 
         fileFacultad.setFacultad(null);
@@ -130,7 +164,8 @@ public class FrmAcademico extends javax.swing.JFrame {
     }
 
     private void limpiarCarrera() {
-        cbxFacultadC.setSelectedIndex(0);
+        cbxUniversidadC.setSelectedIndex(-1);
+        cbxFacultadC.setSelectedIndex(-1);
         txtNombreC.setText("");
         spnCiclo.setValue(0);
         txtFacultadCR.setText("");
@@ -145,7 +180,10 @@ public class FrmAcademico extends javax.swing.JFrame {
         btModificarCarrera.setEnabled(false);
         btModificarCarrera.setForeground(Color.DARK_GRAY);
 
+        cbxUniversidadC.setVisible(true);
         cbxFacultadC.setVisible(true);
+        txtUniversidadCR.setText("");
+        txtUniversidadCR.setVisible(false);
         txtFacultadCR.setText("");
         txtFacultadCR.setVisible(false);
 
@@ -156,13 +194,13 @@ public class FrmAcademico extends javax.swing.JFrame {
     }
 
     private void limpiarMalla() {
-        cbxFacultadM.setSelectedIndex(0);
-        cbxCarreraM.setSelectedIndex(0);
+        cbxUniversidadM.setSelectedIndex(-1);
+        cbxFacultadM.setSelectedIndex(-1);
+        cbxCarreraM.setSelectedIndex(-1);
         txtDescripcion.setText("");
         txtPensum.setText("");
         cbxVigencia.setSelectedIndex(0);
 
-        cbxFacultadM.setEnabled(true);
         cbxCarreraM.setEnabled(true);
         txtDescripcion.setEditable(true);
         txtPensum.setEditable(true);
@@ -174,8 +212,11 @@ public class FrmAcademico extends javax.swing.JFrame {
         btModificarMalla.setEnabled(false);
         btModificarMalla.setForeground(Color.DARK_GRAY);
 
+        cbxUniversidadM.setVisible(true);
         cbxFacultadM.setVisible(true);
         cbxCarreraM.setVisible(true);
+        txtUniversidadMR.setText("");
+        txtUniversidadMR.setVisible(false);
         txtFacultadMR.setText("");
         txtFacultadMR.setVisible(false);
         txtCarreraMR.setText("");
@@ -188,17 +229,15 @@ public class FrmAcademico extends javax.swing.JFrame {
     }
 
     private void limpiarCiclo() {
-        cbxFacultadCl.setSelectedIndex(0);
-        cbxCarreraCl.setSelectedIndex(0);
+        cbxUniversidadCl.setSelectedIndex(-1);
+        cbxFacultadCl.setSelectedIndex(-1);
+        cbxCarreraCl.setSelectedIndex(-1);
         cbxMallaCl.setSelectedIndex(-1);
-        txtNombreCl.setText("");
         cbxEstadoCl.setSelectedIndex(0);
 
-        cbxFacultadCl.setEnabled(true);
-        cbxCarreraCl.setEnabled(true);
-        cbxMallaCl.setEnabled(true);
-        txtNombreCl.setEditable(true);
+        spnCiclosCl.setEnabled(false);
         cbxEstadoCl.setEnabled(false);
+        spnCiclosCl.setEnabled(false);
         btCrearCl.setEnabled(true);
         btCrearCl.setForeground(Color.WHITE);
         btGCCiclo.setEnabled(false);
@@ -206,9 +245,12 @@ public class FrmAcademico extends javax.swing.JFrame {
         btModificarCiclo.setEnabled(false);
         btModificarCiclo.setForeground(Color.DARK_GRAY);
 
+        cbxUniversidadCl.setVisible(true);
         cbxFacultadCl.setVisible(true);
         cbxCarreraCl.setVisible(true);
         cbxMallaCl.setVisible(true);
+        txtUniversidadClR.setText("");
+        txtUniversidadClR.setVisible(false);
         txtFacultadClR.setText("");
         txtFacultadClR.setVisible(false);
         txtCarreraClR.setText("");
@@ -223,15 +265,14 @@ public class FrmAcademico extends javax.swing.JFrame {
     }
 
     private void limpiarAsignatura() {
-        cbxFacultadA.setSelectedIndex(0);
-        cbxCarreraA.setSelectedIndex(0);
+        cbxUniversidadA.setSelectedIndex(-1);
+        cbxFacultadA.setSelectedIndex(-1);
+        cbxCarreraA.setSelectedIndex(-1);
         cbxMallaA.setSelectedIndex(-1);
         cbxCicloA.setSelectedIndex(-1);
         txtNombreA.setText("");
         txtCodigoA.setText("");
         spnTotalHorasA.setValue(0);
-
-        txtMallaAR.setText("");
 
         cbxFacultadA.setEnabled(true);
         cbxCarreraA.setEnabled(true);
@@ -240,6 +281,7 @@ public class FrmAcademico extends javax.swing.JFrame {
         txtNombreA.setEditable(true);
         txtCodigoA.setEditable(true);
         spnTotalHorasA.setEnabled(true);
+        cbxTipoUnidad.setEnabled(true);
         btCrearA.setEnabled(true);
         btCrearA.setForeground(Color.WHITE);
         btGCAsignatura.setEnabled(false);
@@ -247,10 +289,13 @@ public class FrmAcademico extends javax.swing.JFrame {
         btModificarAsignatura.setEnabled(false);
         btModificarAsignatura.setForeground(Color.DARK_GRAY);
 
+        cbxUniversidadA.setVisible(true);
         cbxFacultadA.setVisible(true);
         cbxCarreraA.setVisible(true);
         cbxMallaA.setVisible(true);
         cbxCicloA.setVisible(true);
+        txtUniversidadAR.setText("");
+        txtUniversidadAR.setVisible(false);
         txtFacultadAR.setText("");
         txtFacultadAR.setVisible(false);
         txtCarreraAR.setText("");
@@ -264,12 +309,32 @@ public class FrmAcademico extends javax.swing.JFrame {
         fileAsignatura.limpiarConexion();
     }
 
-    private void guardar(Integer flag) throws EmptyException, Exception {
+    private void guardar(Integer flag) throws Exception {
         switch (flag) {
+            //Universidad
+            case 0:
+                if (verificar(0)) {
+                    if (!fileUniversidad.buscarNombre(txtNombreU.getText())) {
+                        fileUniversidad.getUniversidad().setNombre(txtNombreU.getText());
+                        fileUniversidad.getUniversidad().setDireccion(txtDireccionU.getText());
+                        fileUniversidad.getUniversidad().setCorreo(txtCorreoU.getText());
+
+                        fileUniversidad.persist(fileUniversidad.getUniversidad());
+                        JOptionPane.showMessageDialog(null, "Datos guardados");
+                        limpiar();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "El nombre de la universidad ya existe");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+
             //Facultad
             case 1:
                 if (verificar(1)) {
-                    if (fileFacultad.buscarCodigo(txtCodigoF.getText()) == false) {
+                    if (!fileFacultad.buscarCodigo(txtCodigoF.getText())) {
+                        fileFacultad.getFacultad().setUniversidad_ID(cbxUniversidadF.getSelectedIndex() + 1);
                         fileFacultad.getFacultad().setNombre(txtNombreF.getText());
                         fileFacultad.getFacultad().setCodigo(txtCodigoF.getText());
                         fileFacultad.getFacultad().setCorreo(txtCorreoF.getText());
@@ -288,8 +353,8 @@ public class FrmAcademico extends javax.swing.JFrame {
             //Carrera
             case 2:
                 if (verificar(2)) {
-                    if (fileCarrera.buscarCodigo(txtFacultadCR.getText()) == false) {
-                        fileCarrera.getCarrera().setFacultad_ID(cbxFacultadC.getSelectedIndex() + 1);
+                    if (!fileCarrera.buscarCodigo(txtFacultadCR.getText())) {
+                        fileCarrera.getCarrera().setFacultad_ID(Utilvista.obtenerFacultadControl(cbxFacultadC).getId());
                         fileCarrera.getCarrera().setNombre(txtNombreC.getText());
                         fileCarrera.getCarrera().setNumCiclo((Integer) spnCiclo.getValue());
                         fileCarrera.getCarrera().setCodigo(txtCodigoC.getText());
@@ -315,7 +380,11 @@ public class FrmAcademico extends javax.swing.JFrame {
 
                     fileMalla.persist(fileMalla.getMalla());
                     JOptionPane.showMessageDialog(null, "Datos guardados");
-                    limpiar();
+                    try {
+                        limpiar();
+                    } catch (EmptyException ex) {
+                        Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -324,9 +393,9 @@ public class FrmAcademico extends javax.swing.JFrame {
             //Ciclo
             case 4:
                 if (verificar(4)) {
-                    if (fileCiclo.buscarNombre(txtCodigoA.getText()) == false) {
+                    if (!fileCiclo.buscarNombre((String)spnCiclosCl.getValue())) {
                         fileCiclo.getCiclo().setMallaCurricular_ID(Utilvista.obtenerMallaControl(cbxMallaCl).getId());
-                        fileCiclo.getCiclo().setNombre(txtNombreCl.getText());
+                        fileCiclo.getCiclo().setNombre((String)spnCiclosCl.getValue());
                         fileCiclo.getCiclo().setEstadoActivo(true);
 
                         fileCiclo.persist(fileCiclo.getCiclo());
@@ -343,11 +412,12 @@ public class FrmAcademico extends javax.swing.JFrame {
             //Asignatura
             case 5:
                 if (verificar(5)) {
-                    if (fileAsignatura.buscarCodigo(txtCodigoA.getText()) == false) {
+                    if (!fileAsignatura.buscarCodigo(txtCodigoA.getText())) {
                         fileAsignatura.getAsignatura().setCiclo_ID(Utilvista.obtenerCicloControl(cbxCicloA).getId());
                         fileAsignatura.getAsignatura().setNombre(txtNombreA.getText());
                         fileAsignatura.getAsignatura().setCodigo(txtCodigoA.getText());
                         fileAsignatura.getAsignatura().setTotalHoras((Integer) spnTotalHorasA.getValue());
+                        fileAsignatura.getAsignatura().setTipoUnidad_ID((cbxTipoUnidad.getSelectedIndex()+1));
 
                         fileAsignatura.persist(fileAsignatura.getAsignatura());
                         JOptionPane.showMessageDialog(null, "Asignatura guardada");
@@ -366,6 +436,7 @@ public class FrmAcademico extends javax.swing.JFrame {
     }
 
     private void cargarVista(Integer var) {
+        Universidad universidad = null;
         Facultad facultad = null;
         Carrera carrera = null;
         MallaCurricular malla = null;
@@ -373,6 +444,32 @@ public class FrmAcademico extends javax.swing.JFrame {
         Asignatura asignatura = null;
 
         switch (var) {
+            //Universidad
+            case 0:
+                limpiarFacultad();
+                limpiarCarrera();
+                limpiarMalla();
+                limpiarCiclo();
+                limpiarAsignatura();
+
+                Object u = lstUniversidad.getSelectedValue();
+                universidad = (Universidad) u;
+                try {
+                    //fileUniversidad.setUniversidad(universidad);
+                    txtNombreU.setText(universidad.getNombre());
+                    txtDireccionU.setText(universidad.getDireccion());
+                    txtCorreoU.setText(universidad.getCorreo());
+
+                    txtNombreU.setEditable(false);
+                    txtDireccionU.setEditable(false);
+                    txtCorreoU.setEditable(false);
+                    btCrearU.setEnabled(false);
+                    btCrearU.setForeground(Color.DARK_GRAY);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Error al cargar los datos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+
             //Facultad
             case 1:
                 limpiarCarrera();
@@ -380,6 +477,8 @@ public class FrmAcademico extends javax.swing.JFrame {
                 limpiarCiclo();
                 limpiarAsignatura();
 
+                Object uf = lstUniversidad.getSelectedValue();
+                universidad = (Universidad) uf;
                 Object f = lstFacultad.getSelectedValue();
                 facultad = (Facultad) f;
                 try {
@@ -388,12 +487,15 @@ public class FrmAcademico extends javax.swing.JFrame {
                     txtCodigoF.setText(facultad.getCodigo());
                     txtCorreoF.setText(facultad.getCorreo());
 
+                    txtUniversidadFR.setText(universidad.getNombre());
+                    txtUniversidadFR.setVisible(true);
+                    cbxUniversidadF.setVisible(false);
+
                     txtNombreF.setEditable(false);
                     txtCodigoF.setEditable(false);
                     txtCorreoF.setEditable(false);
                     btCrearF.setEnabled(false);
                     btCrearF.setForeground(Color.DARK_GRAY);
-
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Error al cargar los datos", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -405,6 +507,8 @@ public class FrmAcademico extends javax.swing.JFrame {
                 limpiarCiclo();
                 limpiarAsignatura();
 
+                Object uc = lstUniversidad.getSelectedValue();
+                universidad = (Universidad) uc;
                 Object fc = lstFacultad.getSelectedValue();
                 facultad = (Facultad) fc;
                 Object c = lstCarrera.getSelectedValue();
@@ -415,11 +519,13 @@ public class FrmAcademico extends javax.swing.JFrame {
                     txtCodigoC.setText(carrera.getCodigo());
                     spnCiclo.setValue(carrera.getNumCiclo());
 
+                    txtUniversidadCR.setText(universidad.getNombre());
+                    txtUniversidadCR.setVisible(true);
                     txtFacultadCR.setText(facultad.getNombre());
                     txtFacultadCR.setVisible(true);
+                    cbxUniversidadC.setVisible(false);
                     cbxFacultadC.setVisible(false);
 
-                    cbxFacultadC.setEnabled(false);
                     txtNombreC.setEditable(false);
                     txtFacultadCR.setEditable(false);
                     btCrearC.setEnabled(false);
@@ -435,6 +541,8 @@ public class FrmAcademico extends javax.swing.JFrame {
                 limpiarCiclo();
                 limpiarAsignatura();
 
+                Object um = lstUniversidad.getSelectedValue();
+                universidad = (Universidad) um;
                 Object fm = lstFacultad.getSelectedValue();
                 facultad = (Facultad) fm;
                 Object cm = lstCarrera.getSelectedValue();
@@ -451,16 +559,18 @@ public class FrmAcademico extends javax.swing.JFrame {
                         cbxVigencia.setSelectedIndex(1);
                     }
 
+                    txtUniversidadMR.setText(universidad.getNombre());
+                    txtUniversidadMR.setVisible(true);
                     txtFacultadMR.setText(facultad.getNombre());
                     txtFacultadMR.setVisible(true);
                     txtCarreraMR.setText(carrera.getNombre());
                     txtCarreraMR.setVisible(true);
+                    cbxUniversidadM.setVisible(false);
                     cbxFacultadM.setVisible(false);
                     cbxCarreraM.setVisible(false);
 
                     btCrearM.setEnabled(false);
                     btCrearM.setForeground(Color.DARK_GRAY);
-                    cbxCarreraM.setEnabled(false);
                     cbxVigencia.setEnabled(false);
                     txtDescripcion.setEditable(false);
                     txtPensum.setEditable(false);
@@ -473,6 +583,8 @@ public class FrmAcademico extends javax.swing.JFrame {
             case 4:
                 limpiarAsignatura();
 
+                Object ucl = lstUniversidad.getSelectedValue();
+                universidad = (Universidad) ucl;
                 Object fcl = lstFacultad.getSelectedValue();
                 facultad = (Facultad) fcl;
                 Object ccl = lstCarrera.getSelectedValue();
@@ -483,30 +595,31 @@ public class FrmAcademico extends javax.swing.JFrame {
                 ciclo = (Ciclo) cl;
                 try {
                     //fileCiclo.setCiclo(ciclo);
-                    txtNombreCl.setText(ciclo.getNombre());
+                    spnCiclosCl.setValue(ciclo.getNombre());
                     if (ciclo.getEstadoActivo()) {
                         cbxEstadoCl.setSelectedIndex(0);
                     } else if (!ciclo.getEstadoActivo()) {
                         cbxEstadoCl.setSelectedIndex(1);
                     }
 
+                    txtUniversidadClR.setText(universidad.getNombre());
+                    txtUniversidadClR.setVisible(true);
                     txtFacultadClR.setText(facultad.getNombre());
                     txtFacultadClR.setVisible(true);
                     txtCarreraClR.setText(carrera.getNombre());
                     txtCarreraClR.setVisible(true);
                     txtMallaClR.setText(malla.getDescripcion());
                     txtMallaClR.setVisible(true);
+                    cbxUniversidadCl.setVisible(false);
                     cbxFacultadCl.setVisible(false);
                     cbxCarreraCl.setVisible(false);
                     cbxMallaCl.setVisible(false);
 
-                    btCrearCl.setEnabled(false);
                     btCrearCl.setForeground(Color.DARK_GRAY);
                     cbxFacultadCl.setVisible(false);
                     cbxCarreraCl.setVisible(false);
                     cbxMallaCl.setVisible(false);
-                    cbxEstadoCl.setEnabled(false);
-                    txtNombreCl.setEditable(false);
+                    spnCiclosCl.setEnabled(false);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Error al cargar los datos", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -514,6 +627,8 @@ public class FrmAcademico extends javax.swing.JFrame {
 
             //Asignatura
             case 5:
+                Object ua = lstUniversidad.getSelectedValue();
+                universidad = (Universidad) ua;
                 Object fa = lstFacultad.getSelectedValue();
                 facultad = (Facultad) fa;
                 Object ca = lstCarrera.getSelectedValue();
@@ -529,7 +644,10 @@ public class FrmAcademico extends javax.swing.JFrame {
                     txtNombreA.setText(asignatura.getNombre());
                     txtCodigoA.setText(asignatura.getCodigo());
                     spnTotalHorasA.setValue(asignatura.getTotalHoras());
+                    cbxTipoUnidad.setSelectedIndex((asignatura.getTipoUnidad_ID()-1));
 
+                    txtUniversidadAR.setText(universidad.getNombre());
+                    txtUniversidadAR.setVisible(true);
                     txtFacultadAR.setText(facultad.getNombre());
                     txtFacultadAR.setVisible(true);
                     txtCarreraAR.setText(carrera.getNombre());
@@ -538,6 +656,7 @@ public class FrmAcademico extends javax.swing.JFrame {
                     txtMallaAR.setVisible(true);
                     txtCicloAR.setText(ciclo.getNombre());
                     txtCicloAR.setVisible(true);
+                    cbxUniversidadA.setVisible(false);
                     cbxFacultadA.setVisible(false);
                     cbxCarreraA.setVisible(false);
                     cbxMallaA.setVisible(false);
@@ -545,12 +664,10 @@ public class FrmAcademico extends javax.swing.JFrame {
 
                     btCrearA.setEnabled(false);
                     btCrearA.setForeground(Color.DARK_GRAY);
-                    cbxCarreraA.setEnabled(false);
-                    cbxMallaA.setEnabled(false);
-                    cbxCicloA.setEnabled(false);
                     txtNombreA.setEditable(false);
                     txtCodigoA.setEditable(false);
                     spnTotalHorasA.setEnabled(false);
+                    cbxTipoUnidad.setEnabled(false);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Error al cargar los datos", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -560,7 +677,7 @@ public class FrmAcademico extends javax.swing.JFrame {
         }
     }
 
-    private void modificar(Integer flag) throws EmptyException, Exception {
+    private void modificar(Integer flag) throws Exception {
         switch (flag) {
             case 1:
                 fileFacultad.getFacultad().setNombre(txtNombreF.getText());
@@ -619,6 +736,16 @@ public class FrmAcademico extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jpAll = new javax.swing.JPanel();
+        jpUniversidad = new javax.swing.JPanel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        txtNombreU = new javax.swing.JTextField();
+        btCrearU = new javax.swing.JButton();
+        btGCUniversidad = new javax.swing.JButton();
+        jLabel39 = new javax.swing.JLabel();
+        txtDireccionU = new javax.swing.JTextField();
+        jLabel40 = new javax.swing.JLabel();
+        txtCorreoU = new javax.swing.JTextField();
         jpFacultad = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -629,6 +756,9 @@ public class FrmAcademico extends javax.swing.JFrame {
         txtCorreoF = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
         txtCodigoF = new javax.swing.JTextField();
+        cbxUniversidadF = new javax.swing.JComboBox<>();
+        jLabel41 = new javax.swing.JLabel();
+        txtUniversidadFR = new javax.swing.JTextField();
         jpCarrera = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         cbxFacultadC = new javax.swing.JComboBox<>();
@@ -642,6 +772,9 @@ public class FrmAcademico extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         txtFacultadCR = new javax.swing.JTextField();
         txtCodigoC = new javax.swing.JTextField();
+        cbxUniversidadC = new javax.swing.JComboBox<>();
+        jLabel42 = new javax.swing.JLabel();
+        txtUniversidadCR = new javax.swing.JTextField();
         jpMalla = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -658,11 +791,13 @@ public class FrmAcademico extends javax.swing.JFrame {
         btGCMalla = new javax.swing.JButton();
         txtFacultadMR = new javax.swing.JTextField();
         txtCarreraMR = new javax.swing.JTextField();
+        jLabel44 = new javax.swing.JLabel();
+        cbxUniversidadM = new javax.swing.JComboBox<>();
+        txtUniversidadMR = new javax.swing.JTextField();
         jpCiclo = new javax.swing.JPanel();
         jLabel32 = new javax.swing.JLabel();
         cbxMallaCl = new javax.swing.JComboBox<>();
         jLabel33 = new javax.swing.JLabel();
-        txtNombreCl = new javax.swing.JTextField();
         jLabel35 = new javax.swing.JLabel();
         btCrearCl = new javax.swing.JButton();
         btGCCiclo = new javax.swing.JButton();
@@ -675,6 +810,10 @@ public class FrmAcademico extends javax.swing.JFrame {
         txtFacultadClR = new javax.swing.JTextField();
         txtMallaClR = new javax.swing.JTextField();
         txtCarreraClR = new javax.swing.JTextField();
+        jLabel45 = new javax.swing.JLabel();
+        cbxUniversidadCl = new javax.swing.JComboBox<>();
+        txtUniversidadClR = new javax.swing.JTextField();
+        spnCiclosCl = new javax.swing.JSpinner();
         jpAsignatura = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         cbxMallaA = new javax.swing.JComboBox<>();
@@ -697,6 +836,12 @@ public class FrmAcademico extends javax.swing.JFrame {
         txtCarreraAR = new javax.swing.JTextField();
         txtMallaAR = new javax.swing.JTextField();
         txtCicloAR = new javax.swing.JTextField();
+        jLabel46 = new javax.swing.JLabel();
+        cbxUniversidadA = new javax.swing.JComboBox<>();
+        txtUniversidadAR = new javax.swing.JTextField();
+        jLabel43 = new javax.swing.JLabel();
+        cbxTipoUnidad = new javax.swing.JComboBox<>();
+        btUniversidad = new javax.swing.JButton();
         btFacultad = new javax.swing.JButton();
         btCarrera = new javax.swing.JButton();
         btMalla = new javax.swing.JButton();
@@ -724,6 +869,10 @@ public class FrmAcademico extends javax.swing.JFrame {
         jLabel31 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         lstCiclo = new javax.swing.JList<>();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        lstUniversidad = new javax.swing.JList<>();
+        btModificarUniversidad = new javax.swing.JButton();
+        jLabel34 = new javax.swing.JLabel();
         bg = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -766,6 +915,87 @@ public class FrmAcademico extends javax.swing.JFrame {
         jpAll.setBackground(new java.awt.Color(212, 173, 107));
         jpAll.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jpUniversidad.setBackground(new java.awt.Color(212, 173, 107));
+        jpUniversidad.setForeground(new java.awt.Color(51, 51, 51));
+        jpUniversidad.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jpUniversidad.setLayout(null);
+
+        jLabel36.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        jLabel36.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel36.setText("Nueva Universidad");
+        jpUniversidad.add(jLabel36);
+        jLabel36.setBounds(20, 20, 130, 20);
+
+        jLabel38.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        jLabel38.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel38.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel38.setText("Nombre:");
+        jpUniversidad.add(jLabel38);
+        jLabel38.setBounds(60, 60, 70, 33);
+
+        txtNombreU.setBackground(new java.awt.Color(237, 209, 163));
+        txtNombreU.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtNombreU.setForeground(new java.awt.Color(0, 0, 0));
+        txtNombreU.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        jpUniversidad.add(txtNombreU);
+        txtNombreU.setBounds(150, 60, 250, 30);
+
+        btCrearU.setBackground(new java.awt.Color(102, 51, 0));
+        btCrearU.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
+        btCrearU.setForeground(new java.awt.Color(255, 255, 255));
+        btCrearU.setText("Crear Universidad");
+        btCrearU.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btCrearU.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCrearUActionPerformed(evt);
+            }
+        });
+        jpUniversidad.add(btCrearU);
+        btCrearU.setBounds(269, 160, 131, 30);
+
+        btGCUniversidad.setBackground(new java.awt.Color(102, 51, 0));
+        btGCUniversidad.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
+        btGCUniversidad.setForeground(new java.awt.Color(255, 255, 255));
+        btGCUniversidad.setText("Guardar Cambios");
+        btGCUniversidad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btGCUniversidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGCUniversidadActionPerformed(evt);
+            }
+        });
+        jpUniversidad.add(btGCUniversidad);
+        btGCUniversidad.setBounds(430, 160, 130, 30);
+
+        jLabel39.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        jLabel39.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel39.setText("DIreccion");
+        jpUniversidad.add(jLabel39);
+        jLabel39.setBounds(60, 110, 70, 33);
+
+        txtDireccionU.setBackground(new java.awt.Color(237, 209, 163));
+        txtDireccionU.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtDireccionU.setForeground(new java.awt.Color(0, 0, 0));
+        txtDireccionU.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        jpUniversidad.add(txtDireccionU);
+        txtDireccionU.setBounds(150, 110, 250, 30);
+
+        jLabel40.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        jLabel40.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel40.setText("Correo:");
+        jpUniversidad.add(jLabel40);
+        jLabel40.setBounds(430, 60, 70, 33);
+
+        txtCorreoU.setBackground(new java.awt.Color(237, 209, 163));
+        txtCorreoU.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtCorreoU.setForeground(new java.awt.Color(0, 0, 0));
+        txtCorreoU.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        jpUniversidad.add(txtCorreoU);
+        txtCorreoU.setBounds(520, 60, 230, 30);
+
+        jpAll.add(jpUniversidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 200));
+
         jpFacultad.setBackground(new java.awt.Color(212, 173, 107));
         jpFacultad.setForeground(new java.awt.Color(51, 51, 51));
         jpFacultad.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -780,7 +1010,7 @@ public class FrmAcademico extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel4.setText("Nombre:");
+        jLabel4.setText("Universidad:");
         jpFacultad.add(jLabel4);
         jLabel4.setBounds(60, 60, 70, 33);
 
@@ -789,7 +1019,7 @@ public class FrmAcademico extends javax.swing.JFrame {
         txtNombreF.setForeground(new java.awt.Color(0, 0, 0));
         txtNombreF.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         jpFacultad.add(txtNombreF);
-        txtNombreF.setBounds(150, 60, 250, 30);
+        txtNombreF.setBounds(150, 110, 250, 30);
 
         btCrearF.setBackground(new java.awt.Color(102, 51, 0));
         btCrearF.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
@@ -822,30 +1052,55 @@ public class FrmAcademico extends javax.swing.JFrame {
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel20.setText("Correo:");
         jpFacultad.add(jLabel20);
-        jLabel20.setBounds(60, 110, 70, 33);
+        jLabel20.setBounds(410, 110, 70, 33);
 
         txtCorreoF.setBackground(new java.awt.Color(237, 209, 163));
         txtCorreoF.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtCorreoF.setForeground(new java.awt.Color(0, 0, 0));
         txtCorreoF.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         jpFacultad.add(txtCorreoF);
-        txtCorreoF.setBounds(150, 110, 250, 30);
+        txtCorreoF.setBounds(500, 110, 250, 30);
 
         jLabel21.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(0, 0, 0));
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel21.setText("Codigo:");
         jpFacultad.add(jLabel21);
-        jLabel21.setBounds(430, 60, 70, 33);
+        jLabel21.setBounds(410, 60, 70, 33);
 
         txtCodigoF.setBackground(new java.awt.Color(237, 209, 163));
         txtCodigoF.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtCodigoF.setForeground(new java.awt.Color(0, 0, 0));
         txtCodigoF.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         jpFacultad.add(txtCodigoF);
-        txtCodigoF.setBounds(520, 60, 160, 30);
+        txtCodigoF.setBounds(500, 60, 160, 30);
 
-        jpAll.add(jpFacultad, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 200));
+        cbxUniversidadF.setBackground(new java.awt.Color(237, 209, 163));
+        cbxUniversidadF.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbxUniversidadF.setForeground(new java.awt.Color(242, 242, 242));
+        cbxUniversidadF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxUniversidadFActionPerformed(evt);
+            }
+        });
+        jpFacultad.add(cbxUniversidadF);
+        cbxUniversidadF.setBounds(150, 60, 250, 29);
+
+        jLabel41.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        jLabel41.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel41.setText("Nombre:");
+        jpFacultad.add(jLabel41);
+        jLabel41.setBounds(60, 110, 70, 33);
+
+        txtUniversidadFR.setEditable(false);
+        txtUniversidadFR.setBackground(new java.awt.Color(237, 209, 163));
+        txtUniversidadFR.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtUniversidadFR.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        jpFacultad.add(txtUniversidadFR);
+        txtUniversidadFR.setBounds(150, 60, 250, 30);
+
+        jpAll.add(jpFacultad, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 200));
 
         jpCarrera.setBackground(new java.awt.Color(212, 173, 107));
         jpCarrera.setLayout(null);
@@ -859,45 +1114,45 @@ public class FrmAcademico extends javax.swing.JFrame {
         cbxFacultadC.setBackground(new java.awt.Color(237, 209, 163));
         cbxFacultadC.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         cbxFacultadC.setForeground(new java.awt.Color(242, 242, 242));
-        cbxFacultadC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxFacultadC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxFacultadCActionPerformed(evt);
             }
         });
         jpCarrera.add(cbxFacultadC);
-        cbxFacultadC.setBounds(190, 60, 250, 29);
+        cbxFacultadC.setBounds(480, 60, 250, 29);
 
         jLabel5.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Facultad:");
         jpCarrera.add(jLabel5);
-        jLabel5.setBounds(100, 60, 80, 30);
+        jLabel5.setBounds(390, 60, 80, 30);
 
         txtNombreC.setBackground(new java.awt.Color(237, 209, 163));
         txtNombreC.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtNombreC.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         jpCarrera.add(txtNombreC);
-        txtNombreC.setBounds(190, 100, 250, 30);
+        txtNombreC.setBounds(140, 100, 250, 30);
 
         jLabel6.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Numero de Ciclos:");
         jpCarrera.add(jLabel6);
-        jLabel6.setBounds(460, 60, 140, 30);
+        jLabel6.setBounds(710, 100, 100, 30);
 
         jLabel7.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("Nombre:");
         jpCarrera.add(jLabel7);
-        jLabel7.setBounds(110, 100, 70, 30);
+        jLabel7.setBounds(60, 100, 70, 30);
 
         spnCiclo.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        spnCiclo.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
         jpCarrera.add(spnCiclo);
-        spnCiclo.setBounds(610, 60, 85, 29);
+        spnCiclo.setBounds(820, 100, 85, 29);
 
         btCrearC.setBackground(new java.awt.Color(102, 51, 0));
         btCrearC.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
@@ -930,22 +1185,47 @@ public class FrmAcademico extends javax.swing.JFrame {
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel22.setText("Codigo:");
         jpCarrera.add(jLabel22);
-        jLabel22.setBounds(530, 100, 70, 30);
+        jLabel22.setBounds(420, 100, 50, 30);
 
         txtFacultadCR.setEditable(false);
         txtFacultadCR.setBackground(new java.awt.Color(237, 209, 163));
         txtFacultadCR.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtFacultadCR.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         jpCarrera.add(txtFacultadCR);
-        txtFacultadCR.setBounds(190, 60, 250, 30);
+        txtFacultadCR.setBounds(480, 60, 250, 30);
 
         txtCodigoC.setBackground(new java.awt.Color(237, 209, 163));
         txtCodigoC.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtCodigoC.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         jpCarrera.add(txtCodigoC);
-        txtCodigoC.setBounds(610, 100, 190, 30);
+        txtCodigoC.setBounds(480, 100, 190, 30);
 
-        jpAll.add(jpCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 840, 180));
+        cbxUniversidadC.setBackground(new java.awt.Color(237, 209, 163));
+        cbxUniversidadC.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbxUniversidadC.setForeground(new java.awt.Color(242, 242, 242));
+        cbxUniversidadC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxUniversidadCActionPerformed(evt);
+            }
+        });
+        jpCarrera.add(cbxUniversidadC);
+        cbxUniversidadC.setBounds(140, 60, 250, 29);
+
+        jLabel42.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        jLabel42.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel42.setText("Universidad:");
+        jpCarrera.add(jLabel42);
+        jLabel42.setBounds(50, 60, 80, 30);
+
+        txtUniversidadCR.setEditable(false);
+        txtUniversidadCR.setBackground(new java.awt.Color(237, 209, 163));
+        txtUniversidadCR.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtUniversidadCR.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        jpCarrera.add(txtUniversidadCR);
+        txtUniversidadCR.setBounds(140, 60, 250, 30);
+
+        jpAll.add(jpCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 910, 180));
 
         jpMalla.setBackground(new java.awt.Color(212, 173, 107));
         jpMalla.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -964,7 +1244,7 @@ public class FrmAcademico extends javax.swing.JFrame {
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel18.setText("Facultad:");
         jpMalla.add(jLabel18);
-        jLabel18.setBounds(90, 50, 70, 30);
+        jLabel18.setBounds(490, 50, 70, 30);
 
         cbxFacultadM.setBackground(new java.awt.Color(237, 209, 163));
         cbxFacultadM.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -975,7 +1255,7 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
         jpMalla.add(cbxFacultadM);
-        cbxFacultadM.setBounds(180, 50, 210, 29);
+        cbxFacultadM.setBounds(590, 50, 210, 29);
 
         jLabel8.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -999,7 +1279,7 @@ public class FrmAcademico extends javax.swing.JFrame {
         txtDescripcion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtDescripcion.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         jpMalla.add(txtDescripcion);
-        txtDescripcion.setBounds(180, 130, 240, 30);
+        txtDescripcion.setBounds(180, 130, 210, 30);
 
         jLabel10.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -1023,7 +1303,6 @@ public class FrmAcademico extends javax.swing.JFrame {
         cbxVigencia.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         cbxVigencia.setForeground(new java.awt.Color(242, 242, 242));
         cbxVigencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vigente", "No Vigente" }));
-        cbxVigencia.setEnabled(false);
         jpMalla.add(cbxVigencia);
         cbxVigencia.setBounds(590, 130, 97, 29);
 
@@ -1058,7 +1337,7 @@ public class FrmAcademico extends javax.swing.JFrame {
         txtFacultadMR.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtFacultadMR.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         jpMalla.add(txtFacultadMR);
-        txtFacultadMR.setBounds(180, 50, 210, 30);
+        txtFacultadMR.setBounds(590, 50, 210, 30);
 
         txtCarreraMR.setEditable(false);
         txtCarreraMR.setBackground(new java.awt.Color(237, 209, 163));
@@ -1067,7 +1346,31 @@ public class FrmAcademico extends javax.swing.JFrame {
         jpMalla.add(txtCarreraMR);
         txtCarreraMR.setBounds(180, 90, 210, 30);
 
-        jpAll.add(jpMalla, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, 230));
+        jLabel44.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        jLabel44.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel44.setText("Universidad:");
+        jpMalla.add(jLabel44);
+        jLabel44.setBounds(90, 50, 70, 30);
+
+        cbxUniversidadM.setBackground(new java.awt.Color(237, 209, 163));
+        cbxUniversidadM.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbxUniversidadM.setForeground(new java.awt.Color(242, 242, 242));
+        cbxUniversidadM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxUniversidadMActionPerformed(evt);
+            }
+        });
+        jpMalla.add(cbxUniversidadM);
+        cbxUniversidadM.setBounds(180, 50, 210, 29);
+
+        txtUniversidadMR.setEditable(false);
+        txtUniversidadMR.setBackground(new java.awt.Color(237, 209, 163));
+        txtUniversidadMR.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtUniversidadMR.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        jpMalla.add(txtUniversidadMR);
+        txtUniversidadMR.setBounds(180, 50, 210, 30);
+
+        jpAll.add(jpMalla, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 230));
 
         jpCiclo.setBackground(new java.awt.Color(212, 173, 107));
         jpCiclo.setLayout(null);
@@ -1085,19 +1388,13 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
         jpCiclo.add(cbxMallaCl);
-        cbxMallaCl.setBounds(180, 80, 220, 29);
+        cbxMallaCl.setBounds(580, 80, 220, 29);
 
         jLabel33.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel33.setText("Malla Curricular:");
         jpCiclo.add(jLabel33);
-        jLabel33.setBounds(60, 80, 90, 30);
-
-        txtNombreCl.setBackground(new java.awt.Color(237, 209, 163));
-        txtNombreCl.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtNombreCl.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
-        jpCiclo.add(txtNombreCl);
-        txtNombreCl.setBounds(180, 120, 220, 30);
+        jLabel33.setBounds(480, 80, 90, 30);
 
         jLabel35.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -1135,11 +1432,10 @@ public class FrmAcademico extends javax.swing.JFrame {
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel17.setText("Carrera:");
         jpCiclo.add(jLabel17);
-        jLabel17.setBounds(500, 40, 70, 30);
+        jLabel17.setBounds(80, 80, 70, 30);
 
         cbxCarreraCl.setBackground(new java.awt.Color(237, 209, 163));
         cbxCarreraCl.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        cbxCarreraCl.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxCarreraCl.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cbxCarreraClMouseClicked(evt);
@@ -1151,13 +1447,13 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
         jpCiclo.add(cbxCarreraCl);
-        cbxCarreraCl.setBounds(580, 40, 220, 29);
+        cbxCarreraCl.setBounds(180, 80, 220, 29);
 
         jLabel37.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel37.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel37.setText("Estado:");
         jpCiclo.add(jLabel37);
-        jLabel37.setBounds(520, 90, 50, 30);
+        jLabel37.setBounds(520, 120, 50, 30);
 
         cbxEstadoCl.setBackground(new java.awt.Color(237, 209, 163));
         cbxEstadoCl.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -1168,17 +1464,16 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
         jpCiclo.add(cbxEstadoCl);
-        cbxEstadoCl.setBounds(580, 90, 120, 29);
+        cbxEstadoCl.setBounds(580, 120, 120, 29);
 
         jLabel19.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel19.setText("Facultad:");
         jpCiclo.add(jLabel19);
-        jLabel19.setBounds(80, 40, 70, 30);
+        jLabel19.setBounds(480, 40, 70, 30);
 
         cbxFacultadCl.setBackground(new java.awt.Color(237, 209, 163));
         cbxFacultadCl.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        cbxFacultadCl.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxFacultadCl.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cbxFacultadClMouseClicked(evt);
@@ -1190,25 +1485,60 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
         jpCiclo.add(cbxFacultadCl);
-        cbxFacultadCl.setBounds(180, 40, 220, 29);
+        cbxFacultadCl.setBounds(580, 40, 220, 29);
 
         txtFacultadClR.setBackground(new java.awt.Color(237, 209, 163));
         txtFacultadClR.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtFacultadClR.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         jpCiclo.add(txtFacultadClR);
-        txtFacultadClR.setBounds(180, 40, 220, 30);
+        txtFacultadClR.setBounds(580, 40, 220, 30);
 
         txtMallaClR.setBackground(new java.awt.Color(237, 209, 163));
         txtMallaClR.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtMallaClR.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         jpCiclo.add(txtMallaClR);
-        txtMallaClR.setBounds(180, 80, 220, 30);
+        txtMallaClR.setBounds(580, 80, 220, 30);
 
         txtCarreraClR.setBackground(new java.awt.Color(237, 209, 163));
         txtCarreraClR.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtCarreraClR.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        txtCarreraClR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCarreraClRActionPerformed(evt);
+            }
+        });
         jpCiclo.add(txtCarreraClR);
-        txtCarreraClR.setBounds(580, 40, 220, 30);
+        txtCarreraClR.setBounds(180, 80, 220, 30);
+
+        jLabel45.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        jLabel45.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel45.setText("Universidad:");
+        jpCiclo.add(jLabel45);
+        jLabel45.setBounds(86, 40, 70, 30);
+
+        cbxUniversidadCl.setBackground(new java.awt.Color(237, 209, 163));
+        cbxUniversidadCl.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbxUniversidadCl.setForeground(new java.awt.Color(242, 242, 242));
+        cbxUniversidadCl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxUniversidadClActionPerformed(evt);
+            }
+        });
+        jpCiclo.add(cbxUniversidadCl);
+        cbxUniversidadCl.setBounds(180, 40, 220, 29);
+
+        txtUniversidadClR.setEditable(false);
+        txtUniversidadClR.setBackground(new java.awt.Color(237, 209, 163));
+        txtUniversidadClR.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtUniversidadClR.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        jpCiclo.add(txtUniversidadClR);
+        txtUniversidadClR.setBounds(180, 40, 220, 30);
+
+        spnCiclosCl.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        spnCiclosCl.setModel(new javax.swing.SpinnerListModel(new String[] {""}));
+        spnCiclosCl.setEnabled(false);
+        jpCiclo.add(spnCiclosCl);
+        spnCiclosCl.setBounds(180, 120, 220, 30);
 
         jpAll.add(jpCiclo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 950, 230));
 
@@ -1228,36 +1558,36 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
         jpAsignatura.add(cbxMallaA);
-        cbxMallaA.setBounds(180, 80, 220, 29);
+        cbxMallaA.setBounds(550, 80, 220, 29);
 
         jLabel26.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel26.setText("Malla Curricular:");
         jpAsignatura.add(jLabel26);
-        jLabel26.setBounds(60, 80, 90, 30);
+        jLabel26.setBounds(430, 80, 90, 30);
 
         txtNombreA.setBackground(new java.awt.Color(237, 209, 163));
         txtNombreA.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtNombreA.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         jpAsignatura.add(txtNombreA);
-        txtNombreA.setBounds(180, 120, 220, 30);
+        txtNombreA.setBounds(180, 160, 220, 30);
 
         jLabel27.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(0, 0, 0));
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel27.setText("Total de Horas:");
         jpAsignatura.add(jLabel27);
-        jLabel27.setBounds(650, 120, 120, 30);
+        jLabel27.setBounds(650, 160, 120, 30);
 
         jLabel28.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel28.setText("Nombre:");
         jpAsignatura.add(jLabel28);
-        jLabel28.setBounds(80, 120, 70, 30);
+        jLabel28.setBounds(80, 160, 70, 30);
 
         spnTotalHorasA.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jpAsignatura.add(spnTotalHorasA);
-        spnTotalHorasA.setBounds(790, 120, 77, 29);
+        spnTotalHorasA.setBounds(790, 160, 77, 29);
 
         btCrearA.setBackground(new java.awt.Color(102, 51, 0));
         btCrearA.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
@@ -1270,7 +1600,7 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
         jpAsignatura.add(btCrearA);
-        btCrearA.setBounds(370, 180, 130, 30);
+        btCrearA.setBounds(370, 200, 130, 30);
 
         btGCAsignatura.setBackground(new java.awt.Color(102, 51, 0));
         btGCAsignatura.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
@@ -1283,25 +1613,25 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
         jpAsignatura.add(btGCAsignatura);
-        btGCAsignatura.setBounds(580, 180, 130, 30);
+        btGCAsignatura.setBounds(580, 200, 130, 30);
 
         jLabel29.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel29.setText("Codigo:");
         jpAsignatura.add(jLabel29);
-        jLabel29.setBounds(420, 120, 60, 30);
+        jLabel29.setBounds(420, 160, 60, 30);
 
         txtCodigoA.setBackground(new java.awt.Color(237, 209, 163));
         txtCodigoA.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtCodigoA.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         jpAsignatura.add(txtCodigoA);
-        txtCodigoA.setBounds(500, 120, 140, 30);
+        txtCodigoA.setBounds(500, 160, 140, 30);
 
         jLabel14.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setText("Carrera:");
         jpAsignatura.add(jLabel14);
-        jLabel14.setBounds(450, 50, 70, 30);
+        jLabel14.setBounds(80, 80, 70, 30);
 
         cbxCarreraA.setBackground(new java.awt.Color(237, 209, 163));
         cbxCarreraA.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -1316,17 +1646,16 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
         jpAsignatura.add(cbxCarreraA);
-        cbxCarreraA.setBounds(550, 50, 220, 29);
+        cbxCarreraA.setBounds(180, 80, 220, 29);
 
         jLabel23.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel23.setText("Facultad:");
         jpAsignatura.add(jLabel23);
-        jLabel23.setBounds(80, 50, 70, 30);
+        jLabel23.setBounds(450, 40, 70, 30);
 
         cbxFacultadA.setBackground(new java.awt.Color(237, 209, 163));
         cbxFacultadA.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        cbxFacultadA.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxFacultadA.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cbxFacultadAMouseClicked(evt);
@@ -1338,13 +1667,13 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
         jpAsignatura.add(cbxFacultadA);
-        cbxFacultadA.setBounds(180, 50, 220, 29);
+        cbxFacultadA.setBounds(550, 40, 220, 29);
 
         jLabel24.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel24.setText("Ciclo:");
         jpAsignatura.add(jLabel24);
-        jLabel24.setBounds(450, 80, 70, 30);
+        jLabel24.setBounds(80, 120, 70, 30);
 
         cbxCicloA.setBackground(new java.awt.Color(237, 209, 163));
         cbxCicloA.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -1359,39 +1688,98 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
         jpAsignatura.add(cbxCicloA);
-        cbxCicloA.setBounds(550, 80, 220, 29);
+        cbxCicloA.setBounds(180, 120, 220, 29);
 
         txtFacultadAR.setEditable(false);
         txtFacultadAR.setBackground(new java.awt.Color(237, 209, 163));
         txtFacultadAR.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtFacultadAR.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         jpAsignatura.add(txtFacultadAR);
-        txtFacultadAR.setBounds(180, 50, 220, 30);
+        txtFacultadAR.setBounds(550, 40, 220, 30);
 
         txtCarreraAR.setEditable(false);
         txtCarreraAR.setBackground(new java.awt.Color(237, 209, 163));
         txtCarreraAR.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtCarreraAR.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         jpAsignatura.add(txtCarreraAR);
-        txtCarreraAR.setBounds(550, 50, 220, 30);
+        txtCarreraAR.setBounds(180, 80, 220, 30);
 
         txtMallaAR.setEditable(false);
         txtMallaAR.setBackground(new java.awt.Color(237, 209, 163));
         txtMallaAR.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtMallaAR.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         jpAsignatura.add(txtMallaAR);
-        txtMallaAR.setBounds(180, 80, 220, 30);
+        txtMallaAR.setBounds(550, 80, 220, 30);
 
         txtCicloAR.setEditable(false);
         txtCicloAR.setBackground(new java.awt.Color(237, 209, 163));
         txtCicloAR.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtCicloAR.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         jpAsignatura.add(txtCicloAR);
-        txtCicloAR.setBounds(550, 80, 220, 30);
+        txtCicloAR.setBounds(180, 120, 220, 30);
 
-        jpAll.add(jpAsignatura, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 970, 230));
+        jLabel46.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        jLabel46.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel46.setText("Universidad:");
+        jpAsignatura.add(jLabel46);
+        jLabel46.setBounds(90, 40, 70, 30);
+
+        cbxUniversidadA.setBackground(new java.awt.Color(237, 209, 163));
+        cbxUniversidadA.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbxUniversidadA.setForeground(new java.awt.Color(242, 242, 242));
+        cbxUniversidadA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxUniversidadAActionPerformed(evt);
+            }
+        });
+        jpAsignatura.add(cbxUniversidadA);
+        cbxUniversidadA.setBounds(180, 40, 210, 29);
+
+        txtUniversidadAR.setEditable(false);
+        txtUniversidadAR.setBackground(new java.awt.Color(237, 209, 163));
+        txtUniversidadAR.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtUniversidadAR.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        jpAsignatura.add(txtUniversidadAR);
+        txtUniversidadAR.setBounds(180, 40, 210, 30);
+
+        jLabel43.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        jLabel43.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel43.setText("Tipo de Unidad:");
+        jpAsignatura.add(jLabel43);
+        jLabel43.setBounds(430, 120, 90, 30);
+
+        cbxTipoUnidad.setBackground(new java.awt.Color(237, 209, 163));
+        cbxTipoUnidad.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbxTipoUnidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Basica", "Profesional", "Unidad de Integracion Curricular" }));
+        cbxTipoUnidad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbxTipoUnidadMouseClicked(evt);
+            }
+        });
+        cbxTipoUnidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxTipoUnidadActionPerformed(evt);
+            }
+        });
+        jpAsignatura.add(cbxTipoUnidad);
+        cbxTipoUnidad.setBounds(550, 120, 220, 30);
+
+        jpAll.add(jpAsignatura, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 980, 230));
 
         getContentPane().add(jpAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 1010, 240));
+
+        btUniversidad.setBackground(new java.awt.Color(102, 51, 0));
+        btUniversidad.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        btUniversidad.setForeground(new java.awt.Color(255, 255, 255));
+        btUniversidad.setText("Universidad");
+        btUniversidad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btUniversidad.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        btUniversidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btUniversidadActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btUniversidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 120, 40));
 
         btFacultad.setBackground(new java.awt.Color(102, 51, 0));
         btFacultad.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
@@ -1404,7 +1792,7 @@ public class FrmAcademico extends javax.swing.JFrame {
                 btFacultadActionPerformed(evt);
             }
         });
-        getContentPane().add(btFacultad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 120, 40));
+        getContentPane().add(btFacultad, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 120, 40));
 
         btCarrera.setBackground(new java.awt.Color(102, 51, 0));
         btCarrera.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
@@ -1417,7 +1805,7 @@ public class FrmAcademico extends javax.swing.JFrame {
                 btCarreraActionPerformed(evt);
             }
         });
-        getContentPane().add(btCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 120, 40));
+        getContentPane().add(btCarrera, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 120, 40));
 
         btMalla.setBackground(new java.awt.Color(102, 51, 0));
         btMalla.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
@@ -1430,7 +1818,7 @@ public class FrmAcademico extends javax.swing.JFrame {
                 btMallaActionPerformed(evt);
             }
         });
-        getContentPane().add(btMalla, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 120, 40));
+        getContentPane().add(btMalla, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 40, 120, 40));
 
         btCiclo.setBackground(new java.awt.Color(102, 51, 0));
         btCiclo.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
@@ -1443,7 +1831,7 @@ public class FrmAcademico extends javax.swing.JFrame {
                 btCicloActionPerformed(evt);
             }
         });
-        getContentPane().add(btCiclo, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 40, 120, 40));
+        getContentPane().add(btCiclo, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, 120, 40));
 
         btAsignatura.setBackground(new java.awt.Color(102, 51, 0));
         btAsignatura.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
@@ -1456,7 +1844,7 @@ public class FrmAcademico extends javax.swing.JFrame {
                 btAsignaturaActionPerformed(evt);
             }
         });
-        getContentPane().add(btAsignatura, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, 120, 40));
+        getContentPane().add(btAsignatura, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 40, 120, 40));
 
         jpRegistro.setBackground(new java.awt.Color(212, 173, 107));
 
@@ -1586,107 +1974,142 @@ public class FrmAcademico extends javax.swing.JFrame {
         });
         jScrollPane6.setViewportView(lstCiclo);
 
+        lstUniversidad.setFont(new java.awt.Font("Roboto Thin", 1, 11)); // NOI18N
+        lstUniversidad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstUniversidadMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lstUniversidadMouseEntered(evt);
+            }
+        });
+        jScrollPane5.setViewportView(lstUniversidad);
+
+        btModificarUniversidad.setBackground(new java.awt.Color(102, 51, 0));
+        btModificarUniversidad.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        btModificarUniversidad.setForeground(new java.awt.Color(255, 255, 255));
+        btModificarUniversidad.setText("Modificar");
+        btModificarUniversidad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btModificarUniversidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btModificarUniversidadActionPerformed(evt);
+            }
+        });
+
+        jLabel34.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
+        jLabel34.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel34.setText("Universidades:");
+
         javax.swing.GroupLayout jpRegistroLayout = new javax.swing.GroupLayout(jpRegistro);
         jpRegistro.setLayout(jpRegistroLayout);
         jpRegistroLayout.setHorizontalGroup(
             jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpRegistroLayout.createSequentialGroup()
-                .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpRegistroLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel11))
-                    .addGroup(jpRegistroLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpRegistroLayout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(btModificarFacultad)))
-                .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpRegistroLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jpRegistroLayout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(btModificarCarrera)))
-                .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpRegistroLayout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(btModificarMalla))
-                    .addGroup(jpRegistroLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 17, Short.MAX_VALUE)
                 .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpRegistroLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btModificarCiclo)
-                        .addGap(68, 68, 68))
-                    .addGroup(jpRegistroLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
+                        .addComponent(btLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(440, 440, 440))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpRegistroLayout.createSequentialGroup()
+                        .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel34)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jpRegistroLayout.createSequentialGroup()
+                                .addComponent(btModificarUniversidad)
+                                .addGap(37, 37, 37)))
+                        .addGap(15, 15, 15)
+                        .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jpRegistroLayout.createSequentialGroup()
+                                .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(15, 15, 15))
+                            .addGroup(jpRegistroLayout.createSequentialGroup()
+                                .addComponent(btModificarFacultad)
+                                .addGap(47, 47, 47)))
+                        .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jpRegistroLayout.createSequentialGroup()
+                                .addGap(34, 34, 34)
+                                .addComponent(btModificarCarrera)))
                         .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpRegistroLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel31))
-                        .addGap(12, 12, 12)))
-                .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel30)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jpRegistroLayout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(btModificarAsignatura)))
-                .addContainerGap(16, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpRegistroLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(440, 440, 440))
+                                .addGap(40, 40, 40)
+                                .addComponent(btModificarMalla)
+                                .addGap(83, 83, 83)
+                                .addComponent(btModificarCiclo))
+                            .addGroup(jpRegistroLayout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(15, 15, 15)
+                                .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel31))))
+                        .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpRegistroLayout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel30)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpRegistroLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btModificarAsignatura)
+                                .addGap(51, 51, 51))))))
         );
         jpRegistroLayout.setVerticalGroup(
             jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpRegistroLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpRegistroLayout.createSequentialGroup()
                         .addComponent(jLabel30)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpRegistroLayout.createSequentialGroup()
-                        .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btModificarAsignatura))
+                    .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jpRegistroLayout.createSequentialGroup()
+                            .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jpRegistroLayout.createSequentialGroup()
+                                    .addComponent(jLabel13)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jpRegistroLayout.createSequentialGroup()
+                                    .addComponent(jLabel31)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(6, 6, 6)
+                            .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btModificarMalla)
+                                .addComponent(btModificarCiclo)))
+                        .addGroup(jpRegistroLayout.createSequentialGroup()
                             .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpRegistroLayout.createSequentialGroup()
+                                    .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel11)
+                                        .addComponent(jLabel12))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jpRegistroLayout.createSequentialGroup()
                                     .addGap(23, 23, 23)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btModificarCarrera))
-                                .addGroup(jpRegistroLayout.createSequentialGroup()
-                                    .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel13)
-                                        .addComponent(jLabel31))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jpRegistroLayout.createSequentialGroup()
-                                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(btModificarCiclo)
-                                                .addComponent(btModificarAsignatura)))
-                                        .addGroup(jpRegistroLayout.createSequentialGroup()
-                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(6, 6, 6)
-                                            .addComponent(btModificarMalla)))))
-                            .addGroup(jpRegistroLayout.createSequentialGroup()
-                                .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel12))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btModificarFacultad)))
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jpRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btModificarFacultad)
+                                .addComponent(btModificarCarrera))))
+                    .addGroup(jpRegistroLayout.createSequentialGroup()
+                        .addComponent(jLabel34)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btModificarUniversidad)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1711,7 +2134,7 @@ public class FrmAcademico extends javax.swing.JFrame {
         try {
             guardar(3);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error al guardar malla curricular", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al guardar carrera", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btCrearMActionPerformed
 
@@ -1809,6 +2232,7 @@ public class FrmAcademico extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxFacultadCActionPerformed
 
     private void btCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCarreraActionPerformed
+        jpUniversidad.setVisible(false);
         jpFacultad.setVisible(false);
         jpCarrera.setVisible(true);
         jpMalla.setVisible(false);
@@ -1817,6 +2241,7 @@ public class FrmAcademico extends javax.swing.JFrame {
     }//GEN-LAST:event_btCarreraActionPerformed
 
     private void btFacultadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFacultadActionPerformed
+        jpUniversidad.setVisible(false);
         jpFacultad.setVisible(true);
         jpCarrera.setVisible(false);
         jpMalla.setVisible(false);
@@ -1825,6 +2250,7 @@ public class FrmAcademico extends javax.swing.JFrame {
     }//GEN-LAST:event_btFacultadActionPerformed
 
     private void btAsignaturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAsignaturaActionPerformed
+        jpUniversidad.setVisible(false);
         jpFacultad.setVisible(false);
         jpCarrera.setVisible(false);
         jpMalla.setVisible(false);
@@ -1833,6 +2259,7 @@ public class FrmAcademico extends javax.swing.JFrame {
     }//GEN-LAST:event_btAsignaturaActionPerformed
 
     private void btMallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMallaActionPerformed
+        jpUniversidad.setVisible(false);
         jpFacultad.setVisible(false);
         jpCarrera.setVisible(false);
         jpMalla.setVisible(true);
@@ -1852,6 +2279,7 @@ public class FrmAcademico extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxFacultadMActionPerformed
 
     private void btCicloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCicloActionPerformed
+        jpUniversidad.setVisible(false);
         jpFacultad.setVisible(false);
         jpCarrera.setVisible(false);
         jpMalla.setVisible(false);
@@ -1887,6 +2315,33 @@ public class FrmAcademico extends javax.swing.JFrame {
             } catch (EmptyException ex) {
                 JOptionPane.showMessageDialog(null, "Error al cargar mallas curriculares", "Error", JOptionPane.ERROR_MESSAGE);
             }
+
+            DynamicList<String> numerosTexto = new DynamicList<>();
+            numerosTexto.add("Primero");
+            numerosTexto.add("Segundo");
+            numerosTexto.add("Tercero");
+            numerosTexto.add("Cuarto");
+            numerosTexto.add("Quinto");
+            numerosTexto.add("Sexto");
+            numerosTexto.add("Septimo");
+            numerosTexto.add("Octavo");
+            numerosTexto.add("Noveno");
+            numerosTexto.add("Decimo");
+            numerosTexto.add("Onceavo");
+            numerosTexto.add("Doceavo");
+
+            DynamicList<String> dl = new DynamicList<>();
+            for (int i = 0; i <= carrera.getNumCiclo(); i++) {
+                try {
+                    dl.add(numerosTexto.getInfo(i));
+                } catch (EmptyException ex) {
+                    JOptionPane.showMessageDialog(null, "Error valor nulo de cilo", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+            spnCiclosCl.setModel(new javax.swing.SpinnerListModel(dl.toArray()));
+            spnCiclosCl.setEnabled(true);
+
         }
     }//GEN-LAST:event_cbxCarreraClActionPerformed
 
@@ -2089,10 +2544,129 @@ public class FrmAcademico extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lstCicloMouseClicked
 
+    private void btUniversidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUniversidadActionPerformed
+        jpUniversidad.setVisible(true);
+        jpFacultad.setVisible(false);
+        jpCarrera.setVisible(false);
+        jpMalla.setVisible(false);
+        jpCiclo.setVisible(false);
+        jpAsignatura.setVisible(false);
+    }//GEN-LAST:event_btUniversidadActionPerformed
+
+    private void lstUniversidadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstUniversidadMouseClicked
+        if (lstUniversidad.getSelectedValue() != null) {
+            cargarVista(0);
+            btModificarUniversidad.setEnabled(true);
+            btModificarUniversidad.setForeground(Color.WHITE);
+            btModificarFacultad.setEnabled(false);
+            btModificarFacultad.setForeground(Color.DARK_GRAY);
+            btModificarCarrera.setEnabled(false);
+            btModificarCarrera.setForeground(Color.DARK_GRAY);
+            btModificarMalla.setEnabled(false);
+            btModificarMalla.setForeground(Color.DARK_GRAY);
+            btModificarCiclo.setEnabled(false);
+            btModificarCiclo.setForeground(Color.DARK_GRAY);
+            btModificarAsignatura.setEnabled(false);
+            btModificarAsignatura.setForeground(Color.DARK_GRAY);
+
+            if (!fileFacultad.getFacultades().isEmpty()) {
+                Object u = lstUniversidad.getSelectedValue();
+                Universidad universidad = (Universidad) u;
+                try {
+                    Utilvista.cargarListaFacultades(lstFacultad, universidad);
+                } catch (EmptyException ex) {
+                    JOptionPane.showMessageDialog(null, "Error al cargar lista de facultades", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No existe ninguna universidad disponible", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_lstUniversidadMouseClicked
+
+    private void btModificarUniversidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarUniversidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btModificarUniversidadActionPerformed
+
+    private void btCrearUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCrearUActionPerformed
+        try {
+            guardar(0);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al guardar universidad", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btCrearUActionPerformed
+
+    private void btGCUniversidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGCUniversidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btGCUniversidadActionPerformed
+
+    private void cbxUniversidadFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUniversidadFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxUniversidadFActionPerformed
+
+    private void cbxUniversidadCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUniversidadCActionPerformed
+        if (!fileFacultad.getFacultades().isEmpty() && cbxUniversidadC.getSelectedItem() != null) {
+            Universidad universidad = Utilvista.obtenerUniversidadControl(cbxUniversidadC);
+            try {
+                Utilvista.cargarComboFacultades(cbxFacultadC, universidad);
+            } catch (EmptyException ex) {
+                JOptionPane.showMessageDialog(null, "Error al cargar facultades", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_cbxUniversidadCActionPerformed
+
+    private void cbxUniversidadMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUniversidadMActionPerformed
+        if (!fileFacultad.getFacultades().isEmpty() && cbxUniversidadM.getSelectedItem() != null) {
+            Universidad universidad = Utilvista.obtenerUniversidadControl(cbxUniversidadM);
+            try {
+                Utilvista.cargarComboFacultades(cbxFacultadM, universidad);
+            } catch (EmptyException ex) {
+                JOptionPane.showMessageDialog(null, "Error al cargar facultades", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_cbxUniversidadMActionPerformed
+
+    private void cbxUniversidadClActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUniversidadClActionPerformed
+        if (!fileFacultad.getFacultades().isEmpty() && cbxUniversidadCl.getSelectedItem() != null) {
+            Universidad universidad = Utilvista.obtenerUniversidadControl(cbxUniversidadCl);
+            try {
+                Utilvista.cargarComboFacultades(cbxFacultadCl, universidad);
+            } catch (EmptyException ex) {
+                JOptionPane.showMessageDialog(null, "Error al cargar facultades", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_cbxUniversidadClActionPerformed
+
+    private void cbxUniversidadAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUniversidadAActionPerformed
+        if (!fileFacultad.getFacultades().isEmpty() && cbxUniversidadA.getSelectedItem() != null) {
+            Universidad universidad = Utilvista.obtenerUniversidadControl(cbxUniversidadA);
+            try {
+                Utilvista.cargarComboFacultades(cbxFacultadA, universidad);
+            } catch (EmptyException ex) {
+                JOptionPane.showMessageDialog(null, "Error al cargar facultades", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_cbxUniversidadAActionPerformed
+
+    private void lstUniversidadMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstUniversidadMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lstUniversidadMouseEntered
+
+    private void txtCarreraClRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCarreraClRActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCarreraClRActionPerformed
+
+    private void cbxTipoUnidadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxTipoUnidadMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxTipoUnidadMouseClicked
+
+    private void cbxTipoUnidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoUnidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxTipoUnidadActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -2139,12 +2713,14 @@ public class FrmAcademico extends javax.swing.JFrame {
     private javax.swing.JButton btCrearCl;
     private javax.swing.JButton btCrearF;
     private javax.swing.JButton btCrearM;
+    private javax.swing.JButton btCrearU;
     private javax.swing.JButton btFacultad;
     private javax.swing.JButton btGCAsignatura;
     private javax.swing.JButton btGCCarrera;
     private javax.swing.JButton btGCCiclo;
     private javax.swing.JButton btGCFacultad;
     private javax.swing.JButton btGCMalla;
+    private javax.swing.JButton btGCUniversidad;
     private javax.swing.JButton btLimpiar;
     private javax.swing.JButton btMalla;
     private javax.swing.JButton btModificarAsignatura;
@@ -2152,6 +2728,8 @@ public class FrmAcademico extends javax.swing.JFrame {
     private javax.swing.JButton btModificarCiclo;
     private javax.swing.JButton btModificarFacultad;
     private javax.swing.JButton btModificarMalla;
+    private javax.swing.JButton btModificarUniversidad;
+    private javax.swing.JButton btUniversidad;
     private javax.swing.JComboBox<String> cbxCarreraA;
     private javax.swing.JComboBox<String> cbxCarreraCl;
     private javax.swing.JComboBox<String> cbxCarreraM;
@@ -2163,6 +2741,12 @@ public class FrmAcademico extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbxFacultadM;
     private javax.swing.JComboBox<String> cbxMallaA;
     private javax.swing.JComboBox<String> cbxMallaCl;
+    private javax.swing.JComboBox<String> cbxTipoUnidad;
+    private javax.swing.JComboBox<String> cbxUniversidadA;
+    private javax.swing.JComboBox<String> cbxUniversidadC;
+    private javax.swing.JComboBox<String> cbxUniversidadCl;
+    private javax.swing.JComboBox<String> cbxUniversidadF;
+    private javax.swing.JComboBox<String> cbxUniversidadM;
     private javax.swing.JComboBox<String> cbxVigencia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -2191,9 +2775,20 @@ public class FrmAcademico extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -2204,6 +2799,7 @@ public class FrmAcademico extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JPanel jpAll;
     private javax.swing.JPanel jpAsignatura;
@@ -2212,12 +2808,15 @@ public class FrmAcademico extends javax.swing.JFrame {
     private javax.swing.JPanel jpFacultad;
     private javax.swing.JPanel jpMalla;
     private javax.swing.JPanel jpRegistro;
+    private javax.swing.JPanel jpUniversidad;
     private javax.swing.JList<String> lstAsignatura;
     private javax.swing.JList<String> lstCarrera;
     private javax.swing.JList<String> lstCiclo;
     private javax.swing.JList<String> lstFacultad;
     private javax.swing.JList<String> lstMalla;
+    private javax.swing.JList<String> lstUniversidad;
     private javax.swing.JSpinner spnCiclo;
+    private javax.swing.JSpinner spnCiclosCl;
     private javax.swing.JSpinner spnTotalHorasA;
     private javax.swing.JTextField txtCarreraAR;
     private javax.swing.JTextField txtCarreraClR;
@@ -2227,7 +2826,9 @@ public class FrmAcademico extends javax.swing.JFrame {
     private javax.swing.JTextField txtCodigoC;
     private javax.swing.JTextField txtCodigoF;
     private javax.swing.JTextField txtCorreoF;
+    private javax.swing.JTextField txtCorreoU;
     private javax.swing.JTextField txtDescripcion;
+    private javax.swing.JTextField txtDireccionU;
     private javax.swing.JTextField txtFacultadAR;
     private javax.swing.JTextField txtFacultadCR;
     private javax.swing.JTextField txtFacultadClR;
@@ -2236,8 +2837,13 @@ public class FrmAcademico extends javax.swing.JFrame {
     private javax.swing.JTextField txtMallaClR;
     private javax.swing.JTextField txtNombreA;
     private javax.swing.JTextField txtNombreC;
-    private javax.swing.JTextField txtNombreCl;
     private javax.swing.JTextField txtNombreF;
+    private javax.swing.JTextField txtNombreU;
     private javax.swing.JTextField txtPensum;
+    private javax.swing.JTextField txtUniversidadAR;
+    private javax.swing.JTextField txtUniversidadCR;
+    private javax.swing.JTextField txtUniversidadClR;
+    private javax.swing.JTextField txtUniversidadFR;
+    private javax.swing.JTextField txtUniversidadMR;
     // End of variables declaration//GEN-END:variables
 }
