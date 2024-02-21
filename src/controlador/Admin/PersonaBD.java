@@ -133,8 +133,9 @@ public class PersonaBD extends AdaptadorDao<Persona> {
     public Persona buscarBinariaUnico(String campo, String valorBuscado) throws EmptyException {
         int inicio = 0;
         DynamicList<Persona> lista = all();
+        DynamicList<Persona> listaOrdenada = ordenarMerge(lista, campo, 0);
         int fin = lista.getLength() - 1;
-        Persona personas[] = lista.toArray();
+        Persona personas[] = listaOrdenada.toArray();
         while (inicio <= fin) {
             int medio = (inicio + fin) / 2;
             Persona persona = personas[medio];
