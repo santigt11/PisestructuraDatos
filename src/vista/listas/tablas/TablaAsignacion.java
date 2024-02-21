@@ -39,7 +39,7 @@ public class TablaAsignacion extends AbstractTableModel {
                 case 0:
                     return (asignacion != null) ? docente.getApellido() + " " + docente.getNombre(): " ";
                 case 1:
-                    return (asignacion != null) ? fileAsignatura.buscarBinaria("codigo", asignacion.getAsignatura_CODIGO()).getCodigo(): "";
+                    return (asignacion != null) ? fileAsignatura.buscarBinaria(fileAsignatura.all(), "codigo", asignacion.getAsignatura_CODIGO()).getCodigo(): "";
                 case 2:
                     return (asignacion != null) ? filePeriodo.getPeriodos().getInfo(asignacion.getPeriodoAcademico_ID()): "";
                 default:

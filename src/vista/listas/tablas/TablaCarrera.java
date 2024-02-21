@@ -27,7 +27,7 @@ public class TablaCarrera extends AbstractTableModel {
                 case 0:
                     return (cr != null) ? cr.getNombre() : "";
                 case 1:
-                    return (cr != null) ? cr.getNumCiclos() : "";
+                    return (cr != null) ? cr.getNumCiclo(): "";
                 default:
                     return null;
             }
