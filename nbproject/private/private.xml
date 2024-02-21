@@ -6,8 +6,12 @@
         <group/>
 =======
         <group>
-            <file>file:/C:/Users/santi.LENOVO/Desktop/Tercer%20Ciclo/Proyectos%20NetBeans%20-%20Estructura%20de%20Datos/PISestructuraDatos/src/vista/Tutorias/FrmTutoriasPrincipal.java</file>
-            <file>file:/C:/Users/santi.LENOVO/Desktop/Tercer%20Ciclo/Proyectos%20NetBeans%20-%20Estructura%20de%20Datos/PISestructuraDatos/src/vista/Tutorias/FrmGenerarInforme.java</file>
+            <file>file:/C:/Users/steve/OneDrive/Documentos/NetBeansProjects/Practicas%20Git/v11/src/controlador/Admin/PersonaBD.java</file>
+            <file>file:/C:/Users/steve/OneDrive/Documentos/NetBeansProjects/Practicas%20Git/v11/src/vista/listas/tablas/TablaAsignacion.java</file>
+            <file>file:/C:/Users/steve/OneDrive/Documentos/NetBeansProjects/Practicas%20Git/v11/src/vista/Academico/FrmAsignacion.java</file>
+            <file>file:/C:/Users/steve/OneDrive/Documentos/NetBeansProjects/Practicas%20Git/v11/src/controlador/Academico/CarreraBD.java</file>
+            <file>file:/C:/Users/steve/OneDrive/Documentos/NetBeansProjects/Practicas%20Git/v11/src/vista/Academico/FrmAcademico.java</file>
+            <file>file:/C:/Users/steve/OneDrive/Documentos/NetBeansProjects/Practicas%20Git/v11/src/modelo/HorarioTutoria.java</file>
         </group>
 >>>>>>> main
     </open-files>

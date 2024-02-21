@@ -10,6 +10,7 @@ import controlador.Academico.CarreraBD;
 import controlador.Academico.CicloBD;
 import controlador.Academico.FacultadBD;
 import controlador.Academico.MallaBD;
+import controlador.Academico.UniversidadBD;
 import controlador.Admin.PersonaBD;
 import controlador.Login.UsuarioBD;
 import java.time.ZoneId;
@@ -23,6 +24,8 @@ public class FrmAsignacion extends javax.swing.JFrame {
     private AsignacionBD fileAsignacion = new AsignacionBD();
     private PersonaBD filePersona = new PersonaBD();
     private UsuarioBD fileUsuario = new UsuarioBD();
+    private final UniversidadBD fileUniversidad = new UniversidadBD();
+    private final FacultadBD fileFacultad = new FacultadBD();
     private CarreraBD fileCarrera = new CarreraBD();
     private MallaBD fileMalla = new MallaBD();
     private CicloBD fileCiclo = new CicloBD();
@@ -43,10 +46,11 @@ public class FrmAsignacion extends javax.swing.JFrame {
 
     private void limpiar() {
         try {
-            Utilvista.cargarListaFacultades(lstFacultad);
-            //Utilvista.cargarListaUsuariosD(lstDocente);
+            if (!fileUniversidad.getUniversidades().isEmpty()) {
+                Utilvista.cargarComboUniversidades(cbxUniversidadC);
+            }
         } catch (EmptyException ex) {
-            Logger.getLogger(FrmAsignacion.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al cargar las universidades", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         cargarTablaContratos();
 
@@ -106,7 +110,7 @@ public class FrmAsignacion extends javax.swing.JFrame {
                     limpiarSoft();
                     Object d = lstDocente.getSelectedValue();
                     Usuario docente = (Usuario) d;
-                    Persona p = filePersona.buscarBinaria("dni", docente.getPersona_DNI());
+                    Persona p = filePersona.buscarBinariaUnico("dni", docente.getPersona_DNI());
                     txtDni.setText(p.getDni());
                     txtApellidos.setText(p.getApellido());
                     txtNombres.setText(p.getNombre());
@@ -125,7 +129,7 @@ public class FrmAsignacion extends javax.swing.JFrame {
                     limpiarSoft();
                     Asignacion asignacion = fileAsignacion.getAsignaciones().getInfo((tbAsignacion.getSelectedRow() + 1));
                     Usuario ud = fileUsuario.getUsuariosTodos().getInfo(asignacion.getUsuario_ID());
-                    Persona d = filePersona.buscarBinaria("dni", ud.getPersona_DNI());
+                    Persona d = filePersona.buscarBinariaUnico("dni", ud.getPersona_DNI());
 
                     txtDni.setText(d.getDni());
                     txtApellidos.setText(d.getApellido());
@@ -153,8 +157,6 @@ public class FrmAsignacion extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jpFCA = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        lstFacultad = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         lstCarrera = new javax.swing.JList<>();
@@ -167,6 +169,9 @@ public class FrmAsignacion extends javax.swing.JFrame {
         jScrollPane9 = new javax.swing.JScrollPane();
         lstCiclo = new javax.swing.JList<>();
         jLabel16 = new javax.swing.JLabel();
+        cbxUniversidadC = new javax.swing.JComboBox<>();
+        jLabel19 = new javax.swing.JLabel();
+        cbxFacultadC = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jpDocentes = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -229,17 +234,7 @@ public class FrmAsignacion extends javax.swing.JFrame {
 
         jLabel18.setFont(new java.awt.Font("Roboto Medium", 1, 13)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel18.setText("Facultades");
-
-        jScrollPane8.setPreferredSize(new java.awt.Dimension(262, 130));
-
-        lstFacultad.setFont(new java.awt.Font("Roboto Thin", 1, 11)); // NOI18N
-        lstFacultad.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lstFacultadMouseClicked(evt);
-            }
-        });
-        jScrollPane8.setViewportView(lstFacultad);
+        jLabel18.setText("Universidades");
 
         jLabel2.setFont(new java.awt.Font("Roboto Medium", 1, 13)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -300,6 +295,28 @@ public class FrmAsignacion extends javax.swing.JFrame {
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Ciclos");
 
+        cbxUniversidadC.setBackground(new java.awt.Color(237, 209, 163));
+        cbxUniversidadC.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbxUniversidadC.setForeground(new java.awt.Color(242, 242, 242));
+        cbxUniversidadC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxUniversidadCActionPerformed(evt);
+            }
+        });
+
+        jLabel19.setFont(new java.awt.Font("Roboto Medium", 1, 13)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel19.setText("Facultades");
+
+        cbxFacultadC.setBackground(new java.awt.Color(237, 209, 163));
+        cbxFacultadC.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbxFacultadC.setForeground(new java.awt.Color(242, 242, 242));
+        cbxFacultadC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxFacultadCActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpFCALayout = new javax.swing.GroupLayout(jpFCA);
         jpFCA.setLayout(jpFCALayout);
         jpFCALayout.setHorizontalGroup(
@@ -307,54 +324,75 @@ public class FrmAsignacion extends javax.swing.JFrame {
             .addGroup(jpFCALayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel18)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel16)
-                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel15)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15))
+                    .addGroup(jpFCALayout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbxUniversidadC, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbxFacultadC, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(95, 95, 95))
+                    .addGroup(jpFCALayout.createSequentialGroup()
+                        .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addGroup(jpFCALayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpFCALayout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jpFCALayout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(jLabel16)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpFCALayout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(jLabel15))
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(19, 19, 19))))
         );
         jpFCALayout.setVerticalGroup(
             jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpFCALayout.createSequentialGroup()
                 .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpFCALayout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jpFCALayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
+                        .addGap(5, 5, 5)
+                        .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel18)
+                            .addComponent(cbxUniversidadC, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpFCALayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel19)
+                            .addComponent(cbxFacultadC, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpFCALayout.createSequentialGroup()
                         .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel16)
-                                .addComponent(jLabel15))
-                            .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap())
+                            .addComponent(jLabel15)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel16)))
+                        .addGap(2, 2, 2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(230, 230, 230))
         );
 
-        getContentPane().add(jpFCA, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 341, 680, 240));
+        getContentPane().add(jpFCA, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 311, 680, 270));
 
         jPanel1.setBackground(new java.awt.Color(255, 250, 205));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -393,11 +431,11 @@ public class FrmAsignacion extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jPanel1.add(jpDocentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 680, 290));
+        jPanel1.add(jpDocentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 680, 260));
 
         jpContrato.setBackground(new java.awt.Color(212, 173, 107));
         jpContrato.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -499,7 +537,7 @@ public class FrmAsignacion extends javax.swing.JFrame {
         });
         jpA.setViewportView(tbAsignacion);
 
-        jpContrato.add(jpA, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 320, 210));
+        jpContrato.add(jpA, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 320, 220));
 
         lblA.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         lblA.setForeground(new java.awt.Color(0, 0, 0));
@@ -579,7 +617,7 @@ public class FrmAsignacion extends javax.swing.JFrame {
         spnHI.setModel(new javax.swing.SpinnerListModel(new String[] {"07:00,", "07:00,", "09:00,", "10:00,", "11:00,", "12:00,", "13:00,", "14:00,", "15:00,", "16:00,", "17:00,", "18:00"}));
         jpContrato.add(spnHI, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, -1, -1));
 
-        jPanel1.add(jpContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 80, 340, 500));
+        jPanel1.add(jpContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 70, 340, 510));
 
         btHT.setBackground(new java.awt.Color(102, 51, 0));
         btHT.setFont(new java.awt.Font("Roboto Medium", 1, 12)); // NOI18N
@@ -592,7 +630,7 @@ public class FrmAsignacion extends javax.swing.JFrame {
                 btHTActionPerformed(evt);
             }
         });
-        jPanel1.add(btHT, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 50, -1, 40));
+        jPanel1.add(btHT, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 40, -1, 40));
 
         btAsignacion.setBackground(new java.awt.Color(102, 51, 0));
         btAsignacion.setFont(new java.awt.Font("Roboto Medium", 1, 12)); // NOI18N
@@ -605,7 +643,7 @@ public class FrmAsignacion extends javax.swing.JFrame {
                 btAsignacionActionPerformed(evt);
             }
         });
-        jPanel1.add(btAsignacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 50, 100, 40));
+        jPanel1.add(btAsignacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 40, 100, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 590));
 
@@ -652,23 +690,6 @@ public class FrmAsignacion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No existe ninguna malla curricular disponible", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_lstMallaMouseClicked
-
-    private void lstFacultadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstFacultadMouseClicked
-        if (lstFacultad.getSelectedValue() != null) {
-            if (!fileCarrera.getCarreras().isEmpty()) {
-                Object f = lstFacultad.getSelectedValue();
-                Facultad facultad = (Facultad) f;
-                Utilvista.limpiarLista(lstCarrera);
-                try {
-                    Utilvista.cargarListaCarreras(lstCarrera, facultad);
-                } catch (EmptyException ex) {
-                    JOptionPane.showMessageDialog(null, "Error al cargar lista de carreras", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "No existe ninguna facultad disponible", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_lstFacultadMouseClicked
 
     private void lstCarreraMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstCarreraMouseEntered
         // TODO add your handling code here:
@@ -769,6 +790,30 @@ public class FrmAsignacion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btAsignarHorarioActionPerformed
 
+    private void cbxUniversidadCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUniversidadCActionPerformed
+        if (!fileFacultad.getFacultades().isEmpty() && cbxUniversidadC.getSelectedItem() != null) {
+            Universidad universidad = Utilvista.obtenerUniversidadControl(cbxUniversidadC);
+            try {
+                Utilvista.cargarComboFacultades(cbxFacultadC, universidad);
+            } catch (EmptyException ex) {
+                JOptionPane.showMessageDialog(null, "Error al cargar facultades", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_cbxUniversidadCActionPerformed
+
+    private void cbxFacultadCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFacultadCActionPerformed
+        if (!fileCarrera.getCarreras().isEmpty() && cbxFacultadC.getSelectedItem() != null) {
+            Facultad facultad = Utilvista.obtenerFacultadControl(cbxFacultadC);
+            try {
+                Utilvista.cargarListaCarreras(lstCarrera, facultad);
+            } catch (EmptyException ex) {
+                JOptionPane.showMessageDialog(null, "Error al cargar lista de carreras", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No existe ninguna facultad disponible", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_cbxFacultadCActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -825,10 +870,13 @@ public class FrmAsignacion extends javax.swing.JFrame {
     private javax.swing.JButton btCrearContrato;
     private javax.swing.JButton btHT;
     private javax.swing.JComboBox<String> cbxDia;
+    private javax.swing.JComboBox<String> cbxFacultadC;
+    private javax.swing.JComboBox<String> cbxUniversidadC;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -843,7 +891,6 @@ public class FrmAsignacion extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JScrollPane jpA;
     private javax.swing.JPanel jpContrato;
@@ -859,7 +906,6 @@ public class FrmAsignacion extends javax.swing.JFrame {
     private javax.swing.JList<String> lstCarrera;
     private javax.swing.JList<String> lstCiclo;
     private javax.swing.JList<String> lstDocente;
-    private javax.swing.JList<String> lstFacultad;
     private javax.swing.JList<String> lstMalla;
     private javax.swing.JSpinner spnHF;
     private javax.swing.JSpinner spnHI;
