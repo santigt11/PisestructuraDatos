@@ -142,7 +142,15 @@ public class Utilvista {
         Object facultad = lst.getSelectedValue();
         return (Facultad) facultad;
     }
-
+    
+    public static void cargarComboAsignaturas(JComboBox cbx) throws EmptyException {
+        AsignaturaBD ct = new AsignaturaBD();
+        cbx.removeAllItems();
+        for (Integer i = 0; i < ct.getAsignaturas().getLength(); i++) {
+            cbx.addItem(ct.getAsignaturas().getInfo(i));
+        }
+    }
+    
     public static void cargarComboAsignacion(DynamicList<Asignacion> contratos, JComboBox cbx) throws EmptyException {
         AsignaturaBD aa = new AsignaturaBD();
         Asignacion contratosArray[] = contratos.toArray();
