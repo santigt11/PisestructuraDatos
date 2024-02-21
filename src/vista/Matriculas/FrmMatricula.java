@@ -334,6 +334,7 @@ public class FrmMatricula extends javax.swing.JFrame {
         cbxUniversidadC = new javax.swing.JComboBox<>();
         jLabel26 = new javax.swing.JLabel();
         cbxFacultadC = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -968,6 +969,17 @@ public class FrmMatricula extends javax.swing.JFrame {
 
         jPanel1.add(jpFCA, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 311, 560, 270));
 
+        jButton1.setBackground(new java.awt.Color(102, 51, 0));
+        jButton1.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Salir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 40, 100, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 590));
 
         pack();
@@ -1146,6 +1158,10 @@ public class FrmMatricula extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbxFacultadCActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1206,6 +1222,7 @@ public class FrmMatricula extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbxMatricula;
     private javax.swing.JComboBox<String> cbxUniversidadC;
     private com.toedter.calendar.JDateChooser dtRegistro;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

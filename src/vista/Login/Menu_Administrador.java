@@ -269,7 +269,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
         PanelPrincipalAdministradorLayout.setHorizontalGroup(
             PanelPrincipalAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPrincipalAdministradorLayout.createSequentialGroup()
-                .addContainerGap(837, Short.MAX_VALUE)
+                .addContainerGap(830, Short.MAX_VALUE)
                 .addComponent(PanelUsuarioO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -278,10 +278,10 @@ public class Menu_Administrador extends javax.swing.JFrame {
             .addGroup(PanelPrincipalAdministradorLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(PanelUsuarioO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(316, Short.MAX_VALUE))
+                .addContainerGap(379, Short.MAX_VALUE))
         );
 
-        getContentPane().add(PanelPrincipalAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 1057, 587));
+        getContentPane().add(PanelPrincipalAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 1057, 650));
 
         jPanel3.setBackground(new java.awt.Color(102, 51, 0));
         jPanel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -504,7 +504,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
                 .addGap(55, 55, 55))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 260, 650));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 260, 700));
 
         jPanel4.setBackground(new java.awt.Color(58, 39, 34));
 
