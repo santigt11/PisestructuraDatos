@@ -236,7 +236,6 @@ public class FrmMatricula extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jpMatricula = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         txtDni = new javax.swing.JTextField();
@@ -251,6 +250,9 @@ public class FrmMatricula extends javax.swing.JFrame {
         cbxExpediente = new javax.swing.JComboBox<>();
         jLabel21 = new javax.swing.JLabel();
         txtPeriodo = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        txtPeriodo1 = new javax.swing.JTextField();
         jpMatriculaAsg = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         txtFacultad = new javax.swing.JTextField();
@@ -367,24 +369,23 @@ public class FrmMatricula extends javax.swing.JFrame {
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jpMatricula.setBackground(new java.awt.Color(212, 173, 107));
+        jpMatricula.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
         jLabel5.setText("Nueva Matricula:");
-
-        jLabel7.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel7.setText("Nombres:");
-        jLabel7.setToolTipText("");
+        jpMatricula.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 8, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("Apellidos:");
         jLabel8.setToolTipText("");
+        jpMatricula.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 63, -1, 20));
 
         jLabel9.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel9.setText("DNI:");
         jLabel9.setToolTipText("");
+        jpMatricula.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 36, -1, -1));
 
         txtDni.setEditable(false);
         txtDni.setBackground(new java.awt.Color(237, 209, 163));
@@ -395,6 +396,7 @@ public class FrmMatricula extends javax.swing.JFrame {
                 txtDniActionPerformed(evt);
             }
         });
+        jpMatricula.add(txtDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 32, 155, -1));
 
         txtApellidos.setEditable(false);
         txtApellidos.setBackground(new java.awt.Color(237, 209, 163));
@@ -405,6 +407,7 @@ public class FrmMatricula extends javax.swing.JFrame {
                 txtApellidosActionPerformed(evt);
             }
         });
+        jpMatricula.add(txtApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 62, 152, -1));
 
         txtNombres.setEditable(false);
         txtNombres.setBackground(new java.awt.Color(237, 209, 163));
@@ -414,11 +417,13 @@ public class FrmMatricula extends javax.swing.JFrame {
                 txtNombresActionPerformed(evt);
             }
         });
+        jpMatricula.add(txtNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(292, 62, 152, -1));
 
         jLabel10.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel10.setText("Telefono:");
         jLabel10.setToolTipText("");
+        jpMatricula.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 105, -1, 20));
 
         txtTelefono.setEditable(false);
         txtTelefono.setBackground(new java.awt.Color(237, 209, 163));
@@ -428,14 +433,17 @@ public class FrmMatricula extends javax.swing.JFrame {
                 txtTelefonoActionPerformed(evt);
             }
         });
+        jpMatricula.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 104, 152, -1));
 
         jLabel12.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel12.setText("Fecha de Registro:");
         jLabel12.setToolTipText("");
+        jpMatricula.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 172, -1, 26));
 
         dtRegistro.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
         dtRegistro.setPreferredSize(new java.awt.Dimension(93, 24));
+        jpMatricula.add(dtRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 174, 130, -1));
 
         btCrearMatricula.setBackground(new java.awt.Color(102, 51, 0));
         btCrearMatricula.setForeground(new java.awt.Color(255, 255, 255));
@@ -446,115 +454,48 @@ public class FrmMatricula extends javax.swing.JFrame {
                 btCrearMatriculaActionPerformed(evt);
             }
         });
+        jpMatricula.add(btCrearMatricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 162, -1));
 
         jLabel20.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel20.setText("Expediente:");
         jLabel20.setToolTipText("");
+        jpMatricula.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, -1, 20));
 
         cbxExpediente.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
         cbxExpediente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACTIVO", "INACTIVO" }));
         cbxExpediente.setEnabled(false);
+        jpMatricula.add(cbxExpediente, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, -1, -1));
 
         jLabel21.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel21.setText("Periodo Academico:");
         jLabel21.setToolTipText("");
+        jpMatricula.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 137, -1, 20));
 
         txtPeriodo.setEditable(false);
         txtPeriodo.setBackground(new java.awt.Color(237, 209, 163));
         txtPeriodo.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
+        jpMatricula.add(txtPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(117, 136, 146, -1));
 
-        javax.swing.GroupLayout jpMatriculaLayout = new javax.swing.GroupLayout(jpMatricula);
-        jpMatricula.setLayout(jpMatriculaLayout);
-        jpMatriculaLayout.setHorizontalGroup(
-            jpMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpMatriculaLayout.createSequentialGroup()
-                .addGroup(jpMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpMatriculaLayout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(jLabel5))
-                    .addGroup(jpMatriculaLayout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addGroup(jpMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jpMatriculaLayout.createSequentialGroup()
-                                .addGap(54, 54, 54)
-                                .addComponent(jLabel10)
-                                .addGap(20, 20, 20)
-                                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jpMatriculaLayout.createSequentialGroup()
-                                .addComponent(jLabel21)
-                                .addGap(19, 19, 19)
-                                .addComponent(txtPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jpMatriculaLayout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(jLabel12)
-                                .addGap(18, 18, 18)
-                                .addComponent(dtRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jpMatriculaLayout.createSequentialGroup()
-                                .addGap(54, 54, 54)
-                                .addComponent(jLabel7)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jpMatriculaLayout.createSequentialGroup()
-                                .addGap(54, 54, 54)
-                                .addGroup(jpMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel9))
-                                .addGap(18, 18, 18)
-                                .addGroup(jpMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(jpMatriculaLayout.createSequentialGroup()
-                                .addGap(45, 45, 45)
-                                .addComponent(jLabel20)
-                                .addGap(18, 18, 18)
-                                .addGroup(jpMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btCrearMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbxExpediente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(60, 60, 60))
-        );
-        jpMatriculaLayout.setVerticalGroup(
-            jpMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpMatriculaLayout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addGap(7, 7, 7)
-                .addGroup(jpMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addGroup(jpMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(jpMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpMatriculaLayout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(jpMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(jpMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dtRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(jpMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbxExpediente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btCrearMatricula)
-                .addContainerGap())
-        );
+        jLabel7.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel7.setText("Nombres:");
+        jLabel7.setToolTipText("");
+        jpMatricula.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(234, 63, -1, 20));
 
-        jPanel4.add(jpMatricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 0, 370, 290));
+        jLabel27.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel27.setText("Periodo Academico:");
+        jLabel27.setToolTipText("");
+        jpMatricula.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, 26));
+
+        txtPeriodo1.setEditable(false);
+        txtPeriodo1.setBackground(new java.awt.Color(237, 209, 163));
+        txtPeriodo1.setFont(new java.awt.Font("Roboto Light", 0, 11)); // NOI18N
+        jpMatricula.add(txtPeriodo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 160, -1));
+
+        jPanel4.add(jpMatricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 0, -1, 310));
 
         jpMatriculaAsg.setBackground(new java.awt.Color(212, 173, 107));
 
@@ -670,6 +611,9 @@ public class FrmMatricula extends javax.swing.JFrame {
                         .addGap(13, 13, 13)
                         .addComponent(txtMalla, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpMatriculaAsgLayout.createSequentialGroup()
+                        .addGap(150, 150, 150)
+                        .addComponent(btAgregarAsignaturaMatricula))
+                    .addGroup(jpMatriculaAsgLayout.createSequentialGroup()
                         .addGap(90, 90, 90)
                         .addComponent(jLabel14)
                         .addGap(9, 9, 9)
@@ -678,10 +622,7 @@ public class FrmMatricula extends javax.swing.JFrame {
                         .addGap(107, 107, 107)
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpMatriculaAsgLayout.createSequentialGroup()
-                        .addGap(150, 150, 150)
-                        .addComponent(btAgregarAsignaturaMatricula)))
+                        .addComponent(txtCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(80, Short.MAX_VALUE))
         );
         jpMatriculaAsgLayout.setVerticalGroup(
@@ -1234,6 +1175,7 @@ public class FrmMatricula extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1272,6 +1214,7 @@ public class FrmMatricula extends javax.swing.JFrame {
     private javax.swing.JTextField txtMalla;
     private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtPeriodo;
+    private javax.swing.JTextField txtPeriodo1;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
