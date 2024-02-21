@@ -34,7 +34,7 @@ public class Perfiles extends javax.swing.JFrame {
                 txtApellido.setText(persona.getApellido());
                 txtCedula.setText(persona.getDni());
                 txtTelefono.setText(persona.getTelefono());                
-                txtCorreo.setText(usuario.getCorreo());
+                txtCorreo.setText(persona.getCorreo());
                 txtEstado.setText(String.valueOf(usuario.getActivo()? "Activo" : "Inactivo"));
                 break;
             case 2:
@@ -44,7 +44,7 @@ public class Perfiles extends javax.swing.JFrame {
                 txtApellido.setText(persona.getApellido());
                 txtCedula.setText(persona.getDni());
                 txtTelefono.setText(persona.getTelefono());                
-                txtCorreo.setText(usuario.getCorreo());
+                txtCorreo.setText(persona.getCorreo());
                 txtEstado.setText(String.valueOf(usuario.getActivo()? "Activo" : "Inactivo"));
                 // Otras acciones específicas para docentes...
                 break;
@@ -55,7 +55,7 @@ public class Perfiles extends javax.swing.JFrame {
                 txtApellido.setText(persona.getApellido());
                 txtCedula.setText(persona.getDni());
                 txtTelefono.setText(persona.getTelefono());                
-                txtCorreo.setText(usuario.getCorreo());
+                txtCorreo.setText(persona.getCorreo());
                 txtEstado.setText(String.valueOf(usuario.getActivo()? "Activo" : "Inactivo"));
                 // Otras acciones específicas para estudiantes...
                 break;
