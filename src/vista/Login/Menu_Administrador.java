@@ -123,7 +123,6 @@ public class Menu_Administrador extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        circleComponent1 = new com.jgoodies.animation.components.CircleComponent();
         PanelPrincipalAdministrador = new javax.swing.JPanel();
         PanelUsuarioO = new javax.swing.JPanel();
         btnPerfilUser = new javax.swing.JLabel();
@@ -170,8 +169,6 @@ public class Menu_Administrador extends javax.swing.JFrame {
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 62, 0, 0));
         jPanel2.getAccessibleContext().setAccessibleName("");
         jPanel2.getAccessibleContext().setAccessibleDescription("");
-
-        getContentPane().add(circleComponent1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, -1, -1));
 
         PanelPrincipalAdministrador.setBackground(new java.awt.Color(255, 250, 205));
 
@@ -399,11 +396,10 @@ public class Menu_Administrador extends javax.swing.JFrame {
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel6)))
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                    .addGap(9, 9, 9)
-                                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jSeparator2)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(73, 73, 73)
@@ -602,7 +598,6 @@ public class Menu_Administrador extends javax.swing.JFrame {
     private javax.swing.JLabel btnPerfilUser;
     private org.edisoncor.gui.button.ButtonIcon buttonIcon2;
     private javax.swing.JLabel cambiarClave;
-    private com.jgoodies.animation.components.CircleComponent circleComponent1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

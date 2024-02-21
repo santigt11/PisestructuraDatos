@@ -44,8 +44,8 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     }
 
     private void cargarAsignaciones() throws EmptyException {
-        usuarioNavegacion = usuarioControl.buscarBinaria(usuarioControl.all(), "id", "2");
-        usuarioControl.setUsuario(usuarioControl.buscarBinaria(usuarioControl.all(), "id", "2"));
+        usuarioNavegacion = usuarioControl.buscarBinaria(usuarioControl.all(), "id", "1");
+        usuarioControl.setUsuario(usuarioControl.buscarBinaria(usuarioControl.all(), "id", "1"));
         cargarUsuario(usuarioNavegacion);
         personaControl.setPersona(personaControl.buscarBinaria(personaControl.all(), "dni", usuarioNavegacion.getPersona_DNI()));
         lbUsuario.setText(personaControl.getPersona().getApellido() + " " + personaControl.getPersona().getNombre());

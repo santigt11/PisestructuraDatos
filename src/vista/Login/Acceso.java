@@ -249,7 +249,7 @@ public class Acceso extends javax.swing.JFrame {
             Persona persona = null;//
             try {
                 //buscar persona por medio del dni
-            persona = controlPersona.buscarBinaria("dni", user.getPersona_DNI());                //System.out.println(persona.getNombre().toString());
+            persona = controlPersona.buscarBinaria(controlPersona.all(), "dni", user.getPersona_DNI());                //System.out.println(persona.getNombre().toString());
             } catch (EmptyException ex) {
                 //Manejo de excepciones si no se encuentra la persona
                 java.util.logging.Logger.getLogger(Acceso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);

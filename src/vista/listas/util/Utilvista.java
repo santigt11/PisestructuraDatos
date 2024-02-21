@@ -172,7 +172,7 @@ public class Utilvista {
             JOptionPane.showMessageDialog(null, "Lista vacia");
         } else {
             for (int i = 0; i < contratos.getLength(); i++) {
-                cbx.addItem(aa.buscarBinaria("codigo", contratosArray[i].getAsignatura_CODIGO()));
+                cbx.addItem(aa.buscarBinaria(aa.all(), "codigo", contratosArray[i].getAsignatura_CODIGO()));
             }
         }
     }
