@@ -24,6 +24,7 @@ import modelo.Persona;
 import modelo.Usuario;
 import prepis.sSlide;
 import vista.CambiarClave;
+import vista.FrmPeriodoAcademico;
 import vista.Perfiles;
 import vista.Tutorias.FrmGenerarInforme;
 import vista.Tutorias.FrmTutoriasPrincipal;
@@ -77,6 +78,14 @@ public class Menu_Administrador extends javax.swing.JFrame {
     CambiarClave VcambioClave = new CambiarClave(usuario, persona);
     VcambioClave.setVisible(true);
 }
+    
+    private void mostrarPeriodo(Usuario usuario, Persona persona) {
+        FrmPeriodoAcademico frmPeriodoAcademico = new FrmPeriodoAcademico();
+
+        // Hacer visible la ventana de perfil
+        frmPeriodoAcademico.setVisible(true);
+
+    }
 
 
     private void mostrarGif() {
@@ -521,6 +530,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
 
     private void AdminPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminPeriodoActionPerformed
         // TODO add your handling code here:
+        mostrarPeriodo(user, persona);
     }//GEN-LAST:event_AdminPeriodoActionPerformed
 
     private void BtnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMatriculaActionPerformed
