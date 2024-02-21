@@ -123,5 +123,33 @@ public class Tutoria {
                 throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
         }
     }
+    
+    public Boolean compare(Tutoria t, String field, Integer type) {
+        //0 menor 1 mayor
+        switch (type) {
+            case 0:// Si el tipo es 0 es menor
+                if (field.equalsIgnoreCase("tema")) {
+                    return tema.compareTo(t.getTema()) < 0;//compara
+                } else if (field.equalsIgnoreCase("asignacion_id")) {
+                    return asignacion_ID.compareTo(t.getAsignacion_ID()) < 0;
+                } else if (field.equalsIgnoreCase("fecha")) {
+                    return fecha.compareTo(t.getFecha()) < 0;
+                } else if (field.equalsIgnoreCase("id")) {
+                    return id.compareTo(t.getId()) < 0;
+                }
+            case 1: //si el tipo es 1 es mayor
+                if (field.equalsIgnoreCase("tema")) {
+                    return tema.compareTo(t.getTema()) > 0;//compara
+                } else if (field.equalsIgnoreCase("asignacion_id")) {
+                    return asignacion_ID.compareTo(t.getAsignacion_ID()) > 0;
+                } else if (field.equalsIgnoreCase("fecha")) {
+                    return fecha.compareTo(t.getFecha()) > 0;
+                } else if (field.equalsIgnoreCase("id")) {
+                    return id.compareTo(t.getId()) > 0;
+                }
+            default:
+                throw new AssertionError();
+        }
+    }
 
 }

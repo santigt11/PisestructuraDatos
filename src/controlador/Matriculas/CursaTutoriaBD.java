@@ -62,7 +62,7 @@ public class CursaTutoriaBD extends AdaptadorDao<CursaTutoria> {
 
     public CursaTutoria buscarBinaria(String campo, String valorBuscado) throws EmptyException {
         int inicio = 0;
-        DynamicList<CursaTutoria> lista = all();
+        DynamicList<CursaTutoria> lista = ordenarMerge(all(), "id", 0);
         int fin = lista.getLength() - 1;
         CursaTutoria matriculasAsignaturas[] = lista.toArray();
         while (inicio <= fin) {
@@ -79,5 +79,50 @@ public class CursaTutoriaBD extends AdaptadorDao<CursaTutoria> {
         }
         return null;
     }
+    
+    public DynamicList<CursaTutoria> ordenarMerge(DynamicList<CursaTutoria> lista, String field, Integer tipo) throws EmptyException {
+        if (lista.getLength() > 1) {
+            DynamicList<CursaTutoria> izquierda = new DynamicList<>();
+            DynamicList<CursaTutoria> derecha = new DynamicList<>();
+            int mitad = lista.getLength() / 2;
+            for (int i = 0; i < mitad; i++) {
+                izquierda.add(lista.getInfo(i));
+            }
+            for (int i = mitad; i < lista.getLength(); i++) {
+                derecha.add(lista.getInfo(i));
+            }
+            izquierda = ordenarMerge(izquierda, field, tipo);
+            derecha = ordenarMerge(derecha, field, tipo);
+            mezclar(lista, izquierda, derecha, field, tipo);
+        }
+        return lista;
+    }
 
+    private void mezclar(DynamicList<CursaTutoria> lista, DynamicList<CursaTutoria> list1, DynamicList<CursaTutoria> list2, String field, Integer tipo) throws EmptyException {
+        int indiceIzq = 0, indiceDer = 0, indiceLista = 0;
+        CursaTutoria[] izquierda = list1.toArray();
+        CursaTutoria[] derecha = list2.toArray();
+        while (indiceIzq < izquierda.length && indiceDer < derecha.length) {
+            if (izquierda[indiceIzq].compare(derecha[indiceDer], field, tipo)) {
+                lista.merge(izquierda[indiceIzq], indiceLista);
+                indiceIzq += 1;
+            } else {
+                lista.merge(derecha[indiceDer], indiceLista);
+                indiceDer += 1;
+            }
+            indiceLista += 1;
+        }
+
+        while (indiceIzq < izquierda.length) {
+            lista.merge(izquierda[indiceIzq], indiceLista);
+            indiceIzq += 1;
+            indiceLista += 1;
+        }
+
+        while (indiceDer < derecha.length) {
+            lista.merge(derecha[indiceDer], indiceLista);
+            indiceDer += 1;
+            indiceLista += 1;
+        }
+    }
 }

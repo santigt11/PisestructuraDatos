@@ -68,4 +68,28 @@ public class CursaTutoria {
                 throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
         }
     }
+    
+    public Boolean compare(CursaTutoria ct, String field, Integer type) {
+        //0 menor 1 mayor
+        switch (type) {
+            case 0:// Si el tipo es 0 es menor
+                if (field.equalsIgnoreCase("cursa_id")) {
+                    return cursa_ID.compareTo(ct.getCursa_ID()) < 0;//compara
+                } else if (field.equalsIgnoreCase("tutoria_id")) {
+                    return tutoria_ID.compareTo(ct.getTutoria_ID()) < 0;
+                } else if (field.equalsIgnoreCase("id")) {
+                    return id.compareTo(ct.getId()) < 0;
+                }
+            case 1: //si el tipo es 1 es mayor
+                if (field.equalsIgnoreCase("cursa_id")) {
+                    return cursa_ID.compareTo(ct.getCursa_ID()) > 0;//compara
+                } else if (field.equalsIgnoreCase("tutoria_id")) {
+                    return tutoria_ID.compareTo(ct.getTutoria_ID()) > 0;
+                } else if (field.equalsIgnoreCase("id")) {
+                    return id.compareTo(ct.getId()) > 0;
+                }
+            default:
+                throw new AssertionError();
+        }
+    }
 }
