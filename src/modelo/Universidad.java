@@ -56,4 +56,24 @@ public class Universidad {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
+    public int compareCampo(String campo, String valorBuscado) {
+        switch (campo.toLowerCase()) {
+            case "id":
+                return this.id.compareTo(Integer.parseInt(valorBuscado));
+            case "nombre":
+                return this.nombre.compareToIgnoreCase(valorBuscado);
+            case "direccion":
+                return this.direccion.compareToIgnoreCase(valorBuscado);
+            case "correo":
+                return this.correo.compareToIgnoreCase(valorBuscado);
+            default:
+                throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
+        }
+    }
 }
