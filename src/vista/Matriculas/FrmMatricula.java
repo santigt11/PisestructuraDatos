@@ -3,15 +3,19 @@ package vista.Matriculas;
 import vista.Academico.FrmAcademico;
 import controlador.Academico.AsignaturaBD;
 import controlador.Academico.CarreraBD;
+import controlador.Academico.CicloBD;
 import controlador.TDA.listas.Exception.EmptyException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import controlador.Academico.FacultadBD;
 import controlador.Academico.MallaBD;
+import controlador.Academico.UniversidadBD;
 import controlador.Admin.PersonaBD;
+import controlador.Matriculas.CursaBD;
 import controlador.Matriculas.MatriculaBD;
 import controlador.Matriculas.CursaTutoriaBD;
+import controlador.Matriculas.PeriodoBD;
 import java.time.ZoneId;
 import modelo.*;
 
@@ -21,14 +25,17 @@ import vista.listas.util.Utilvista;
 public class FrmMatricula extends javax.swing.JFrame {
 
     private MatriculaBD fileMatricula = new MatriculaBD();
-    private CursaTutoriaBD fileMatriculaAsg = new CursaTutoriaBD();
+    private CursaBD fileMatriculaAsg = new CursaBD();
 
     private PersonaBD filePersona = new PersonaBD();
 
-    private FacultadBD fileFacultad = new FacultadBD();
+    private final UniversidadBD fileUniversidad = new UniversidadBD();
+    private final FacultadBD fileFacultad = new FacultadBD();
     private CarreraBD fileCarrera = new CarreraBD();
     private MallaBD fileMalla = new MallaBD();
+    private CicloBD fileCiclo = new CicloBD();
     private AsignaturaBD fileAsignatura = new AsignaturaBD();
+    private PeriodoBD filePeriodo = new PeriodoBD();
 
     private TablaMatricula tm = new TablaMatricula();
 
@@ -50,9 +57,10 @@ public class FrmMatricula extends javax.swing.JFrame {
             case 1:
                 if (verificar(1)) {
                     Object p = lstEstudiante.getSelectedValue();
-                    Persona estudiante = (Persona) p;
-                    fileMatricula.getMatricula().setPersona_DNI(estudiante.getDni());
-                    fileMatricula.getMatricula().setFecha(dtRegistro.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                    Usuario estudiante = (Usuario) p;
+                    fileMatricula.getMatricula().setUsuario_ID(estudiante.getId());
+                    fileMatricula.getMatricula().setPeriodoAcademico_ID(filePeriodo.getPeriodos().getInfo(filePeriodo.getPeriodos().getLength()).getId());
+                    fileMatricula.getMatricula().setFechaRegistro(dtRegistro.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
                     fileMatricula.getMatricula().setExpedienteActivo(true);
 
                     fileMatricula.persist(fileMatricula.getMatricula());
@@ -67,14 +75,14 @@ public class FrmMatricula extends javax.swing.JFrame {
                 if (verificar(2)) {
                     Object a = lstAsignatura.getSelectedValue();
                     Asignatura asignatura = (Asignatura) a;
-                    fileMatriculaAsg.getCursaTutoria().setMatricula_ID(cbxMatricula.getSelectedIndex());
-                    fileMatriculaAsg.getCursaTutoria().setAsignatura_Codigo(asignatura.getCodigo());
-                    fileMatriculaAsg.getCursaTutoria().setCurso(txtCurso.getText());
+                    fileMatriculaAsg.getCursa().setMatricula_ID(cbxMatricula.getSelectedIndex());
+                    fileMatriculaAsg.getCursa().setAsignatura_CODIGO(asignatura.getCodigo());
+                    fileMatriculaAsg.getCursa().setParalelo(txtCurso.getText());
 
-                    fileMatriculaAsg.persist(fileMatriculaAsg.getCursaTutoria());
+                    fileMatriculaAsg.persist(fileMatriculaAsg.getCursa());
                     JOptionPane.showMessageDialog(null, "Datos guardados");
                     limpiar();
-                    fileMatriculaAsg.setCursaTutoria(null);
+                    fileMatriculaAsg.setCursa(null);
                 }
                 break;
 
@@ -100,8 +108,7 @@ public class FrmMatricula extends javax.swing.JFrame {
                 break;
             case 2:
                 if (lstAsignatura.getSelectedValue() != null) {
-                    Object f = lstFacultad.getSelectedValue();
-                    Facultad facultad = (Facultad) f;
+                    Facultad facultad = Utilvista.obtenerFacultadControl(cbxFacultadC);
                     Object c = lstCarrera.getSelectedValue();
                     Carrera carrera = (Carrera) c;
                     Object m = lstMalla.getSelectedValue();
@@ -138,7 +145,9 @@ public class FrmMatricula extends javax.swing.JFrame {
 
     private void limpiar() {
         try {
-            Utilvista.cargarListaFacultades(lstFacultad);
+            if (!fileUniversidad.getUniversidades().isEmpty()) {
+                Utilvista.cargarComboUniversidades(cbxUniversidadC);
+            }
             Utilvista.cargarListaEstudiantes(lstEstudiante);
             Utilvista.cargarComboMatriculas(cbxMatricula);
         } catch (EmptyException ex) {
@@ -224,19 +233,6 @@ public class FrmMatricula extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         lstEstudiante = new javax.swing.JList<>();
-        jpFCA = new javax.swing.JPanel();
-        jLabel18 = new javax.swing.JLabel();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        lstFacultad = new javax.swing.JList<>();
-        jLabel2 = new javax.swing.JLabel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        lstCarrera = new javax.swing.JList<>();
-        jLabel3 = new javax.swing.JLabel();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        lstMalla = new javax.swing.JList<>();
-        jLabel15 = new javax.swing.JLabel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        lstAsignatura = new javax.swing.JList<>();
         jPanel4 = new javax.swing.JPanel();
         jpMatricula = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -279,6 +275,23 @@ public class FrmMatricula extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         btMatricula = new javax.swing.JButton();
         btMatriculaAsg = new javax.swing.JButton();
+        jpFCA = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        lstCarrera = new javax.swing.JList<>();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        lstMalla = new javax.swing.JList<>();
+        jLabel15 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        lstAsignatura = new javax.swing.JList<>();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        lstCiclo = new javax.swing.JList<>();
+        jLabel25 = new javax.swing.JLabel();
+        cbxUniversidadC = new javax.swing.JComboBox<>();
+        jLabel26 = new javax.swing.JLabel();
+        cbxFacultadC = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -343,116 +356,11 @@ public class FrmMatricula extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51))
         );
 
-        jPanel1.add(jpDocentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 41, 560, 290));
-
-        jpFCA.setBackground(new java.awt.Color(212, 173, 107));
-
-        jLabel18.setFont(new java.awt.Font("Roboto Medium", 1, 13)); // NOI18N
-        jLabel18.setText("Facultades");
-
-        jScrollPane8.setPreferredSize(new java.awt.Dimension(262, 130));
-
-        lstFacultad.setFont(new java.awt.Font("Roboto Thin", 0, 12)); // NOI18N
-        lstFacultad.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lstFacultadMouseClicked(evt);
-            }
-        });
-        jScrollPane8.setViewportView(lstFacultad);
-
-        jLabel2.setFont(new java.awt.Font("Roboto Medium", 1, 13)); // NOI18N
-        jLabel2.setText("Carreras");
-
-        jScrollPane5.setPreferredSize(new java.awt.Dimension(262, 130));
-
-        lstCarrera.setFont(new java.awt.Font("Roboto Thin", 0, 12)); // NOI18N
-        lstCarrera.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lstCarreraMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lstCarreraMouseEntered(evt);
-            }
-        });
-        jScrollPane5.setViewportView(lstCarrera);
-
-        jLabel3.setFont(new java.awt.Font("Roboto Medium", 1, 13)); // NOI18N
-        jLabel3.setText("Mallas Curriculares");
-
-        jScrollPane7.setPreferredSize(new java.awt.Dimension(262, 130));
-
-        lstMalla.setFont(new java.awt.Font("Roboto Thin", 0, 12)); // NOI18N
-        lstMalla.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lstMallaMouseClicked(evt);
-            }
-        });
-        jScrollPane7.setViewportView(lstMalla);
-
-        jLabel15.setFont(new java.awt.Font("Roboto Medium", 1, 13)); // NOI18N
-        jLabel15.setText("Asignaturas");
-
-        jScrollPane6.setPreferredSize(new java.awt.Dimension(262, 130));
-
-        lstAsignatura.setFont(new java.awt.Font("Roboto Thin", 0, 12)); // NOI18N
-        lstAsignatura.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lstAsignaturaMouseClicked(evt);
-            }
-        });
-        jScrollPane6.setViewportView(lstAsignatura);
-
-        javax.swing.GroupLayout jpFCALayout = new javax.swing.GroupLayout(jpFCA);
-        jpFCA.setLayout(jpFCALayout);
-        jpFCALayout.setHorizontalGroup(
-            jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpFCALayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel18)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel15)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(10, Short.MAX_VALUE))
-        );
-        jpFCALayout.setVerticalGroup(
-            jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpFCALayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel18))
-                .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jpFCALayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jpFCALayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap())
-        );
-
-        jPanel1.add(jpFCA, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 336, 560, 240));
+        jPanel1.add(jpDocentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 41, 560, 260));
 
         jPanel4.setBackground(new java.awt.Color(212, 173, 107));
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -912,78 +820,172 @@ public class FrmMatricula extends javax.swing.JFrame {
         });
         jPanel1.add(btMatriculaAsg, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 40, -1, 40));
 
+        jpFCA.setBackground(new java.awt.Color(212, 173, 107));
+
+        jLabel18.setFont(new java.awt.Font("Roboto Medium", 1, 13)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel18.setText("Universidades");
+
+        jLabel2.setFont(new java.awt.Font("Roboto Medium", 1, 13)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Carreras");
+
+        jScrollPane5.setPreferredSize(new java.awt.Dimension(262, 130));
+
+        lstCarrera.setFont(new java.awt.Font("Roboto Thin", 1, 11)); // NOI18N
+        lstCarrera.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstCarreraMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lstCarreraMouseEntered(evt);
+            }
+        });
+        jScrollPane5.setViewportView(lstCarrera);
+
+        jLabel3.setFont(new java.awt.Font("Roboto Medium", 1, 13)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Mallas Curriculares");
+
+        jScrollPane7.setPreferredSize(new java.awt.Dimension(262, 130));
+
+        lstMalla.setFont(new java.awt.Font("Roboto Thin", 1, 11)); // NOI18N
+        lstMalla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstMallaMouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(lstMalla);
+
+        jLabel15.setFont(new java.awt.Font("Roboto Medium", 1, 13)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel15.setText("Asignaturas");
+
+        jScrollPane6.setPreferredSize(new java.awt.Dimension(262, 130));
+
+        lstAsignatura.setFont(new java.awt.Font("Roboto Thin", 1, 11)); // NOI18N
+        lstAsignatura.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstAsignaturaMouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(lstAsignatura);
+
+        jScrollPane10.setPreferredSize(new java.awt.Dimension(262, 130));
+
+        lstCiclo.setFont(new java.awt.Font("Roboto Thin", 1, 11)); // NOI18N
+        lstCiclo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstCicloMouseClicked(evt);
+            }
+        });
+        jScrollPane10.setViewportView(lstCiclo);
+
+        jLabel25.setFont(new java.awt.Font("Roboto Medium", 1, 13)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel25.setText("Ciclos");
+
+        cbxUniversidadC.setBackground(new java.awt.Color(237, 209, 163));
+        cbxUniversidadC.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbxUniversidadC.setForeground(new java.awt.Color(242, 242, 242));
+        cbxUniversidadC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxUniversidadCActionPerformed(evt);
+            }
+        });
+
+        jLabel26.setFont(new java.awt.Font("Roboto Medium", 1, 13)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel26.setText("Facultades");
+
+        cbxFacultadC.setBackground(new java.awt.Color(237, 209, 163));
+        cbxFacultadC.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbxFacultadC.setForeground(new java.awt.Color(242, 242, 242));
+        cbxFacultadC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxFacultadCActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpFCALayout = new javax.swing.GroupLayout(jpFCA);
+        jpFCA.setLayout(jpFCALayout);
+        jpFCALayout.setHorizontalGroup(
+            jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpFCALayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpFCALayout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbxUniversidadC, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel26)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbxFacultadC, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpFCALayout.createSequentialGroup()
+                        .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpFCALayout.createSequentialGroup()
+                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jpFCALayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel25)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpFCALayout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addGap(63, 63, 63))
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                .addContainerGap())
+        );
+        jpFCALayout.setVerticalGroup(
+            jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpFCALayout.createSequentialGroup()
+                .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpFCALayout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel18)
+                            .addComponent(cbxUniversidadC, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpFCALayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel26)
+                            .addComponent(cbxFacultadC, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpFCALayout.createSequentialGroup()
+                        .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpFCALayout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addComponent(jLabel2))
+                            .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel25)
+                                .addComponent(jLabel3)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jpFCALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpFCALayout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)))
+                .addGap(230, 230, 230))
+        );
+
+        jPanel1.add(jpFCA, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 311, 560, 270));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 590));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void lstCarreraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstCarreraMouseClicked
-        if (lstCarrera.getSelectedValue() != null) {
-            limpiarSoft();
-            Utilvista.limpiarLista(lstMalla);
-            Utilvista.limpiarLista(lstAsignatura);
-            Object c = lstCarrera.getSelectedValue();
-            Carrera carrera = (Carrera) c;
-            try {
-                Utilvista.cargarListaMallas(lstMalla, carrera);
-            } catch (EmptyException ex) {
-                Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "No existe ninguna carrera disponible", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_lstCarreraMouseClicked
-
-    private void lstMallaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstMallaMouseClicked
-        if (lstMalla.getSelectedValue() != null) {
-            limpiarSoft();
-            Utilvista.limpiarLista(lstAsignatura);
-            Object m = lstMalla.getSelectedValue();
-            MallaCurricular malla = (MallaCurricular) m;
-            try {
-                Utilvista.cargarListaAsignaturas(lstAsignatura, malla);
-            } catch (EmptyException ex) {
-                Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "No existe ninguna malla curricular disponible", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_lstMallaMouseClicked
-
-    private void lstFacultadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstFacultadMouseClicked
-        if (lstFacultad.getSelectedValue() != null) {
-            limpiarSoft();
-            Utilvista.limpiarLista(lstCarrera);
-            Utilvista.limpiarLista(lstMalla);
-            Utilvista.limpiarLista(lstAsignatura);
-            Object f = lstFacultad.getSelectedValue();
-            Facultad facultad = (Facultad) f;
-            try {
-                Utilvista.cargarListaCarreras(lstCarrera, facultad);
-            } catch (EmptyException ex) {
-                Logger.getLogger(FrmAcademico.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "No existe ninguna facultad disponible", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_lstFacultadMouseClicked
-
-    private void lstCarreraMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstCarreraMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lstCarreraMouseEntered
-
-    private void lstAsignaturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstAsignaturaMouseClicked
-        if (lstAsignatura.getSelectedValue() != null) {
-            txtAsignatura.setText("");
-            try {
-                cargarVista(2);
-            } catch (EmptyException ex) {
-                Logger.getLogger(FrmMatricula.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "No existe ninguna asignatura disponible", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_lstAsignaturaMouseClicked
 
     private void lstEstudianteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstEstudianteMouseClicked
         try {
@@ -1064,6 +1066,96 @@ public class FrmMatricula extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTelefonoActionPerformed
 
+    private void lstCarreraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstCarreraMouseClicked
+        if (lstCarrera.getSelectedValue() != null) {
+            if (!fileMalla.getMallas().isEmpty()) {
+                Object c = lstCarrera.getSelectedValue();
+                Carrera carrera = (Carrera) c;
+                Utilvista.limpiarLista(lstMalla);
+                try {
+                    Utilvista.cargarListaMallas(lstMalla, carrera);
+                } catch (EmptyException ex) {
+                    JOptionPane.showMessageDialog(null, "Error al cargar lista de mallas curriculares", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No existe ninguna carrera disponible", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_lstCarreraMouseClicked
+
+    private void lstCarreraMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstCarreraMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lstCarreraMouseEntered
+
+    private void lstMallaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstMallaMouseClicked
+        if (lstMalla.getSelectedValue() != null) {
+            if (!fileCiclo.getCiclos().isEmpty()) {
+                Object m = lstMalla.getSelectedValue();
+                MallaCurricular malla = (MallaCurricular) m;
+                try {
+                    Utilvista.cargarListaCiclos(lstCiclo, malla);
+                } catch (EmptyException ex) {
+                    JOptionPane.showMessageDialog(null, "Error al cargar lista de ciclos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No existe ninguna malla curricular disponible", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_lstMallaMouseClicked
+
+    private void lstAsignaturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstAsignaturaMouseClicked
+        if (lstAsignatura.getSelectedValue() != null) {
+            txtAsignatura.setText("");
+            try {
+                cargarVista(2);
+            } catch (EmptyException ex) {
+                JOptionPane.showMessageDialog(null, "Error al cargar datos", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No existe ninguna asignatura disponible", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_lstAsignaturaMouseClicked
+
+    private void lstCicloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstCicloMouseClicked
+        if (lstCiclo.getSelectedValue() != null) {
+            if (!fileAsignatura.getAsignaturas().isEmpty()) {
+                Object c = lstCiclo.getSelectedValue();
+                Ciclo ciclo = (Ciclo) c;
+                try {
+                    Utilvista.cargarListaAsignaturas(lstAsignatura, ciclo);
+                } catch (EmptyException ex) {
+                    JOptionPane.showMessageDialog(null, "Error al cargar lista de asignatura", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No existe ningun ciclo disponible", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_lstCicloMouseClicked
+
+    private void cbxUniversidadCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUniversidadCActionPerformed
+        if (!fileFacultad.getFacultades().isEmpty() && cbxUniversidadC.getSelectedItem() != null) {
+            Universidad universidad = Utilvista.obtenerUniversidadControl(cbxUniversidadC);
+            try {
+                Utilvista.cargarComboFacultades(cbxFacultadC, universidad);
+            } catch (EmptyException ex) {
+                JOptionPane.showMessageDialog(null, "Error al cargar facultades", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_cbxUniversidadCActionPerformed
+
+    private void cbxFacultadCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFacultadCActionPerformed
+        if (!fileCarrera.getCarreras().isEmpty() && cbxFacultadC.getSelectedItem() != null) {
+            Facultad facultad = Utilvista.obtenerFacultadControl(cbxFacultadC);
+            try {
+                Utilvista.cargarListaCarreras(lstCarrera, facultad);
+            } catch (EmptyException ex) {
+                JOptionPane.showMessageDialog(null, "Error al cargar lista de carreras", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No existe ninguna facultad disponible", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_cbxFacultadCActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1120,7 +1212,9 @@ public class FrmMatricula extends javax.swing.JFrame {
     private javax.swing.JButton btMatricula;
     private javax.swing.JButton btMatriculaAsg;
     private javax.swing.JComboBox<String> cbxExpediente;
+    private javax.swing.JComboBox<String> cbxFacultadC;
     private javax.swing.JComboBox<String> cbxMatricula;
+    private javax.swing.JComboBox<String> cbxUniversidadC;
     private com.toedter.calendar.JDateChooser dtRegistro;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1138,6 +1232,8 @@ public class FrmMatricula extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1149,12 +1245,12 @@ public class FrmMatricula extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JPanel jpDocentes;
     private javax.swing.JPanel jpFCA;
@@ -1162,8 +1258,8 @@ public class FrmMatricula extends javax.swing.JFrame {
     private javax.swing.JPanel jpMatriculaAsg;
     private javax.swing.JList<String> lstAsignatura;
     private javax.swing.JList<String> lstCarrera;
+    private javax.swing.JList<String> lstCiclo;
     private javax.swing.JList<String> lstEstudiante;
-    private javax.swing.JList<String> lstFacultad;
     private javax.swing.JList<String> lstMalla;
     private javax.swing.JList<String> lstMatriculaAsg;
     private javax.swing.JTable tbMatricula;

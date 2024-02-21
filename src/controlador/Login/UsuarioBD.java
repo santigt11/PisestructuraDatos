@@ -50,10 +50,6 @@ public class UsuarioBD extends AdaptadorDao<Usuario> {
         return usuario;
     }
 
-    public void setUsuarios(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
     @Override
     public Boolean persist(Usuario obj) {
         obj.setId(all().getLength() + 1);
