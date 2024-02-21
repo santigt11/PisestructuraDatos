@@ -451,7 +451,7 @@ public class Menu_Docente extends javax.swing.JFrame {
 
     private void GenerarNuevaTutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarNuevaTutoActionPerformed
         try {
-            new FrmNuevaTutoria(user);
+            new FrmNuevaTutoria(user).setVisible(true);
         } catch (EmptyException ex) {
             Logger.getLogger(Menu_Docente.class.getName()).log(Level.SEVERE, null, ex);
         }
