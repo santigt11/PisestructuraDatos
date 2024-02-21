@@ -55,20 +55,16 @@ public class PersonaBD extends AdaptadorDao<Persona> {
         obj.setId(all().getLength() + 1);
         return super.persist(obj);
     }
-     public Persona autenticarse(String correo, String clave) throws EmptyException {
-        if (!Utiles.validadorDeCorreo(correo)) {
-            return null; // Si el correo no cumple con el formato esperado
-        } else {
 
-            DynamicList<Persona> personas = getPersonasTodos(); // Método para obtener la lista de usuarios
-            for (int i = 0; i < personas.getLength(); i++) {
-                Persona persona = personas.getInfo(i);
-                if (persona.getCorreo().equals(correo) && verificarClave(persona.getClave(), clave)) {
-                    return persona; // Devuelve el rol del usuario autenticado
-                }
+    public Persona autenticarse(String correo, String clave) throws EmptyException {
+        DynamicList<Persona> personas = getPersonasTodos(); // Método para obtener la lista de usuarios
+        for (int i = 0; i < personas.getLength(); i++) {
+            Persona persona = personas.getInfo(i);
+            if (persona.getCorreo().equals(correo) && verificarClave(persona.getClave(), clave)) {
+                return persona; // Devuelve el rol del usuario autenticado
             }
-            return null;
         }
+        return null;
     }
 
     private boolean verificarClave(String claveAlmacenada, String claveIngresada) {
