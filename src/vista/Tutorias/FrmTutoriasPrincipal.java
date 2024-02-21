@@ -37,16 +37,14 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     private CursaBD cursaControl = new CursaBD();
     private Usuario usuarioNavegacion;
 
-    public FrmTutoriasPrincipal() throws EmptyException {
+    public FrmTutoriasPrincipal(Usuario usuario) throws EmptyException {
         initComponents();
+        cargarUsuario(usuario);
         cargarAsignaciones();
         cargarTutorias();
     }
 
     private void cargarAsignaciones() throws EmptyException {
-        usuarioNavegacion = usuarioControl.buscarBinaria(usuarioControl.all(), "id", "1");
-        usuarioControl.setUsuario(usuarioControl.buscarBinaria(usuarioControl.all(), "id", "1"));
-        cargarUsuario(usuarioNavegacion);
         personaControl.setPersona(personaControl.buscarBinaria(personaControl.all(), "dni", usuarioNavegacion.getPersona_DNI()));
         lbUsuario.setText(personaControl.getPersona().getApellido() + " " + personaControl.getPersona().getNombre());
         if (usuarioNavegacion.getRol_id() == 1) {
@@ -75,6 +73,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
 
     public void cargarUsuario(Usuario usuario) {
         usuarioControl.setUsuario(usuario);
+        usuarioNavegacion = usuario;
         if (usuario.getRol_id() == 1) {
             btGenerarInforme.setVisible(false);
             btNuevaTutoria.setVisible(false);
@@ -423,6 +422,11 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Salir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         bg.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 500, -1, -1));
 
         cbxAsignaturas.setBackground(new java.awt.Color(212, 173, 107));
@@ -559,19 +563,23 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
 
     private void btGenerarInformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGenerarInformeActionPerformed
         try {
-            FrmGenerarInforme informeFrm = new FrmGenerarInforme();
+            FrmGenerarInforme informeFrm = new FrmGenerarInforme(usuarioNavegacion);
             informeFrm.setVisible(true);
         } catch (Exception e) {
             Logger.getLogger(FrmTutoriasPrincipal.class.getName()).log(Level.SEVERE, null, e.toString());
         }
     }//GEN-LAST:event_btGenerarInformeActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public static void main(String args[]) throws UnsupportedLookAndFeelException {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new FrmTutoriasPrincipal().setVisible(true);
+                    new FrmTutoriasPrincipal(new Usuario()).setVisible(true);
                 } catch (EmptyException ex) {
                     Logger.getLogger(FrmTutoriasPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                 }

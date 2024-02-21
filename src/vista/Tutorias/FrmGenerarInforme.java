@@ -38,13 +38,15 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
         cargarTutorias();
     }
 
+    private void cargarUsuario(Usuario usuario){
+        usuarioControl.setUsuario(usuario);
+        usuarioNavegacion = usuario;
+    }
+    
     private void cargarTutorias() throws Exception {
         DynamicList<Tutoria> tutorias = new DynamicList<>();
         System.out.println(usuarioControl.getUsuario().getId());
         asignacionControl.setAsignaciones(asignacionControl.buscarLineal(asignacionControl.all(), "usuario_ID", String.valueOf(usuarioControl.getUsuario().getId())));
-        System.out.println(asignacionControl.all());
-        System.out.println("////////////////");
-        System.out.println(asignacionControl.getAsignaciones());
         Asignacion[] asignaciones = asignacionControl.getAsignaciones().toArray();
         tutoriaControl.setTutorias(tutoriaControl.buscarLineal(tutoriaControl.all(), "asignacion_id", String.valueOf(asignaciones[cbxAsignatura.getSelectedIndex()].getId())));
         for (int j = 0; j < tutoriaControl.getTutorias().getLength(); j++) {
@@ -53,8 +55,9 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
         Utilvista.cargarListaTutorias(tutorias, lstTutorias);
     }
 
-    public FrmGenerarInforme() throws Exception {
+    public FrmGenerarInforme(Usuario usuario) throws Exception {
         initComponents();
+        cargarUsuario(usuario);
         limpiar();
     }
 
@@ -73,6 +76,7 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         lbDocente = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -158,11 +162,22 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
         jLabel15.setText("Docente:");
         bg.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, -1, -1));
 
+        jButton1.setBackground(new java.awt.Color(102, 51, 0));
+        jButton1.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Salir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        bg.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,11 +199,15 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbxAsignaturaMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new FrmGenerarInforme().setVisible(true);
+                    new FrmGenerarInforme(new Usuario()).setVisible(true);
                 } catch (Exception ex) {
                     Logger.getLogger(FrmGenerarInforme.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -200,6 +219,7 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
     private javax.swing.JButton btGenerar;
     private javax.swing.JComboBox<String> cbxAsignatura;
     private javax.swing.JComboBox<String> cbxHorario;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel15;

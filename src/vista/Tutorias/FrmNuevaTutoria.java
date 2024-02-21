@@ -206,6 +206,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         lbDocente = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocationByPlatform(true);
@@ -531,11 +532,22 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         jLabel15.setText("Docente:");
         bg.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, -1, -1));
 
+        jButton1.setBackground(new java.awt.Color(102, 51, 0));
+        jButton1.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Salir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        bg.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 610, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE)
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -605,6 +617,10 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private void cbxHoraFinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxHoraFinMouseClicked
 
     }//GEN-LAST:event_cbxHoraFinMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -627,6 +643,7 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbxHoraInicio;
     private javax.swing.JComboBox<String> cbxModalidad;
     private com.toedter.calendar.JDateChooser dcFecha;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
