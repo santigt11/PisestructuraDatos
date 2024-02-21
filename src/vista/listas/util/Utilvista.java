@@ -129,8 +129,8 @@ public class Utilvista {
         MatriculaBD ma = new MatriculaBD();
         ma.setMatriculas(ma.all());
         cbx.removeAllItems();
-        for (Integer i = 0; i < ma.getMatriculas().getLength(); i++) {
-            cbx.addItem(ma.getMatriculas().getInfo(i));
+        for (Integer i = 0; i < ma.getMatriculasTodas().getLength(); i++) {
+            cbx.addItem(ma.getMatriculasTodas().getInfo(i));
         }
     }
 
@@ -181,13 +181,11 @@ public class Utilvista {
     
     public static void cargarListaDocentes(JList lst) throws EmptyException {
         UsuarioBD ea = new UsuarioBD();
-        PersonaBD pa = new PersonaBD();
-        Persona[] personas = pa.all().toArray();
-        Usuario[] usuarios = ea.all().toArray();
+        ea.setUsuarios(ea.all());
         DefaultListModel modeloLista = new DefaultListModel();
-        for (Integer i = 0; i < usuarios.length; i++) {
-            if (usuarios[i].getRol_id() == 2) {
-                modeloLista.addElement(pa.buscarBinaria(pa.all(), "dni", usuarios[i].getPersona_DNI()));
+        for (Integer i = 0; i < ea.getUsuarios().getLength(); i++) {
+            if (ea.getUsuarios().getInfo(i).getRol_id() == 2) {
+                modeloLista.addElement(ea.getUsuarios().getInfo(i));
             }
         }
         lst.setModel(modeloLista);

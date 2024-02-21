@@ -9,12 +9,13 @@ import controlador.Academico.AsignacionBD;
 import controlador.Academico.CarreraBD;
 import controlador.Academico.CicloBD;
 import controlador.Academico.FacultadBD;
+import controlador.Academico.HorarioTutoriaBD;
 import controlador.Academico.MallaBD;
 import controlador.Academico.UniversidadBD;
 import controlador.Admin.PersonaBD;
 import controlador.Login.UsuarioBD;
-import java.time.ZoneId;
 import modelo.*;
+import vista.Matriculas.FrmMatricula;
 
 import vista.listas.tablas.TablaAsignacion;
 import vista.listas.util.Utilvista;
@@ -30,7 +31,7 @@ public class FrmAsignacion extends javax.swing.JFrame {
     private MallaBD fileMalla = new MallaBD();
     private CicloBD fileCiclo = new CicloBD();
     private AsignaturaBD fileAsignatura = new AsignaturaBD();
-
+    private HorarioTutoriaBD horarioControl = new HorarioTutoriaBD();
     private TablaAsignacion tc = new TablaAsignacion();
 
     public FrmAsignacion() {
@@ -111,7 +112,7 @@ public class FrmAsignacion extends javax.swing.JFrame {
                     limpiarSoft();
                     Object d = lstDocente.getSelectedValue();
                     Usuario docente = (Usuario) d;
-                    Persona p = filePersona.buscarBinariaUnico("dni", docente.getPersona_DNI());
+                    Persona p = filePersona.buscarBinaria(filePersona.all(), "dni", docente.getPersona_DNI());
                     txtDni.setText(p.getDni());
                     txtApellidos.setText(p.getApellido());
                     txtNombres.setText(p.getNombre());
@@ -720,6 +721,12 @@ public class FrmAsignacion extends javax.swing.JFrame {
     }//GEN-LAST:event_btCrearContratoActionPerformed
 
     private void lstDocenteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstDocenteMouseClicked
+        if (lstDocente.getSelectedValue() != null)
+        try {
+            cargarVista(1);
+        } catch (EmptyException ex) {
+            Logger.getLogger(FrmMatricula.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try {
             cargarVista(1);
         } catch (EmptyException ex) {
@@ -790,7 +797,9 @@ public class FrmAsignacion extends javax.swing.JFrame {
     }//GEN-LAST:event_btAsignacionActionPerformed
 
     private void btAsignarHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAsignarHorarioActionPerformed
-        // TODO add your handling code here:
+        spnHI.getValue().toString();
+        spnHF.getValue().toString();
+        lblDia.getText();
     }//GEN-LAST:event_btAsignarHorarioActionPerformed
 
     private void cbxUniversidadCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUniversidadCActionPerformed

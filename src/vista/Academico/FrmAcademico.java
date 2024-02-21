@@ -575,7 +575,7 @@ public class FrmAcademico extends javax.swing.JFrame {
                     txtDescripcion.setEditable(false);
                     txtPensum.setEditable(false);
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Error al cargar los datos", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error al cargar los datos, ciclo", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 break;
 

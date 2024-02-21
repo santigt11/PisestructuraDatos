@@ -162,15 +162,17 @@ public class FrmNuevaTutoria extends javax.swing.JFrame {
         }
     }
 
-    private void guardarTutoria() throws Exception {
+    private boolean guardarTutoria() throws Exception {
         if (tutoriaControl.persist(tutoriaControl.getTutoria())) {
             for (int i = 0; i < cursaTutoriasControl.getCursaTutorias().getLength(); i++) {
                 cursaTutoriasControl.getCursaTutorias().getInfo(i).setTutoria_ID(tutoriaControl.getTutoria().getId());
                 cursaTutoriasControl.persist(cursaTutoriasControl.getCursaTutorias().getInfo(i));
             }
             limpiar();
+            return true;
         } else {
             JOptionPane.showMessageDialog(null, "No se pudo guardar la tutoria", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
     }
 
