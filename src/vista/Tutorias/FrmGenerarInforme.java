@@ -24,8 +24,8 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
     private AsignaturaBD asignaturaControl = new AsignaturaBD();
 
     private void cargarAsignaciones() throws EmptyException {
-        usuarioNavegacion = usuarioControl.buscarBinaria(usuarioControl.all(), "id", "2");
-        usuarioControl.setUsuario(usuarioControl.buscarBinaria(usuarioControl.all(), "id", "2"));
+        usuarioNavegacion = usuarioControl.buscarBinaria(usuarioControl.all(), "id", "1");
+        usuarioControl.setUsuario(usuarioControl.buscarBinaria(usuarioControl.all(), "id", "1"));
         personaControl.setPersona(personaControl.buscarBinaria(personaControl.all(), "dni", usuarioNavegacion.getPersona_DNI()));
         lbDocente.setText(personaControl.getPersona().getApellido() + " " + personaControl.getPersona().getNombre());
         asignacionControl.setAsignaciones(asignacionControl.buscarLineal(asignacionControl.all(), "usuario_ID", String.valueOf(usuarioControl.getUsuario().getId())));
@@ -40,7 +40,11 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
 
     private void cargarTutorias() throws Exception {
         DynamicList<Tutoria> tutorias = new DynamicList<>();
+        System.out.println(usuarioControl.getUsuario().getId());
         asignacionControl.setAsignaciones(asignacionControl.buscarLineal(asignacionControl.all(), "usuario_ID", String.valueOf(usuarioControl.getUsuario().getId())));
+        System.out.println(asignacionControl.all());
+        System.out.println("////////////////");
+        System.out.println(asignacionControl.getAsignaciones());
         Asignacion[] asignaciones = asignacionControl.getAsignaciones().toArray();
         tutoriaControl.setTutorias(tutoriaControl.buscarLineal(tutoriaControl.all(), "asignacion_id", String.valueOf(asignaciones[cbxAsignatura.getSelectedIndex()].getId())));
         for (int j = 0; j < tutoriaControl.getTutorias().getLength(); j++) {
