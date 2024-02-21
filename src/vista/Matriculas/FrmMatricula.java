@@ -180,10 +180,6 @@ public class FrmMatricula extends javax.swing.JFrame {
                     dtRegistro.setEnabled(false);
                 }
                 break;
-            case 4:
-                Object p = lstEstudiante.getSelectedValue();
-                MatriculaA estudiante = (Usuario) p;
-                break;
             default:
                 throw new AssertionError();
         }
@@ -997,11 +993,7 @@ public class FrmMatricula extends javax.swing.JFrame {
     }//GEN-LAST:event_btMatriculaActionPerformed
 
     private void lstMatriculaAsgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstMatriculaAsgMouseClicked
-        try {
-            cargarVista(4);
-        } catch (EmptyException ex) {
-            Logger.getLogger(FrmMatricula.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
     }//GEN-LAST:event_lstMatriculaAsgMouseClicked
 
     private void tbMatriculaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbMatriculaMouseClicked
@@ -1015,7 +1007,10 @@ public class FrmMatricula extends javax.swing.JFrame {
 
     private void btAgregarAsignaturaMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarAsignaturaMatriculaActionPerformed
         try {
-            guardar(2);
+            if ((!txtFacultad.getText().trim().isEmpty())
+                    && !txtCarreras.getText().trim().isEmpty()) {
+                guardar(2);
+            }
         } catch (Exception ex) {
             Logger.getLogger(FrmMatricula.class.getName()).log(Level.SEVERE, null, ex);
         }
