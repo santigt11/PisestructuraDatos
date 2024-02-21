@@ -90,7 +90,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         if (chkSi.isSelected()) {
             cursaTutoriaControl.getCursaTutoria().setImpartida(true);
             cursaTutoriaControl.merge(cursaTutoriaControl.getCursaTutoria());
-        }else{
+        } else {
             cursaTutoriaControl.getCursaTutoria().setImpartida(false);
             cursaTutoriaControl.merge(cursaTutoriaControl.getCursaTutoria());
         }
@@ -106,7 +106,6 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
 
     private void cargarTutorias() throws EmptyException {
         personaControl.setPersona(personaControl.buscarBinaria(personaControl.all(), "dni", usuarioNavegacion.getPersona_DNI()));
-        System.out.println("paso 4");
         if (usuarioNavegacion.getRol_id() == 1) {
             matriculaControl.setMatricula(matriculaControl.buscarBinaria(matriculaControl.all(), "usuario_id", String.valueOf(usuarioNavegacion.getId())));
             cursaControl.setCursas(cursaControl.buscarLineal(cursaControl.all(), "matricula_id", String.valueOf(matriculaControl.getMatricula().getId())));
@@ -119,26 +118,12 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
                     cursasTutoriaFinal.add(cursasTutorias[j]);
                 }
             }
-
-            System.out.println("paso 5");
-//            DynamicList<CursaTutoria> cursasTutoriaFinal = new DynamicList<>();
-//            for (Cursa cursa : cursas) {
-//                cursaTutoriaControl.setCursaTutorias(cursaTutoriaControl.buscarLineal(cursaTutoriaControl.all(), "cursa_id", String.valueOf(cursa.getId())));
-//                for (int i = 0; i < cursaTutoriaControl.getCursaTutorias().getLength(); i++) {
-//                    cursasTutoriaFinal.add(cursaTutoriaControl.get(i));
-//                }
-//            }
-//            System.out.println("AAAAAAAAAA");
-//            System.out.println(cursasTutoriaFinal);
-
             DynamicList<Tutoria> tutoriaFinal = new DynamicList<>();
             for (CursaTutoria cursaTutoria : cursasTutoriaFinal.toArray()) {
                 tutoriaFinal.add(tutoriaControl.buscarBinaria("id", String.valueOf(cursaTutoria.getTutoria_ID())));
             }
             Utilvista.cargarListaTutorias(tutoriaFinal, lstTutorias);
-            System.out.println("paso 6");
         } else {
-            System.out.println("paso 5 DOCENTE");
             DynamicList<Tutoria> tutorias = new DynamicList<>();
             Asignacion[] asignaciones = asignacionControl.getAsignaciones().toArray();
             tutoriaControl.setTutorias(tutoriaControl.buscarLineal(tutoriaControl.all(), "asignacion_id", String.valueOf(asignaciones[cbxAsignaturas.getSelectedIndex()].getId())));
@@ -217,7 +202,6 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         cbxAsignaturas = new javax.swing.JComboBox<>();
         btNuevaTutoria = new javax.swing.JButton();
         btGenerarInforme = new javax.swing.JButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         btNuevaTutoria1 = new javax.swing.JButton();
         lbUsuario = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -459,9 +443,6 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         });
         bg.add(btGenerarInforme, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 20, 130, -1));
 
-        jDateChooser1.setBackground(new java.awt.Color(212, 173, 107));
-        bg.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 170, -1));
-
         btNuevaTutoria1.setBackground(new java.awt.Color(102, 51, 0));
         btNuevaTutoria1.setText("Nueva Tutoria");
         bg.add(btNuevaTutoria1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 20, -1, -1));
@@ -495,7 +476,6 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
             if (usuarioNavegacion.getRol_id() == 1) {
                 Tutoria tutoria = (Tutoria) t;
                 try {
-                    System.out.println(tutoria.getId());
                     cursaTutoriaControl.setCursaTutoria(cursaTutoriaControl.buscarBinaria(cursaTutoriaControl.getCursaTutorias(), "tutoria_id", String.valueOf(tutoria.getId())));
                 } catch (EmptyException ex) {
                     Logger.getLogger(FrmTutoriasPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -507,6 +487,15 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
                 }
             } else if (usuarioNavegacion.getRol_id() == 2) {
                 Tutoria tutoria = (Tutoria) t;
+                try {
+                    asignacionControl.setAsignacion(asignacionControl.buscarBinaria(asignacionControl.all(), "id", String.valueOf(tutoria.getAsignacion_ID())));
+                    asignaturaControl.setAsignatura(asignaturaControl.buscarBinaria(asignaturaControl.all(), "asignatura_codigo", asignaturaControl.getAsignatura().getCodigo()));
+                } catch (EmptyException ex) {
+                    Logger.getLogger(FrmTutoriasPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                txtAsignatura.setText(asignaturaControl.getAsignatura().getNombre());
+                txtTema.setText(tutoria.getTema());
+                txtFecha.setText(tutoria.getFecha().format((DateTimeFormatter) Utilvista.FORMATO_FECHA));
             }
         } else {
             JOptionPane.showMessageDialog(null, "El objeto es nulo!", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -597,7 +586,6 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkNo;
     private javax.swing.JCheckBox chkSi;
     private javax.swing.JButton jButton1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
