@@ -65,58 +65,115 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
     }
 
     private void guardar() throws EmptyException, ParseException, Exception {
-        if (verificar()) {
-            if (Utiles.validadorDeCedula(txtDni.getText())) {
-                personaControl.getPersona().setApellido(txtApellido.getText());
-                try {
-                    String dni = txtDni.getText();
-                    personaControl.getPersona().setDni(dni);
-                } catch (NumberFormatException e) {
-                    System.err.println("Error al convertir el DNI a número: " + e.getMessage());
-                    // Puedes mostrar un mensaje de error al usuario o manejar la excepción de otra manera
-                    return; // Salir del método si hay un error en la conversión
-                }
-                personaControl.getPersona().setDni(txtDni.getText());
-                personaControl.getPersona().setNombre(txtNombre.getText());
-                // Obtiene la fecha seleccionada del JDateChooser y la convierte a LocalDate
-                Date fechaSeleccionada = txtFechaNacimiento.getDate();
-                Instant instant = Instant.ofEpochMilli(fechaSeleccionada.getTime());
-                LocalDate fechaNacimiento = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
+        if (cbxRol.getSelectedIndex() == 1) {
+            if (txtCodigo.equals("12345")) {
+                if (Utiles.validadorDeCedula(txtDni.getText())) {
+                    personaControl.getPersona().setApellido(txtApellido.getText());
+                    try {
+                        String dni = txtDni.getText();
+                        personaControl.getPersona().setDni(dni);
+                    } catch (NumberFormatException e) {
+                        System.err.println("Error al convertir el DNI a número: " + e.getMessage());
+                        // Puedes mostrar un mensaje de error al usuario o manejar la excepción de otra manera
+                        return; // Salir del método si hay un error en la conversión
+                    }
+                    personaControl.getPersona().setDni(txtDni.getText());
+                    personaControl.getPersona().setNombre(txtNombre.getText());
+                    // Obtiene la fecha seleccionada del JDateChooser y la convierte a LocalDate
+                    Date fechaSeleccionada = txtFechaNacimiento.getDate();
+                    Instant instant = Instant.ofEpochMilli(fechaSeleccionada.getTime());
+                    LocalDate fechaNacimiento = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
 
-                // Establece la fecha de nacimiento en el objeto Persona
-                personaControl.getPersona().setFechaNacimiento(fechaNacimiento);
+                    // Establece la fecha de nacimiento en el objeto Persona
+                    personaControl.getPersona().setFechaNacimiento(fechaNacimiento);
 
-                personaControl.getPersona().setTelefono(txtTelefono.getText());
+                    personaControl.getPersona().setTelefono(txtTelefono.getText());
 
-                //Usuario Correo y Clave
-                personaControl.getPersona().setCorreo(txtCorreo.getText());
-                personaControl.getPersona().setClave(txtClave.getText());
+                    //Usuario Correo y Clave
+                    personaControl.getPersona().setCorreo(txtCorreo.getText());
+                    personaControl.getPersona().setClave(txtClave.getText());
 
-                //PersonaControl.getPersona().setFechaNacimiento((ZoneId.systemDefault()));
-                System.out.println(personaControl.getPersona().getFechaNacimiento().toString());
-                if (personaControl.persist(personaControl.getPersona())) {
-                    usuarioControl.getUsuario().setPersona_DNI(personaControl.getPersona().getDni());
-                    usuarioControl.getUsuario().setRol_id((cbxRol.getSelectedIndex() + 1));
-                    usuarioControl.getUsuario().setActivo(true);
-                    if (usuarioControl.persist(usuarioControl.getUsuario())) {
-                        JOptionPane.showMessageDialog(null, "Datos guardados");
-                        cargarTabla();
-                        limpiar();
-                        personaControl.setPersona(null);
-                        usuarioControl.setUsuario(null);
+                    //PersonaControl.getPersona().setFechaNacimiento((ZoneId.systemDefault()));
+                    System.out.println(personaControl.getPersona().getFechaNacimiento().toString());
+                    if (personaControl.persist(personaControl.getPersona())) {
+                        usuarioControl.getUsuario().setPersona_DNI(personaControl.getPersona().getDni());
+                        usuarioControl.getUsuario().setRol_id((cbxRol.getSelectedIndex() + 1));
+                        usuarioControl.getUsuario().setActivo(true);
+                        if (usuarioControl.persist(usuarioControl.getUsuario())) {
+                            JOptionPane.showMessageDialog(null, "Datos guardados");
+                            cargarTabla();
+                            limpiar();
+                            personaControl.setPersona(null);
+                            usuarioControl.setUsuario(null);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Error al crear usuario ");
+                        }
+
                     } else {
-                        JOptionPane.showMessageDialog(null, "Error al crear usuario ");
+                        JOptionPane.showMessageDialog(null, "Error al guardar ");
                     }
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "Error al guardar ");
+                    JOptionPane.showMessageDialog(null, "Cedula no valida");
                 }
-
             } else {
-                JOptionPane.showMessageDialog(null, "Cedula no valida");
+                JOptionPane.showMessageDialog(null, "Codigo Incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
             }
+            
         } else {
-            JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
+            if (verificar()) {
+                if (Utiles.validadorDeCedula(txtDni.getText())) {
+                    personaControl.getPersona().setApellido(txtApellido.getText());
+                    try {
+                        String dni = txtDni.getText();
+                        personaControl.getPersona().setDni(dni);
+                    } catch (NumberFormatException e) {
+                        System.err.println("Error al convertir el DNI a número: " + e.getMessage());
+                        // Puedes mostrar un mensaje de error al usuario o manejar la excepción de otra manera
+                        return; // Salir del método si hay un error en la conversión
+                    }
+                    personaControl.getPersona().setDni(txtDni.getText());
+                    personaControl.getPersona().setNombre(txtNombre.getText());
+                    // Obtiene la fecha seleccionada del JDateChooser y la convierte a LocalDate
+                    Date fechaSeleccionada = txtFechaNacimiento.getDate();
+                    Instant instant = Instant.ofEpochMilli(fechaSeleccionada.getTime());
+                    LocalDate fechaNacimiento = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
+
+                    // Establece la fecha de nacimiento en el objeto Persona
+                    personaControl.getPersona().setFechaNacimiento(fechaNacimiento);
+
+                    personaControl.getPersona().setTelefono(txtTelefono.getText());
+
+                    //Usuario Correo y Clave
+                    personaControl.getPersona().setCorreo(txtCorreo.getText());
+                    personaControl.getPersona().setClave(txtClave.getText());
+
+                    //PersonaControl.getPersona().setFechaNacimiento((ZoneId.systemDefault()));
+                    System.out.println(personaControl.getPersona().getFechaNacimiento().toString());
+                    if (personaControl.persist(personaControl.getPersona())) {
+                        usuarioControl.getUsuario().setPersona_DNI(personaControl.getPersona().getDni());
+                        usuarioControl.getUsuario().setRol_id((cbxRol.getSelectedIndex() + 1));
+                        usuarioControl.getUsuario().setActivo(true);
+                        if (usuarioControl.persist(usuarioControl.getUsuario())) {
+                            JOptionPane.showMessageDialog(null, "Datos guardados");
+                            cargarTabla();
+                            limpiar();
+                            personaControl.setPersona(null);
+                            usuarioControl.setUsuario(null);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Error al crear usuario ");
+                        }
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error al guardar ");
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Cedula no valida");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
@@ -133,6 +190,9 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
         txtCorreo.setText("");
         txtClave.setText("");
         cbxRol.setSelectedIndex(0);
+        lblC.setVisible(false);
+        txtCodigo.setVisible(false);
+        txtCodigo.setText("");
     }
 
     public FrmGuardarPersona() {
@@ -167,6 +227,8 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
         txtClave = new javax.swing.JPasswordField();
         jLabel12 = new javax.swing.JLabel();
         cbxRol = new javax.swing.JComboBox<>();
+        lblC = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbPersona = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
@@ -251,10 +313,22 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
         cbxRol.setBackground(new java.awt.Color(237, 209, 163));
         cbxRol.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         cbxRol.setForeground(new java.awt.Color(242, 242, 242));
-        cbxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estudiante", "Docente", "Administrador" }));
+        cbxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estudiante", "Docente" }));
         cbxRol.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxRolActionPerformed(evt);
+            }
+        });
+
+        lblC.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
+        lblC.setForeground(new java.awt.Color(255, 255, 255));
+        lblC.setText("Codigo :");
+
+        txtCodigo.setBackground(new java.awt.Color(212, 173, 107));
+        txtCodigo.setForeground(new java.awt.Color(0, 0, 0));
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoActionPerformed(evt);
             }
         });
 
@@ -265,6 +339,28 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel12))
+                                .addGap(34, 34, 34)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(cbxRol, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(47, 47, 47)
+                                        .addComponent(lblC)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -285,24 +381,7 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtNombre))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel12))
-                                .addGap(34, 34, 34)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbxRol, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(txtNombre)))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -335,7 +414,10 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxRol, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
+                    .addComponent(jLabel12)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblC)
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
@@ -560,8 +642,19 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCorreoActionPerformed
 
     private void cbxRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxRolActionPerformed
+        if (cbxRol.getSelectedIndex() == 1) {
+            lblC.setVisible(true);
+            txtCodigo.setVisible(true);
 
+        } else if (cbxRol.getSelectedIndex() == 0) {
+            lblC.setVisible(false);
+            txtCodigo.setVisible(false);
+        }
     }//GEN-LAST:event_cbxRolActionPerformed
+
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -619,9 +712,11 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblC;
     private javax.swing.JTable tbPersona;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JPasswordField txtClave;
+    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDni;
     private com.toedter.calendar.JDateChooser txtFechaNacimiento;
