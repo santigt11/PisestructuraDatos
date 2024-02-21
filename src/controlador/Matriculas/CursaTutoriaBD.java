@@ -49,28 +49,30 @@ public class CursaTutoriaBD extends AdaptadorDao<CursaTutoria> {
     }
 
     public DynamicList<CursaTutoria> buscarLineal(DynamicList<CursaTutoria> lista, String campo, String valorBuscado) throws EmptyException {
-        CursaTutoria matriculasAsignaturas[] = lista.toArray();
+        DynamicList<CursaTutoria> listaOrdenada = ordenarMerge(lista, campo, 0);
+        CursaTutoria cursaTutorias[] = listaOrdenada.toArray();
         DynamicList<CursaTutoria> listaBusqueda = new DynamicList<>();
-        for (int i = 0; i < lista.getLength(); i++) {
-            CursaTutoria matriculaAsignatura = matriculasAsignaturas[i];
-            if (matriculaAsignatura.compareCampo(campo, valorBuscado) == 0) {
-                listaBusqueda.add(matriculaAsignatura);
+        for (int i = 0; i < listaOrdenada.getLength(); i++) {
+            CursaTutoria cursaTutoria = cursaTutorias[i];
+            if (cursaTutoria.compareCampo(campo, valorBuscado) == 0) {
+                listaBusqueda.add(cursaTutoria);
             }
         }
         return listaBusqueda;
     }
 
-    public CursaTutoria buscarBinaria(String campo, String valorBuscado) throws EmptyException {
+    public CursaTutoria buscarBinaria(DynamicList<CursaTutoria> lista, String campo, String valorBuscado) throws EmptyException {
+        DynamicList<CursaTutoria> listaOrdenada = ordenarMerge(lista, campo, 0);
         int inicio = 0;
-        DynamicList<CursaTutoria> lista = ordenarMerge(all(), "id", 0);
-        int fin = lista.getLength() - 1;
-        CursaTutoria matriculasAsignaturas[] = lista.toArray();
+        int fin = listaOrdenada.getLength() - 1;
+        CursaTutoria cursaTutorias[] = listaOrdenada.toArray();
         while (inicio <= fin) {
             int medio = (inicio + fin) / 2;
-            CursaTutoria matriculaAsignatura = matriculasAsignaturas[medio];
-            int comparacion = matriculaAsignatura.compareCampo(campo, valorBuscado);
+            CursaTutoria cursaTutoria = cursaTutorias[medio];
+            int comparacion = cursaTutoria.compareCampo(campo, valorBuscado);
+
             if (comparacion == 0) {
-                return matriculaAsignatura;
+                return cursaTutoria;
             } else if (comparacion < 0) {
                 inicio = medio + 1;
             } else {

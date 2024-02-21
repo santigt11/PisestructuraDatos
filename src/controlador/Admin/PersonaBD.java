@@ -92,37 +92,6 @@ public class PersonaBD extends AdaptadorDao<Persona> {
         return listaBusqueda;
     }
 
-//    @Override
-//    public DynamicList<Persona> all() {
-//        DynamicList<Persona> lista = new DynamicList<>();
-//        try {
-//            java.sql.Statement stmt = conexion.getConnection().createStatement();
-//            String query = "SELECT * FROM PERSONA";
-//            ResultSet rs = stmt.executeQuery(query);
-//            while (rs.next()) {
-//                Persona persona = new Persona();
-//                persona.setId(rs.getInt(1));
-//                persona.setDni(rs.getString(2));
-//                persona.setNombre(rs.getString(3));
-//                persona.setApellido(rs.getString(4));
-//                LocalDate localDate = rs.getDate(5).toLocalDate();
-//                persona.setFechaNacimiento(localDate);
-//                persona.setTelefono(rs.getString(6));
-//                if (rs.getString(7).equalsIgnoreCase("estudiante")) {
-//                    persona.setRol(Rol.ESTUDIANTE);
-//                }else if (rs.getString(7).equalsIgnoreCase("docente")){
-//                    persona.setRol(Rol.DOCENTE);
-//                }else{
-//                    persona.setRol(Rol.ADMINISTRADOR);
-//                }
-//                lista.add(persona); 
-//            }
-//            
-//        } catch (Exception e) {
-//        }
-//        
-//        return lista;
-//    }
     public Persona buscarBinaria(DynamicList<Persona> lista, String campo, String valorBuscado) throws EmptyException {
         DynamicList<Persona> listaOrdenada = ordenarMerge(lista, campo, 0);
         int inicio = 0;
