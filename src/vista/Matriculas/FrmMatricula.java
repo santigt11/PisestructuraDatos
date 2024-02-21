@@ -12,6 +12,7 @@ import controlador.Academico.FacultadBD;
 import controlador.Academico.MallaBD;
 import controlador.Academico.UniversidadBD;
 import controlador.Admin.PersonaBD;
+import controlador.Login.UsuarioBD;
 import controlador.Matriculas.CursaBD;
 import controlador.Matriculas.MatriculaBD;
 import controlador.Matriculas.CursaTutoriaBD;
@@ -28,9 +29,10 @@ public class FrmMatricula extends javax.swing.JFrame {
     private CursaBD fileMatriculaAsg = new CursaBD();
 
     private PersonaBD filePersona = new PersonaBD();
+    private UsuarioBD fileUsuario = new UsuarioBD();
 
-    private final UniversidadBD fileUniversidad = new UniversidadBD();
-    private final FacultadBD fileFacultad = new FacultadBD();
+    private UniversidadBD fileUniversidad = new UniversidadBD();
+    private FacultadBD fileFacultad = new FacultadBD();
     private CarreraBD fileCarrera = new CarreraBD();
     private MallaBD fileMalla = new MallaBD();
     private CicloBD fileCiclo = new CicloBD();
@@ -52,7 +54,7 @@ public class FrmMatricula extends javax.swing.JFrame {
                 return (!txtDni.getText().trim().isEmpty()
                         && !dtRegistro.getDate().toString().isEmpty());
             case 2:
-                return (!txtDni.getText().trim().isEmpty()
+                return (cbxMatricula.getSelectedIndex() < 0
                         && !txtCurso.getText().trim().isEmpty());
             default:
                 throw new AssertionError();
@@ -66,7 +68,7 @@ public class FrmMatricula extends javax.swing.JFrame {
                     Object p = lstEstudiante.getSelectedValue();
                     Usuario estudiante = (Usuario) p;
                     fileMatricula.getMatricula().setUsuario_ID(estudiante.getId());
-                    fileMatricula.getMatricula().setPeriodoAcademico_ID(filePeriodo.getPeriodos().getInfo(filePeriodo.getPeriodos().getLength()-1).getId());
+                    fileMatricula.getMatricula().setPeriodoAcademico_ID(filePeriodo.getPeriodos().getInfo(filePeriodo.getPeriodos().getLength() - 1).getId());
                     fileMatricula.getMatricula().setFechaRegistro(dtRegistro.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
                     fileMatricula.getMatricula().setExpedienteActivo(true);
                     fileMatricula.getMatricula().setNumero((Integer) spnNro.getValue());
@@ -80,18 +82,34 @@ public class FrmMatricula extends javax.swing.JFrame {
                 }
                 break;
             case 2:
-                if (verificar(2)) {
-                    Object a = lstAsignatura.getSelectedValue();
-                    Asignatura asignatura = (Asignatura) a;
-                    fileMatriculaAsg.getCursa().setMatricula_ID(cbxMatricula.getSelectedIndex());
-                    fileMatriculaAsg.getCursa().setAsignatura_CODIGO(asignatura.getCodigo());
-                    fileMatriculaAsg.getCursa().setParalelo(txtCurso.getText());
+                // if (verificar(2)) {
+//                    Object a = lstAsignatura.getSelectedValue();
+//                    Asignatura asignatura = (Asignatura) a;
+//                    Matricula ma = Utilvista.obtenerMatriculaControl(cbxMatricula);
+//                    fileMatriculaAsg.getCursa().setMatricula_ID(cbxMatricula.getSelectedIndex() - 1);
+//                    fileMatriculaAsg.getCursa().setAsignatura_CODIGO(asignatura.getCodigo());
+//                    fileMatriculaAsg.getCursa().setParalelo(txtCurso.getText());
+//
+//                    if (fileMatriculaAsg.persist(fileMatriculaAsg.getCursa())) {
+//                        JOptionPane.showMessageDialog(null, "Datos guardados");
+//                        limpiar();
+//                        fileMatriculaAsg.setCursa(null);
+//                    }
+//                    System.out.println("Error");
+//                }
+                Object a = lstAsignatura.getSelectedValue();
+                Asignatura asignatura = (Asignatura) a;
+                //Matricula ma = Utilvista.obtenerMatriculaControl(cbxMatricula);
+                fileMatriculaAsg.getCursa().setMatricula_ID(cbxMatricula.getSelectedIndex() + 1);
+                fileMatriculaAsg.getCursa().setAsignatura_CODIGO(asignatura.getCodigo());
+                fileMatriculaAsg.getCursa().setParalelo(txtCurso.getText());
 
-                    fileMatriculaAsg.persist(fileMatriculaAsg.getCursa());
+                if (fileMatriculaAsg.persist(fileMatriculaAsg.getCursa())) {
                     JOptionPane.showMessageDialog(null, "Datos guardados");
-                    limpiar();
+                    //limpiar();
                     fileMatriculaAsg.setCursa(null);
                 }
+                System.out.println("Error");
                 break;
 
             default:
@@ -108,7 +126,7 @@ public class FrmMatricula extends javax.swing.JFrame {
                     limpiarPersona();
                     Object p = lstEstudiante.getSelectedValue();
                     Usuario es = (Usuario) p;
-                    Persona estudiante = filePersona.buscarBinaria(filePersona.all(),"dni", es.getPersona_DNI());
+                    Persona estudiante = filePersona.buscarBinaria(filePersona.all(), "dni", es.getPersona_DNI());
 
                     txtDni.setText(estudiante.getDni());
                     txtApellidos.setText(estudiante.getApellido());
@@ -130,9 +148,9 @@ public class FrmMatricula extends javax.swing.JFrame {
                     txtCarreras.setText(carrera.getNombre());
                     txtMalla.setText(malla.getDescripcion());
                     txtAsignatura.setText(asignatura.getNombre());
-                    spnNro.setValue(fileMatricula.getMatriculasTodas().getLength()+1);
+                    spnNro.setValue(fileMatricula.getMatriculasTodas().getLength() + 1);
                     if (!filePeriodo.getPeriodos().isEmpty()) {
-                        txtPeriodo.setText(filePeriodo.getPeriodos().getInfo(filePeriodo.getPeriodos().getLength()-1).toString());
+                        txtPeriodo.setText(filePeriodo.getPeriodos().getInfo(filePeriodo.getPeriodos().getLength() - 1).toString());
                     }
 
                 }
@@ -140,12 +158,31 @@ public class FrmMatricula extends javax.swing.JFrame {
             case 3:
                 if (tbMatricula.getSelectedRow() > -1) {
                     limpiarSoft();
+                    fileMatricula.setMatricula(fileMatricula.getMatriculasTodas().getInfo(tbMatricula.getSelectedRow()));
                     if (fileMatricula.getMatricula().getExpedienteActivo()) {
                         cbxExpediente.setSelectedIndex(0);
                     } else if (fileMatricula.getMatricula().getExpedienteActivo() == false) {
                         cbxExpediente.setSelectedIndex(1);
                     }
+
+                    spnNro.setValue(fileMatricula.getMatricula().getNumero());
+                    txtPeriodo.setText(filePeriodo.getPeriodos().getInfo(fileMatricula.getMatricula().getPeriodoAcademico_ID() - 1).toString());
+
+                    Usuario us = fileUsuario.getUsuariosTodos().getInfo(fileMatricula.getMatricula().getUsuario_ID() - 1);
+                    Persona pe = filePersona.buscarBinaria(filePersona.all(), "dni", us.getPersona_DNI());
+
+                    txtDni.setText(pe.getDni());
+                    txtApellidos.setText(pe.getApellido());
+                    txtNombres.setText(pe.getNombre());
+                    txtTelefono.setText(pe.getTelefono());
+                    dtRegistro.setDate(java.sql.Date.valueOf(fileMatricula.getMatricula().getFechaRegistro()));
+
+                    dtRegistro.setEnabled(false);
                 }
+                break;
+            case 4:
+                Object p = lstEstudiante.getSelectedValue();
+                MatriculaA estudiante = (Usuario) p;
                 break;
             default:
                 throw new AssertionError();
@@ -172,6 +209,7 @@ public class FrmMatricula extends javax.swing.JFrame {
 
         limpiarSoft();
 
+        dtRegistro.setEnabled(true);
         Utilvista.limpiarLista(lstCarrera);
         Utilvista.limpiarLista(lstMalla);
         Utilvista.limpiarLista(lstCiclo);
@@ -606,9 +644,9 @@ public class FrmMatricula extends javax.swing.JFrame {
                         .addGap(22, 22, 22)
                         .addComponent(txtFacultad, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpMatriculaAsgLayout.createSequentialGroup()
-                        .addGap(110, 110, 110)
+                        .addGap(98, 98, 98)
                         .addComponent(jLabel17)
-                        .addGap(6, 6, 6)
+                        .addGap(18, 18, 18)
                         .addComponent(txtCarreras, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpMatriculaAsgLayout.createSequentialGroup()
                         .addGap(60, 60, 60)
@@ -617,18 +655,21 @@ public class FrmMatricula extends javax.swing.JFrame {
                         .addComponent(txtMalla, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpMatriculaAsgLayout.createSequentialGroup()
                         .addGap(150, 150, 150)
-                        .addComponent(btAgregarAsignaturaMatricula))
+                        .addComponent(btAgregarAsignaturaMatricula)))
+                .addContainerGap(80, Short.MAX_VALUE))
+            .addGroup(jpMatriculaAsgLayout.createSequentialGroup()
+                .addGroup(jpMatriculaAsgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpMatriculaAsgLayout.createSequentialGroup()
-                        .addGap(90, 90, 90)
+                        .addGap(81, 81, 81)
                         .addComponent(jLabel14)
-                        .addGap(9, 9, 9)
+                        .addGap(18, 18, 18)
                         .addComponent(txtAsignatura, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpMatriculaAsgLayout.createSequentialGroup()
-                        .addGap(107, 107, 107)
+                        .addGap(95, 95, 95)
                         .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(txtCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jpMatriculaAsgLayout.setVerticalGroup(
             jpMatriculaAsgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -642,18 +683,21 @@ public class FrmMatricula extends javax.swing.JFrame {
                 .addGroup(jpMatriculaAsgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtFacultad, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
                 .addGroup(jpMatriculaAsgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCarreras, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                    .addGroup(jpMatriculaAsgLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(txtCarreras, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpMatriculaAsgLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(8, 8, 8)
                 .addGroup(jpMatriculaAsgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMalla, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(jpMatriculaAsgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAsignatura, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(jpMatriculaAsgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtAsignatura, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
                 .addGroup(jpMatriculaAsgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -953,7 +997,11 @@ public class FrmMatricula extends javax.swing.JFrame {
     }//GEN-LAST:event_btMatriculaActionPerformed
 
     private void lstMatriculaAsgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstMatriculaAsgMouseClicked
-        // TODO add your handling code here:
+        try {
+            cargarVista(4);
+        } catch (EmptyException ex) {
+            Logger.getLogger(FrmMatricula.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_lstMatriculaAsgMouseClicked
 
     private void tbMatriculaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbMatriculaMouseClicked
