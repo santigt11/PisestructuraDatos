@@ -140,7 +140,7 @@ public class FrmUsuarios extends javax.swing.JFrame {
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
-        dispose();
+        this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
