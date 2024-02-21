@@ -26,7 +26,7 @@ public class TablaAsignacion extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 4;
+        return 3;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class TablaAsignacion extends AbstractTableModel {
         try {
             Asignacion asignacion = asignaciones.getInfo(rowIndex);
             Usuario usuario = fileUsuario.getUsuariosTodos().getInfo(asignacion.getUsuario_ID());
-            Persona docente = filePersona.buscarBinaria("dni", usuario.getPersona_DNI());
+            Persona docente = filePersona.buscarBinariaUnico("dni", usuario.getPersona_DNI());
             switch (columnIndex) {
                 case 0:
                     return (asignacion != null) ? docente.getApellido() + " " + docente.getNombre(): " ";
