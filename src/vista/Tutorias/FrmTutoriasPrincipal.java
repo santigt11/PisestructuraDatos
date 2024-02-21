@@ -33,9 +33,33 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     private MatriculaBD matriculaControl = new MatriculaBD();
     private UsuarioBD usuarioControl = new UsuarioBD();
     private CursaBD cursaControl = new CursaBD();
-    
+    private Usuario usuarioNavegacion;
+
     public FrmTutoriasPrincipal() {
         initComponents();
+    }
+
+    private void cargarAsignaciones() throws EmptyException {
+        usuarioNavegacion = usuarioControl.buscarBinaria(usuarioControl.all(), "id", "1");
+        usuarioControl.setUsuario(usuarioControl.buscarBinaria(usuarioControl.all(), "id", "1"));
+        personaControl.setPersona(personaControl.buscarBinaria(personaControl.all(), "dni", usuarioNavegacion.getPersona_DNI()));
+        lbUsuario.setText(personaControl.getPersona().getApellido() + " " + personaControl.getPersona().getNombre());
+        if (usuarioNavegacion.getRol_id() == 1) {
+            matriculaControl.buscarBinaria("usuario_ID", String.valueOf(usuarioControl.getUsuario().getId()));
+            cursaControl.setCursas(cursaControl.buscarLineal(cursaControl.all(), "matricula_id", String.valueOf(matriculaControl.getMatricula().getId())));
+            DynamicList<Asignatura> asignaturasMostrar = new DynamicList<>();
+            Asignatura asignatura;
+            Cursa[] cursas = cursaControl.getCursas().toArray();
+            for (int i = 0; i < cursaControl.getCursas().getLength(); i++) {
+                asignatura = asignaturaControl.buscarBinaria("codigo", cursas[i].getAsignatura_CODIGO());
+                asignaturasMostrar.add(asignatura);
+            }
+            Utilvista.cargarComboAsignaturas(cbxAsignaturas);
+        } else if (usuarioNavegacion.getRol_id() == 2) {
+            asignacionControl.setAsignaciones(asignacionControl.buscarLineal(asignacionControl.all(), "usuario_ID", String.valueOf(usuarioControl.getUsuario().getId())));
+            Utilvista.cargarComboAsignacion(asignacionControl.getAsignaciones(), cbxAsignaturas);
+            lbUsuario.setText(personaControl.getPersona().getApellido() + " " + personaControl.getPersona().getNombre());
+        }
     }
 
     public void cargarUsuario(Usuario usuario) {
@@ -71,10 +95,10 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     }
 
     private void cargarTutorias() throws EmptyException {
-        personaControl.setPersona(personaControl.buscarBinaria("dni", usuarioControl.getUsuario().getPersona_DNI()));
+        personaControl.setPersona(personaControl.buscarBinaria(personaControl.all(), "dni", usuarioControl.getUsuario().getPersona_DNI()));
         if (usuarioControl.getUsuario().getRol_id() == 1) {
             matriculaControl.setMatricula(matriculaControl.buscarBinaria("usuario_id", String.valueOf(usuarioControl.getUsuario().getId())));
-            cursaControl.setCursas(cursaControl.buscarLineal(cursaControl.all(),"matricula_id", String.valueOf(matriculaControl.getMatricula().getId())));
+            cursaControl.setCursas(cursaControl.buscarLineal(cursaControl.all(), "matricula_id", String.valueOf(matriculaControl.getMatricula().getId())));
             DynamicList<CursaTutoria> cursasTutoria = new DynamicList<>();
             Cursa[] cursas = cursaControl.getCursas().toArray();
 //            for (int i = 0; i < cursaControl.getCursas().getLength(); i++) {
@@ -161,6 +185,8 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         btGenerarInforme = new javax.swing.JButton();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         btNuevaTutoria1 = new javax.swing.JButton();
+        lbUsuario = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -173,7 +199,7 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("PROXIMAS TUTORIAS");
-        bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 240, -1));
+        bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 260, -1));
 
         jScrollPane1.setBorder(null);
 
@@ -371,6 +397,11 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
 
         btNuevaTutoria.setBackground(new java.awt.Color(102, 51, 0));
         btNuevaTutoria.setText("Nueva Tutoria");
+        btNuevaTutoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNuevaTutoriaActionPerformed(evt);
+            }
+        });
         bg.add(btNuevaTutoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 20, -1, -1));
 
         btGenerarInforme.setBackground(new java.awt.Color(102, 51, 0));
@@ -383,6 +414,14 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
         btNuevaTutoria1.setBackground(new java.awt.Color(102, 51, 0));
         btNuevaTutoria1.setText("Nueva Tutoria");
         bg.add(btNuevaTutoria1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 20, -1, -1));
+
+        lbUsuario.setForeground(new java.awt.Color(0, 0, 0));
+        lbUsuario.setText("Usuario:");
+        bg.add(lbUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 490, 50, -1));
+
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setText("Usuario:");
+        bg.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 490, 50, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -469,10 +508,12 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lbRecibirTutoria;
+    private javax.swing.JLabel lbUsuario;
     private javax.swing.JList<String> lstTutorias;
     private javax.swing.JTextField txtAsignatura;
     private javax.swing.JTextField txtFecha;

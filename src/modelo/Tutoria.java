@@ -16,21 +16,21 @@ public class Tutoria {
     private LocalDate fecha;
     private String tema;
     private String horaInicio;
+    private Integer modalidad_ID;
     private String horaFin;
     private String comentario;
     private Integer asignacion_ID;
-    private Integer modalidad_ID;
     private Boolean horarioValido;
 
-    public Tutoria(Integer id, LocalDate fecha, String tema, String horaInicio, String horaFin, String comentario, Integer asignacion_ID, Integer modalidad_ID, Boolean horarioValido) {
+    public Tutoria(Integer id, LocalDate fecha, String tema, String horaInicio, Integer modalidad_ID, String horaFin, String comentario, Integer asignacion_ID, Boolean horarioValido) {
         this.id = id;
         this.fecha = fecha;
         this.tema = tema;
         this.horaInicio = horaInicio;
+        this.modalidad_ID = modalidad_ID;
         this.horaFin = horaFin;
         this.comentario = comentario;
         this.asignacion_ID = asignacion_ID;
-        this.modalidad_ID = modalidad_ID;
         this.horarioValido = horarioValido;
     }
     
@@ -121,6 +121,34 @@ public class Tutoria {
                 return this.asignacion_ID.compareTo(Integer.parseInt(valorBuscado));
             default:
                 throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
+        }
+    }
+    
+    public Boolean compare(Tutoria t, String field, Integer type) {
+        //0 menor 1 mayor
+        switch (type) {
+            case 0:// Si el tipo es 0 es menor
+                if (field.equalsIgnoreCase("tema")) {
+                    return tema.compareTo(t.getTema()) < 0;//compara
+                } else if (field.equalsIgnoreCase("asignacion_id")) {
+                    return asignacion_ID.compareTo(t.getAsignacion_ID()) < 0;
+                } else if (field.equalsIgnoreCase("fecha")) {
+                    return fecha.compareTo(t.getFecha()) < 0;
+                } else if (field.equalsIgnoreCase("id")) {
+                    return id.compareTo(t.getId()) < 0;
+                }
+            case 1: //si el tipo es 1 es mayor
+                if (field.equalsIgnoreCase("tema")) {
+                    return tema.compareTo(t.getTema()) > 0;//compara
+                } else if (field.equalsIgnoreCase("asignacion_id")) {
+                    return asignacion_ID.compareTo(t.getAsignacion_ID()) > 0;
+                } else if (field.equalsIgnoreCase("fecha")) {
+                    return fecha.compareTo(t.getFecha()) > 0;
+                } else if (field.equalsIgnoreCase("id")) {
+                    return id.compareTo(t.getId()) > 0;
+                }
+            default:
+                throw new AssertionError();
         }
     }
 

@@ -4,7 +4,6 @@ import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.Utiles.Utiles;
 import controlador.dao.AdaptadorDao;
-import modelo.Persona;
 import modelo.Usuario;
 
 
@@ -82,7 +81,7 @@ public class UsuarioBD extends AdaptadorDao<Usuario> {
     }
 
     public DynamicList<Usuario> buscarLineal(DynamicList<Usuario> lista, String campo, String valorBuscado) throws EmptyException {
-        Usuario usuarios[] = lista.toArray();
+        Usuario usuarios[] = ordenarMerge(lista, "id", 1).toArray();
         DynamicList<Usuario> listaBusqueda = new DynamicList<>();
         for (int i = 0; i < lista.getLength(); i++) {
             Usuario usuario = usuarios[i];
@@ -93,15 +92,17 @@ public class UsuarioBD extends AdaptadorDao<Usuario> {
         return listaBusqueda;
     }
 
-    public Usuario buscarBinaria(String campo, String valorBuscado) throws EmptyException {
+    public Usuario buscarBinaria(DynamicList<Usuario> lista, String campo, String valorBuscado) throws EmptyException {
+        DynamicList<Usuario> listaOrdenada = ordenarMerge(lista, campo, 0);
         int inicio = 0;
-        DynamicList<Usuario> lista = all();
-        int fin = lista.getLength() - 1;
-        Usuario usuarios[] = lista.toArray();
+        int fin = listaOrdenada.getLength() - 1;
+        Usuario usuarios[] = listaOrdenada.toArray();
+
         while (inicio <= fin) {
             int medio = (inicio + fin) / 2;
             Usuario usuario = usuarios[medio];
             int comparacion = usuario.compareCampo(campo, valorBuscado);
+
             if (comparacion == 0) {
                 return usuario;
             } else if (comparacion < 0) {
@@ -112,7 +113,54 @@ public class UsuarioBD extends AdaptadorDao<Usuario> {
         }
         return null;
     }
+    
+    //MergeSort
+    public DynamicList<Usuario> ordenarMerge(DynamicList<Usuario> lista, String field, Integer tipo) throws EmptyException {
+        if (lista.getLength() > 1) {
+            DynamicList<Usuario> izquierda = new DynamicList<>();
+            DynamicList<Usuario> derecha = new DynamicList<>();
+            int mitad = lista.getLength() / 2;
+            for (int i = 0; i < mitad; i++) {
+                izquierda.add(lista.getInfo(i));
+            }
+            for (int i = mitad; i < lista.getLength(); i++) {
+                derecha.add(lista.getInfo(i));
+            }
+            izquierda = ordenarMerge(izquierda, field, tipo);
+            derecha = ordenarMerge(derecha, field, tipo);
+            mezclar(lista, izquierda, derecha, field, tipo);
+        }
+        return lista;
+    }
 
+    private void mezclar(DynamicList<Usuario> lista, DynamicList<Usuario> list1, DynamicList<Usuario> list2, String field, Integer tipo) throws EmptyException {
+        int indiceIzq = 0, indiceDer = 0, indiceLista = 0;
+        Usuario[] izquierda = list1.toArray();
+        Usuario[] derecha = list2.toArray();
+        while (indiceIzq < izquierda.length && indiceDer < derecha.length) {
+            if (izquierda[indiceIzq].compare(derecha[indiceDer], field, tipo)) {
+                lista.merge(izquierda[indiceIzq], indiceLista);
+                indiceIzq += 1;
+            } else {
+                lista.merge(derecha[indiceDer], indiceLista);
+                indiceDer += 1;
+            }
+            indiceLista += 1;
+        }
+
+        while (indiceIzq < izquierda.length) {
+            lista.merge(izquierda[indiceIzq], indiceLista);
+            indiceIzq += 1;
+            indiceLista += 1;
+        }
+
+        while (indiceDer < derecha.length) {
+            lista.merge(derecha[indiceDer], indiceLista);
+            indiceDer += 1;
+            indiceLista += 1;
+        }
+    }
+    
    public boolean update(Usuario usuario) {
     try {
         // Actualiza el usuario proporcionado como argumento

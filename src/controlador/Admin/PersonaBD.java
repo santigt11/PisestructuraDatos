@@ -22,6 +22,9 @@ public class PersonaBD extends AdaptadorDao<Persona> {
     }
 
     public DynamicList<Persona> getPersonas() {
+        if (personas == null) {
+            personas = new DynamicList<>();
+        }
         return personas;
     }
 
@@ -77,9 +80,10 @@ public class PersonaBD extends AdaptadorDao<Persona> {
 //        return 1;
 //    }
     public DynamicList<Persona> buscarLineal(DynamicList<Persona> lista, String campo, String valorBuscado) throws EmptyException {
-        Persona personas[] = ordenarMerge(lista, campo, 1).toArray();
+        DynamicList<Persona> listaOrdenada = ordenarMerge(lista, campo, 0);
+        Persona personas[] = listaOrdenada.toArray();
         DynamicList<Persona> listaBusqueda = new DynamicList<>();
-        for (int i = 0; i < lista.getLength(); i++) {
+        for (int i = 0; i < listaOrdenada.getLength(); i++) {
             Persona persona = personas[i];
             if (persona.compareCampo(campo, valorBuscado) == 0) {
                 listaBusqueda.add(persona);
@@ -119,16 +123,16 @@ public class PersonaBD extends AdaptadorDao<Persona> {
 //        
 //        return lista;
 //    }
-    
-    public Persona buscarBinaria(String campo, String valorBuscado) throws EmptyException {
+    public Persona buscarBinaria(DynamicList<Persona> lista, String campo, String valorBuscado) throws EmptyException {
+        DynamicList<Persona> listaOrdenada = ordenarMerge(lista, campo, 0);
         int inicio = 0;
-        DynamicList<Persona> lista = ordenarMerge(all(), "id", 0);
-        int fin = lista.getLength() - 1;
-        Persona personas[] = lista.toArray();
+        int fin = listaOrdenada.getLength() - 1;
+        Persona personas[] = listaOrdenada.toArray();
         while (inicio <= fin) {
             int medio = (inicio + fin) / 2;
             Persona persona = personas[medio];
             int comparacion = persona.compareCampo(campo, valorBuscado);
+
             if (comparacion == 0) {
                 return persona;
             } else if (comparacion < 0) {

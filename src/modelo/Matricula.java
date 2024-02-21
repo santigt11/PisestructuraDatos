@@ -73,7 +73,7 @@ public class Matricula {
 
     @Override
     public String toString() {
-        return id + " - " + fechaRegistro;
+        return id + " - " + fechaRegistro + " " + usuario_ID;
     }
 
     public int compareCampo(String campo, String valorBuscado) {
@@ -88,6 +88,38 @@ public class Matricula {
                 return this.periodoAcademico_ID.compareTo(Integer.parseInt(valorBuscado));
             default:
                 throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
+        }
+    }
+
+    public Boolean compare(Matricula m, String field, Integer type) {
+        //0 menor 1 mayor
+        switch (type) {
+            case 0:// Si el tipo es 0 es menor
+                if (field.equalsIgnoreCase("fechaRegistro")) {
+                    return fechaRegistro.compareTo(m.getFechaRegistro()) < 0;//compara
+                } else if (field.equalsIgnoreCase("numero")) {
+                    return numero.compareTo(m.getNumero()) < 0;
+                } else if (field.equalsIgnoreCase("periodoacademico_id")) {
+                    return periodoAcademico_ID.compareTo(m.getPeriodoAcademico_ID()) < 0;
+                } else if (field.equalsIgnoreCase("id")) {
+                    return id.compareTo(m.getId()) < 0;
+                }else if (field.equalsIgnoreCase("usuario_id")) {
+                    return usuario_ID.compareTo(m.getUsuario_ID()) < 0;
+                }
+            case 1: //si el tipo es 1 es mayor
+                if (field.equalsIgnoreCase("fechaRegistro")) {
+                    return fechaRegistro.compareTo(m.getFechaRegistro()) > 0;//compara
+                } else if (field.equalsIgnoreCase("numero")) {
+                    return numero.compareTo(m.getNumero()) > 0;
+                } else if (field.equalsIgnoreCase("periodoacademico_id")) {
+                    return periodoAcademico_ID.compareTo(m.getPeriodoAcademico_ID()) > 0;
+                } else if (field.equalsIgnoreCase("id")) {
+                    return id.compareTo(m.getId()) > 0;
+                }else if (field.equalsIgnoreCase("usuario_id")) {
+                    return usuario_ID.compareTo(m.getUsuario_ID()) > 0;
+                }
+            default:
+                throw new AssertionError();
         }
     }
 }
