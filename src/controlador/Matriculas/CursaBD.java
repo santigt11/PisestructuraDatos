@@ -58,17 +58,18 @@ public class CursaBD extends AdaptadorDao<Cursa> {
         return listaBusqueda;
     }
 
-    public Cursa buscarBinaria(String campo, String valorBuscado) throws EmptyException {
+    public Cursa buscarBinaria(DynamicList<Cursa> lista, String campo, String valorBuscado) throws EmptyException {
+        DynamicList<Cursa> listaOrdenada = ordenarMerge(lista, campo, 0);
         int inicio = 0;
-        DynamicList<Cursa> lista = ordenarMerge(all(), "id", 0);
-        int fin = lista.getLength() - 1;
-        Cursa matriculasAsignaturas[] = lista.toArray();
+        int fin = listaOrdenada.getLength() - 1;
+        Cursa cursas[] = listaOrdenada.toArray();
         while (inicio <= fin) {
             int medio = (inicio + fin) / 2;
-            Cursa matriculaAsignatura = matriculasAsignaturas[medio];
-            int comparacion = matriculaAsignatura.compareCampo(campo, valorBuscado);
+            Cursa cursa = cursas[medio];
+            int comparacion = cursa.compareCampo(campo, valorBuscado);
+
             if (comparacion == 0) {
-                return matriculaAsignatura;
+                return cursa;
             } else if (comparacion < 0) {
                 inicio = medio + 1;
             } else {

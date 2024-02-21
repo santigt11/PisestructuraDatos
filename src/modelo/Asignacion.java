@@ -49,7 +49,6 @@ public class Asignacion {
         this.periodoAcademico_ID = periodoAcademico_ID;
     }
 
-    
     public int compareCampo(String campo, String valorBuscado) {
         switch (campo.toLowerCase()) {
             case "id":
@@ -60,6 +59,34 @@ public class Asignacion {
                 return this.asignatura_CODIGO.compareToIgnoreCase(valorBuscado);
             default:
                 throw new IllegalArgumentException("Campo no válido para comparación: " + campo);
+        }
+    }
+    
+    public Boolean compare(Asignacion a, String field, Integer type) {
+        //0 menor 1 mayor
+        switch (type) {
+            case 0:// Si el tipo es 0 es menor
+                if (field.equalsIgnoreCase("periodoAcademico_id")) {
+                    return periodoAcademico_ID.compareTo(a.getPeriodoAcademico_ID()) < 0;//compara
+                } else if (field.equalsIgnoreCase("asignatura_codigo")) {
+                    return asignatura_CODIGO.compareTo(a.getAsignatura_CODIGO()) < 0;
+                } else if (field.equalsIgnoreCase("usuario_id")) {
+                    return usuario_ID.compareTo(a.getUsuario_ID()) < 0;
+                } else if (field.equalsIgnoreCase("id")) {
+                    return id.compareTo(a.getId()) < 0;
+                }
+            case 1: //si el tipo es 1 es mayor
+                if (field.equalsIgnoreCase("periodoAcademico_id")) {
+                    return periodoAcademico_ID.compareTo(a.getPeriodoAcademico_ID()) > 0;//compara
+                } else if (field.equalsIgnoreCase("asignatura_codigo")) {
+                    return asignatura_CODIGO.compareTo(a.getAsignatura_CODIGO()) > 0;
+                } else if (field.equalsIgnoreCase("usuario_id")) {
+                    return usuario_ID.compareTo(a.getUsuario_ID()) > 0;
+                } else if (field.equalsIgnoreCase("id")) {
+                    return id.compareTo(a.getId()) > 0;
+                }
+            default:
+                throw new AssertionError();
         }
     }
 }

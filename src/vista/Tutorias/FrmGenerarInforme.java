@@ -1,9 +1,53 @@
 package vista.Tutorias;
 
+import controlador.Academico.AsignacionBD;
+import controlador.Admin.PersonaBD;
+import controlador.Login.UsuarioBD;
+import controlador.TDA.listas.DynamicList;
+import controlador.TDA.listas.Exception.EmptyException;
+import controlador.Tutorias.TutoriaBD;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import modelo.Tutoria;
+import modelo.Usuario;
+import vista.listas.util.Utilvista;
+
 public class FrmGenerarInforme extends javax.swing.JFrame {
 
-    public FrmGenerarInforme() {
+    private UsuarioBD usuarioControl = new UsuarioBD();
+    private PersonaBD personaControl = new PersonaBD();
+    private AsignacionBD asignacionControl = new AsignacionBD();
+    private Usuario usuarioNavegacion;
+    private TutoriaBD tutoriaControl = new TutoriaBD();
+    
+    private void cargarAsignaciones() throws EmptyException {
+        usuarioNavegacion = usuarioControl.buscarBinaria(usuarioControl.all(), "id", "1");
+        usuarioControl.setUsuario(usuarioControl.buscarBinaria(usuarioControl.all(), "id", "1"));
+        personaControl.setPersona(personaControl.buscarBinaria(personaControl.all(), "dni", usuarioNavegacion.getPersona_DNI()));
+        lbDocente.setText(personaControl.getPersona().getApellido() + " " +personaControl.getPersona().getNombre());
+        asignacionControl.setAsignaciones(asignacionControl.buscarLineal(asignacionControl.all(), "usuario_ID", String.valueOf(usuarioControl.getUsuario().getId())));
+        Utilvista.cargarComboAsignacion(asignacionControl.getAsignaciones(), cbxAsignatura);
+        lbDocente.setText(personaControl.getPersona().getApellido() + " " + personaControl.getPersona().getNombre());
+    }
+    
+    private void limpiar() throws Exception{
+        cargarAsignaciones();
+        cargarTutorias();
+    }
+    
+    private void cargarTutorias() throws Exception{
+        DynamicList<Tutoria> tutorias = new DynamicList<>();
+        for (int i = 0; i < asignacionControl.getAsignaciones().getLength(); i++) {
+            tutoriaControl.buscarLineal(tutoriaControl.all(), "asignacion_id", String.valueOf(asignacionControl.getAsignaciones().getInfo(i).getId()));
+            for (int j = 0; j < tutoriaControl.getTutorias().getLength(); j++) {
+                tutorias.add(tutoriaControl.getTutorias().getInfo(j));
+            }
+        }
+        Utilvista.cargarListaTutorias(tutorias, lstTutorias);
+    }
+    public FrmGenerarInforme() throws Exception {
         initComponents();
+        limpiar();
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -21,6 +65,8 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
         cbxAsignatura = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        lbDocente = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -32,8 +78,8 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Franklin Gothic Book", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(58, 39, 34));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("INFORME ESTUDIANTE ");
-        bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 260, -1));
+        jLabel1.setText("INFORME DOCENTE");
+        bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 240, -1));
 
         jScrollPane1.setBorder(null);
 
@@ -81,7 +127,7 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
                 btGenerarActionPerformed(evt);
             }
         });
-        bg.add(btGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 460, 90, 30));
+        bg.add(btGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 460, 100, 30));
 
         cbxHorario.setBackground(new java.awt.Color(212, 173, 107));
         cbxHorario.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
@@ -108,11 +154,25 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
         jLabel10.setText("Asignatura");
         bg.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, 20));
 
+        lbDocente.setBackground(new java.awt.Color(51, 51, 51));
+        lbDocente.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
+        lbDocente.setForeground(new java.awt.Color(0, 0, 0));
+        lbDocente.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbDocente.setText("Docente:");
+        bg.add(lbDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 40, -1, -1));
+
+        jLabel15.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel15.setFont(new java.awt.Font("Franklin Gothic Book", 1, 16)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel15.setText("Docente:");
+        bg.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,10 +189,15 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
     private void txtTotalHorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalHorasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTotalHorasActionPerformed
+    
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmGenerarInforme().setVisible(true);
+                try {
+                    new FrmGenerarInforme().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(FrmGenerarInforme.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -143,10 +208,12 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbxHorario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lbDocente;
     private javax.swing.JList<String> lstTutorias;
     private javax.swing.JTextField txtTotalHoras;
     // End of variables declaration//GEN-END:variables
