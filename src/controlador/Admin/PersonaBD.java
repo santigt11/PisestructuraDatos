@@ -2,8 +2,10 @@ package controlador.Admin;
 
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
+import controlador.Utiles.Utiles;
 import controlador.dao.AdaptadorDao;
 import modelo.Persona;
+import modelo.Usuario;
 
 public class PersonaBD extends AdaptadorDao<Persona> {
 
@@ -52,6 +54,21 @@ public class PersonaBD extends AdaptadorDao<Persona> {
     public Boolean persist(Persona obj) {
         obj.setId(all().getLength() + 1);
         return super.persist(obj);
+    }
+
+    public Persona autenticarse(String correo, String clave) throws EmptyException {
+        DynamicList<Persona> personas = getPersonasTodos(); // Método para obtener la lista de usuarios
+        for (int i = 0; i < personas.getLength(); i++) {
+            Persona persona = personas.getInfo(i);
+            if (persona.getCorreo().equals(correo) && verificarClave(persona.getClave(), clave)) {
+                return persona; // Devuelve el rol del usuario autenticado
+            }
+        }
+        return null;
+    }
+
+    private boolean verificarClave(String claveAlmacenada, String claveIngresada) {
+        return claveAlmacenada.equalsIgnoreCase(claveIngresada);
     }
 
 //    @Override

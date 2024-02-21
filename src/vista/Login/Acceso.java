@@ -49,14 +49,14 @@ public class Acceso extends javax.swing.JFrame {
     /**
      * Creates new form Acceso
      */
-   
     public Acceso() {
 
         initComponents();
         //jPanel1.setBackground(Color.BLACK);
         //this.getContentPane().setBackground(new Color(255,255,255));
-       mostarGif();
+        mostarGif();
     }
+
     void mostarGif() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1122, 670);
@@ -80,8 +80,6 @@ public class Acceso extends javax.swing.JFrame {
 
     private UsuarioBD controlUsuario = new UsuarioBD();
 
-
-    
     // limpiar
     private void limpiar() {
         txtContraseña.setText("");
@@ -235,9 +233,9 @@ public class Acceso extends javax.swing.JFrame {
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
         // TODO add your handling code here:
         if (!txtNombreUsuario.getText().isEmpty() && !String.valueOf(txtContraseña.getPassword()).isEmpty()) {
-            Usuario user= null;
+            Persona persona = null;
             try {
-                user = controlUsuario.autenticarse(txtNombreUsuario.getText(), String.valueOf(txtContraseña.getPassword()));
+                persona = controlPersona.autenticarse(txtNombreUsuario.getText(), String.valueOf(txtContraseña.getPassword()));
                 //System.out.println(user.getClave());
                 //System.out.println(user.getCorreo());
             } catch (EmptyException ex) {
@@ -245,36 +243,37 @@ public class Acceso extends javax.swing.JFrame {
             }
             //controlUsuario.getPerson(user.getId_Persona())
             //Actualiza el usuario en el controlador de usuarios
-            controlUsuario.setUsuario(user);
-            Persona persona = null;//
+            controlPersona.setPersona(persona);
+            Usuario user = null;//
             try {
+                user = controlUsuario.buscarBinaria(controlUsuario.all(), "persona_dni", persona.getDni());
                 //buscar persona por medio del dni
-            persona = controlPersona.buscarBinaria(controlPersona.all(), "dni", user.getPersona_DNI());                //System.out.println(persona.getNombre().toString());
+                persona = controlPersona.buscarBinaria(controlPersona.all(), "dni", controlPersona.getPersona().getDni());                //System.out.println(persona.getNombre().toString());
             } catch (EmptyException ex) {
                 //Manejo de excepciones si no se encuentra la persona
                 java.util.logging.Logger.getLogger(Acceso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
-            
+
             if (persona != null) {
                 //System.out.println(persona.getRol().getName());
                 // Si se encontró la persona, verifica su rol
                 if (null != user.getRol_id()) {
-                    switch ( user.getRol_id()) {
+                    switch (user.getRol_id()) {
                         case 1 -> {
                             //Inicia sesión como administrador y muestra un mensaje
-                            Menu_Administrador menuAdmi = new Menu_Administrador(user,persona);
+                            Menu_Administrador menuAdmi = new Menu_Administrador(user, persona);
                             menuAdmi.setVisible(true);
                             this.dispose();
                             JOptionPane.showMessageDialog(this, "¡Inicio de sesión exitoso como ADMINISTRADOR!");
                         }
-                        case 2-> {// Abrir Frm_Main_Docente
-                            Menu_Docente menuDoc = new Menu_Docente(user,persona);
+                        case 2 -> {// Abrir Frm_Main_Docente
+                            Menu_Docente menuDoc = new Menu_Docente(user, persona);
                             menuDoc.setVisible(true);
                             this.dispose();
                             JOptionPane.showMessageDialog(this, "¡Inicio de sesión exitoso como DOCENTE!");
                         }
                         case 3 -> {// Abrir Frm_Main_Estudiante.
-                            Menu_Estudiante menuEstu = new Menu_Estudiante(user,persona);
+                            Menu_Estudiante menuEstu = new Menu_Estudiante(user, persona);
                             menuEstu.setVisible(true);
                             this.dispose();
                             JOptionPane.showMessageDialog(this, "¡Inicio de sesión exitoso como ESTUDIANTE!");
@@ -321,15 +320,14 @@ public class Acceso extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
-                               
+
             }
         });
-          SwingUtilities.invokeLater(() -> new Acceso().mostarGif());
+        SwingUtilities.invokeLater(() -> new Acceso().mostarGif());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

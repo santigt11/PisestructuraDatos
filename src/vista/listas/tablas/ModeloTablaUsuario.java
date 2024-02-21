@@ -37,7 +37,7 @@ public class ModeloTablaUsuario extends AbstractTableModel {
             Persona p = this.personas.getInfo(usuario.getId());
             return switch (columnIndex) {
                 case 0 ->
-                    usuario.getCorreo();
+                   p.getCorreo();
                 case 1 ->
                     p.getNombre() + "" + p.getApellido();
                 case 2 ->
