@@ -7,6 +7,7 @@ import controlador.Login.UsuarioBD;
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import controlador.Tutorias.TutoriaBD;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Asignacion;
@@ -54,7 +55,24 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
         }
         Utilvista.cargarListaTutorias(tutorias, lstTutorias);
     }
-
+    
+//    private void cargarVistaTutorias(){
+//        Tutoria tutoria = (Tutoria) t;
+//                System.out.println(tutoria.getAsignacion_ID());
+//                try {
+//                    asignacionControl.setAsignaciones(asignacionControl.buscarLineal(asignacionControl.all(), "id", String.valueOf(tutoria.getAsignacion_ID())));
+//                    Asignacion[] asignaciones = asignacionControl.getAsignaciones().toArray();
+//                    asignacionControl.setAsignacion(asignaciones[0]);
+//                    System.out.println(asignacionControl.getAsignacion().getAsignatura_CODIGO() );
+//                    asignaturaControl.setAsignatura(asignaturaControl.buscarBinaria(asignaturaControl.all(), "codigo", asignacionControl.getAsignacion().getAsignatura_CODIGO()));
+//                } catch (EmptyException ex) {
+//                    Logger.getLogger(FrmTutoriasPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//                txtAsignatura.setText(asignaturaControl.getAsignatura().getNombre());
+//                txtTema.setText(tutoria.getTema());
+//                txtFecha.setText(tutoria.getFecha().format((DateTimeFormatter) Utilvista.FORMATO_FECHA));
+//    }
+    
     public FrmGenerarInforme(Usuario usuario) throws Exception {
         initComponents();
         cargarUsuario(usuario);
@@ -70,7 +88,6 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         lstTutorias = new javax.swing.JList<>();
         jLabel6 = new javax.swing.JLabel();
-        btGenerar = new javax.swing.JButton();
         cbxHorario = new javax.swing.JComboBox<>();
         cbxAsignatura = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
@@ -110,18 +127,6 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(51, 51, 51));
         jLabel6.setText("Hora Tutoria");
         bg.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, -1, 20));
-
-        btGenerar.setBackground(new java.awt.Color(212, 173, 107));
-        btGenerar.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
-        btGenerar.setForeground(new java.awt.Color(102, 51, 0));
-        btGenerar.setText("Generar");
-        btGenerar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btGenerar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btGenerarActionPerformed(evt);
-            }
-        });
-        bg.add(btGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 460, 100, 30));
 
         cbxHorario.setBackground(new java.awt.Color(212, 173, 107));
         cbxHorario.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
@@ -187,10 +192,6 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGenerarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btGenerarActionPerformed
-
     private void cbxAsignaturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxAsignaturaMouseClicked
         try {
             cargarTutorias();
@@ -216,7 +217,6 @@ public class FrmGenerarInforme extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
-    private javax.swing.JButton btGenerar;
     private javax.swing.JComboBox<String> cbxAsignatura;
     private javax.swing.JComboBox<String> cbxHorario;
     private javax.swing.JButton jButton1;

@@ -487,9 +487,13 @@ public class FrmTutoriasPrincipal extends javax.swing.JFrame {
                 }
             } else if (usuarioNavegacion.getRol_id() == 2) {
                 Tutoria tutoria = (Tutoria) t;
+                System.out.println(tutoria.getAsignacion_ID());
                 try {
-                    asignacionControl.setAsignacion(asignacionControl.buscarBinaria(asignacionControl.all(), "id", String.valueOf(tutoria.getAsignacion_ID())));
-                    asignaturaControl.setAsignatura(asignaturaControl.buscarBinaria(asignaturaControl.all(), "asignatura_codigo", asignaturaControl.getAsignatura().getCodigo()));
+                    asignacionControl.setAsignaciones(asignacionControl.buscarLineal(asignacionControl.all(), "id", String.valueOf(tutoria.getAsignacion_ID())));
+                    Asignacion[] asignaciones = asignacionControl.getAsignaciones().toArray();
+                    asignacionControl.setAsignacion(asignaciones[0]);
+                    System.out.println(asignacionControl.getAsignacion().getAsignatura_CODIGO() );
+                    asignaturaControl.setAsignatura(asignaturaControl.buscarBinaria(asignaturaControl.all(), "codigo", asignacionControl.getAsignacion().getAsignatura_CODIGO()));
                 } catch (EmptyException ex) {
                     Logger.getLogger(FrmTutoriasPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                 }
