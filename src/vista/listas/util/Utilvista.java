@@ -256,7 +256,7 @@ public class Utilvista {
         ea.setUsuarios(ea.all());
         DefaultListModel modeloLista = new DefaultListModel();
         for (Integer i = 0; i < ea.getUsuarios().getLength(); i++) {
-            if (ea.getUsuarios().getInfo(i).getRol_id().toString().equals(1)) {
+            if (ea.getUsuarios().getInfo(i).getRol_id() == 1) {
                 modeloLista.addElement(ea.getUsuarios().getInfo(i));
             }
         }

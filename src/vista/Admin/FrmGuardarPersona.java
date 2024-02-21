@@ -130,6 +130,9 @@ public class FrmGuardarPersona extends javax.swing.JFrame {
         txtTelefono.setText("");
         cargarTabla();
         personaControl.setPersona(null);
+        txtCorreo.setText("");
+        txtClave.setText("");
+        cbxRol.setSelectedIndex(0);
     }
 
     public FrmGuardarPersona() {
