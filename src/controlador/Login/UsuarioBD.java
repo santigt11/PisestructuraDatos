@@ -81,9 +81,10 @@ public class UsuarioBD extends AdaptadorDao<Usuario> {
     }
 
     public DynamicList<Usuario> buscarLineal(DynamicList<Usuario> lista, String campo, String valorBuscado) throws EmptyException {
-        Usuario usuarios[] = ordenarMerge(lista, "id", 1).toArray();
+        DynamicList<Usuario> listaOrdenada = ordenarMerge(lista, campo, 0);
+        Usuario usuarios[] = listaOrdenada.toArray();
         DynamicList<Usuario> listaBusqueda = new DynamicList<>();
-        for (int i = 0; i < lista.getLength(); i++) {
+        for (int i = 0; i < listaOrdenada.getLength(); i++) {
             Usuario usuario = usuarios[i];
             if (usuario.compareCampo(campo, valorBuscado) == 0) {
                 listaBusqueda.add(usuario);
