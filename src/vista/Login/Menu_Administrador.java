@@ -4,6 +4,7 @@
  */
 package vista.Login;
 
+import controlador.TDA.listas.Exception.EmptyException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,6 +14,8 @@ import java.awt.GridLayout;
 import java.awt.RenderingHints;
 import java.io.File;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -23,6 +26,9 @@ import javax.swing.SwingWorker;
 import modelo.Persona;
 import modelo.Usuario;
 import prepis.sSlide;
+import vista.Academico.FrmAcademico;
+import vista.Academico.FrmAsignacion;
+import vista.Admin.FrmGuardarPersona;
 import vista.CambiarClave;
 import vista.FrmPeriodoAcademico;
 import vista.Perfiles;
@@ -84,6 +90,27 @@ public class Menu_Administrador extends javax.swing.JFrame {
 
         // Hacer visible la ventana de perfil
         frmPeriodoAcademico.setVisible(true);
+
+    }
+     private void mostrarAcademico(Usuario usuario, Persona persona) throws EmptyException {
+        FrmAcademico frmAcademico = new FrmAcademico();
+
+        // Hacer visible la ventana de perfil
+        frmAcademico.setVisible(true);
+
+    }
+      private void mostrarAsignacion(Usuario usuario, Persona persona) throws EmptyException {
+          FrmAsignacion frmAsignacion= new FrmAsignacion();
+
+        // Hacer visible la ventana de perfil
+        frmAsignacion.setVisible(true);
+
+    }
+        private void mostrarPersonas(Usuario usuario, Persona persona) throws EmptyException {
+            FrmGuardarPersona frmGuardarPersona= new FrmGuardarPersona();
+
+        // Hacer visible la ventana de perfil
+        frmGuardarPersona.setVisible(true);
 
     }
 
@@ -538,16 +565,36 @@ public class Menu_Administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnMatriculaActionPerformed
 
     private void AdminMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminMatriculaActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            mostrarAcademico(user, persona);
+        } catch (EmptyException ex) {
+            Logger.getLogger(Menu_Administrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }//GEN-LAST:event_AdminMatriculaActionPerformed
 
 
     private void AdminEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminEstudianteActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            mostrarPersonas(user, persona);
+        } catch (EmptyException ex) {
+            Logger.getLogger(Menu_Administrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }//GEN-LAST:event_AdminEstudianteActionPerformed
 
     private void buttonIcon2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIcon2ActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+
+            mostrarAsignacion(user, persona);
+        } catch (EmptyException ex) {
+            Logger.getLogger(Menu_Administrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_buttonIcon2ActionPerformed
 
     private void NombreUsuariotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NombreUsuariotMouseClicked
