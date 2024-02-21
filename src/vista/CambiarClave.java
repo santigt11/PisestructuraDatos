@@ -38,7 +38,7 @@ public class CambiarClave extends javax.swing.JFrame {
 
     private Boolean validarClave(Usuario usuario, Persona persona) {
         String clave = txtClaveActual.getText();
-        return usuario.getClave().equals(clave);
+        return persona.getClave().equals(clave);
     }
 
     private Boolean validarNuevasClaves(Usuario usuario, Persona persona) {
@@ -53,7 +53,7 @@ public class CambiarClave extends javax.swing.JFrame {
                 cc.setUsuario(usuario);
                 if (validarNuevasClaves(usuario, persona)) {
                     String claveNueva = txtNuevaClave.getText();
-                    usuario.setClave(claveNueva);
+                    persona.setClave(claveNueva);
                     cc.update(usuario);
                     JOptionPane.showMessageDialog(null, "Clave actualizada correctamente");
                 } else {

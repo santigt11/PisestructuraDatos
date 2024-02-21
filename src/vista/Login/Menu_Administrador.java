@@ -4,6 +4,7 @@
  */
 package vista.Login;
 
+import controlador.TDA.listas.Exception.EmptyException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,6 +14,8 @@ import java.awt.GridLayout;
 import java.awt.RenderingHints;
 import java.io.File;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -23,7 +26,11 @@ import javax.swing.SwingWorker;
 import modelo.Persona;
 import modelo.Usuario;
 import prepis.sSlide;
+import vista.Academico.FrmAcademico;
+import vista.Academico.FrmAsignacion;
+import vista.Admin.FrmGuardarPersona;
 import vista.CambiarClave;
+import vista.FrmPeriodoAcademico;
 import vista.Perfiles;
 import vista.Tutorias.FrmGenerarInforme;
 import vista.Tutorias.FrmTutoriasPrincipal;
@@ -77,6 +84,35 @@ public class Menu_Administrador extends javax.swing.JFrame {
     CambiarClave VcambioClave = new CambiarClave(usuario, persona);
     VcambioClave.setVisible(true);
 }
+    
+    private void mostrarPeriodo(Usuario usuario, Persona persona) {
+        FrmPeriodoAcademico frmPeriodoAcademico = new FrmPeriodoAcademico();
+
+        // Hacer visible la ventana de perfil
+        frmPeriodoAcademico.setVisible(true);
+
+    }
+     private void mostrarAcademico(Usuario usuario, Persona persona) throws EmptyException {
+        FrmAcademico frmAcademico = new FrmAcademico();
+
+        // Hacer visible la ventana de perfil
+        frmAcademico.setVisible(true);
+
+    }
+      private void mostrarAsignacion(Usuario usuario, Persona persona) throws EmptyException {
+          FrmAsignacion frmAsignacion= new FrmAsignacion();
+
+        // Hacer visible la ventana de perfil
+        frmAsignacion.setVisible(true);
+
+    }
+        private void mostrarPersonas(Usuario usuario, Persona persona) throws EmptyException {
+            FrmGuardarPersona frmGuardarPersona= new FrmGuardarPersona();
+
+        // Hacer visible la ventana de perfil
+        frmGuardarPersona.setVisible(true);
+
+    }
 
 
     private void mostrarGif() {
@@ -123,7 +159,6 @@ public class Menu_Administrador extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        circleComponent1 = new com.jgoodies.animation.components.CircleComponent();
         PanelPrincipalAdministrador = new javax.swing.JPanel();
         PanelUsuarioO = new javax.swing.JPanel();
         btnPerfilUser = new javax.swing.JLabel();
@@ -170,8 +205,6 @@ public class Menu_Administrador extends javax.swing.JFrame {
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 62, 0, 0));
         jPanel2.getAccessibleContext().setAccessibleName("");
         jPanel2.getAccessibleContext().setAccessibleDescription("");
-
-        getContentPane().add(circleComponent1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, -1, -1));
 
         PanelPrincipalAdministrador.setBackground(new java.awt.Color(255, 250, 205));
 
@@ -399,11 +432,10 @@ public class Menu_Administrador extends javax.swing.JFrame {
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel6)))
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                    .addGap(9, 9, 9)
-                                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jSeparator2)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(73, 73, 73)
@@ -521,6 +553,7 @@ public class Menu_Administrador extends javax.swing.JFrame {
 
     private void AdminPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminPeriodoActionPerformed
         // TODO add your handling code here:
+        mostrarPeriodo(user, persona);
     }//GEN-LAST:event_AdminPeriodoActionPerformed
 
     private void BtnMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMatriculaActionPerformed
@@ -528,16 +561,36 @@ public class Menu_Administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnMatriculaActionPerformed
 
     private void AdminMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminMatriculaActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            mostrarAcademico(user, persona);
+        } catch (EmptyException ex) {
+            Logger.getLogger(Menu_Administrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }//GEN-LAST:event_AdminMatriculaActionPerformed
 
 
     private void AdminEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminEstudianteActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            mostrarPersonas(user, persona);
+        } catch (EmptyException ex) {
+            Logger.getLogger(Menu_Administrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }//GEN-LAST:event_AdminEstudianteActionPerformed
 
     private void buttonIcon2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIcon2ActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+
+            mostrarAsignacion(user, persona);
+        } catch (EmptyException ex) {
+            Logger.getLogger(Menu_Administrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_buttonIcon2ActionPerformed
 
     private void NombreUsuariotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NombreUsuariotMouseClicked
@@ -602,7 +655,6 @@ public class Menu_Administrador extends javax.swing.JFrame {
     private javax.swing.JLabel btnPerfilUser;
     private org.edisoncor.gui.button.ButtonIcon buttonIcon2;
     private javax.swing.JLabel cambiarClave;
-    private com.jgoodies.animation.components.CircleComponent circleComponent1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

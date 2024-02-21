@@ -2,8 +2,10 @@ package controlador.Admin;
 
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
+import controlador.Utiles.Utiles;
 import controlador.dao.AdaptadorDao;
 import modelo.Persona;
+import modelo.Usuario;
 
 public class PersonaBD extends AdaptadorDao<Persona> {
 
@@ -54,6 +56,21 @@ public class PersonaBD extends AdaptadorDao<Persona> {
         return super.persist(obj);
     }
 
+    public Persona autenticarse(String correo, String clave) throws EmptyException {
+        DynamicList<Persona> personas = getPersonasTodos(); // Método para obtener la lista de usuarios
+        for (int i = 0; i < personas.getLength(); i++) {
+            Persona persona = personas.getInfo(i);
+            if (persona.getCorreo().equals(correo) && verificarClave(persona.getClave(), clave)) {
+                return persona; // Devuelve el rol del usuario autenticado
+            }
+        }
+        return null;
+    }
+
+    private boolean verificarClave(String claveAlmacenada, String claveIngresada) {
+        return claveAlmacenada.equalsIgnoreCase(claveIngresada);
+    }
+
 //    @Override
 //    public Integer persist(Persona obj) throws Exception {
 //        PreparedStatement consulta = null;
@@ -92,37 +109,6 @@ public class PersonaBD extends AdaptadorDao<Persona> {
         return listaBusqueda;
     }
 
-//    @Override
-//    public DynamicList<Persona> all() {
-//        DynamicList<Persona> lista = new DynamicList<>();
-//        try {
-//            java.sql.Statement stmt = conexion.getConnection().createStatement();
-//            String query = "SELECT * FROM PERSONA";
-//            ResultSet rs = stmt.executeQuery(query);
-//            while (rs.next()) {
-//                Persona persona = new Persona();
-//                persona.setId(rs.getInt(1));
-//                persona.setDni(rs.getString(2));
-//                persona.setNombre(rs.getString(3));
-//                persona.setApellido(rs.getString(4));
-//                LocalDate localDate = rs.getDate(5).toLocalDate();
-//                persona.setFechaNacimiento(localDate);
-//                persona.setTelefono(rs.getString(6));
-//                if (rs.getString(7).equalsIgnoreCase("estudiante")) {
-//                    persona.setRol(Rol.ESTUDIANTE);
-//                }else if (rs.getString(7).equalsIgnoreCase("docente")){
-//                    persona.setRol(Rol.DOCENTE);
-//                }else{
-//                    persona.setRol(Rol.ADMINISTRADOR);
-//                }
-//                lista.add(persona); 
-//            }
-//            
-//        } catch (Exception e) {
-//        }
-//        
-//        return lista;
-//    }
     public Persona buscarBinaria(DynamicList<Persona> lista, String campo, String valorBuscado) throws EmptyException {
         DynamicList<Persona> listaOrdenada = ordenarMerge(lista, campo, 0);
         int inicio = 0;

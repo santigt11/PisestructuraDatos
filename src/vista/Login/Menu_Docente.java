@@ -4,7 +4,10 @@
  */
 package vista.Login;
 
+import controlador.TDA.listas.Exception.EmptyException;
 import java.awt.BorderLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,6 +17,8 @@ import vista.Tutorias.FrmGenerarInforme;
 import modelo.Usuario;
 import vista.CambiarClave;
 import vista.Perfiles;
+import vista.Tutorias.FrmNuevaTutoria;
+import vista.Tutorias.FrmTutoriasPrincipal;
 
 /**
  *
@@ -119,6 +124,11 @@ public class Menu_Docente extends javax.swing.JFrame {
         TutoriasAgendadas.setBackground(new java.awt.Color(255, 250, 205));
         TutoriasAgendadas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/5116083.png"))); // NOI18N
         TutoriasAgendadas.setText("buttonIcon2");
+        TutoriasAgendadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TutoriasAgendadasActionPerformed(evt);
+            }
+        });
 
         HorarioDocente.setBackground(new java.awt.Color(255, 250, 205));
         HorarioDocente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/images-removebg-preview(1).png"))); // NOI18N
@@ -440,11 +450,19 @@ public class Menu_Docente extends javax.swing.JFrame {
     }//GEN-LAST:event_HorarioDocenteActionPerformed
 
     private void GenerarNuevaTutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarNuevaTutoActionPerformed
-        // TODO add your handling code here:
+        try {
+            new FrmNuevaTutoria(user).setVisible(true);
+        } catch (EmptyException ex) {
+            Logger.getLogger(Menu_Docente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_GenerarNuevaTutoActionPerformed
 
     private void GenerarInformesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarInformesActionPerformed
-        // TODO add your handling code here:
+        try {
+            new FrmGenerarInforme(user).setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(Menu_Docente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_GenerarInformesActionPerformed
 
     private void jnombreUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jnombreUserMouseClicked
@@ -472,6 +490,14 @@ public class Menu_Docente extends javax.swing.JFrame {
         login.setVisible(true); // Mostrar la ventana de inicio de sesión
         dispose();
     }//GEN-LAST:event_btnCerrarSesionMouseClicked
+
+    private void TutoriasAgendadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TutoriasAgendadasActionPerformed
+        try {
+            new FrmTutoriasPrincipal(user).setVisible(true);
+        } catch (EmptyException ex) {
+            Logger.getLogger(Menu_Docente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_TutoriasAgendadasActionPerformed
 
     /**
      * @param args the command line arguments

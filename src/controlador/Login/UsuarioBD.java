@@ -56,30 +56,13 @@ public class UsuarioBD extends AdaptadorDao<Usuario> {
         return super.persist(obj);
     }
 
-    public Usuario autenticarse(String correo, String clave) throws EmptyException {
-        if (!Utiles.validadorDeCorreo(correo)) {
-            return null; // Si el correo no cumple con el formato esperado
-        } else {
 
-            DynamicList<Usuario> usuarios = getUsuariosTodos(); // Método para obtener la lista de usuarios
-            for (int i = 0; i < usuarios.getLength(); i++) {
-                Usuario usuario = usuarios.getInfo(i);
-                if (usuario.getCorreo().equals(correo) && verificarClave(usuario.getClave(), clave)) {
-                    return usuario; // Devuelve el rol del usuario autenticado
-                }
-            }
-            return null;
-        }
-    }
-
-    private boolean verificarClave(String claveAlmacenada, String claveIngresada) {
-        return claveAlmacenada.equalsIgnoreCase(claveIngresada);
-    }
 
     public DynamicList<Usuario> buscarLineal(DynamicList<Usuario> lista, String campo, String valorBuscado) throws EmptyException {
-        Usuario usuarios[] = ordenarMerge(lista, "id", 1).toArray();
+        DynamicList<Usuario> listaOrdenada = ordenarMerge(lista, campo, 0);
+        Usuario usuarios[] = listaOrdenada.toArray();
         DynamicList<Usuario> listaBusqueda = new DynamicList<>();
-        for (int i = 0; i < lista.getLength(); i++) {
+        for (int i = 0; i < listaOrdenada.getLength(); i++) {
             Usuario usuario = usuarios[i];
             if (usuario.compareCampo(campo, valorBuscado) == 0) {
                 listaBusqueda.add(usuario);

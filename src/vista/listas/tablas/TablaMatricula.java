@@ -3,6 +3,7 @@ package vista.listas.tablas;
 
 import controlador.Matriculas.PeriodoBD;
 import controlador.Admin.PersonaBD;
+import controlador.Login.UsuarioBD;
 import controlador.TDA.listas.DynamicList;
 import controlador.TDA.listas.Exception.EmptyException;
 import javax.swing.table.AbstractTableModel;
@@ -13,6 +14,7 @@ public class TablaMatricula extends AbstractTableModel {
     private DynamicList<Matricula> matriculas;
     private PersonaBD filePersona = new PersonaBD();
     private PeriodoBD filePeriodo = new PeriodoBD();
+    private UsuarioBD usuarioControl = new UsuarioBD();
     
 
     @Override
@@ -31,11 +33,11 @@ public class TablaMatricula extends AbstractTableModel {
             Matricula mt = matriculas.getInfo(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return (mt != null) ? filePersona.buscarBinaria("dni", mt.getPersona_DNI()).getApellido() + " " + filePersona.buscarBinaria("dni", mt.getPersona_DNI()).getNombre(): " ";
+                    return (mt != null) ? filePersona.buscarBinaria(filePersona.all(), "dni", usuarioControl.buscarBinaria(usuarioControl.all(), "id", String.valueOf(mt.getUsuario_ID())).getPersona_DNI()): " ";
                 case 1:
-                    return (mt != null) ? mt.getFecha(): "";
+                    return (mt != null) ? mt.getFechaRegistro(): "";
                 case 2:
-                    return (mt != null) ? filePeriodo.getPeriodos().getInfo(mt.getPeriodoAcademico_ID()).getFechaIncio() + " " + filePeriodo.getPeriodos().getInfo(mt.getPeriodoAcademico_ID()).getFechaFin(): "";
+                    return (mt != null) ? filePeriodo.getPeriodos().getInfo(mt.getPeriodoAcademico_ID()).getFechaInicio()+ " " + filePeriodo.getPeriodos().getInfo(mt.getPeriodoAcademico_ID()).getFechaFin(): "";
                 case 3:
                     return (mt != null) ? mt.getExpedienteActivo()? "ACTIVO" : "INACTIVO" : "";
                 default:

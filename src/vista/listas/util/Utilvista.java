@@ -16,6 +16,15 @@ import modelo.*;
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import modelo.Asignacion;
+import modelo.Asignatura;
+import modelo.Matricula;
+import modelo.CursaTutoria;
+import modelo.Tutoria;
+import modelo.Usuario;
+import modelo.Ciclo;
+import modelo.Cursa;
+import modelo.Persona;
 
 public class Utilvista {
 
@@ -148,11 +157,11 @@ public class Utilvista {
         return (Facultad) facultad;
     }
     
-    public static void cargarComboAsignaturas(JComboBox cbx) throws EmptyException {
-        AsignaturaBD ct = new AsignaturaBD();
+    public static void cargarComboAsignaturas(JComboBox cbx, DynamicList<Asignatura> lista) throws EmptyException {
+        Asignatura[] asignaturas = lista.toArray();
         cbx.removeAllItems();
-        for (Integer i = 0; i < ct.getAsignaturas().getLength(); i++) {
-            cbx.addItem(ct.getAsignaturas().getInfo(i));
+        for (Integer i = 0; i < lista.getLength(); i++) {
+            cbx.addItem(asignaturas[i]);
         }
     }
     
@@ -164,7 +173,7 @@ public class Utilvista {
             JOptionPane.showMessageDialog(null, "Lista vacia");
         } else {
             for (int i = 0; i < contratos.getLength(); i++) {
-                cbx.addItem(aa.buscarBinaria("codigo", contratosArray[i].getAsignatura_CODIGO()));
+                cbx.addItem(aa.buscarBinaria(aa.all(), "codigo", contratosArray[i].getAsignatura_CODIGO()));
             }
         }
     }

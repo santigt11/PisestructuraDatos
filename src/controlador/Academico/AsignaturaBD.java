@@ -49,9 +49,10 @@ public class AsignaturaBD extends AdaptadorDao<Asignatura> {
     }
 
     public DynamicList<Asignatura> buscarLineal(DynamicList<Asignatura> lista, String campo, String valorBuscado) throws EmptyException {
-        Asignatura asignaturas[] = lista.toArray();
+        DynamicList<Asignatura> listaOrdenada = ordenarMerge(lista, campo, 0);
+        Asignatura asignaturas[] = listaOrdenada.toArray();
         DynamicList<Asignatura> listaBusqueda = new DynamicList<>();
-        for (int i = 0; i < lista.getLength(); i++) {
+        for (int i = 0; i < listaOrdenada.getLength(); i++) {
             Asignatura asignatura = asignaturas[i];
             if (asignatura.compareCampo(campo, valorBuscado) == 0) {
                 listaBusqueda.add(asignatura);
@@ -60,15 +61,16 @@ public class AsignaturaBD extends AdaptadorDao<Asignatura> {
         return listaBusqueda;
     }
 
-    public Asignatura buscarBinaria(String campo, String valorBuscado) throws EmptyException {
+    public Asignatura buscarBinaria(DynamicList<Asignatura> lista, String campo, String valorBuscado) throws EmptyException {
+        DynamicList<Asignatura> listaOrdenada = ordenarMerge(lista, campo, 0);
         int inicio = 0;
-        DynamicList<Asignatura> lista = all();
-        int fin = lista.getLength() - 1;
-        Asignatura asignaturas[] = lista.toArray();
+        int fin = listaOrdenada.getLength() - 1;
+        Asignatura asignaturas[] = listaOrdenada.toArray();
         while (inicio <= fin) {
             int medio = (inicio + fin) / 2;
             Asignatura asignatura = asignaturas[medio];
             int comparacion = asignatura.compareCampo(campo, valorBuscado);
+
             if (comparacion == 0) {
                 return asignatura;
             } else if (comparacion < 0) {
@@ -79,7 +81,54 @@ public class AsignaturaBD extends AdaptadorDao<Asignatura> {
         }
         return null;
     }
+    
+    //MergeSort
+    public DynamicList<Asignatura> ordenarMerge(DynamicList<Asignatura> lista, String field, Integer tipo) throws EmptyException {
+        if (lista.getLength() > 1) {
+            DynamicList<Asignatura> izquierda = new DynamicList<>();
+            DynamicList<Asignatura> derecha = new DynamicList<>();
+            int mitad = lista.getLength() / 2;
+            for (int i = 0; i < mitad; i++) {
+                izquierda.add(lista.getInfo(i));
+            }
+            for (int i = mitad; i < lista.getLength(); i++) {
+                derecha.add(lista.getInfo(i));
+            }
+            izquierda = ordenarMerge(izquierda, field, tipo);
+            derecha = ordenarMerge(derecha, field, tipo);
+            mezclar(lista, izquierda, derecha, field, tipo);
+        }
+        return lista;
+    }
 
+    private void mezclar(DynamicList<Asignatura> lista, DynamicList<Asignatura> list1, DynamicList<Asignatura> list2, String field, Integer tipo) throws EmptyException {
+        int indiceIzq = 0, indiceDer = 0, indiceLista = 0;
+        Asignatura[] izquierda = list1.toArray();
+        Asignatura[] derecha = list2.toArray();
+        while (indiceIzq < izquierda.length && indiceDer < derecha.length) {
+            if (izquierda[indiceIzq].compare(derecha[indiceDer], field, tipo)) {
+                lista.merge(izquierda[indiceIzq], indiceLista);
+                indiceIzq += 1;
+            } else {
+                lista.merge(derecha[indiceDer], indiceLista);
+                indiceDer += 1;
+            }
+            indiceLista += 1;
+        }
+
+        while (indiceIzq < izquierda.length) {
+            lista.merge(izquierda[indiceIzq], indiceLista);
+            indiceIzq += 1;
+            indiceLista += 1;
+        }
+
+        while (indiceDer < derecha.length) {
+            lista.merge(derecha[indiceDer], indiceLista);
+            indiceDer += 1;
+            indiceLista += 1;
+        }
+    }
+    
     public boolean buscarCodigo(String text) throws EmptyException {
         asignaturas = all();
         for (int i = 0; i < asignaturas.getLength(); i++) {
