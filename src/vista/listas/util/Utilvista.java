@@ -1,6 +1,7 @@
 package vista.listas.util;
 
 import controlador.Academico.*;
+import controlador.Admin.PersonaBD;
 import controlador.Login.UsuarioBD;
 import controlador.Matriculas.MatriculaBD;
 import controlador.Matriculas.CursaTutoriaBD;
@@ -177,7 +178,21 @@ public class Utilvista {
             }
         }
     }
-
+    
+    public static void cargarListaDocentes(JList lst) throws EmptyException {
+        UsuarioBD ea = new UsuarioBD();
+        PersonaBD pa = new PersonaBD();
+        Persona[] personas = pa.all().toArray();
+        Usuario[] usuarios = ea.all().toArray();
+        DefaultListModel modeloLista = new DefaultListModel();
+        for (Integer i = 0; i < usuarios.length; i++) {
+            if (usuarios[i].getRol_id() == 2) {
+                modeloLista.addElement(pa.buscarBinaria(pa.all(), "dni", usuarios[i].getPersona_DNI()));
+            }
+        }
+        lst.setModel(modeloLista);
+    }
+    
     public static Carrera obtenerCarreraControl(JList lst, Facultad facultad) {
         Object carrera = lst.getSelectedValue();
         return (Carrera) carrera;

@@ -43,10 +43,11 @@ public class FrmAsignacion extends javax.swing.JFrame {
         return (!txtAsignatura.getText().trim().isEmpty()
                 && !txtDni.getText().trim().isEmpty());
     }
-
+    
     private void limpiar() {
         try {
             if (!fileUniversidad.getUniversidades().isEmpty()) {
+                Utilvista.cargarListaDocentes(lstDocente);
                 Utilvista.cargarComboUniversidades(cbxUniversidadC);
             }
         } catch (EmptyException ex) {
@@ -127,15 +128,17 @@ public class FrmAsignacion extends javax.swing.JFrame {
             case 3:
                 if (tbAsignacion.getSelectedRow() > -1) {
                     limpiarSoft();
-                    Asignacion asignacion = fileAsignacion.getAsignaciones().getInfo((tbAsignacion.getSelectedRow() + 1));
+                    Asignacion[] asignaciones = fileAsignacion.all().toArray();
+                    Asignacion asignacion = asignaciones[tbAsignacion.getSelectedRow()];
                     Usuario ud = fileUsuario.getUsuariosTodos().getInfo(asignacion.getUsuario_ID());
-                    Persona d = filePersona.buscarBinariaUnico("dni", ud.getPersona_DNI());
+                    Persona d = filePersona.buscarBinaria(filePersona.all(), "dni", ud.getPersona_DNI());
 
                     txtDni.setText(d.getDni());
                     txtApellidos.setText(d.getApellido());
                     txtNombres.setText(d.getNombre());
                     txtTelefono.setText(d.getTelefono());
-                    txtAsignatura.setText(fileAsignatura.buscarBinaria("codigo", asignacion.getAsignatura_CODIGO()).getNombre());
+                    txtAsignatura.setText(fileAsignatura.buscarBinaria(fileAsignatura.all(), "codigo", asignacion.getAsignatura_CODIGO()).getNombre());
+                    asignaciones = null;
                 }
                 break;
             default:
