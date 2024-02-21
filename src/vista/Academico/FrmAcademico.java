@@ -874,6 +874,7 @@ public class FrmAcademico extends javax.swing.JFrame {
         btModificarUniversidad = new javax.swing.JButton();
         jLabel34 = new javax.swing.JLabel();
         bg = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -951,7 +952,7 @@ public class FrmAcademico extends javax.swing.JFrame {
             }
         });
         jpUniversidad.add(btCrearU);
-        btCrearU.setBounds(269, 160, 131, 30);
+        btCrearU.setBounds(269, 160, 128, 30);
 
         btGCUniversidad.setBackground(new java.awt.Color(102, 51, 0));
         btGCUniversidad.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
@@ -2117,6 +2118,18 @@ public class FrmAcademico extends javax.swing.JFrame {
 
         bg.setBackground(new java.awt.Color(255, 250, 205));
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton1.setBackground(new java.awt.Color(102, 51, 0));
+        jButton1.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Salir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        bg.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 40, -1, -1));
+
         getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 590));
 
         pack();
@@ -2663,6 +2676,10 @@ public class FrmAcademico extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxTipoUnidadActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2748,6 +2765,7 @@ public class FrmAcademico extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbxUniversidadF;
     private javax.swing.JComboBox<String> cbxUniversidadM;
     private javax.swing.JComboBox<String> cbxVigencia;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
